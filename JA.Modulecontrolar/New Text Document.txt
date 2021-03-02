@@ -1,0 +1,37 @@
+CREATE TABLE [dbo].[ImageData]
+(
+   [ImageID] [int] IDENTITY(1,1) NOT NULL,
+   [ImageData] [image] NULL,
+CONSTRAINT [PK_ImageData] PRIMARY KEY CLUSTERED
+(
+   [ImageID] ASC
+)
+WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF,
+ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+)
+ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+
+
+CREATE proc [dbo].[ReadAllImage] as 
+SELECT * FROM ImageData 
+GO
+Hide   Copy Code
+CREATE proc [dbo].[ReadAllImageIDs] as 
+SELECT ImageID FROM ImageData 
+GO
+Hide   Copy Code
+CREATE proc [dbo].[ReadImage] @imgId int as 
+SELECT ImageData FROM ImageData 
+WHERE ImageID=@imgId 
+GO 
+Hide   Copy Code
+CREATE proc [dbo].[SaveImage] @img image as
+INSERT INTO ImageData(ImageData)
+VALUES (@img)
+GO
+
+
+select * from [ImageData]
+
+select * from USER_CONFIG 

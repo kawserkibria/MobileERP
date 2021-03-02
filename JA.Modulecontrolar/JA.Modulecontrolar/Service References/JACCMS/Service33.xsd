@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/JA.Accounts.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/JA.Accounts.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfAccountdGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AccountdGroup" nillable="true" type="tns:AccountdGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAccountdGroup" nillable="true" type="tns:ArrayOfAccountdGroup" />
+  <xs:complexType name="AccountdGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GroupName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dblopeningCr" type="xs:double" />
+      <xs:element minOccurs="0" name="dblopeningDr" type="xs:double" />
+      <xs:element minOccurs="0" name="intCashFlowType" type="xs:int" />
+      <xs:element minOccurs="0" name="intPrimaryType" type="xs:int" />
+      <xs:element minOccurs="0" name="lngGrLevel" type="xs:long" />
+      <xs:element minOccurs="0" name="lngSlNo" type="xs:long" />
+      <xs:element minOccurs="0" name="strDefaultGroup" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountdGroup" nillable="true" type="tns:AccountdGroup" />
+  <xs:complexType name="ArrayOfAccountsLedger">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AccountsLedger" nillable="true" type="tns:AccountsLedger" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAccountsLedger" nillable="true" type="tns:ArrayOfAccountsLedger" />
+  <xs:complexType name="AccountsLedger">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblOpnBalance" type="xs:double" />
+      <xs:element minOccurs="0" name="strAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strCostCente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strCurrency" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strDifference" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strDrcr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strFax" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strInactive" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strPhone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strPostalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strUder" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="streffectInventory" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountsLedger" nillable="true" type="tns:AccountsLedger" />
+  <xs:complexType name="ArrayOfVectorCategory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="VectorCategory" nillable="true" type="tns:VectorCategory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfVectorCategory" nillable="true" type="tns:ArrayOfVectorCategory" />
+  <xs:complexType name="VectorCategory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="lngSlNo" type="xs:long" />
+      <xs:element minOccurs="0" name="strVectorcategory" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="VectorCategory" nillable="true" type="tns:VectorCategory" />
+</xs:schema>

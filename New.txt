@@ -1,0 +1,51 @@
+CREATE TABLE PAYMENT_SUMMARY_TEMP(
+	LEDGER_NAME varchar(60) NULL,
+	Year1 numeric(18, 0) Default 0 NOT NULL,
+	Year2 numeric(18, 0) Default 0 NOT NULL,
+	Year3 numeric(18, 0) Default 0 NOT NULL,
+	Year4 numeric(18, 0) Default 0 NOT NULL,
+	Value1 numeric(18, 0) Default 0 NOT NULL,
+	Value2 numeric(18, 0) Default 0 NOT NULL,
+	Value3 numeric(18, 0) Default 0 NOT NULL,
+	Value4 numeric(18, 0) Default 0 NOT NULL,
+)
+
+CREATE TABLE Payment_Summary_Monthly_Temp(
+	 LEDGER_NAME varchar(60),
+     Month1 numeric(18, 0) Default 0 NOT NULL,
+	 Month2 numeric(18, 0) Default 0 NOT NULL,
+	 Month3 numeric(18, 0) Default 0 NOT NULL,
+	 Month4 numeric(18, 0) Default 0 NOT NULL,
+	  Month5 numeric(18, 0) Default 0 NOT NULL,
+	 Month6 numeric(18, 0) Default 0 NOT NULL,
+	 Month7 numeric(18, 0) Default 0 NOT NULL,
+	 Month8 numeric(18, 0) Default 0 NOT NULL,
+	  Month9 numeric(18, 0) Default 0 NOT NULL,
+	 Month10 numeric(18, 0) Default 0 NOT NULL,
+	 Month11 numeric(18, 0) Default 0 NOT NULL,
+	 Month12 numeric(18, 0) Default 0 NOT NULL
+
+                    )
+
+
+
+CREATE TABLE DAYLI_COLLECTION_TEMP(
+	Voucher_Date smalldatetime NULL,
+	BKashAccount numeric(18, 0) Default 0 NOT NULL,
+	BkashNonActive numeric(18, 0) Default 0 NOT NULL,
+	CashOfHeadOffice numeric(18, 0) Default 0 NOT NULL,
+	PBL01341SND numeric(18, 0) Default 0 NOT NULL,
+	PubaliBankLimitedHerbalSND1260 numeric(18, 0) Default 0 NOT NULL,
+	SNDIBBL0028 numeric(18, 0) Default 0 NOT NULL,
+	SoutheastBankSNdAC numeric(18, 0) Default 0 NOT NULL
+) 
+
+
+CREATE VIEW  collectionStatement_v as 
+SELECT  ISNULL(sum(v.VOUCHER_CREDIT_AMOUNT),0)  As RAMOUNT,0 PAMOUNT from ACC_LEDGER l,ACC_VOUCHER v where l.LEDGER_NAME =v.REVERSE_LEDGER1 and v.VOUCHER_TOBY ='Cr' 
+AND v.COMP_VOUCHER_TYPE =3 AND v.AUTOJV=1 and v.LEDG_PREFIX='HL' 
+
+
+ALTER TABLE ACC_MARKET_MONITROING_SHEET ADD SALES_RETURN NUMERIC(18,2) DEFAULT 0 NOT NULL
+   ALTER TABLE ACC_MARKET_MONITROING_SHEET ADD JV_DEBIT NUMERIC(18,2) DEFAULT 0 NOT NULL
+   ALTER TABLE ACC_MARKET_MONITROING_SHEET ADD JV_CREDIT NUMERIC(18,2) DEFAULT 0 NOT NULL

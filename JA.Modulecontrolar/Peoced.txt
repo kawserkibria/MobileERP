@@ -1,0 +1,5 @@
+
+CREATE proc InsertUserConfig  @loginName varchar(60),@fullName varchar(60),@pass varchar(30),@intUserLevel int,
+			@userlevel char(2),@commmets varchar(100), @img image as
+ INSERT INTO USER_CONFIG(USER_LOGIN_NAME,USER_FULL_NAME,USER_PASS,USER_LEBEL,USER_STATUS,IMAGE,USER_COMMENTS)
+VALUES (@loginName,@fullName,@pass,@intUserLevel,@userlevel,@img,@commmets)

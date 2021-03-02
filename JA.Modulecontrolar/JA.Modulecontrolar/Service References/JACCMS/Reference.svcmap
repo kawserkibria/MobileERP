@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ed4c69fd-2d55-41a5-a5e6-5b6a3e99f156" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:90/ACCMS/Service.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SWJAG1.wsdl" MetadataType="Wsdl" ID="2309fdac-2b53-4890-abb4-1727288c72f2" SourceId="1" SourceUrl="http://localhost:90/ACCMS/Service.svc?wsdl" />
+    <MetadataFile FileName="Service3.xsd" MetadataType="Schema" ID="b4f4c9e9-edca-4068-b20b-528a523b8b59" SourceId="1" SourceUrl="http://localhost:90/ACCMS/Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service4.xsd" MetadataType="Schema" ID="e9912a9b-3f11-4940-ba1d-5742796e74fc" SourceId="1" SourceUrl="http://localhost:90/ACCMS/Service.svc?xsd=xsd0" />
+    <MetadataFile FileName="Service5.xsd" MetadataType="Schema" ID="51886ea3-d26a-42b4-ad25-379fdb3be400" SourceId="1" SourceUrl="http://localhost:90/ACCMS/Service.svc?xsd=xsd3" />
+    <MetadataFile FileName="Service6.xsd" MetadataType="Schema" ID="26c7b10e-6cfb-497e-a628-8f69efd470f8" SourceId="1" SourceUrl="http://localhost:90/ACCMS/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service1.disco" MetadataType="Disco" ID="bbf4a48f-74e8-4245-b2f6-8438da9f7544" SourceId="1" SourceUrl="http://localhost:90/ACCMS/Service.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

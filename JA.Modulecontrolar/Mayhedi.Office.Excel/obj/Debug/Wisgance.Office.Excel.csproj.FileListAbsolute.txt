@@ -1,0 +1,23 @@
+C:\Users\mayhedi.ASGARALI\Desktop\ExcelDynamicReadAndWrite\ExcelDynamicReadAndWrite\Wisgance.Office.Excel\bin\Debug\Wisgance.Office.Excel.dll
+C:\Users\mayhedi.ASGARALI\Desktop\ExcelDynamicReadAndWrite\ExcelDynamicReadAndWrite\Wisgance.Office.Excel\bin\Debug\Wisgance.Office.Excel.pdb
+C:\Users\mayhedi.ASGARALI\Desktop\ExcelDynamicReadAndWrite\ExcelDynamicReadAndWrite\Wisgance.Office.Excel\bin\Debug\Wisgance.Reflection.dll
+C:\Users\mayhedi.ASGARALI\Desktop\ExcelDynamicReadAndWrite\ExcelDynamicReadAndWrite\Wisgance.Office.Excel\bin\Debug\Wisgance.Reflection.pdb
+C:\Users\mayhedi.ASGARALI\Desktop\ExcelDynamicReadAndWrite\ExcelDynamicReadAndWrite\Wisgance.Office.Excel\obj\Debug\Wisgance.Office.Excel.csprojResolveAssemblyReference.cache
+C:\Users\mayhedi.ASGARALI\Desktop\ExcelDynamicReadAndWrite\ExcelDynamicReadAndWrite\Wisgance.Office.Excel\obj\Debug\Wisgance.Office.Excel.dll
+C:\Users\mayhedi.ASGARALI\Desktop\ExcelDynamicReadAndWrite\ExcelDynamicReadAndWrite\Wisgance.Office.Excel\obj\Debug\Wisgance.Office.Excel.pdb
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Office.Excel\bin\Debug\Wisgance.Office.Excel.dll
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Office.Excel\bin\Debug\Wisgance.Office.Excel.pdb
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Office.Excel\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Office.Excel\bin\Debug\Wisgance.Reflection.dll
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Office.Excel\bin\Debug\Wisgance.Reflection.pdb
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Office.Excel\obj\Debug\Wisgance.Office.Excel.csprojResolveAssemblyReference.cache
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Office.Excel\obj\Debug\Wisgance.Office.Excel.dll
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Office.Excel\obj\Debug\Wisgance.Office.Excel.pdb
+E:\EXCELL\Wisgance.Office.Excel\bin\Debug\Wisgance.Office.Excel.dll
+E:\EXCELL\Wisgance.Office.Excel\bin\Debug\Wisgance.Office.Excel.pdb
+E:\EXCELL\Wisgance.Office.Excel\bin\Debug\DocumentFormat.OpenXml.dll
+E:\EXCELL\Wisgance.Office.Excel\bin\Debug\Wisgance.Reflection.dll
+E:\EXCELL\Wisgance.Office.Excel\bin\Debug\Wisgance.Reflection.pdb
+E:\EXCELL\Wisgance.Office.Excel\obj\Debug\Wisgance.Office.Excel.csprojResolveAssemblyReference.cache
+E:\EXCELL\Wisgance.Office.Excel\obj\Debug\Wisgance.Office.Excel.dll
+E:\EXCELL\Wisgance.Office.Excel\obj\Debug\Wisgance.Office.Excel.pdb

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SWJAG" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:125/JAGORON/Service.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:125/JAGORON/Service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:125/JAGORON/Service.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:125/JAGORON/Service.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/JA.Accounts.Model" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ISWJAG_DoWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:DoWork" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_DoWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_GetAccountsGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountsGroup" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_GetAccountsGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountsGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_InsertGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertGroup" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_InsertGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_GetAccountsTreeview_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountsTreeview" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_GetAccountsTreeview_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAccountsTreeviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_GetGroupList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupList" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_GetGroupList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mUpdateGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:mUpdateGroup" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mUpdateGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mUpdateGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_DeleteGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGroup" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_DeleteGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mFillCurrencyList_InputMessage">
+    <wsdl:part name="parameters" element="tns:mFillCurrencyList" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mFillCurrencyList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mFillCurrencyListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mFillGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:mFillGroup" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mFillGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mFillGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mDisplayOpening_InputMessage">
+    <wsdl:part name="parameters" element="tns:mDisplayOpening" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mDisplayOpening_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mDisplayOpeningResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mInsertCostCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:mInsertCostCategory" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mInsertCostCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mInsertCostCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mUpdateCostCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:mUpdateCostCategory" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mUpdateCostCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mUpdateCostCategoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mFillVectorCategory_InputMessage">
+    <wsdl:part name="parameters" element="tns:mFillVectorCategory" />
+  </wsdl:message>
+  <wsdl:message name="ISWJAG_mFillVectorCategory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mFillVectorCategoryResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ISWJAG">
+    <wsdl:operation name="DoWork">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/DoWork" message="tns:ISWJAG_DoWork_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/DoWorkResponse" message="tns:ISWJAG_DoWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountsGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/GetAccountsGroup" message="tns:ISWJAG_GetAccountsGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/GetAccountsGroupResponse" message="tns:ISWJAG_GetAccountsGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/InsertGroup" message="tns:ISWJAG_InsertGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/InsertGroupResponse" message="tns:ISWJAG_InsertGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountsTreeview">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/GetAccountsTreeview" message="tns:ISWJAG_GetAccountsTreeview_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/GetAccountsTreeviewResponse" message="tns:ISWJAG_GetAccountsTreeview_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/GetGroupList" message="tns:ISWJAG_GetGroupList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/GetGroupListResponse" message="tns:ISWJAG_GetGroupList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mUpdateGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/mUpdateGroup" message="tns:ISWJAG_mUpdateGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/mUpdateGroupResponse" message="tns:ISWJAG_mUpdateGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/DeleteGroup" message="tns:ISWJAG_DeleteGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/DeleteGroupResponse" message="tns:ISWJAG_DeleteGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mFillCurrencyList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/mFillCurrencyList" message="tns:ISWJAG_mFillCurrencyList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/mFillCurrencyListResponse" message="tns:ISWJAG_mFillCurrencyList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mFillGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/mFillGroup" message="tns:ISWJAG_mFillGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/mFillGroupResponse" message="tns:ISWJAG_mFillGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mDisplayOpening">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/mDisplayOpening" message="tns:ISWJAG_mDisplayOpening_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/mDisplayOpeningResponse" message="tns:ISWJAG_mDisplayOpening_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mInsertCostCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/mInsertCostCategory" message="tns:ISWJAG_mInsertCostCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/mInsertCostCategoryResponse" message="tns:ISWJAG_mInsertCostCategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mUpdateCostCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/mUpdateCostCategory" message="tns:ISWJAG_mUpdateCostCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/mUpdateCostCategoryResponse" message="tns:ISWJAG_mUpdateCostCategory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mFillVectorCategory">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWJAG/mFillVectorCategory" message="tns:ISWJAG_mFillVectorCategory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWJAG/mFillVectorCategoryResponse" message="tns:ISWJAG_mFillVectorCategory_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ISWJAG" type="tns:ISWJAG">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DoWork">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/DoWork" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountsGroup">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/GetAccountsGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertGroup">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/InsertGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountsTreeview">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/GetAccountsTreeview" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupList">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/GetGroupList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mUpdateGroup">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/mUpdateGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroup">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/DeleteGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mFillCurrencyList">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/mFillCurrencyList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mFillGroup">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/mFillGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mDisplayOpening">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/mDisplayOpening" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mInsertCostCategory">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/mInsertCostCategory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mUpdateCostCategory">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/mUpdateCostCategory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mFillVectorCategory">
+      <soap:operation soapAction="http://tempuri.org/ISWJAG/mFillVectorCategory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SWJAG">
+    <wsdl:port name="BasicHttpBinding_ISWJAG" binding="tns:BasicHttpBinding_ISWJAG">
+      <soap:address location="http://localhost:125/JAGORON/Service.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

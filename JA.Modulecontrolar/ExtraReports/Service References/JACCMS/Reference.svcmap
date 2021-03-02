@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="0beae20d-e540-4752-83f8-085cca31bbca" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.83:101/ACCMS/ACCMS.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ACCMS.disco" MetadataType="Disco" ID="558ff4f9-31c7-43a3-bbd4-103fcfdac250" SourceId="1" SourceUrl="http://192.168.1.83:101/ACCMS/ACCMS.svc?disco" />
+    <MetadataFile FileName="ACCMS.xsd" MetadataType="Schema" ID="22bc9b4d-eeb1-49e6-816c-5f88d8d54707" SourceId="1" SourceUrl="http://192.168.1.83:101/ACCMS/ACCMS.svc?xsd=xsd2" />
+    <MetadataFile FileName="ACCMS1.xsd" MetadataType="Schema" ID="746937de-7dfe-40a2-a679-aca376ced110" SourceId="1" SourceUrl="http://192.168.1.83:101/ACCMS/ACCMS.svc?xsd=xsd1" />
+    <MetadataFile FileName="ACCMS2.xsd" MetadataType="Schema" ID="23e7986e-28ba-40bd-83bb-45a7e2a49780" SourceId="1" SourceUrl="http://192.168.1.83:101/ACCMS/ACCMS.svc?xsd=xsd3" />
+    <MetadataFile FileName="SWJAG.wsdl" MetadataType="Wsdl" ID="7148f2d6-afeb-46e0-a8a6-2b970a69272c" SourceId="1" SourceUrl="http://192.168.1.83:101/ACCMS/ACCMS.svc?wsdl" />
+    <MetadataFile FileName="ACCMS3.xsd" MetadataType="Schema" ID="95b24cb1-7fcd-4d0a-9f05-495f653c5ee4" SourceId="1" SourceUrl="http://192.168.1.83:101/ACCMS/ACCMS.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

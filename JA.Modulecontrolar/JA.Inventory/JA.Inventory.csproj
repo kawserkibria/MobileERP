@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{41DC77FC-F628-4F82-BED0-5426E151FE6F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JA.Inventory</RootNamespace>
+    <AssemblyName>JA.Inventory</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dutility">
+      <HintPath>..\Dutility\bin\Debug\Dutility.dll</HintPath>
+    </Reference>
+    <Reference Include="JA.Shared">
+      <HintPath>..\JA.Modulecontrolar\bin\Debug\JA.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dal\JaInventory.cs" />
+    <Compile Include="Facade\IWSINVMS.cs" />
+    <Compile Include="Facade\WSINVMS.cs" />
+    <Compile Include="Model\Batch.cs" />
+    <Compile Include="Model\CommissionConfig.cs" />
+    <Compile Include="Model\DatabaseCompany.cs" />
+    <Compile Include="Model\Designation.cs" />
+    <Compile Include="Model\Invoice.cs" />
+    <Compile Include="Model\InvoiceConfig.cs" />
+    <Compile Include="Model\Location.cs" />
+    <Compile Include="Model\ManuProcess.cs" />
+    <Compile Include="Model\MaterialType.cs" />
+    <Compile Include="Model\MeasurementUnit.cs" />
+    <Compile Include="Model\MFGvouhcer.cs" />
+    <Compile Include="Model\SalesPriceLevel.cs" />
+    <Compile Include="Model\SalesTarget.cs" />
+    <Compile Include="Model\Sample.cs" />
+    <Compile Include="Model\SampleClass.cs" />
+    <Compile Include="Model\Section.cs" />
+    <Compile Include="Model\StockItem.cs" />
+    <Compile Include="Model\StockCategory.cs" />
+    <Compile Include="Model\StockGroup.cs" />
+    <Compile Include="Model\Transport.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExtraReports\ExtraReports.csproj">
+      <Project>{c56e27aa-36cd-41be-88b7-c9509b6b2813}</Project>
+      <Name>ExtraReports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JA.Accounts\JA.Accounts.csproj">
+      <Project>{7833844c-e929-4d12-954f-db66e8b215b0}</Project>
+      <Name>JA.Accounts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JA.Voucher\JA.CommonInsert.csproj">
+      <Project>{1699efa2-38a5-4f2d-9b9f-342ae4cf46b6}</Project>
+      <Name>JA.CommonInsert</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

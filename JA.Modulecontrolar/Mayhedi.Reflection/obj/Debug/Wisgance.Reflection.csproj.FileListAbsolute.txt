@@ -1,0 +1,12 @@
+C:\Users\mayhedi.ASGARALI\Desktop\ExcelDynamicReadAndWrite\ExcelDynamicReadAndWrite\Wisgance.Reflection\bin\Debug\Wisgance.Reflection.dll
+C:\Users\mayhedi.ASGARALI\Desktop\ExcelDynamicReadAndWrite\ExcelDynamicReadAndWrite\Wisgance.Reflection\bin\Debug\Wisgance.Reflection.pdb
+C:\Users\mayhedi.ASGARALI\Desktop\ExcelDynamicReadAndWrite\ExcelDynamicReadAndWrite\Wisgance.Reflection\obj\Debug\Wisgance.Reflection.dll
+C:\Users\mayhedi.ASGARALI\Desktop\ExcelDynamicReadAndWrite\ExcelDynamicReadAndWrite\Wisgance.Reflection\obj\Debug\Wisgance.Reflection.pdb
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Reflection\bin\Debug\Wisgance.Reflection.dll
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Reflection\bin\Debug\Wisgance.Reflection.pdb
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Reflection\obj\Debug\Wisgance.Reflection.dll
+C:\Users\mayhedi.ASGARALI\Desktop\New folder (5)\EXCELL\Wisgance.Reflection\obj\Debug\Wisgance.Reflection.pdb
+E:\EXCELL\Wisgance.Reflection\bin\Debug\Wisgance.Reflection.dll
+E:\EXCELL\Wisgance.Reflection\bin\Debug\Wisgance.Reflection.pdb
+E:\EXCELL\Wisgance.Reflection\obj\Debug\Wisgance.Reflection.dll
+E:\EXCELL\Wisgance.Reflection\obj\Debug\Wisgance.Reflection.pdb

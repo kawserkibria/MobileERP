@@ -1,0 +1,1768 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SWRPT" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:92/DRPT/Service.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:92/DRPT/Service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:92/DRPT/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/JA.Reports.Model" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ISWRPT_mGetStockIn_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStockIn" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStockIn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStockInResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStockOut_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStockOut" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStockOut_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStockOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStockRequisition_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStockRequisition" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStockRequisition_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStockRequisitionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMpoClosingValue_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMpoClosingValue" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMpoClosingValue_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMpoClosingValueResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetCollectionStatementIndividual_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetCollectionStatementIndividual" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetCollectionStatementIndividual_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetCollectionStatementIndividualResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetCollectionStatement_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetCollectionStatement" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetCollectionStatement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetCollectionStatementResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetPFHL_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetPFHL" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetPFHL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetPFHLResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mgetDailyCollectionN_InputMessage">
+    <wsdl:part name="parameters" element="tns:mgetDailyCollectionN" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mgetDailyCollectionN_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mgetDailyCollectionNResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetPaymentSummaryMonthly_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetPaymentSummaryMonthly" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetPaymentSummaryMonthly_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetPaymentSummaryMonthlyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetPaymentSummaryYearly_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetPaymentSummaryYearly" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetPaymentSummaryYearly_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetPaymentSummaryYearlyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetloadPowerClass_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetloadPowerClass" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetloadPowerClass_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetloadPowerClassResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetLocationQty2_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetLocationQty2" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetLocationQty2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetLocationQty2Response" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetConversion_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetConversion" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetConversion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetConversionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMonthlyProductionClassPower_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMonthlyProductionClassPower" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMonthlyProductionClassPower_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMonthlyProductionClassPowerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMonthlyProduction_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMonthlyProduction" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMonthlyProduction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMonthlyProductionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetBatchWiseProductionInd_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBatchWiseProductionInd" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetBatchWiseProductionInd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBatchWiseProductionIndResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetrptSPCommissionHead_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetrptSPCommissionHead" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetrptSPCommissionHead_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetrptSPCommissionHeadResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetrptSPCommission3_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetrptSPCommission3" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetrptSPCommission3_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetrptSPCommission3Response" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetCommitionN_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetCommitionN" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetCommitionN_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetCommitionNResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetAudit_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetAudit" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetAudit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetAuditResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_gOpenComID_InputMessage">
+    <wsdl:part name="parameters" element="tns:gOpenComID" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_gOpenComID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:gOpenComIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_DoWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:DoWork" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_DoWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetGroupCommissionWithSales_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetGroupCommissionWithSales" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetGroupCommissionWithSales_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetGroupCommissionWithSalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mDisplayCreditLimitListAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:mDisplayCreditLimitListAll" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mDisplayCreditLimitListAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mDisplayCreditLimitListAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetindividualSalpmle_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetindividualSalpmle" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetindividualSalpmle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetindividualSalpmleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mInsertTempSaleaPrcice_InputMessage">
+    <wsdl:part name="parameters" element="tns:mInsertTempSaleaPrcice" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mInsertTempSaleaPrcice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mInsertTempSaleaPrciceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetSalesPriceItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetSalesPriceItem" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetSalesPriceItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetSalesPriceItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mgetStockSummarySPriceWise_InputMessage">
+    <wsdl:part name="parameters" element="tns:mgetStockSummarySPriceWise" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mgetStockSummarySPriceWise_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mgetStockSummarySPriceWiseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mloadCategoryGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:mloadCategoryGroup" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mloadCategoryGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mloadCategoryGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetLocationQty_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetLocationQty" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetLocationQty_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetLocationQtyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetNegetiveStock_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetNegetiveStock" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetNegetiveStock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetNegetiveStockResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetBOMList_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetBOMList" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetBOMList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetBOMListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMFGProcessReport_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMFGProcessReport" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMFGProcessReport_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMFGProcessReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProductTopSheetSalesPrice_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProductTopSheetSalesPrice" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProductTopSheetSalesPrice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProductTopSheetSalesPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStockRegister_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStockRegister" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStockRegister_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStockRegisterResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetGroupCommissionSubReport_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetGroupCommissionSubReport" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetGroupCommissionSubReport_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetGroupCommissionSubReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetGroupCommission_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetGroupCommission" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetGroupCommission_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetGroupCommissionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProductStatementCross_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProductStatementCross" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProductStatementCross_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProductStatementCrossResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProductTopSheet_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProductTopSheet" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProductTopSheet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProductTopSheetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProductStatement_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProductStatement" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProductStatement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProductStatementResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetLocationWiseConsumtion_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetLocationWiseConsumtion" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetLocationWiseConsumtion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetLocationWiseConsumtionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStockSummSalesPrice_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStockSummSalesPrice" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStockSummSalesPrice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStockSummSalesPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetDailyCollection_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetDailyCollection" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetDailyCollection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetDailyCollectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStoreLedger_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStoreLedger" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStoreLedger_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStoreLedgerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetInventortyVoucher_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetInventortyVoucher" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetInventortyVoucher_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetInventortyVoucherResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProfitability_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProfitability" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProfitability_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProfitabilityResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetHondaLoan_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetHondaLoan" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetHondaLoan_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetHondaLoanResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mHondaLoanFineRecAmoun_InputMessage">
+    <wsdl:part name="parameters" element="tns:mHondaLoanFineRecAmoun" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mHondaLoanFineRecAmoun_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mHondaLoanFineRecAmounResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetAccountsDoctotorvoucher_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetAccountsDoctotorvoucher" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetAccountsDoctotorvoucher_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetAccountsDoctotorvoucherResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMR_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMR" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMR_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMRResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetHeader_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetHeader" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetHeader_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetHeaderResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mTradingQueryVertical_InputMessage">
+    <wsdl:part name="parameters" element="tns:mTradingQueryVertical" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mTradingQueryVertical_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mTradingQueryVerticalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetDailyCollectionDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetDailyCollectionDetails" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetDailyCollectionDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetDailyCollectionDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mgetUserPrivilage_InputMessage">
+    <wsdl:part name="parameters" element="tns:mgetUserPrivilage" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mgetUserPrivilage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mgetUserPrivilageResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetBudgetledgerList_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetBudgetledgerList" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetBudgetledgerList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetBudgetledgerListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetBudget_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetBudget" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetBudget_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetBudgetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetAccountsvoucherSP_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetAccountsvoucherSP" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetAccountsvoucherSP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetAccountsvoucherSPResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStatistics_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStatistics" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetStatistics_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetStatisticsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mUpdateReducingBalance_InputMessage">
+    <wsdl:part name="parameters" element="tns:mUpdateReducingBalance" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mUpdateReducingBalance_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mUpdateReducingBalanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mUpdateStraightLine_InputMessage">
+    <wsdl:part name="parameters" element="tns:mUpdateStraightLine" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mUpdateStraightLine_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mUpdateStraightLineResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetChequePrint_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetChequePrint" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetChequePrint_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetChequePrintResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetrptExpenseSummary_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetrptExpenseSummary" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetrptExpenseSummary_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetrptExpenseSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetrptCollectionTargetAchieve_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetrptCollectionTargetAchieve" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetrptCollectionTargetAchieve_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetrptCollectionTargetAchieveResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetContractsPartBill2_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetContractsPartBill2" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetContractsPartBill2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetContractsPartBill2Response" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetPostDateCheque_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetPostDateCheque" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetPostDateCheque_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetPostDateChequeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_getrptChequePayment_InputMessage">
+    <wsdl:part name="parameters" element="tns:getrptChequePayment" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_getrptChequePayment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getrptChequePaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMarketMonitoringSheet_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMarketMonitoringSheet" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetMarketMonitoringSheet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetMarketMonitoringSheetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetFinalStattemnet_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetFinalStattemnet" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetFinalStattemnet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetFinalStattemnetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetContractsPartBill_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetContractsPartBill" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetContractsPartBill_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetContractsPartBillResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetBalanceSheet_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetBalanceSheet" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetBalanceSheet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetBalanceSheetResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetBalanceSheetQuery_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetBalanceSheetQuery" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetBalanceSheetQuery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetBalanceSheetQueryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProfitLoss_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProfitLoss" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProfitLoss_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProfitLossResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProfitLossQuerry_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProfitLossQuerry" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetProfitLossQuerry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetProfitLossQuerryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetTrailBalance_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetTrailBalance" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetTrailBalance_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetTrailBalanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetTrailBalanceQuery_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetTrailBalanceQuery" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetTrailBalanceQuery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetTrailBalanceQueryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetAccountsvoucher_InputMessage">
+    <wsdl:part name="parameters" element="tns:mGetAccountsvoucher" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mGetAccountsvoucher_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mGetAccountsvoucherResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_RefreshLedger_InputMessage">
+    <wsdl:part name="parameters" element="tns:RefreshLedger" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_RefreshLedger_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RefreshLedgerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mReportDayBookDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:mReportDayBookDetails" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mReportDayBookDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mReportDayBookDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GroupSummaryReport_InputMessage">
+    <wsdl:part name="parameters" element="tns:GroupSummaryReport" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GroupSummaryReport_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GroupSummaryReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mReceiptPayment_InputMessage">
+    <wsdl:part name="parameters" element="tns:mReceiptPayment" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mReceiptPayment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mReceiptPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mReceiptPaymentQyery_InputMessage">
+    <wsdl:part name="parameters" element="tns:mReceiptPaymentQyery" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mReceiptPaymentQyery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mReceiptPaymentQyeryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mCashFlow_InputMessage">
+    <wsdl:part name="parameters" element="tns:mCashFlow" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mCashFlow_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mCashFlowResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_RefreshTradingNew_InputMessage">
+    <wsdl:part name="parameters" element="tns:RefreshTradingNew" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_RefreshTradingNew_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RefreshTradingNewResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mTradingQuery_InputMessage">
+    <wsdl:part name="parameters" element="tns:mTradingQuery" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mTradingQuery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mTradingQueryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetCostCenterLedger_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCostCenterLedger" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetCostCenterLedger_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCostCenterLedgerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetCostCenterReport_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCostCenterReport" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetCostCenterReport_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCostCenterReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_dblManufacturing_InputMessage">
+    <wsdl:part name="parameters" element="tns:dblManufacturing" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_dblManufacturing_OutputMessage">
+    <wsdl:part name="parameters" element="tns:dblManufacturingResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mManufacturing_InputMessage">
+    <wsdl:part name="parameters" element="tns:mManufacturing" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mManufacturing_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mManufacturingResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetrptSalesCollection_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetrptSalesCollection" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_GetrptSalesCollection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetrptSalesCollectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mFillDisplayBill_InputMessage">
+    <wsdl:part name="parameters" element="tns:mFillDisplayBill" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mFillDisplayBill_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mFillDisplayBillResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mFillLedgerListMpoPercen_InputMessage">
+    <wsdl:part name="parameters" element="tns:mFillLedgerListMpoPercen" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_mFillLedgerListMpoPercen_OutputMessage">
+    <wsdl:part name="parameters" element="tns:mFillLedgerListMpoPercenResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_gintProfitLossLedger_InputMessage">
+    <wsdl:part name="parameters" element="tns:gintProfitLossLedger" />
+  </wsdl:message>
+  <wsdl:message name="ISWRPT_gintProfitLossLedger_OutputMessage">
+    <wsdl:part name="parameters" element="tns:gintProfitLossLedgerResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ISWRPT">
+    <wsdl:operation name="mGetStockIn">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetStockIn" message="tns:ISWRPT_mGetStockIn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetStockInResponse" message="tns:ISWRPT_mGetStockIn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetStockOut">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetStockOut" message="tns:ISWRPT_mGetStockOut_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetStockOutResponse" message="tns:ISWRPT_mGetStockOut_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetStockRequisition">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetStockRequisition" message="tns:ISWRPT_mGetStockRequisition_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetStockRequisitionResponse" message="tns:ISWRPT_mGetStockRequisition_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetMpoClosingValue">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetMpoClosingValue" message="tns:ISWRPT_mGetMpoClosingValue_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetMpoClosingValueResponse" message="tns:ISWRPT_mGetMpoClosingValue_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetCollectionStatementIndividual">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetCollectionStatementIndividual" message="tns:ISWRPT_mGetCollectionStatementIndividual_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetCollectionStatementIndividualResponse" message="tns:ISWRPT_mGetCollectionStatementIndividual_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetCollectionStatement">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetCollectionStatement" message="tns:ISWRPT_mGetCollectionStatement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetCollectionStatementResponse" message="tns:ISWRPT_mGetCollectionStatement_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetPFHL">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetPFHL" message="tns:ISWRPT_mGetPFHL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetPFHLResponse" message="tns:ISWRPT_mGetPFHL_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mgetDailyCollectionN">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mgetDailyCollectionN" message="tns:ISWRPT_mgetDailyCollectionN_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mgetDailyCollectionNResponse" message="tns:ISWRPT_mgetDailyCollectionN_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetPaymentSummaryMonthly">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetPaymentSummaryMonthly" message="tns:ISWRPT_mGetPaymentSummaryMonthly_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetPaymentSummaryMonthlyResponse" message="tns:ISWRPT_mGetPaymentSummaryMonthly_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetPaymentSummaryYearly">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetPaymentSummaryYearly" message="tns:ISWRPT_mGetPaymentSummaryYearly_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetPaymentSummaryYearlyResponse" message="tns:ISWRPT_mGetPaymentSummaryYearly_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetloadPowerClass">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetloadPowerClass" message="tns:ISWRPT_mGetloadPowerClass_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetloadPowerClassResponse" message="tns:ISWRPT_mGetloadPowerClass_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetLocationQty2">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetLocationQty2" message="tns:ISWRPT_mGetLocationQty2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetLocationQty2Response" message="tns:ISWRPT_mGetLocationQty2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetConversion">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetConversion" message="tns:ISWRPT_mGetConversion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetConversionResponse" message="tns:ISWRPT_mGetConversion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetMonthlyProductionClassPower">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetMonthlyProductionClassPower" message="tns:ISWRPT_mGetMonthlyProductionClassPower_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetMonthlyProductionClassPowerResponse" message="tns:ISWRPT_mGetMonthlyProductionClassPower_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetMonthlyProduction">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetMonthlyProduction" message="tns:ISWRPT_mGetMonthlyProduction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetMonthlyProductionResponse" message="tns:ISWRPT_mGetMonthlyProduction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchWiseProductionInd">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/GetBatchWiseProductionInd" message="tns:ISWRPT_GetBatchWiseProductionInd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/GetBatchWiseProductionIndResponse" message="tns:ISWRPT_GetBatchWiseProductionInd_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetrptSPCommissionHead">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/GetrptSPCommissionHead" message="tns:ISWRPT_GetrptSPCommissionHead_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/GetrptSPCommissionHeadResponse" message="tns:ISWRPT_GetrptSPCommissionHead_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetrptSPCommission3">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/GetrptSPCommission3" message="tns:ISWRPT_GetrptSPCommission3_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/GetrptSPCommission3Response" message="tns:ISWRPT_GetrptSPCommission3_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetCommitionN">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetCommitionN" message="tns:ISWRPT_mGetCommitionN_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetCommitionNResponse" message="tns:ISWRPT_mGetCommitionN_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetAudit">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetAudit" message="tns:ISWRPT_mGetAudit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetAuditResponse" message="tns:ISWRPT_mGetAudit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="gOpenComID">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/gOpenComID" message="tns:ISWRPT_gOpenComID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/gOpenComIDResponse" message="tns:ISWRPT_gOpenComID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DoWork">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/DoWork" message="tns:ISWRPT_DoWork_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/DoWorkResponse" message="tns:ISWRPT_DoWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetGroupCommissionWithSales">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetGroupCommissionWithSales" message="tns:ISWRPT_mGetGroupCommissionWithSales_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetGroupCommissionWithSalesResponse" message="tns:ISWRPT_mGetGroupCommissionWithSales_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mDisplayCreditLimitListAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mDisplayCreditLimitListAll" message="tns:ISWRPT_mDisplayCreditLimitListAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mDisplayCreditLimitListAllResponse" message="tns:ISWRPT_mDisplayCreditLimitListAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetindividualSalpmle">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetindividualSalpmle" message="tns:ISWRPT_mGetindividualSalpmle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetindividualSalpmleResponse" message="tns:ISWRPT_mGetindividualSalpmle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mInsertTempSaleaPrcice">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mInsertTempSaleaPrcice" message="tns:ISWRPT_mInsertTempSaleaPrcice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mInsertTempSaleaPrciceResponse" message="tns:ISWRPT_mInsertTempSaleaPrcice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetSalesPriceItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetSalesPriceItem" message="tns:ISWRPT_mGetSalesPriceItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetSalesPriceItemResponse" message="tns:ISWRPT_mGetSalesPriceItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mgetStockSummarySPriceWise">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mgetStockSummarySPriceWise" message="tns:ISWRPT_mgetStockSummarySPriceWise_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mgetStockSummarySPriceWiseResponse" message="tns:ISWRPT_mgetStockSummarySPriceWise_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mloadCategoryGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mloadCategoryGroup" message="tns:ISWRPT_mloadCategoryGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mloadCategoryGroupResponse" message="tns:ISWRPT_mloadCategoryGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetLocationQty">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetLocationQty" message="tns:ISWRPT_mGetLocationQty_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetLocationQtyResponse" message="tns:ISWRPT_mGetLocationQty_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetNegetiveStock">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetNegetiveStock" message="tns:ISWRPT_mGetNegetiveStock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetNegetiveStockResponse" message="tns:ISWRPT_mGetNegetiveStock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetBOMList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetBOMList" message="tns:ISWRPT_mGetBOMList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetBOMListResponse" message="tns:ISWRPT_mGetBOMList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetMFGProcessReport">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetMFGProcessReport" message="tns:ISWRPT_mGetMFGProcessReport_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetMFGProcessReportResponse" message="tns:ISWRPT_mGetMFGProcessReport_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetProductTopSheetSalesPrice">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetProductTopSheetSalesPrice" message="tns:ISWRPT_mGetProductTopSheetSalesPrice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetProductTopSheetSalesPriceResponse" message="tns:ISWRPT_mGetProductTopSheetSalesPrice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetStockRegister">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetStockRegister" message="tns:ISWRPT_mGetStockRegister_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetStockRegisterResponse" message="tns:ISWRPT_mGetStockRegister_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetGroupCommissionSubReport">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetGroupCommissionSubReport" message="tns:ISWRPT_mGetGroupCommissionSubReport_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetGroupCommissionSubReportResponse" message="tns:ISWRPT_mGetGroupCommissionSubReport_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetGroupCommission">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetGroupCommission" message="tns:ISWRPT_mGetGroupCommission_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetGroupCommissionResponse" message="tns:ISWRPT_mGetGroupCommission_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetProductStatementCross">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetProductStatementCross" message="tns:ISWRPT_mGetProductStatementCross_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetProductStatementCrossResponse" message="tns:ISWRPT_mGetProductStatementCross_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetProductTopSheet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetProductTopSheet" message="tns:ISWRPT_mGetProductTopSheet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetProductTopSheetResponse" message="tns:ISWRPT_mGetProductTopSheet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetProductStatement">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetProductStatement" message="tns:ISWRPT_mGetProductStatement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetProductStatementResponse" message="tns:ISWRPT_mGetProductStatement_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetLocationWiseConsumtion">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetLocationWiseConsumtion" message="tns:ISWRPT_mGetLocationWiseConsumtion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetLocationWiseConsumtionResponse" message="tns:ISWRPT_mGetLocationWiseConsumtion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetStockSummSalesPrice">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetStockSummSalesPrice" message="tns:ISWRPT_mGetStockSummSalesPrice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetStockSummSalesPriceResponse" message="tns:ISWRPT_mGetStockSummSalesPrice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetDailyCollection">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetDailyCollection" message="tns:ISWRPT_mGetDailyCollection_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetDailyCollectionResponse" message="tns:ISWRPT_mGetDailyCollection_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetStoreLedger">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetStoreLedger" message="tns:ISWRPT_mGetStoreLedger_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetStoreLedgerResponse" message="tns:ISWRPT_mGetStoreLedger_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetInventortyVoucher">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetInventortyVoucher" message="tns:ISWRPT_mGetInventortyVoucher_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetInventortyVoucherResponse" message="tns:ISWRPT_mGetInventortyVoucher_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetProfitability">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetProfitability" message="tns:ISWRPT_mGetProfitability_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetProfitabilityResponse" message="tns:ISWRPT_mGetProfitability_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetHondaLoan">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetHondaLoan" message="tns:ISWRPT_mGetHondaLoan_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetHondaLoanResponse" message="tns:ISWRPT_mGetHondaLoan_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mHondaLoanFineRecAmoun">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mHondaLoanFineRecAmoun" message="tns:ISWRPT_mHondaLoanFineRecAmoun_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mHondaLoanFineRecAmounResponse" message="tns:ISWRPT_mHondaLoanFineRecAmoun_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetAccountsDoctotorvoucher">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetAccountsDoctotorvoucher" message="tns:ISWRPT_mGetAccountsDoctotorvoucher_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetAccountsDoctotorvoucherResponse" message="tns:ISWRPT_mGetAccountsDoctotorvoucher_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetMR">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetMR" message="tns:ISWRPT_mGetMR_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetMRResponse" message="tns:ISWRPT_mGetMR_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetHeader">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetHeader" message="tns:ISWRPT_mGetHeader_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetHeaderResponse" message="tns:ISWRPT_mGetHeader_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mTradingQueryVertical">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mTradingQueryVertical" message="tns:ISWRPT_mTradingQueryVertical_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mTradingQueryVerticalResponse" message="tns:ISWRPT_mTradingQueryVertical_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetDailyCollectionDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetDailyCollectionDetails" message="tns:ISWRPT_mGetDailyCollectionDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetDailyCollectionDetailsResponse" message="tns:ISWRPT_mGetDailyCollectionDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mgetUserPrivilage">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mgetUserPrivilage" message="tns:ISWRPT_mgetUserPrivilage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mgetUserPrivilageResponse" message="tns:ISWRPT_mgetUserPrivilage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetBudgetledgerList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetBudgetledgerList" message="tns:ISWRPT_mGetBudgetledgerList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetBudgetledgerListResponse" message="tns:ISWRPT_mGetBudgetledgerList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetBudget">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetBudget" message="tns:ISWRPT_mGetBudget_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetBudgetResponse" message="tns:ISWRPT_mGetBudget_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetAccountsvoucherSP">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetAccountsvoucherSP" message="tns:ISWRPT_mGetAccountsvoucherSP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetAccountsvoucherSPResponse" message="tns:ISWRPT_mGetAccountsvoucherSP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetStatistics">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetStatistics" message="tns:ISWRPT_mGetStatistics_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetStatisticsResponse" message="tns:ISWRPT_mGetStatistics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mUpdateReducingBalance">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mUpdateReducingBalance" message="tns:ISWRPT_mUpdateReducingBalance_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mUpdateReducingBalanceResponse" message="tns:ISWRPT_mUpdateReducingBalance_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mUpdateStraightLine">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mUpdateStraightLine" message="tns:ISWRPT_mUpdateStraightLine_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mUpdateStraightLineResponse" message="tns:ISWRPT_mUpdateStraightLine_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetChequePrint">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetChequePrint" message="tns:ISWRPT_mGetChequePrint_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetChequePrintResponse" message="tns:ISWRPT_mGetChequePrint_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetrptExpenseSummary">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/GetrptExpenseSummary" message="tns:ISWRPT_GetrptExpenseSummary_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/GetrptExpenseSummaryResponse" message="tns:ISWRPT_GetrptExpenseSummary_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetrptCollectionTargetAchieve">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/GetrptCollectionTargetAchieve" message="tns:ISWRPT_GetrptCollectionTargetAchieve_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/GetrptCollectionTargetAchieveResponse" message="tns:ISWRPT_GetrptCollectionTargetAchieve_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetContractsPartBill2">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetContractsPartBill2" message="tns:ISWRPT_mGetContractsPartBill2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetContractsPartBill2Response" message="tns:ISWRPT_mGetContractsPartBill2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetPostDateCheque">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetPostDateCheque" message="tns:ISWRPT_mGetPostDateCheque_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetPostDateChequeResponse" message="tns:ISWRPT_mGetPostDateCheque_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getrptChequePayment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/getrptChequePayment" message="tns:ISWRPT_getrptChequePayment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/getrptChequePaymentResponse" message="tns:ISWRPT_getrptChequePayment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetMarketMonitoringSheet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetMarketMonitoringSheet" message="tns:ISWRPT_mGetMarketMonitoringSheet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetMarketMonitoringSheetResponse" message="tns:ISWRPT_mGetMarketMonitoringSheet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetFinalStattemnet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetFinalStattemnet" message="tns:ISWRPT_mGetFinalStattemnet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetFinalStattemnetResponse" message="tns:ISWRPT_mGetFinalStattemnet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetContractsPartBill">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetContractsPartBill" message="tns:ISWRPT_mGetContractsPartBill_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetContractsPartBillResponse" message="tns:ISWRPT_mGetContractsPartBill_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetBalanceSheet">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetBalanceSheet" message="tns:ISWRPT_mGetBalanceSheet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetBalanceSheetResponse" message="tns:ISWRPT_mGetBalanceSheet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetBalanceSheetQuery">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetBalanceSheetQuery" message="tns:ISWRPT_mGetBalanceSheetQuery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetBalanceSheetQueryResponse" message="tns:ISWRPT_mGetBalanceSheetQuery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetProfitLoss">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetProfitLoss" message="tns:ISWRPT_mGetProfitLoss_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetProfitLossResponse" message="tns:ISWRPT_mGetProfitLoss_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetProfitLossQuerry">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetProfitLossQuerry" message="tns:ISWRPT_mGetProfitLossQuerry_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetProfitLossQuerryResponse" message="tns:ISWRPT_mGetProfitLossQuerry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetTrailBalance">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetTrailBalance" message="tns:ISWRPT_mGetTrailBalance_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetTrailBalanceResponse" message="tns:ISWRPT_mGetTrailBalance_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetTrailBalanceQuery">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetTrailBalanceQuery" message="tns:ISWRPT_mGetTrailBalanceQuery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetTrailBalanceQueryResponse" message="tns:ISWRPT_mGetTrailBalanceQuery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mGetAccountsvoucher">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mGetAccountsvoucher" message="tns:ISWRPT_mGetAccountsvoucher_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mGetAccountsvoucherResponse" message="tns:ISWRPT_mGetAccountsvoucher_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RefreshLedger">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/RefreshLedger" message="tns:ISWRPT_RefreshLedger_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/RefreshLedgerResponse" message="tns:ISWRPT_RefreshLedger_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mReportDayBookDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mReportDayBookDetails" message="tns:ISWRPT_mReportDayBookDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mReportDayBookDetailsResponse" message="tns:ISWRPT_mReportDayBookDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GroupSummaryReport">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/GroupSummaryReport" message="tns:ISWRPT_GroupSummaryReport_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/GroupSummaryReportResponse" message="tns:ISWRPT_GroupSummaryReport_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mReceiptPayment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mReceiptPayment" message="tns:ISWRPT_mReceiptPayment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mReceiptPaymentResponse" message="tns:ISWRPT_mReceiptPayment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mReceiptPaymentQyery">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mReceiptPaymentQyery" message="tns:ISWRPT_mReceiptPaymentQyery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mReceiptPaymentQyeryResponse" message="tns:ISWRPT_mReceiptPaymentQyery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mCashFlow">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mCashFlow" message="tns:ISWRPT_mCashFlow_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mCashFlowResponse" message="tns:ISWRPT_mCashFlow_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RefreshTradingNew">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/RefreshTradingNew" message="tns:ISWRPT_RefreshTradingNew_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/RefreshTradingNewResponse" message="tns:ISWRPT_RefreshTradingNew_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mTradingQuery">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mTradingQuery" message="tns:ISWRPT_mTradingQuery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mTradingQueryResponse" message="tns:ISWRPT_mTradingQuery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCostCenterLedger">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/GetCostCenterLedger" message="tns:ISWRPT_GetCostCenterLedger_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/GetCostCenterLedgerResponse" message="tns:ISWRPT_GetCostCenterLedger_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCostCenterReport">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/GetCostCenterReport" message="tns:ISWRPT_GetCostCenterReport_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/GetCostCenterReportResponse" message="tns:ISWRPT_GetCostCenterReport_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="dblManufacturing">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/dblManufacturing" message="tns:ISWRPT_dblManufacturing_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/dblManufacturingResponse" message="tns:ISWRPT_dblManufacturing_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mManufacturing">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mManufacturing" message="tns:ISWRPT_mManufacturing_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mManufacturingResponse" message="tns:ISWRPT_mManufacturing_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetrptSalesCollection">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/GetrptSalesCollection" message="tns:ISWRPT_GetrptSalesCollection_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/GetrptSalesCollectionResponse" message="tns:ISWRPT_GetrptSalesCollection_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mFillDisplayBill">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mFillDisplayBill" message="tns:ISWRPT_mFillDisplayBill_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mFillDisplayBillResponse" message="tns:ISWRPT_mFillDisplayBill_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="mFillLedgerListMpoPercen">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/mFillLedgerListMpoPercen" message="tns:ISWRPT_mFillLedgerListMpoPercen_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/mFillLedgerListMpoPercenResponse" message="tns:ISWRPT_mFillLedgerListMpoPercen_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="gintProfitLossLedger">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISWRPT/gintProfitLossLedger" message="tns:ISWRPT_gintProfitLossLedger_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISWRPT/gintProfitLossLedgerResponse" message="tns:ISWRPT_gintProfitLossLedger_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ISWRPT" type="tns:ISWRPT">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="mGetStockIn">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetStockIn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetStockOut">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetStockOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetStockRequisition">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetStockRequisition" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetMpoClosingValue">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetMpoClosingValue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetCollectionStatementIndividual">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetCollectionStatementIndividual" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetCollectionStatement">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetCollectionStatement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetPFHL">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetPFHL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mgetDailyCollectionN">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mgetDailyCollectionN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetPaymentSummaryMonthly">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetPaymentSummaryMonthly" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetPaymentSummaryYearly">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetPaymentSummaryYearly" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetloadPowerClass">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetloadPowerClass" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetLocationQty2">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetLocationQty2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetConversion">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetConversion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetMonthlyProductionClassPower">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetMonthlyProductionClassPower" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetMonthlyProduction">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetMonthlyProduction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchWiseProductionInd">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/GetBatchWiseProductionInd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetrptSPCommissionHead">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/GetrptSPCommissionHead" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetrptSPCommission3">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/GetrptSPCommission3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetCommitionN">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetCommitionN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetAudit">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetAudit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="gOpenComID">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/gOpenComID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DoWork">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/DoWork" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetGroupCommissionWithSales">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetGroupCommissionWithSales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mDisplayCreditLimitListAll">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mDisplayCreditLimitListAll" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetindividualSalpmle">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetindividualSalpmle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mInsertTempSaleaPrcice">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mInsertTempSaleaPrcice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetSalesPriceItem">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetSalesPriceItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mgetStockSummarySPriceWise">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mgetStockSummarySPriceWise" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mloadCategoryGroup">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mloadCategoryGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetLocationQty">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetLocationQty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetNegetiveStock">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetNegetiveStock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetBOMList">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetBOMList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetMFGProcessReport">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetMFGProcessReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetProductTopSheetSalesPrice">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetProductTopSheetSalesPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetStockRegister">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetStockRegister" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetGroupCommissionSubReport">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetGroupCommissionSubReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetGroupCommission">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetGroupCommission" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetProductStatementCross">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetProductStatementCross" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetProductTopSheet">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetProductTopSheet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetProductStatement">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetProductStatement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetLocationWiseConsumtion">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetLocationWiseConsumtion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetStockSummSalesPrice">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetStockSummSalesPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetDailyCollection">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetDailyCollection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetStoreLedger">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetStoreLedger" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetInventortyVoucher">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetInventortyVoucher" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetProfitability">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetProfitability" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetHondaLoan">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetHondaLoan" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mHondaLoanFineRecAmoun">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mHondaLoanFineRecAmoun" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetAccountsDoctotorvoucher">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetAccountsDoctotorvoucher" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetMR">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetMR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetHeader">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetHeader" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mTradingQueryVertical">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mTradingQueryVertical" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetDailyCollectionDetails">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetDailyCollectionDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mgetUserPrivilage">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mgetUserPrivilage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetBudgetledgerList">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetBudgetledgerList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetBudget">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetBudget" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetAccountsvoucherSP">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetAccountsvoucherSP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetStatistics">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetStatistics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mUpdateReducingBalance">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mUpdateReducingBalance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mUpdateStraightLine">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mUpdateStraightLine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetChequePrint">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetChequePrint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetrptExpenseSummary">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/GetrptExpenseSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetrptCollectionTargetAchieve">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/GetrptCollectionTargetAchieve" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetContractsPartBill2">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetContractsPartBill2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetPostDateCheque">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetPostDateCheque" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getrptChequePayment">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/getrptChequePayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetMarketMonitoringSheet">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetMarketMonitoringSheet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetFinalStattemnet">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetFinalStattemnet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetContractsPartBill">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetContractsPartBill" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetBalanceSheet">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetBalanceSheet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetBalanceSheetQuery">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetBalanceSheetQuery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetProfitLoss">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetProfitLoss" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetProfitLossQuerry">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetProfitLossQuerry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetTrailBalance">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetTrailBalance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetTrailBalanceQuery">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetTrailBalanceQuery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mGetAccountsvoucher">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mGetAccountsvoucher" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshLedger">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/RefreshLedger" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mReportDayBookDetails">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mReportDayBookDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GroupSummaryReport">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/GroupSummaryReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mReceiptPayment">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mReceiptPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mReceiptPaymentQyery">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mReceiptPaymentQyery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mCashFlow">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mCashFlow" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshTradingNew">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/RefreshTradingNew" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mTradingQuery">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mTradingQuery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCostCenterLedger">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/GetCostCenterLedger" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCostCenterReport">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/GetCostCenterReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="dblManufacturing">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/dblManufacturing" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mManufacturing">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mManufacturing" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetrptSalesCollection">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/GetrptSalesCollection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mFillDisplayBill">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mFillDisplayBill" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mFillLedgerListMpoPercen">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/mFillLedgerListMpoPercen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="gintProfitLossLedger">
+      <soap:operation soapAction="http://tempuri.org/ISWRPT/gintProfitLossLedger" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SWRPT">
+    <wsdl:port name="BasicHttpBinding_ISWRPT" binding="tns:BasicHttpBinding_ISWRPT">
+      <soap:address location="http://localhost:92/DRPT/Service.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

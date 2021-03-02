@@ -1,0 +1,6 @@
+E:\ControlLib\AtiqsControlLibrary\bin\Release\AtiqsControlLibrary.dll
+E:\ControlLib\AtiqsControlLibrary\bin\Release\AtiqsControlLibrary.pdb
+E:\ControlLib\AtiqsControlLibrary\obj\Release\AtiqsControlLibrary.AtiqsLogInUserControl.resources
+E:\ControlLib\AtiqsControlLibrary\obj\Release\AtiqsControlLibrary.csproj.GenerateResource.Cache
+E:\ControlLib\AtiqsControlLibrary\obj\Release\AtiqsControlLibrary.dll
+E:\ControlLib\AtiqsControlLibrary\obj\Release\AtiqsControlLibrary.pdb

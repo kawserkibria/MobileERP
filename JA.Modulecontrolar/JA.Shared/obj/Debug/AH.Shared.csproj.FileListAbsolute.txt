@@ -1,0 +1,75 @@
+E:\Atiqs Libraries\Shared\obj\Debug\AH.Shared.UI.frmPayment.resources
+E:\Atiqs Libraries\Shared\obj\Debug\AH.Shared.UI.frmSmartFormReportStandard.resources
+E:\Atiqs Libraries\Shared\obj\Debug\AH.Shared.UI.frmSmartFormStandard.resources
+E:\Atiqs Libraries\Shared\obj\Debug\AH.Shared.csproj.GenerateResource.Cache
+E:\Atiqs Libraries\Shared\bin\Debug\AH.Shared.dll
+E:\Atiqs Libraries\Shared\bin\Debug\AH.Shared.pdb
+E:\Atiqs Libraries\Shared\obj\Debug\AH.Shared.dll
+E:\Atiqs Libraries\Shared\obj\Debug\AH.Shared.pdb
+E:\ALIB\Shared\bin\Debug\AH.Shared.dll
+E:\ALIB\Shared\bin\Debug\AH.Shared.pdb
+E:\ALIB\Shared\obj\Debug\AH.Shared.UI.frmPayment.resources
+E:\ALIB\Shared\obj\Debug\AH.Shared.UI.frmSmartFormReportStandard.resources
+E:\ALIB\Shared\obj\Debug\AH.Shared.UI.frmSmartFormStandard.resources
+E:\ALIB\Shared\obj\Debug\AH.Shared.csproj.GenerateResource.Cache
+E:\ALIB\Shared\obj\Debug\AH.Shared.dll
+E:\ALIB\Shared\obj\Debug\AH.Shared.pdb
+E:\ALIB\Shared\obj\Debug\AH.Shared.csprojResolveAssemblyReference.cache
+E:\ALIB Test\Shared\bin\Debug\AH.Shared.dll
+E:\ALIB Test\Shared\bin\Debug\AH.Shared.pdb
+E:\ALIB Test\Shared\obj\Debug\AH.Shared.UI.frmPayment.resources
+E:\ALIB Test\Shared\obj\Debug\AH.Shared.UI.frmSmartFormReportStandard.resources
+E:\ALIB Test\Shared\obj\Debug\AH.Shared.UI.frmSmartFormStandard.resources
+E:\ALIB Test\Shared\obj\Debug\AH.Shared.csproj.GenerateResource.Cache
+E:\ALIB Test\Shared\obj\Debug\AH.Shared.dll
+E:\ALIB Test\Shared\obj\Debug\AH.Shared.pdb
+E:\ALIB Test\Shared\obj\Debug\AH.Shared.csprojResolveAssemblyReference.cache
+C:\Users\mayhedi.ASGARALI\Desktop\ALIB Test\Shared\bin\Debug\AH.Shared.dll
+C:\Users\mayhedi.ASGARALI\Desktop\ALIB Test\Shared\bin\Debug\AH.Shared.pdb
+C:\Users\mayhedi.ASGARALI\Desktop\ALIB Test\Shared\obj\Debug\AH.Shared.UI.frmPayment.resources
+C:\Users\mayhedi.ASGARALI\Desktop\ALIB Test\Shared\obj\Debug\AH.Shared.UI.frmSmartFormReportStandard.resources
+C:\Users\mayhedi.ASGARALI\Desktop\ALIB Test\Shared\obj\Debug\AH.Shared.UI.frmSmartFormStandard.resources
+C:\Users\mayhedi.ASGARALI\Desktop\ALIB Test\Shared\obj\Debug\AH.Shared.csproj.GenerateResource.Cache
+C:\Users\mayhedi.ASGARALI\Desktop\ALIB Test\Shared\obj\Debug\AH.Shared.dll
+C:\Users\mayhedi.ASGARALI\Desktop\ALIB Test\Shared\obj\Debug\AH.Shared.pdb
+G:\Hospital Accounts\ALIB Test\Shared\bin\Debug\AH.Shared.dll
+G:\Hospital Accounts\ALIB Test\Shared\bin\Debug\AH.Shared.pdb
+G:\Hospital Accounts\ALIB Test\Shared\obj\Debug\AH.Shared.UI.frmPayment.resources
+G:\Hospital Accounts\ALIB Test\Shared\obj\Debug\AH.Shared.UI.frmSmartFormReportStandard.resources
+G:\Hospital Accounts\ALIB Test\Shared\obj\Debug\AH.Shared.UI.frmSmartFormStandard.resources
+G:\Hospital Accounts\ALIB Test\Shared\obj\Debug\AH.Shared.csproj.GenerateResource.Cache
+G:\Hospital Accounts\ALIB Test\Shared\obj\Debug\AH.Shared.dll
+G:\Hospital Accounts\ALIB Test\Shared\obj\Debug\AH.Shared.pdb
+G:\Hospital Accounts\DutilityServer\ALIBLocal\Shared\bin\Debug\AH.Shared.dll
+G:\Hospital Accounts\DutilityServer\ALIBLocal\Shared\bin\Debug\AH.Shared.pdb
+G:\Hospital Accounts\DutilityServer\ALIBLocal\Shared\obj\Debug\AH.Shared.UI.frmPayment.resources
+G:\Hospital Accounts\DutilityServer\ALIBLocal\Shared\obj\Debug\AH.Shared.UI.frmSmartFormReportStandard.resources
+G:\Hospital Accounts\DutilityServer\ALIBLocal\Shared\obj\Debug\AH.Shared.UI.frmSmartFormStandard.resources
+G:\Hospital Accounts\DutilityServer\ALIBLocal\Shared\obj\Debug\AH.Shared.csproj.GenerateResource.Cache
+G:\Hospital Accounts\DutilityServer\ALIBLocal\Shared\obj\Debug\AH.Shared.dll
+G:\Hospital Accounts\DutilityServer\ALIBLocal\Shared\obj\Debug\AH.Shared.pdb
+G:\Hospital Accounts\DutilityServer\ALIBLocal\Shared\obj\Debug\AH.Shared.csprojResolveAssemblyReference.cache
+G:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared\bin\Debug\AH.Shared.dll
+G:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared\bin\Debug\AH.Shared.pdb
+G:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared\obj\Debug\AH.Shared.UI.frmPayment.resources
+G:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared\obj\Debug\AH.Shared.UI.frmSmartFormReportStandard.resources
+G:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared\obj\Debug\AH.Shared.UI.frmSmartFormStandard.resources
+G:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared\obj\Debug\AH.Shared.csproj.GenerateResource.Cache
+G:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared\obj\Debug\AH.Shared.dll
+G:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared\obj\Debug\AH.Shared.pdb
+E:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared_18_10_17\bin\Debug\AH.Shared.dll
+E:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared_18_10_17\bin\Debug\AH.Shared.pdb
+E:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared_18_10_17\obj\Debug\AH.Shared.UI.frmPayment.resources
+E:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared_18_10_17\obj\Debug\AH.Shared.UI.frmSmartFormReportStandard.resources
+E:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared_18_10_17\obj\Debug\AH.Shared.UI.frmSmartFormStandard.resources
+E:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared_18_10_17\obj\Debug\AH.Shared.csproj.GenerateResource.Cache
+E:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared_18_10_17\obj\Debug\AH.Shared.dll
+E:\Hospital Accounts\DutilityServer\ALIB_Server_18_05_17\Shared_18_10_17\obj\Debug\AH.Shared.pdb
+F:\DeepLaid\JA.Modulecontrolar\DLIB_Server_\Shared_18_10_17\bin\Debug\AH.Shared.dll
+F:\DeepLaid\JA.Modulecontrolar\DLIB_Server_\Shared_18_10_17\bin\Debug\AH.Shared.pdb
+F:\DeepLaid\JA.Modulecontrolar\DLIB_Server_\Shared_18_10_17\obj\Debug\AH.Shared.UI.frmPayment.resources
+F:\DeepLaid\JA.Modulecontrolar\DLIB_Server_\Shared_18_10_17\obj\Debug\AH.Shared.UI.frmSmartFormReportStandard.resources
+F:\DeepLaid\JA.Modulecontrolar\DLIB_Server_\Shared_18_10_17\obj\Debug\AH.Shared.UI.frmSmartFormStandard.resources
+F:\DeepLaid\JA.Modulecontrolar\DLIB_Server_\Shared_18_10_17\obj\Debug\AH.Shared.csproj.GenerateResource.Cache
+F:\DeepLaid\JA.Modulecontrolar\DLIB_Server_\Shared_18_10_17\obj\Debug\AH.Shared.dll
+F:\DeepLaid\JA.Modulecontrolar\DLIB_Server_\Shared_18_10_17\obj\Debug\AH.Shared.pdb

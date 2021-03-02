@@ -1,0 +1,860 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C56E27AA-36CD-41BE-88B7-C9509B6B2813}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExtraReports</RootNamespace>
+    <AssemblyName>ExtraReports</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>D:\SetupExtra\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>\\Mayhedi\SetupExtra\</InstallUrl>
+    <UpdateUrl>\\Mayhedi\SetupExtra\</UpdateUrl>
+    <ProductName>ExtraReports</ProductName>
+    <PublisherName>ExtraReports</PublisherName>
+    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperComponentsLocation>Relative</BootstrapperComponentsLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>2EB58AD435489853217D4BE322F470F8B3E2A407</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ExtraReports_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Extra Reports-Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="MayhediColorButton">
+      <HintPath>..\JA.Modulecontrolar\bin\Debug\MayhediColorButton.dll</HintPath>
+    </Reference>
+    <Reference Include="Mayhedicontrol, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Mayhedicontrol.dll</HintPath>
+    </Reference>
+    <Reference Include="MayhediControlLibrary">
+      <HintPath>..\JA.Modulecontrolar\bin\Debug\MayhediControlLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="MayhediCustomPanelControl">
+      <HintPath>..\JA.Modulecontrolar\bin\Debug\MayhediCustomPanelControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmERMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmERMain.Designer.cs">
+      <DependentUpon>frmERMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelectCompany.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSelectCompany.Designer.cs">
+      <DependentUpon>frmSelectCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Projection\Forms\frmMonthList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Forms\frmMonthList.Designer.cs">
+      <DependentUpon>frmMonthList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Forms\frmMonthlyProjection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Forms\frmMonthlyProjection.Designer.cs">
+      <DependentUpon>frmMonthlyProjection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Forms\frmMonthlyProjectionList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Forms\frmMonthlyProjectionList.Designer.cs">
+      <DependentUpon>frmMonthlyProjectionList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Forms\frmMonthSetUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Forms\frmMonthSetUp.Designer.cs">
+      <DependentUpon>frmMonthSetUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Forms\frmProjectionSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Forms\frmProjectionSetup.Designer.cs">
+      <DependentUpon>frmProjectionSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Forms\frmProjectionSetupList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Forms\frmProjectionSetupList.Designer.cs">
+      <DependentUpon>frmProjectionSetupList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Forms\frmProMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Forms\frmProMain.Designer.cs">
+      <DependentUpon>frmProMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Forms\frmWeeklyProjection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Forms\frmWeeklyProjection.Designer.cs">
+      <DependentUpon>frmWeeklyProjection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Forms\frmWeeklyProjectionList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Forms\frmWeeklyProjectionList.Designer.cs">
+      <DependentUpon>frmWeeklyProjectionList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Reports\RProjection\ParameterForms\frmRptCollComparision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Reports\RProjection\ParameterForms\frmRptCollComparision.Designer.cs">
+      <DependentUpon>frmRptCollComparision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Reports\RProjection\ParameterForms\frmRptPerfoemance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Reports\RProjection\ParameterForms\frmRptPerfoemance.Designer.cs">
+      <DependentUpon>frmRptPerfoemance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Reports\RProjection\ParameterForms\frmRptProjection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Reports\RProjection\ParameterForms\frmRptProjection.Designer.cs">
+      <DependentUpon>frmRptProjection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Projection\Reports\RProjection\ReportUI\rptCollectionComparision.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptCollectionComparision.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Projection\Reports\RProjection\ReportUI\rptPerformance.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptPerformance.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Projection\Reports\RProjection\ViewerSelector.cs" />
+    <Compile Include="Projection\Reports\RProjection\Viewer\frmReportViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Projection\Reports\RProjection\Viewer\frmReportViewer.Designer.cs">
+      <DependentUpon>frmReportViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\EXTRA\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\JACCMS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\JINVMS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\JSAPUR\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="frmERMain.resx">
+      <DependentUpon>frmERMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectCompany.resx">
+      <DependentUpon>frmSelectCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Forms\frmMonthList.resx">
+      <DependentUpon>frmMonthList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Forms\frmMonthlyProjection.resx">
+      <DependentUpon>frmMonthlyProjection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Forms\frmMonthlyProjectionList.resx">
+      <DependentUpon>frmMonthlyProjectionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Forms\frmMonthSetUp.resx">
+      <DependentUpon>frmMonthSetUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Forms\frmProjectionSetup.resx">
+      <DependentUpon>frmProjectionSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Forms\frmProjectionSetupList.resx">
+      <DependentUpon>frmProjectionSetupList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Forms\frmProMain.resx">
+      <DependentUpon>frmProMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Forms\frmWeeklyProjection.resx">
+      <DependentUpon>frmWeeklyProjection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Forms\frmWeeklyProjectionList.resx">
+      <DependentUpon>frmWeeklyProjectionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Reports\RProjection\ParameterForms\frmRptCollComparision.resx">
+      <DependentUpon>frmRptCollComparision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Reports\RProjection\ParameterForms\frmRptPerfoemance.resx">
+      <DependentUpon>frmRptPerfoemance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Reports\RProjection\ParameterForms\frmRptProjection.resx">
+      <DependentUpon>frmRptProjection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Reports\RProjection\ReportUI\rptCollectionComparision.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptCollectionComparision.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Reports\RProjection\ReportUI\rptPerformance.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptPerformance.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projection\Reports\RProjection\Viewer\frmReportViewer.resx">
+      <DependentUpon>frmReportViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="ExtraReports_TemporaryKey.pfx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\EXTRA\ExtraReports.EXTRA.Mprojection.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\EXTRA\ExtraReports.EXTRA.PCollectionCopmarison.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\EXTRA\ExtraReports.EXTRA.ProjectionSet.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\EXTRA\ExtraReports.EXTRA.ProjectonMonthConfig.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\EXTRA\Service3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EXTRA\Service31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EXTRA\Service32.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EXTRA\SWPRJ1.wsdl" />
+    <None Include="Service References\JACCMS\ACCMS.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JACCMS\ACCMS1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JACCMS\ACCMS2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JACCMS\ACCMS3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.AccBillwise.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.AccountdGroup.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.AccountsLedger.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.AccountsVoucher.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.AccVoucherHeader.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.BackupPath.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.BranchConfig.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.FixedAssets.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.Teritorry.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.UserAccess.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.VectorCategory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\ExtraReports.JACCMS.VoucherTypes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JACCMS\SWJAG.wsdl" />
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.Batch.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.CommissionConfig.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.DatabaseCompany.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.Designation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.Invoice.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.InvoiceConfig.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.Location.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.ManuProcess.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.MaterialType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.MeasurementUnit.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.MFGvouhcer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.SalesPriceLevel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.SalesTarget.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.Sample.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.SampleClass.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.Section.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.StockCategory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.StockGroup.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.StockItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\ExtraReports.JINVMS.Transport.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JINVMS\INVMS.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JINVMS\INVMS1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JINVMS\INVMS2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JINVMS\INVMS3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JINVMS\WSINVMS.wsdl" />
+    <None Include="Service References\JSAPUR\ExtraReports.JSAPUR.RProductSales.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JSAPUR\ExtraReports.JSAPUR.RSalesPurchase.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\JSAPUR\Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JSAPUR\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JSAPUR\Service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\JSAPUR\WSalesPurchase.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dutility\Dutility.csproj">
+      <Project>{ade2acd6-bedf-4692-a5ec-116e0199d704}</Project>
+      <Name>Dutility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JA.Shared\JA.Shared.csproj">
+      <Project>{EFCEF25A-F2D7-4D25-B337-D73F8D29F4AE}</Project>
+      <Name>JA.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\EXTRA\" />
+    <WCFMetadataStorage Include="Service References\JACCMS\" />
+    <WCFMetadataStorage Include="Service References\JINVMS\" />
+    <WCFMetadataStorage Include="Service References\JSAPUR\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JINVMS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JINVMS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JINVMS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JACCMS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JACCMS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JACCMS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="SAP.CrystalReports14.NET.2.0">
+      <Visible>False</Visible>
+      <ProductName>SAP Crystal Reports Runtime Engine for .NET Framework</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Projection\Reports\RAccounts\" />
+    <Folder Include="Projection\Reports\RInventory\" />
+    <Folder Include="Projection\Reports\RSales\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EXTRA\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EXTRA\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EXTRA\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JSAPUR\Service.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JSAPUR\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JSAPUR\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JSAPUR\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EXTRA\Service1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JACCMS\ACCMS.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\JINVMS\INVMS.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="CrystalDecisions.CrystalReports.Engine">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.ClientDoc">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.CommLayer">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.CommonControls">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.CommonObjectModel">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.Controllers">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.CubeDefModel">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.DataDefModel">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.DataSetConversion">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.ObjectFactory">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.Prompting">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.ReportDefModel">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.XmlSerialize">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportSource">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.Shared">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.Windows.Forms">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Dutility">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="FlashControlV71">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="JA.Shared">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="log4net">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="MayhediColorButton">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Mayhedicontrol">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="MayhediControlLibrary">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="MayhediCustomPanelControl">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="ShockwaveFlashObjects">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="stdole">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Extra Reports-Icon.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
+if exist "$(TargetPath)" move "$(TargetPath)" "$(TargetPath).locked"
+</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

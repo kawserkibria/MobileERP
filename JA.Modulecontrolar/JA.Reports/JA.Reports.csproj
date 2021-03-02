@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9F4C31EC-FF89-4D2D-BBC9-EDF9B78FD27D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JA.Reports</RootNamespace>
+    <AssemblyName>JA.Reports</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAL\JFixedAssets.cs" />
+    <Compile Include="DAL\RInventory.cs" />
+    <Compile Include="Facade\ISWRPT.cs" />
+    <Compile Include="Facade\SWRPT.cs" />
+    <Compile Include="Model\FixedAssets1.cs" />
+    <Compile Include="Model\RAccountsGroup.cs" />
+    <Compile Include="Model\RAudit.cs" />
+    <Compile Include="Model\RCreditLimit.cs" />
+    <Compile Include="Model\RFinalStatement.cs" />
+    <Compile Include="Model\RFixedAsset.cs" />
+    <Compile Include="Model\RHondaLoan.cs" />
+    <Compile Include="Model\RoConsumption.cs" />
+    <Compile Include="Model\RoDayliCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\RoMCommission.cs" />
+    <Compile Include="Model\RoMonthlyProduction.cs" />
+    <Compile Include="Model\RoPacking_Raw_Materials_Stock_info.cs" />
+    <Compile Include="Model\RoPaymentSummaryearly.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\RoPaymentSummaryMonthly.cs" />
+    <Compile Include="Model\RoPFHL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\RoProduction.cs" />
+    <Compile Include="Model\RoStockRequisition.cs" />
+    <Compile Include="Model\RStatistics.cs" />
+    <Compile Include="Model\RStockInformation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dutility\Dutility.csproj">
+      <Project>{ade2acd6-bedf-4692-a5ec-116e0199d704}</Project>
+      <Name>Dutility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

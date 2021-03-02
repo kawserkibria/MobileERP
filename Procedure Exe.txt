@@ -1,0 +1,72 @@
+
+
+declare @a datetime
+declare @b datetime
+set @a = '2018-01-01T12:23:45'   -- 6th of April, 2012
+set @b = '2018-12-31T21:10:12'   -- 6th of August, 2012
+
+exec gProfitAndLossH  @a, @b,0
+
+select * from INV_STOCKITEM 
+
+
+ private void button3_Click(object sender, EventArgs e)
+        {
+            string strCode = "", strLName = "", strHomeoHall;
+            string x = textBox2.Text;
+            string[] words = x.Split('-');
+            if (words.Count() == 3)
+            {
+                strCode = words[0].ToString();
+                strLName = words[1].ToString();
+                strHomeoHall = words[2].ToString();
+            }
+            else if (words.Count() == 2)
+            {
+                strLName = words[0].ToString();
+                strHomeoHall = words[1].ToString();
+            }
+            else if (words.Count() == 4)
+            {
+                strCode = words[0].ToString() + "-" + words[1].ToString();
+                strLName = words[2].ToString();
+                strHomeoHall = words[3].ToString();
+            }
+            else if (words.Count() == 1)
+            {
+                strLName = words[0].ToString();
+                
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string strHomeoHall = "", strDoctor = "", strCpCode = "";
+            string strString = textBox2.Text;
+            int intlength = textBox2.Text.Length;
+
+            int indexOfHyphen = strString.LastIndexOf("DR");
+            int indexOfHyphen1 = strString.LastIndexOf("]");
+            if (indexOfHyphen >= 0)
+            {
+                strHomeoHall = strString.Substring(0, indexOfHyphen).Replace(",", "").Replace(".", "").TrimEnd();
+                strDoctor = strString.Substring(indexOfHyphen);
+            }
+           
+            if (indexOfHyphen1 >= 0)
+            {
+                int indexOfDr = strString.LastIndexOf("DR");
+                strCpCode = strString.Substring(0, indexOfHyphen1).Replace(",", "").Replace(".", "").Replace("[", "").TrimEnd();
+                strHomeoHall = strString.Substring(indexOfHyphen1 + 1, (indexOfDr - indexOfHyphen1)-1).Replace(",", "").Replace("[", "").Trim();
+                strDoctor = strString.Substring(indexOfDr);
+            }
+            if (indexOfHyphen1 == 0 && indexOfHyphen==0)
+            {
+                strHomeoHall = strString;
+            }
+            if (indexOfHyphen1 == -1 && indexOfHyphen == -1)
+            {
+                strHomeoHall = strString;
+            }
+            MessageBox.Show(strCpCode + " " + strHomeoHall + " " + strDoctor);
+        }

@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/JA.Reports.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/JA.Reports.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfRoStockRequisition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoStockRequisition" nillable="true" type="tns:RoStockRequisition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoStockRequisition" nillable="true" type="tns:ArrayOfRoStockRequisition" />
+  <xs:complexType name="RoStockRequisition">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblAmnt" type="xs:double" />
+      <xs:element minOccurs="0" name="dblQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblRate" type="xs:double" />
+      <xs:element minOccurs="0" name="intVtype" type="xs:int" />
+      <xs:element minOccurs="0" name="strAgnRefNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strBatchNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strBranchName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strFromLocationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGroupParent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGroupPrimary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strInvDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strItemAlias" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strItemCategory" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLocationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strMaterialType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strNarration" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strProcessName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strRefNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strToLocationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strUnit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strVType" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoStockRequisition" nillable="true" type="tns:RoStockRequisition" />
+  <xs:complexType name="ArrayOfRoPFHL">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoPFHL" nillable="true" type="tns:RoPFHL" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoPFHL" nillable="true" type="tns:ArrayOfRoPFHL" />
+  <xs:complexType name="RoPFHL">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblHLAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPFAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblopening" type="xs:double" />
+      <xs:element minOccurs="0" name="strLedgerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strTC" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoPFHL" nillable="true" type="tns:RoPFHL" />
+  <xs:complexType name="ArrayOfRoDayliCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoDayliCollection" nillable="true" type="tns:RoDayliCollection" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoDayliCollection" nillable="true" type="tns:ArrayOfRoDayliCollection" />
+  <xs:complexType name="RoDayliCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblBKashAccount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblBillAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblBkashNonActive" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCashOfHeadOffice" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPBL01341SND" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPFHL" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPubaliBankLimitedHerbalSND1260" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSNDIBBL0028" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSouthestbank" type="xs:double" />
+      <xs:element minOccurs="0" name="strAddress1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGroupAMFM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strInvDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerGroupParent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerGroupPrimary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strOrderNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strRefNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strStockGroupName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strTerritory" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strTerritoryCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strdate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoDayliCollection" nillable="true" type="tns:RoDayliCollection" />
+  <xs:complexType name="ArrayOfRoPaymentSummaryMonthly">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoPaymentSummaryMonthly" nillable="true" type="tns:RoPaymentSummaryMonthly" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoPaymentSummaryMonthly" nillable="true" type="tns:ArrayOfRoPaymentSummaryMonthly" />
+  <xs:complexType name="RoPaymentSummaryMonthly">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dbl10thhMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl11thMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl12thMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl1stMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl2ndMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl3rdMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl4thMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl5thMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl6thMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl7tMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl8thMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl9thMonthAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="strLedgerName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoPaymentSummaryMonthly" nillable="true" type="tns:RoPaymentSummaryMonthly" />
+  <xs:complexType name="ArrayOfRoPaymentSummaryearly">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoPaymentSummaryearly" nillable="true" type="tns:RoPaymentSummaryearly" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoPaymentSummaryearly" nillable="true" type="tns:ArrayOfRoPaymentSummaryearly" />
+  <xs:complexType name="RoPaymentSummaryearly">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IntYear1" type="xs:int" />
+      <xs:element minOccurs="0" name="IntYear2" type="xs:int" />
+      <xs:element minOccurs="0" name="IntYear3" type="xs:int" />
+      <xs:element minOccurs="0" name="IntYear4" type="xs:int" />
+      <xs:element minOccurs="0" name="dbl1stYearAmont" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl2ndYearAmont" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl3rdYearAmont" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl4thYearAmont" type="xs:double" />
+      <xs:element minOccurs="0" name="dbl5tYearAmont" type="xs:double" />
+      <xs:element minOccurs="0" name="strLedgerName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoPaymentSummaryearly" nillable="true" type="tns:RoPaymentSummaryearly" />
+  <xs:complexType name="ArrayOfRoMonthlyProduction">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoMonthlyProduction" nillable="true" type="tns:RoMonthlyProduction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoMonthlyProduction" nillable="true" type="tns:ArrayOfRoMonthlyProduction" />
+  <xs:complexType name="RoMonthlyProduction">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblBatchSize" type="xs:double" />
+      <xs:element minOccurs="0" name="dblConversion" type="xs:double" />
+      <xs:element minOccurs="0" name="dblGain" type="xs:double" />
+      <xs:element minOccurs="0" name="dblLoss" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPrevious" type="xs:double" />
+      <xs:element minOccurs="0" name="dblProduction" type="xs:double" />
+      <xs:element minOccurs="0" name="dblRepacking" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSampleToFG" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSampleToQC" type="xs:double" />
+      <xs:element minOccurs="0" name="dblTargetQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblTotal" type="xs:double" />
+      <xs:element minOccurs="0" name="dblTotal_FG" type="xs:double" />
+      <xs:element minOccurs="0" name="strBatchNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLocationname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strPackSize" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strPowerClass" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strStockGroup" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoMonthlyProduction" nillable="true" type="tns:RoMonthlyProduction" />
+  <xs:complexType name="ArrayOfRoPackingRawMaterialsStockinfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoPackingRawMaterialsStockinfo" nillable="true" type="tns:RoPackingRawMaterialsStockinfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoPackingRawMaterialsStockinfo" nillable="true" type="tns:ArrayOfRoPackingRawMaterialsStockinfo" />
+  <xs:complexType name="RoPackingRawMaterialsStockinfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblInReceived" type="xs:double" />
+      <xs:element minOccurs="0" name="dblInStockTransfer" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOpening" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOutConjumption" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOutDefect" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOutRepack" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOutWastage" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOutdblStockTransfer" type="xs:double" />
+      <xs:element minOccurs="0" name="strAltUnit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGroupName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGroupParent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGroupPrimary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLocationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strStockItemName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoPackingRawMaterialsStockinfo" nillable="true" type="tns:RoPackingRawMaterialsStockinfo" />
+  <xs:complexType name="ArrayOfRoConsumption">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoConsumption" nillable="true" type="tns:RoConsumption" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoConsumption" nillable="true" type="tns:ArrayOfRoConsumption" />
+  <xs:complexType name="RoConsumption">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblConv100_ML" type="xs:double" />
+      <xs:element minOccurs="0" name="dblConv30_ML" type="xs:double" />
+      <xs:element minOccurs="0" name="dblConv450_ML" type="xs:double" />
+      <xs:element minOccurs="0" name="dblFG4_50_ML" type="xs:double" />
+      <xs:element minOccurs="0" name="dblFG_100_ML" type="xs:double" />
+      <xs:element minOccurs="0" name="dblFG_30_ML" type="xs:double" />
+      <xs:element minOccurs="0" name="strCategoryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strProcessName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strStockGroup" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strStockItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strStockLocation" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoConsumption" nillable="true" type="tns:RoConsumption" />
+  <xs:complexType name="ArrayOfRoProduction">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoProduction" nillable="true" type="tns:RoProduction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoProduction" nillable="true" type="tns:ArrayOfRoProduction" />
+  <xs:complexType name="RoProduction">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dblAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblRate" type="xs:double" />
+      <xs:element minOccurs="0" name="dblReceipeQty" type="xs:double" />
+      <xs:element minOccurs="0" name="intProcessType" type="xs:int" />
+      <xs:element minOccurs="0" name="strBatchNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strBatchSize" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strBranchName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strConsumtionGodown" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strProcess" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strStockItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strToFgGodown" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strTotalBatchSize" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strUnit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strVoucherNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strdate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoProduction" nillable="true" type="tns:RoProduction" />
+  <xs:complexType name="ArrayOfRoMCommission">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoMCommission" nillable="true" type="tns:RoMCommission" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoMCommission" nillable="true" type="tns:ArrayOfRoMCommission" />
+  <xs:complexType name="RoMCommission">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblAmount1" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount10" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount11" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount12" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount13" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount14" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount15" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount2" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount3" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount4" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount5" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount6" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount7" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount8" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount9" type="xs:double" />
+      <xs:element minOccurs="0" name="strArea" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strComRefNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strDivision" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedger" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strMrname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strVoucherLedger" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strZone" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoMCommission" nillable="true" type="tns:RoMCommission" />
+  <xs:complexType name="ArrayOfRStockInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RStockInformation" nillable="true" type="tns:RStockInformation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRStockInformation" nillable="true" type="tns:ArrayOfRStockInformation" />
+  <xs:complexType name="RStockInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="StockItemBASEUNITS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dblBonusValue" type="xs:double" />
+      <xs:element minOccurs="0" name="dblBroken" type="xs:double" />
+      <xs:element minOccurs="0" name="dblBrokenValue" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCommissionValue" type="xs:double" />
+      <xs:element minOccurs="0" name="dblConsumptionQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblConvertQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblInwAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblInwQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblInwRate" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOpnAmnt" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOpnQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOpnRate" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOutWardQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOutwardAmnt" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOutwardRate" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPhyStockQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblReturnQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblReturnValue" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSampleQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSampleValue" type="xs:double" />
+      <xs:element minOccurs="0" name="dblStaffvalue" type="xs:double" />
+      <xs:element minOccurs="0" name="dblStockTranserQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblTranserOutQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblclsAmnt" type="xs:double" />
+      <xs:element minOccurs="0" name="dblclsQty" type="xs:double" />
+      <xs:element minOccurs="0" name="dblclsRate" type="xs:double" />
+      <xs:element minOccurs="0" name="intVtype" type="xs:int" />
+      <xs:element minOccurs="0" name="lngDiff" type="xs:long" />
+      <xs:element minOccurs="0" name="strAltUnit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strBatchNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strClosing" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strFromLocationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGroupName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGroupParent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGroupPrimary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strInvDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strItemAlias" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strItemCategory" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLocationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strMaterialType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strNarration" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strRefNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strToLocationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strUnit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strVType" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RStockInformation" nillable="true" type="tns:RStockInformation" />
+  <xs:complexType name="ArrayOfRAudit">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RAudit" nillable="true" type="tns:RAudit" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRAudit" nillable="true" type="tns:ArrayOfRAudit" />
+  <xs:complexType name="RAudit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAuditText" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAuditamount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPazeSize" type="xs:double" />
+      <xs:element minOccurs="0" name="intModetype" type="xs:int" />
+      <xs:element minOccurs="0" name="intModuletype" type="xs:int" />
+      <xs:element minOccurs="0" name="strAdd" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strAddress1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strAddress2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strAuditDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strAuditNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strAuditType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strChequeDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strChequeDrawnNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strChequeNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strDelete" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strDepartment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strDesignation" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strEdit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strFromname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strHeader1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strHeader2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strHeader3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strHeader4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strHeader5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strInsertDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgername" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strNarration" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strRefno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strToBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strUserLoginName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strVoucherDate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RAudit" nillable="true" type="tns:RAudit" />
+  <xs:complexType name="ArrayOfRCreditLimit">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RCreditLimit" nillable="true" type="tns:RCreditLimit" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRCreditLimit" nillable="true" type="tns:ArrayOfRCreditLimit" />
+  <xs:complexType name="RCreditLimit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblClosingBalance1" type="xs:double" />
+      <xs:element minOccurs="0" name="dblClosingBalance2" type="xs:double" />
+      <xs:element minOccurs="0" name="dblClosingBalance3" type="xs:double" />
+      <xs:element minOccurs="0" name="dblClosingBalance4" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCriditLimit1" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCriditLimit2" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCriditLimit3" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCriditLimit4" type="xs:double" />
+      <xs:element minOccurs="0" name="strDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strDiviison" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strFROM_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strFROM_DATE2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGRACE_FROM_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGRACE_FROM_DATE2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGRACE_TO_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGRACE_TO_DATE2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerGroupParent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strMonthID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strTO_DATE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strTO_DATE2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strZone" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RCreditLimit" nillable="true" type="tns:RCreditLimit" />
+  <xs:complexType name="ArrayOfRAccountsGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RAccountsGroup" nillable="true" type="tns:RAccountsGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRAccountsGroup" nillable="true" type="tns:ArrayOfRAccountsGroup" />
+  <xs:complexType name="RAccountsGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClosingCr" type="xs:double" />
+      <xs:element minOccurs="0" name="ClosingDr" type="xs:double" />
+      <xs:element minOccurs="0" name="OpeningAndCredit" type="xs:double" />
+      <xs:element minOccurs="0" name="OpeningAndDebit" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblBankOpn" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCashFlowAmnt" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCashOpn" type="xs:double" />
+      <xs:element minOccurs="0" name="dblClosing" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCollAcieve" type="xs:double" />
+      <xs:element minOccurs="0" name="dblColltarget" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCr" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCredit" type="xs:double" />
+      <xs:element minOccurs="0" name="dblDebit" type="xs:double" />
+      <xs:element minOccurs="0" name="dblDr" type="xs:double" />
+      <xs:element minOccurs="0" name="dblHL" type="xs:double" />
+      <xs:element minOccurs="0" name="dblMnauAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOdopn" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOpening" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOpeningCr" type="xs:double" />
+      <xs:element minOccurs="0" name="dblOpeningDr" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPF" type="xs:double" />
+      <xs:element minOccurs="0" name="dblRunningTotal" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSalTarget" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSaltargetAchieve" type="xs:double" />
+      <xs:element minOccurs="0" name="intCashFlowSign" type="xs:int" />
+      <xs:element minOccurs="0" name="intGrSequences" type="xs:int" />
+      <xs:element minOccurs="0" name="intPrimaryType" type="xs:int" />
+      <xs:element minOccurs="0" name="intvoucherType" type="xs:int" />
+      <xs:element minOccurs="0" name="lngManuType" type="xs:long" />
+      <xs:element minOccurs="0" name="lngSubType" type="xs:long" />
+      <xs:element minOccurs="0" name="lngslNo" type="xs:long" />
+      <xs:element minOccurs="0" name="stVouchertoby" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strAddress1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strAddress2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strBranchId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strCashFlowGroup" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strCashFlowLedger" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strCashFlowType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strChequeDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strCheuqueNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strDrawnOn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strFromDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGrName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGrParent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLcode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strManuGroup" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strManuName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strMonthID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strNarration" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strPeriod" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strRefNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strReverseLedger" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strSalesRep" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strTC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strTN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strTeritorryName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strTerritoryCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strToBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strToDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strVectormaster" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strZone" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RAccountsGroup" nillable="true" type="tns:RAccountsGroup" />
+  <xs:complexType name="ArrayOfRHondaLoan">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RHondaLoan" nillable="true" type="tns:RHondaLoan" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRHondaLoan" nillable="true" type="tns:ArrayOfRHondaLoan" />
+  <xs:complexType name="RHondaLoan">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblBalance" type="xs:double" />
+      <xs:element minOccurs="0" name="dblClosingBalance" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCrAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblFine" type="xs:double" />
+      <xs:element minOccurs="0" name="dblInstallmentAmt" type="xs:double" />
+      <xs:element minOccurs="0" name="dblLoanAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblLoanPayemnt" type="xs:double" />
+      <xs:element minOccurs="0" name="dblRecFineAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblTakeLoanAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="intInstallmentNo" type="xs:int" />
+      <xs:element minOccurs="0" name="intTakeInstallment" type="xs:int" />
+      <xs:element minOccurs="0" name="intTotalInstallment" type="xs:int" />
+      <xs:element minOccurs="0" name="strCom_Ref_No" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strCom_Ref_No_Rec_V_No" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strEndDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strGroupName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strPhoneNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strStartDate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RHondaLoan" nillable="true" type="tns:RHondaLoan" />
+  <xs:complexType name="ArrayOfRStatistics">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RStatistics" nillable="true" type="tns:RStatistics" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRStatistics" nillable="true" type="tns:ArrayOfRStatistics" />
+  <xs:complexType name="RStatistics">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblCount" type="xs:double" />
+      <xs:element minOccurs="0" name="dblType" type="xs:int" />
+      <xs:element minOccurs="0" name="strStatisticname" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RStatistics" nillable="true" type="tns:RStatistics" />
+  <xs:complexType name="ArrayOfRFixedAsset">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RFixedAsset" nillable="true" type="tns:RFixedAsset" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRFixedAsset" nillable="true" type="tns:ArrayOfRFixedAsset" />
+  <xs:complexType name="RFixedAsset">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblAssetAddThisPeriod" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAssetDepAccu" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAssetDepAdjustMent" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAssetDepRate" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAssetDepThisPeriod" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAssetDisposalthisPeriod" type="xs:double" />
+      <xs:element minOccurs="0" name="dblAssetPrevBal" type="xs:double" />
+      <xs:element minOccurs="0" name="strLedgerGroupParent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedgerName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RFixedAsset" nillable="true" type="tns:RFixedAsset" />
+  <xs:complexType name="ArrayOfRFinalStatement">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RFinalStatement" nillable="true" type="tns:RFinalStatement" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRFinalStatement" nillable="true" type="tns:ArrayOfRFinalStatement" />
+  <xs:complexType name="RFinalStatement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dblBonusByVoucher" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCartonCost" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCash" type="xs:double" />
+      <xs:element minOccurs="0" name="dblClosing" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCommiONCollV" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCommissionForDV" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCommitment" type="xs:double" />
+      <xs:element minOccurs="0" name="dblConvayanceAllowance" type="xs:double" />
+      <xs:element minOccurs="0" name="dblConveyenceCostByVoucher" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCredit" type="xs:double" />
+      <xs:element minOccurs="0" name="dblCurrentSales" type="xs:double" />
+      <xs:element minOccurs="0" name="dblDebit" type="xs:double" />
+      <xs:element minOccurs="0" name="dblDeliveryByVoucher" type="xs:double" />
+      <xs:element minOccurs="0" name="dblDressAlowanceByVoucher" type="xs:double" />
+      <xs:element minOccurs="0" name="dblGiftForProductTarget" type="xs:double" />
+      <xs:element minOccurs="0" name="dblGiftONRequest" type="xs:double" />
+      <xs:element minOccurs="0" name="dblIncenticeForValueTarget" type="xs:double" />
+      <xs:element minOccurs="0" name="dblMPOZonalMeeting" type="xs:double" />
+      <xs:element minOccurs="0" name="dblMedicalExpenses" type="xs:double" />
+      <xs:element minOccurs="0" name="dblMiscByVoucher" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPFHL" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPosition" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPreviousDues" type="xs:double" />
+      <xs:element minOccurs="0" name="dblPunishment" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSAVoucherPayment" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSalarybyVoucher" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSalesReturn" type="xs:double" />
+      <xs:element minOccurs="0" name="dblSpVoucher" type="xs:double" />
+      <xs:element minOccurs="0" name="dblTTDDCostV" type="xs:double" />
+      <xs:element minOccurs="0" name="dblTrainingAllowanceByVoucher" type="xs:double" />
+      <xs:element minOccurs="0" name="dblYearlyConferanceExpenses" type="xs:double" />
+      <xs:element minOccurs="0" name="dblcollecCommi" type="xs:double" />
+      <xs:element minOccurs="0" name="strArea" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strComRefNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strCustomer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strDivision" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strLedger" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strMrname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strTeritorryCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strVoucherLedger" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strZone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="strteritorryname" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RFinalStatement" nillable="true" type="tns:RFinalStatement" />
+</xs:schema>
