@@ -34,6 +34,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dteFromDate = new System.Windows.Forms.DateTimePicker();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnLeftAll = new System.Windows.Forms.Button();
             this.btnLeftSingle = new System.Windows.Forms.Button();
@@ -58,8 +60,8 @@
             // frmLabel
             // 
             this.frmLabel.Location = new System.Drawing.Point(154, 5);
-            this.frmLabel.Size = new System.Drawing.Size(327, 33);
-            this.frmLabel.Text = "Location Wise Consumtion";
+            this.frmLabel.Size = new System.Drawing.Size(342, 33);
+            this.frmLabel.Text = "Location Wise Consumption";
             // 
             // pnlMain
             // 
@@ -125,7 +127,7 @@
             this.groupBox6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox6.Location = new System.Drawing.Point(139, 241);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(377, 96);
+            this.groupBox6.Size = new System.Drawing.Size(377, 88);
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Period Seletion";
@@ -172,6 +174,8 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.label4);
+            this.groupBox7.Controls.Add(this.label3);
             this.groupBox7.Controls.Add(this.txtSearch);
             this.groupBox7.Controls.Add(this.btnLeftAll);
             this.groupBox7.Controls.Add(this.btnLeftSingle);
@@ -179,20 +183,43 @@
             this.groupBox7.Controls.Add(this.btnRightSingle);
             this.groupBox7.Controls.Add(this.lstRight);
             this.groupBox7.Controls.Add(this.lstLeft);
-            this.groupBox7.Location = new System.Drawing.Point(2, 343);
+            this.groupBox7.Location = new System.Drawing.Point(9, 331);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(635, 218);
+            this.groupBox7.Size = new System.Drawing.Size(635, 230);
             this.groupBox7.TabIndex = 58;
             this.groupBox7.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Blue;
+            this.label4.Location = new System.Drawing.Point(238, 14);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 16);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "Search";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Blue;
+            this.label3.Location = new System.Drawing.Point(8, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(70, 16);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Location";
             // 
             // txtSearch
             // 
             this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearch.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.Location = new System.Drawing.Point(7, 18);
+            this.txtSearch.Location = new System.Drawing.Point(9, 35);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(299, 22);
             this.txtSearch.TabIndex = 6;
+            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
             // 
             // btnLeftAll
             // 
@@ -248,7 +275,7 @@
             this.lstRight.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstRight.FormattingEnabled = true;
             this.lstRight.ItemHeight = 14;
-            this.lstRight.Location = new System.Drawing.Point(360, 39);
+            this.lstRight.Location = new System.Drawing.Point(360, 53);
             this.lstRight.Name = "lstRight";
             this.lstRight.Size = new System.Drawing.Size(269, 170);
             this.lstRight.TabIndex = 1;
@@ -260,11 +287,10 @@
             this.lstLeft.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstLeft.FormattingEnabled = true;
             this.lstLeft.ItemHeight = 14;
-            this.lstLeft.Location = new System.Drawing.Point(8, 44);
+            this.lstLeft.Location = new System.Drawing.Point(8, 58);
             this.lstLeft.Name = "lstLeft";
             this.lstLeft.Size = new System.Drawing.Size(301, 170);
             this.lstLeft.TabIndex = 0;
-            
             // 
             // groupBox2
             // 
@@ -382,5 +408,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RadioButton radIndividual;
         private System.Windows.Forms.RadioButton radAll;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
     }
 }

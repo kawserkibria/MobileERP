@@ -18,6 +18,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
     {
         JINVMS.IWSINVMS invms = new JINVMS.WSINVMSClient();
         JACCMS.SWJAGClient accms = new SWJAGClient();
+        SPWOIS OBJWOIS = new SPWOIS();
         private ListBox lstBranch = new ListBox();
         public long lngFormPriv { get; set; }
         List<StockItem> oogrp;
@@ -87,23 +88,13 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 uctxtBonusQty.Text = "";
             }
         }
-        private void mLoadAllItem()
+        private void mLoadAllItem(string strgodown)
         {
             int introw = 0;
 
 
-            oogrp = invms.mloadAddStockItemFg(strComID, "").ToList();
-            //var bil = (from tsfee in oogrp
-            //           select new
-            //           {
-            //               tsfee.strItemName,
-            //               tsfee.dblClsBalance
-            //           }).ToList();
-
-            ////uclstGrdItem.value
-            //uclstGrdItem.DataSource = bil;
-            //uclstGrdItem.Columns[1].Name = "Stock Item";
-            //uclstGrdItem.Columns[2].Name = "Cls. Qty";
+            oogrp = OBJWOIS.mloadAddStockItemFg(strComID, strgodown).ToList();
+            
 
             if (oogrp.Count > 0)
             {
@@ -306,6 +297,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         private void uctxtItemName_GotFocus(object sender, System.EventArgs e)
         {
             lstBranch.Visible = false;
+            mLoadAllItem("Main Location");
         }
         private void uctxtQty_GotFocus(object sender, System.EventArgs e)
         {
@@ -523,7 +515,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstBranch.ValueMember = "BranchID";
             lstBranch.DisplayMember = "BranchName";
             lstBranch.DataSource = accms.mFillBranch(strComID, Utility.gblnAccessControl, Utility.gstrUserName).ToList();
-            mLoadAllItem();
+           
         }
 
        

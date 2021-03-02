@@ -21,6 +21,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         public string strForm;
         public long lngFormPriv { get; set; }
         public string  strFormName { get; set; }
+        public string strChange { get; set; }
         private string strComID { get; set; }
         private ListBox lstFindWhat = new ListBox();
         private ListBox lstExpression = new ListBox();
@@ -279,19 +280,73 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         private void frmPriceConfigList_Load(object sender, EventArgs e)
         {
             DG.AllowUserToAddRows = false;
-            DG.Columns.Add(Utility.Create_Grid_Column("Key No", "Key No", 600, false, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Month ID", "Month ID", 60, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("From Date", "From Date", 260, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("To Date", "To Date", 350, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Branch ID", "Branch ID", 600, false, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 80, true, DataGridViewContentAlignment.TopCenter, true));
-            DG.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, true, DataGridViewContentAlignment.TopCenter, true));
-            DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
+           
+            if (strForm == "MC")
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Key No", "Key No", 600, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Month ID", "Month ID", 60, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("From Date", "From Date", 260, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("To Date", "To Date", 350, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Branch ID", "Branch ID", 600, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 80, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Target", "Target", "Target", 80, false, DataGridViewContentAlignment.TopCenter, true));
+            }
+            else if (strForm == "ACTUAL")
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Key No", "Key No", 600, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Month ID", "Month ID", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("From Date", "From Date", 250, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("To Date", "To Date", 250, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Branch ID", "Branch ID", 600, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Actual", "Actual", "Actual", 130, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 80, false, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, false, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Process", "Process", "Process", 90, false, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Revised", "Revised", "Revised", 130, true, DataGridViewContentAlignment.TopCenter, true));
+            }
+            else if (strForm == "CTN")
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Key No", "Key No", 600, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Month ID", "Month ID", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("From Date", "From Date", 250, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("To Date", "To Date", 250, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Branch ID", "Branch ID", 600, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Actual", "Actual", "Actual", 130, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 80, false, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, false, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Process", "Process", "Process", 90, false, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Revised", "Revised", "Revised", 130, true, DataGridViewContentAlignment.TopCenter, true));
+            }
+            else
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Key No", "Key No", 600, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Month ID", "Month ID", 70, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("From Date", "From Date", 200, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("To Date", "To Date", 300, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Branch ID", "Branch ID", 600, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 80, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 80, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Process", "Process", "Process", 90, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Target", "Target", "Target", 80, false, DataGridViewContentAlignment.TopCenter, true));
+            }
           
             if (strForm  =="TA")
             {
                 frmLabel.Text = "Sales Target List";
                 mFillSalesTarget();
+            }
+            else if (strForm == "ACTUAL")
+            {
+                frmLabel.Text = "Sales Target List";
+                mFillSalesTarget();
+            }
+            else if (strForm == "CTN")
+            {
+                frmLabel.Text = "Collection Target";
+                mFillSalesCollection();
             }
             else if (strForm == "CT")
             {
@@ -344,9 +399,11 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     DG[2, introw].Value = ogrp.strFromDate;
                     DG[3, introw].Value = ogrp.strToDate;
                     DG[4, introw].Value = ogrp.strBranchID;
-                    DG[5, introw].Value = "View";
+                    DG[5, introw].Value = "Actual";
                     DG[6, introw].Value = "Edit";
                     DG[7, introw].Value = "Delete";
+                    DG[8, introw].Value = "Process";
+                    DG[9, introw].Value = "Revised";
                     //if (introw % 2 == 0)
                     //{
                     //    DG.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
@@ -409,9 +466,11 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     DG[2, introw].Value = ogrp.strFromDate;
                     DG[3, introw].Value = ogrp.strToDate;
                     DG[4, introw].Value = ogrp.strBranchID;
-                    DG[5, introw].Value = "View";
+                    DG[5, introw].Value = "Actual";
                     DG[6, introw].Value = "Edit";
                     DG[7, introw].Value = "Delete";
+                    DG[8, introw].Value = "Process";
+                    DG[9, introw].Value = "Revised";
                     //if (introw % 2 == 0)
                     //{
                     //    DG.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
@@ -460,6 +519,22 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 {
                     frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
                     frmviewer.strSelction = strForm;
+                    frmviewer.reportTitle2 = "Sales Target";
+                    frmviewer.secondParameter = "";
+
+                }
+                else if (strForm == "ACTUAL")
+                {
+                    frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
+                    frmviewer.strSelction = "TA";
+                    frmviewer.reportTitle2 = "Sales Target";
+                    frmviewer.secondParameter = "";
+
+                }
+                else if (strForm == "CTN")
+                {
+                    frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
+                    frmviewer.strSelction = "CT";
                     frmviewer.reportTitle2 = "Sales Target";
                     frmviewer.secondParameter = "";
 
@@ -525,6 +600,82 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                         onAddAllButtonClicked(GetSelectedItem(i), sender, e);
                     this.Dispose();
                 }
+            }
+            if (e.ColumnIndex == 8)
+            {
+                //if (Utility.gblnAccessControl)
+                //{
+                //    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 94))
+                //    {
+                //        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //        return;
+                //    }
+                //}
+                if (System.Windows.Forms.Application.OpenForms["frmMonthlyAutoBudget"] as frmMonthlyAutoBudget == null)
+                {
+                    frmMonthlyAutoBudget objfrm = new frmMonthlyAutoBudget();
+                    objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                    objfrm.strFromDate = DG.CurrentRow.Cells[2].Value.ToString();
+                    objfrm.strToDate = DG.CurrentRow.Cells[3].Value.ToString();
+                    objfrm.lngFormPriv = 94;
+                    objfrm.strType = strForm;
+                    objfrm.MdiParent = this.MdiParent;
+                    objfrm.Show();
+
+                }
+                else
+                {
+                    frmMonthlyAutoBudget objfrm = (frmMonthlyAutoBudget)Application.OpenForms["frmMonthlyAutoBudget"];
+                    objfrm.lngFormPriv = 94;
+                    
+                    objfrm.MdiParent = this.MdiParent;
+                    objfrm.Focus();
+                }
+            }
+            if (e.ColumnIndex == 9)
+            {
+                JA.Modulecontrolar.UI.DReport.Sales.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Sales.Viewer.frmReportViewer();
+                frmviewer.selector = JA.Modulecontrolar.UI.DReport.Sales.ViewerSelector.Target;
+                frmviewer.strFdate = DG.CurrentRow.Cells[2].Value.ToString();
+                frmviewer.strTdate = DG.CurrentRow.Cells[3].Value.ToString();
+                if (strForm == "TA")
+                {
+                    frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
+                    frmviewer.strSelction = strForm;
+                    frmviewer.reportTitle2 = "Sales Target";
+                    frmviewer.secondParameter = "";
+
+                }
+                else if (strForm == "ACTUAL")
+                {
+                    frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
+                    frmviewer.strSelction = strForm;
+                    frmviewer.reportTitle2 = "Sales Target";
+                    frmviewer.secondParameter = "";
+
+                }
+                else if (strForm == "CTN")
+                {
+                    frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
+                    frmviewer.reportTitle2 = "Collection Target";
+                    frmviewer.strSelction = strForm;
+                    frmviewer.secondParameter = "";
+                }
+                else if (strForm == "CT")
+                {
+                    frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
+                    frmviewer.reportTitle2 = "Collection Target";
+                    frmviewer.strSelction = strForm;
+                    frmviewer.secondParameter = "";
+                }
+                else if (strForm == "MC")
+                {
+                    frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
+                    frmviewer.reportTitle2 = "Credit Limit";
+                    frmviewer.strSelction = strForm;
+                    frmviewer.secondParameter = "";
+                }
+                frmviewer.Show();
             }
         }
 

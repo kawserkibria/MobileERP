@@ -445,7 +445,16 @@ namespace JA.Modulecontrolar.UI.Inventory
         private void lstBatch_DoubleClick(object sender, EventArgs e)
         {
             uctxtBatch.Text = lstBatch.Text;
-            dteDate.Focus();
+            if (Utility.gstrUserName.ToUpper() == "DEEPLAID")
+            {
+                dteDate.Enabled = true;
+                dteDate.Focus();
+            }
+            else
+            {
+
+                uctxtBranchName.Select();
+            }
         }
 
         private void uctxtBatch_KeyPress(object sender, KeyPressEventArgs e)
@@ -456,7 +465,17 @@ namespace JA.Modulecontrolar.UI.Inventory
                 {
                     uctxtBatch.Text = lstBatch.Text;
                 }
-                dteDate.Focus();
+
+                if (Utility.gstrUserName.ToUpper() == "DEEPLAID")
+                {
+                    dteDate.Enabled = true;
+                    dteDate.Focus();
+                }
+                else
+                {
+
+                    uctxtBranchName.Select();
+                }
             }
             if (e.KeyChar == (char)Keys.Back)
             {
@@ -1067,13 +1086,20 @@ namespace JA.Modulecontrolar.UI.Inventory
             ucConsumption.Visible = false;
             ucFG.Visible = false;
             uclstWastage.Visible = false;
-            if (uctxtBranchName.Text != "")
+            try
             {
-                lstLocation.ValueMember = "strLocation";
-                lstLocation.DisplayMember = "strLocation";
-                lstLocation.DataSource = invms.gLoadLocation(strComID, lstBranchName.SelectedValue.ToString(), Utility.gblnAccessControl, Utility.gstrUserName,0).ToList();
+                if (uctxtBranchName.Text != "")
+                {
+                    lstLocation.ValueMember = "strLocation";
+                    lstLocation.DisplayMember = "strLocation";
+                    lstLocation.DataSource = invms.gLoadLocation(strComID, lstBranchName.SelectedValue.ToString(), Utility.gblnAccessControl, Utility.gstrUserName, 0).ToList();
+                }
+                lstLocation.SelectedIndex = lstLocation.FindString(uctxtLocation.Text);
             }
-            lstLocation.SelectedIndex = lstLocation.FindString(uctxtLocation.Text);
+            catch (Exception ex)
+            {
+
+            }
         }
         private void uctxtBranchName_TextChanged(object sender, EventArgs e)
         {
@@ -1158,25 +1184,66 @@ namespace JA.Modulecontrolar.UI.Inventory
          #region "Load"
         private void frmMFGVoucher_Load(object sender, EventArgs e)
         {
-            DgFG.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 250, true, DataGridViewContentAlignment.TopLeft, true));
-            DgFG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
-            DgFG.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 100, true, DataGridViewContentAlignment.TopLeft, true));
-            DgFG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 120, true, DataGridViewContentAlignment.TopLeft, true));
+            string strYesNo = "Y";
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 202, m_action))
+                {
+                    strYesNo = "N";
+                }
+            }
+            if (strYesNo == "Y")
+            {
+                DgFG.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 250, true, DataGridViewContentAlignment.TopLeft, true));
+                DgFG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
+                DgFG.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DgFG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 120, true, DataGridViewContentAlignment.TopLeft, true));
+            }
+            else
+            {
+                DgFG.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 350, true, DataGridViewContentAlignment.TopLeft, true));
+                DgFG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
+                DgFG.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DgFG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 120, false, DataGridViewContentAlignment.TopLeft, true));
+                lblTCamount.Visible = false;
+                lblwAmount.Visible = false;
+                lblUnitPrice.Visible = false;
+            }
             DgFG.Columns.Add(Utility.Create_Grid_Column("Cost(%)", "Cost(%)", 120, true, DataGridViewContentAlignment.TopLeft, true));
             // DgFG.Columns.Add(Utility.Create_Grid_Column_button("Show", "Show", "Show", 60, true, DataGridViewContentAlignment.TopCenter, true));
             DgFG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
 
-            DgRm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 300, true, DataGridViewContentAlignment.TopLeft, true));
-            DgRm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 120, true, DataGridViewContentAlignment.TopLeft, false));
-            DgRm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, true, DataGridViewContentAlignment.TopLeft, true));
-            DgRm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 200, true, DataGridViewContentAlignment.TopLeft, false));
+            if (strYesNo == "Y")
+            {
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 300, true, DataGridViewContentAlignment.TopLeft, true));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 120, true, DataGridViewContentAlignment.TopLeft, false));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, true, DataGridViewContentAlignment.TopLeft, true));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 200, true, DataGridViewContentAlignment.TopLeft, true));
+            }
+            else
+            {
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 480, true, DataGridViewContentAlignment.TopLeft, true));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 120, true, DataGridViewContentAlignment.TopLeft, false));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, true, DataGridViewContentAlignment.TopLeft, true));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 200, false, DataGridViewContentAlignment.TopLeft, true));
+            }
             //DgRm.Columns.Add(Utility.Create_Grid_Column_button("Show", "Show", "Show", 60, true, DataGridViewContentAlignment.TopCenter, true));
             DgRm.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
 
-            DgWastage.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 300, true, DataGridViewContentAlignment.TopLeft, true));
-            DgWastage.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 120, true, DataGridViewContentAlignment.TopLeft, true));
-            DgWastage.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, true, DataGridViewContentAlignment.TopLeft, true));
-            DgWastage.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 200, true, DataGridViewContentAlignment.TopLeft, true));
+            if (strYesNo == "Y")
+            {
+                DgWastage.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 300, true, DataGridViewContentAlignment.TopLeft, true));
+                DgWastage.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DgWastage.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, true, DataGridViewContentAlignment.TopLeft, true));
+                DgWastage.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 200, true, DataGridViewContentAlignment.TopLeft, true));
+            }
+            else
+            {
+                DgWastage.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 480, true, DataGridViewContentAlignment.TopLeft, true));
+                DgWastage.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DgWastage.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, true, DataGridViewContentAlignment.TopLeft, true));
+                DgWastage.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 200, false, DataGridViewContentAlignment.TopLeft, true));
+            }
             // DgWastage.Columns.Add(Utility.Create_Grid_Column_button("Show", "Show", "Show", 60, true, DataGridViewContentAlignment.TopCenter, true));
             DgWastage.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
 
@@ -1210,11 +1277,11 @@ namespace JA.Modulecontrolar.UI.Inventory
 
             lstProcess.ValueMember = "strProcessName";
             lstProcess.DisplayMember = "strProcessName";
-            lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", 1,0).ToList();
+            lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", 1, 0, Utility.gstrUserName).ToList();
 
             lstBatch.DisplayMember = "value";
             lstBatch.ValueMember = "Key";
-            lstBatch.DataSource = new BindingSource(invms.mFillOpeningBatchNew(strComID), null);
+            lstBatch.DataSource = new BindingSource(invms.mFillOpeningBatchNew(strComID, Utility.gstrUserName), null);
        
             
         }
@@ -1347,6 +1414,17 @@ namespace JA.Modulecontrolar.UI.Inventory
                     return false;
                 }
             }
+            string strLockvoucher = Utility.gLockVocher(strComID, intvType);
+           
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
+                {
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return false;
+                }
+            }
             double dblClosingQTY = 0, dblCurrentQTY = 0;
             string strBillKey = "", strNegetiveItem = "";
             int intCheckNegetive = 0;
@@ -1361,7 +1439,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgRm[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "",uctxtLocation.Text);
                         if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                         {
-                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey, uctxtLocation.Text);
                         }
                         dblCurrentQTY = Utility.Val(DgRm[1, i].Value.ToString());
                         if ((dblClosingQTY) - dblCurrentQTY < 0)
@@ -1390,7 +1468,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgWastage[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "",uctxtLocation.Text);
                         if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                         {
-                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey, uctxtLocation.Text);
                         }
                         dblCurrentQTY = Utility.Val(DgWastage[1, i].Value.ToString());
                         if ((dblClosingQTY) - dblCurrentQTY < 0)
@@ -1657,6 +1735,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             objfrm.lngFormPriv = lngFormPriv;
             objfrm.strFormName = strFormName;
             objfrm.intConvert = 1;
+            objfrm.intVoucherType = intvType;
             objfrm.Show();
             objfrm.MdiParent = this.MdiParent;
         }
@@ -2313,6 +2392,11 @@ namespace JA.Modulecontrolar.UI.Inventory
         }
 
         private void btnSave_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnlMain_Paint(object sender, PaintEventArgs e)
         {
 
         }

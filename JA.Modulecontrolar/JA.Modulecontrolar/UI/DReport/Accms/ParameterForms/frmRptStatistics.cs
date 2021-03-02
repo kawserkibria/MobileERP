@@ -3,6 +3,8 @@ using JA.Modulecontrolar.JINVMS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Dutility;
+using JA.Modulecontrolar.JRPT;
 using System.Data;
 using System.Drawing;
 using System.Text;
@@ -14,7 +16,9 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
 {
     public partial class frmRptStatistics : JA.Shared.UI.frmSmartFormStandard
     {
+        private ListBox lstUnder = new ListBox();
         SPWOIS objwois = new SPWOIS();
+        JRPT.SWRPTClient orptCnn = new SWRPTClient();
         private string strComID { get; set; }
         public string strReportName { get; set; }
         JINVMS.IWSINVMS invms = new JINVMS.WSINVMSClient();
@@ -38,6 +42,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             this.btnLeftSingle.Click += new System.EventHandler(this.btnLeftSingle_Click);
             this.btnLeftAll.Click += new System.EventHandler(this.btnLeftAll_Click);
             this.lstLeft.DoubleClick += new System.EventHandler(this.lstLeft_DoubleClick);
+ 
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -59,12 +64,35 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
         {
             if (lstLeft.SelectedItems.Count > 0)
             {
-                lstRight.Items.Add(lstLeft.SelectedItem.ToString());
-                lstLeft.SelectedValue = lstLeft.SelectedValue;
-                lstLeft.Items.Remove(lstLeft.SelectedItem.ToString());
+                lstRight.Items.Add(lstLeft.Text.ToString());
+                lstLeft.SelectedValue = lstLeft.Text;
+                lstLeft.Items.Remove(lstLeft.Text.ToString());
 
                 //lstLeft. = lstLeft.SortList;
             }
+
+        }
+        private void LoadDefaultValue()
+        {
+            SortedDictionary<string, int> userCache = new SortedDictionary<string, int>
+            {
+            {"January", 1},
+            {"February", 2},
+            {"March", 3},
+            {"April",4},
+            {"May", 5},
+            {"June", 6},
+            {"July", 7},
+            {"August",8},
+            {"September",9},
+            {"October", 10},
+            {"November", 11},
+            {"December", 12}
+            };
+
+            lstLeft.DisplayMember = "Key";
+            lstLeft.ValueMember = "Value";
+            lstLeft.DataSource = new BindingSource(userCache, null);
 
         }
         private void dteFromDate_KeyPress(object sender, KeyPressEventArgs e)
@@ -113,8 +141,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            int intsumDet = 0, intSorting = 0, intwithoutFac=0;
-            string strString = "", strPayYearly="";
+            int intsumDet = 0, intSorting = 0, intwithoutFac = 0;
+            string strString = "", strPayYearly = "";
             if (radDetails.Checked == true)
             {
                 intsumDet = 1;
@@ -150,7 +178,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                 frmviewer.strTdate = dteToDate.Text;
                 frmviewer.strSelction = "Cash Flow";
                 frmviewer.intSummDetails = intsumDet;
-                
+
                 frmviewer.Show();
             }
             else if (strReportName == "Manufacturing")
@@ -202,8 +230,6 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
 
                 if (rbtYearly.Checked == true)
                 {
-
-                  
                     if (lstRight.Items.Count <= 0)
                     {
                         MessageBox.Show("Data Not Found.");
@@ -236,19 +262,28 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                     frmviewer.selector = ViewerSelector.ExpenseSummYearly;
                     frmviewer.strSelction = "Payment Summary(Yearly)";
                     frmviewer.intSummDetails = intsumDet;
-                    frmviewer.intHor_ver = intwithoutFac; 
+                    frmviewer.intHor_ver = intwithoutFac;
                     frmviewer.Show();
                 }
                 else if (rbtMonthly.Checked == true)
                 {
+                    string strString2="";
 
+                    for (int i = 0; i < lstRight.Items.Count; i++)
+                    {
+                        strString2 = lstRight.Items[i].ToString().Replace("'", "''") ;
+
+                        string sddd = orptCnn.mGetPaymentSummaryMonthly(strComID, comboBox1.Text, intwithoutFac, strString2, i);
+                      
+                    }
                     frmReportViewer frmviewer = new frmReportViewer();
                     frmviewer.selector = ViewerSelector.ExpenseSummMonthly;
                     frmviewer.strString = comboBox1.Text;
                     frmviewer.strTdate = dteToDate.Text;
                     frmviewer.strSelction = "Payment Summary(Monthly)";
                     frmviewer.intSummDetails = intsumDet;
-                    frmviewer.intHor_ver = intwithoutFac; 
+                    frmviewer.intHor_ver = intwithoutFac;
+                    frmviewer.strString3 = strString2;
                     frmviewer.Show();
                 }
                 else
@@ -261,7 +296,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                     frmviewer.intSummDetails = intsumDet;
                     frmviewer.Show();
                 }
-                
+
 
             }
             else if (strReportName == "ERP Statistics")
@@ -276,12 +311,15 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
 
         }
 
+
+     
         private void btnClose_Click(object sender, EventArgs e)
         {
 
         }
         private void rbtYearly_MouseClick(object sender, MouseEventArgs e)
         {
+            lstRight.Items.Clear();
             groupSelection.Enabled = true;
             label5.Visible = false;
             label1.Visible = false;
@@ -296,19 +334,23 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
 
         private void rbtMonthly_MouseClick(object sender, MouseEventArgs e)
         {
-            groupSelection.Enabled = false;
+            lstRight.Items.Clear();
+            LoadDefaultValue();
+            groupSelection.Enabled = true;
             label5.Visible = false;
             label1.Visible = false;
             dteFromDate.Visible = false;
             dteToDate.Visible = false;
             pnlYearMonth.Visible = true;
-            groupSelection.Visible = false;
+            groupSelection.Visible = true;
             chkboxWfactory.Visible = true;
             chkboxWfactory.Enabled = true;
+            lstLeft.Enabled = true;
 
         }
         private void radDetails_MouseClick(object sender, MouseEventArgs e)
         {
+            lstRight.Items.Clear();
             label5.Visible = true;
             label1.Visible = true;
             groupSelection.Visible = false;
@@ -324,6 +366,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
 
         private void radSumm_MouseClick(object sender, MouseEventArgs e)
         {
+            lstRight.Items.Clear();
             label5.Visible = true;
             label1.Visible = true;
             groupSelection.Visible = false;
@@ -442,11 +485,6 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
         {
 
         }
-
-       
-       
-
-       
 
        
     }

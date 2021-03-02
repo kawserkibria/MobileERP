@@ -903,7 +903,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
                 int introw = 0;
                 DGMr.Rows.Clear();
                 string strBarchID = Utility.gstrGetBranchID(strComID, uctxtBranch.Text);
-                ooPartyName = invms.mfillPartyNameNew(strComID, strBarchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "").ToList();
+                ooPartyName = invms.mfillPartyNameNew(strComID, strBarchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "","").ToList();
 
                 if (ooPartyName.Count > 0)
                 {

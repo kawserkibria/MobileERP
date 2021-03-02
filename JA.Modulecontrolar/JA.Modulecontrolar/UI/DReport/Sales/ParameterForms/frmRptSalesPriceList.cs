@@ -406,7 +406,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
             lstLevelName.Visible = false;
             lstGroup.DisplayMember = "strItemName";
             lstGroup.ValueMember = "strItemName";
-            lstGroup.DataSource = invms.mloadAddStockItemFg(strComID, txtLevelName.Text).ToList();
+            lstGroup.DataSource = invms.mloadStockItemNotInGroup(strComID, "PRICE").ToList();
             if (radItemWise.Checked == true)
             {
                 label4.Text = "From Date :";

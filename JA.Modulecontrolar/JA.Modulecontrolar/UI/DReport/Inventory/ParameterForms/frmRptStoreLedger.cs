@@ -203,9 +203,21 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         #endregion
         private void mLaodItem()
         {
-            lstItem.ValueMember = "strItemName";
-            lstItem.DisplayMember = "strItemName";
-            lstItem.DataSource = invms.gFillStockItemAllWithoutGodown(strComID, Utility.gblnAccessControl, Utility.gstrUserName,"").ToList();
+            if (chkFG.Checked==false)
+            {
+                
+                lstItem.ValueMember = "strItemName";
+                lstItem.DisplayMember = "strItemName";
+                //lstItem.DataSource = invms.gFillStockItemAllWithoutGodown(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "").ToList();
+                lstItem.DataSource = invms.gFillStockItemAllWithoutGodown(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "N").ToList();
+            }
+            else
+            {
+                lstItem.ValueMember = "strItemName";
+                lstItem.DisplayMember = "strItemName";
+                lstItem.DataSource = invms.gFillStockItemAllWithoutGodown(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "FST").ToList();
+            }
+     
          
         }
 
@@ -289,6 +301,13 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                 frmviewer.Show();
             }
 
+        }
+
+        private void chkFG_Click(object sender, EventArgs e)
+        {
+            
+            mLaodItem();
+            uctxtItemName.Focus();
         }
 
     }

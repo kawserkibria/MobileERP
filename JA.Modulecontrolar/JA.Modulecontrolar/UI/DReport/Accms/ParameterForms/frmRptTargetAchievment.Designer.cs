@@ -48,7 +48,6 @@
             this.radIndividual = new System.Windows.Forms.RadioButton();
             this.radAll = new System.Windows.Forms.RadioButton();
             this.uctxtLedgerConfig = new System.Windows.Forms.TextBox();
-            this.chkStatus = new System.Windows.Forms.CheckBox();
             this.uctxtTerritoryCode = new System.Windows.Forms.TextBox();
             this.uctxtTeritorryName = new System.Windows.Forms.TextBox();
             this.DGMr = new MayhediControlLibrary.StandardDataGridView();
@@ -66,6 +65,11 @@
             this.dteSalesTdate = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.dteSalesFDate = new System.Windows.Forms.DateTimePicker();
+            this.chkBase = new System.Windows.Forms.CheckBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.rbtnInActive = new System.Windows.Forms.RadioButton();
+            this.rbtnActive = new System.Windows.Forms.RadioButton();
+            this.rbtnAll = new System.Windows.Forms.RadioButton();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -73,6 +77,7 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGMr)).BeginInit();
             this.grpSalesPeriod.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // frmLabel
@@ -83,6 +88,8 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.groupBox4);
+            this.pnlMain.Controls.Add(this.chkBase);
             this.pnlMain.Controls.Add(this.grpSalesPeriod);
             this.pnlMain.Controls.Add(this.chkDual);
             this.pnlMain.Controls.Add(this.chkTargetSuppress);
@@ -93,14 +100,13 @@
             this.pnlMain.Controls.Add(this.DGMr);
             this.pnlMain.Controls.Add(this.uctxtTeritorryName);
             this.pnlMain.Controls.Add(this.uctxtTerritoryCode);
-            this.pnlMain.Controls.Add(this.chkStatus);
             this.pnlMain.Controls.Add(this.groupBox2);
             this.pnlMain.Controls.Add(this.label3);
             this.pnlMain.Controls.Add(this.uctxtBranch);
             this.pnlMain.Controls.Add(this.groupBox6);
             this.pnlMain.Controls.Add(this.groupBox3);
             this.pnlMain.Location = new System.Drawing.Point(0, -86);
-            this.pnlMain.Size = new System.Drawing.Size(559, 519);
+            this.pnlMain.Size = new System.Drawing.Size(559, 549);
             // 
             // pnlTop
             // 
@@ -108,43 +114,43 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(123, 410);
+            this.btnEdit.Location = new System.Drawing.Point(123, 442);
             this.btnEdit.Size = new System.Drawing.Size(14, 19);
             this.btnEdit.Visible = false;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(10, 410);
+            this.btnSave.Location = new System.Drawing.Point(10, 442);
             this.btnSave.Size = new System.Drawing.Size(23, 19);
             this.btnSave.Visible = false;
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(166, 410);
+            this.btnDelete.Location = new System.Drawing.Point(166, 442);
             this.btnDelete.Size = new System.Drawing.Size(10, 14);
             this.btnDelete.Visible = false;
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(39, 409);
+            this.btnNew.Location = new System.Drawing.Point(39, 441);
             this.btnNew.Size = new System.Drawing.Size(36, 13);
             this.btnNew.Visible = false;
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(432, 435);
+            this.btnClose.Location = new System.Drawing.Point(432, 469);
             this.btnClose.Size = new System.Drawing.Size(128, 39);
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(298, 435);
+            this.btnPrint.Location = new System.Drawing.Point(298, 469);
             this.btnPrint.Size = new System.Drawing.Size(128, 39);
             this.btnPrint.Text = "Preview";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 479);
+            this.groupBox1.Location = new System.Drawing.Point(0, 512);
             this.groupBox1.Size = new System.Drawing.Size(564, 25);
             // 
             // groupBox6
@@ -154,7 +160,7 @@
             this.groupBox6.Controls.Add(this.label5);
             this.groupBox6.Controls.Add(this.dteFromDate);
             this.groupBox6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(321, 403);
+            this.groupBox6.Location = new System.Drawing.Point(321, 445);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(223, 76);
             this.groupBox6.TabIndex = 5;
@@ -303,21 +309,10 @@
             this.uctxtLedgerConfig.Size = new System.Drawing.Size(522, 25);
             this.uctxtLedgerConfig.TabIndex = 0;
             // 
-            // chkStatus
-            // 
-            this.chkStatus.AutoSize = true;
-            this.chkStatus.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkStatus.Location = new System.Drawing.Point(18, 407);
-            this.chkStatus.Name = "chkStatus";
-            this.chkStatus.Size = new System.Drawing.Size(76, 18);
-            this.chkStatus.TabIndex = 15;
-            this.chkStatus.Text = "Inactive";
-            this.chkStatus.UseVisualStyleBackColor = true;
-            // 
             // uctxtTerritoryCode
             // 
             this.uctxtTerritoryCode.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtTerritoryCode.Location = new System.Drawing.Point(46, 482);
+            this.uctxtTerritoryCode.Location = new System.Drawing.Point(46, 523);
             this.uctxtTerritoryCode.Name = "uctxtTerritoryCode";
             this.uctxtTerritoryCode.Size = new System.Drawing.Size(110, 22);
             this.uctxtTerritoryCode.TabIndex = 207;
@@ -326,7 +321,7 @@
             // uctxtTeritorryName
             // 
             this.uctxtTeritorryName.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtTeritorryName.Location = new System.Drawing.Point(165, 482);
+            this.uctxtTeritorryName.Location = new System.Drawing.Point(165, 523);
             this.uctxtTeritorryName.Name = "uctxtTeritorryName";
             this.uctxtTeritorryName.Size = new System.Drawing.Size(94, 22);
             this.uctxtTeritorryName.TabIndex = 208;
@@ -409,11 +404,12 @@
             this.cbxSelection.Font = new System.Drawing.Font("Verdana", 9F);
             this.cbxSelection.FormattingEnabled = true;
             this.cbxSelection.Items.AddRange(new object[] {
+            "ALL ZONE",
             "ZONE",
             "DIVISION",
             "AREA",
             "MPO"});
-            this.cbxSelection.Location = new System.Drawing.Point(157, 372);
+            this.cbxSelection.Location = new System.Drawing.Point(157, 358);
             this.cbxSelection.Name = "cbxSelection";
             this.cbxSelection.Size = new System.Drawing.Size(163, 22);
             this.cbxSelection.TabIndex = 210;
@@ -422,7 +418,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(15, 374);
+            this.label4.Location = new System.Drawing.Point(15, 360);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(141, 14);
             this.label4.TabIndex = 211;
@@ -456,7 +452,7 @@
             this.chkDual.Checked = true;
             this.chkDual.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDual.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkDual.Location = new System.Drawing.Point(18, 458);
+            this.chkDual.Location = new System.Drawing.Point(9, 452);
             this.chkDual.Name = "chkDual";
             this.chkDual.Size = new System.Drawing.Size(88, 18);
             this.chkDual.TabIndex = 214;
@@ -471,9 +467,9 @@
             this.grpSalesPeriod.Controls.Add(this.label8);
             this.grpSalesPeriod.Controls.Add(this.dteSalesFDate);
             this.grpSalesPeriod.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpSalesPeriod.Location = new System.Drawing.Point(105, 404);
+            this.grpSalesPeriod.Location = new System.Drawing.Point(113, 446);
             this.grpSalesPeriod.Name = "grpSalesPeriod";
-            this.grpSalesPeriod.Size = new System.Drawing.Size(223, 74);
+            this.grpSalesPeriod.Size = new System.Drawing.Size(216, 74);
             this.grpSalesPeriod.TabIndex = 215;
             this.grpSalesPeriod.TabStop = false;
             this.grpSalesPeriod.Text = "Sales Period";
@@ -521,10 +517,69 @@
             this.dteSalesFDate.TabIndex = 20;
             this.dteSalesFDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dteSalesFDate_KeyPress);
             // 
+            // chkBase
+            // 
+            this.chkBase.AutoSize = true;
+            this.chkBase.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkBase.Location = new System.Drawing.Point(9, 480);
+            this.chkBase.Name = "chkBase";
+            this.chkBase.Size = new System.Drawing.Size(104, 17);
+            this.chkBase.TabIndex = 216;
+            this.chkBase.Text = "Base Target";
+            this.chkBase.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.rbtnInActive);
+            this.groupBox4.Controls.Add(this.rbtnActive);
+            this.groupBox4.Controls.Add(this.rbtnAll);
+            this.groupBox4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(18, 404);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(482, 35);
+            this.groupBox4.TabIndex = 217;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Selection";
+            // 
+            // rbtnInActive
+            // 
+            this.rbtnInActive.AutoSize = true;
+            this.rbtnInActive.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnInActive.Location = new System.Drawing.Point(335, 10);
+            this.rbtnInActive.Name = "rbtnInActive";
+            this.rbtnInActive.Size = new System.Drawing.Size(75, 18);
+            this.rbtnInActive.TabIndex = 3;
+            this.rbtnInActive.Text = "Inactive";
+            this.rbtnInActive.UseVisualStyleBackColor = true;
+            // 
+            // rbtnActive
+            // 
+            this.rbtnActive.AutoSize = true;
+            this.rbtnActive.Checked = true;
+            this.rbtnActive.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnActive.Location = new System.Drawing.Point(201, 11);
+            this.rbtnActive.Name = "rbtnActive";
+            this.rbtnActive.Size = new System.Drawing.Size(62, 18);
+            this.rbtnActive.TabIndex = 2;
+            this.rbtnActive.TabStop = true;
+            this.rbtnActive.Text = "Active";
+            this.rbtnActive.UseVisualStyleBackColor = true;
+            // 
+            // rbtnAll
+            // 
+            this.rbtnAll.AutoSize = true;
+            this.rbtnAll.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnAll.Location = new System.Drawing.Point(64, 11);
+            this.rbtnAll.Name = "rbtnAll";
+            this.rbtnAll.Size = new System.Drawing.Size(39, 18);
+            this.rbtnAll.TabIndex = 1;
+            this.rbtnAll.Text = "All";
+            this.rbtnAll.UseVisualStyleBackColor = true;
+            // 
             // frmRptTargetAchievment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(564, 504);
+            this.ClientSize = new System.Drawing.Size(564, 537);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
@@ -543,6 +598,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGMr)).EndInit();
             this.grpSalesPeriod.ResumeLayout(false);
             this.grpSalesPeriod.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -556,7 +613,6 @@
         private System.Windows.Forms.DateTimePicker dteFromDate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox uctxtBranch;
-        private System.Windows.Forms.CheckBox chkStatus;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RadioButton radIndividual;
         private System.Windows.Forms.RadioButton radAll;
@@ -581,5 +637,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DateTimePicker dteSalesFDate;
         private System.Windows.Forms.CheckBox chkDual;
+        private System.Windows.Forms.CheckBox chkBase;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.RadioButton rbtnInActive;
+        private System.Windows.Forms.RadioButton rbtnActive;
+        private System.Windows.Forms.RadioButton rbtnAll;
     }
 }

@@ -57,6 +57,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dtpFDate = new System.Windows.Forms.DateTimePicker();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.rbtnOrderPendingList = new System.Windows.Forms.RadioButton();
+            this.rbtnZMNotAprove = new System.Windows.Forms.RadioButton();
             this.rbtnDetails = new System.Windows.Forms.RadioButton();
             this.rbtnSummary = new System.Windows.Forms.RadioButton();
             this.pnlMain.SuspendLayout();
@@ -323,9 +325,9 @@
             this.panel3.Controls.Add(this.rbtnDSMRSM);
             this.panel3.Controls.Add(this.rbtnAMFM);
             this.panel3.Controls.Add(this.rbtnMPO);
-            this.panel3.Location = new System.Drawing.Point(53, 93);
+            this.panel3.Location = new System.Drawing.Point(52, 93);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(461, 41);
+            this.panel3.Size = new System.Drawing.Size(487, 41);
             this.panel3.TabIndex = 225;
             // 
             // rbtnAll
@@ -448,19 +450,47 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.rbtnOrderPendingList);
+            this.panel2.Controls.Add(this.rbtnZMNotAprove);
             this.panel2.Controls.Add(this.rbtnDetails);
             this.panel2.Controls.Add(this.rbtnSummary);
-            this.panel2.Location = new System.Drawing.Point(53, 143);
+            this.panel2.Location = new System.Drawing.Point(52, 143);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(461, 41);
+            this.panel2.Size = new System.Drawing.Size(487, 41);
             this.panel2.TabIndex = 227;
+            // 
+            // rbtnOrderPendingList
+            // 
+            this.rbtnOrderPendingList.AutoSize = true;
+            this.rbtnOrderPendingList.Checked = true;
+            this.rbtnOrderPendingList.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnOrderPendingList.Location = new System.Drawing.Point(220, 11);
+            this.rbtnOrderPendingList.Name = "rbtnOrderPendingList";
+            this.rbtnOrderPendingList.Size = new System.Drawing.Size(116, 18);
+            this.rbtnOrderPendingList.TabIndex = 14;
+            this.rbtnOrderPendingList.TabStop = true;
+            this.rbtnOrderPendingList.Text = "Pending Order";
+            this.rbtnOrderPendingList.UseVisualStyleBackColor = true;
+            this.rbtnOrderPendingList.Click += new System.EventHandler(this.btnRightSingle_Click);
+            // 
+            // rbtnZMNotAprove
+            // 
+            this.rbtnZMNotAprove.AutoSize = true;
+            this.rbtnZMNotAprove.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnZMNotAprove.Location = new System.Drawing.Point(350, 11);
+            this.rbtnZMNotAprove.Name = "rbtnZMNotAprove";
+            this.rbtnZMNotAprove.Size = new System.Drawing.Size(124, 18);
+            this.rbtnZMNotAprove.TabIndex = 13;
+            this.rbtnZMNotAprove.Text = "ZH Not Approve";
+            this.rbtnZMNotAprove.UseVisualStyleBackColor = true;
+            this.rbtnZMNotAprove.Click += new System.EventHandler(this.rbtnZMNotAprove_Click);
             // 
             // rbtnDetails
             // 
             this.rbtnDetails.AutoSize = true;
             this.rbtnDetails.Checked = true;
             this.rbtnDetails.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtnDetails.Location = new System.Drawing.Point(124, 11);
+            this.rbtnDetails.Location = new System.Drawing.Point(19, 11);
             this.rbtnDetails.Name = "rbtnDetails";
             this.rbtnDetails.Size = new System.Drawing.Size(68, 18);
             this.rbtnDetails.TabIndex = 12;
@@ -472,7 +502,7 @@
             // 
             this.rbtnSummary.AutoSize = true;
             this.rbtnSummary.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtnSummary.Location = new System.Drawing.Point(265, 11);
+            this.rbtnSummary.Location = new System.Drawing.Point(112, 11);
             this.rbtnSummary.Name = "rbtnSummary";
             this.rbtnSummary.Size = new System.Drawing.Size(83, 18);
             this.rbtnSummary.TabIndex = 8;
@@ -537,5 +567,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.RadioButton rbtnDetails;
         private System.Windows.Forms.RadioButton rbtnSummary;
+        private System.Windows.Forms.RadioButton rbtnOrderPendingList;
+        private System.Windows.Forms.RadioButton rbtnZMNotAprove;
     }
 }

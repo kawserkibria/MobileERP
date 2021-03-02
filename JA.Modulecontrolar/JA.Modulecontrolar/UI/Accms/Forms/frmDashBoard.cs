@@ -11,19 +11,21 @@ using System.Windows.Forms;
 using JA.Modulecontrolar.UI.Forms;
 using JA.Modulecontrolar.UI.Accms.Forms;
 using Microsoft.Win32;
+using System.Data.SqlClient;
+
 
 namespace JA.Modulecontrolar.UI.Accms.Forms
 {
     public partial class frmDashBoard : JA.Shared.UI.frmJagoronFromSearch
     {
-    
+
 
         private ListBox lstBranch = new ListBox();
         JINVMS.IWSINVMS invms = new JINVMS.WSINVMSClient();
         JACCMS.SWJAGClient accms = new SWJAGClient();
         public int m_action { get; set; }
-        private long mlngSLNo {get;set;}
-        private string  mstrOldLedger { get; set; }
+        private long mlngSLNo { get; set; }
+        private string mstrOldLedger { get; set; }
         private string strComID { get; set; }
         public frmDashBoard()
         {
@@ -54,11 +56,11 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             }
 
             return false;
-        }    
+        }
 
         private void txtBranch_TextChanged(object sender, EventArgs e)
         {
-            
+
             lstBranch.SelectedIndex = lstBranch.FindString(txtBranch.Text);
         }
 
@@ -86,7 +88,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             {
                 //PriorSetFocusText(txtBranch, sender, e);
             }
-            
+
         }
         private void txtBranch_KeyDown(object sender, KeyEventArgs e)
         {
@@ -107,15 +109,15 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             }
 
         }
-    
-  
+
+
         private void txtBranch_GotFocus(object sender, System.EventArgs e)
         {
-            
+
             lstBranch.SelectedIndex = lstBranch.FindString(txtBranch.Text);
 
         }
-      #endregion
+        #endregion
 
 
         private void frmDashBoard_Load(object sender, EventArgs e)
@@ -143,10 +145,10 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
 
             lstBranch.DisplayMember = "value";
             lstBranch.ValueMember = "Key";
-           lstBranch.DataSource = new BindingSource(accms.mfillBranchNew(strComID, Utility.gblnAccessControl, Utility.gstrUserName), null);
-           
+            lstBranch.DataSource = new BindingSource(accms.mfillBranchNew(strComID, Utility.gblnAccessControl, Utility.gstrUserName), null);
+
             mCalculateAmount();
-  
+
         }
 
         private void mCalculateAmount()
@@ -174,7 +176,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             //int year = DateTime.Now.Year;
             int year = Convert.ToDateTime(Utility.gdteFinancialYearFrom).Year;
 
-            List<AccountsLedger> VoucherAmont = accms.mGetVoucherAmont(strComID,Utility.gdteFinancialYearFrom,Utility.gdteFinancialYearTo , year.ToString(), strBranchId).ToList();
+            List<AccountsLedger> VoucherAmont = accms.mGetVoucherAmont(strComID, Utility.gdteFinancialYearFrom, Utility.gdteFinancialYearTo, year.ToString(), strBranchId).ToList();
             if (VoucherAmont.Count > 0)
             {
                 txtinAmount.Text = VoucherAmont[0].dblVoucherTAmount.ToString();
@@ -199,15 +201,15 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             if (DateRangeWiseRecevedAmont.Count > 0)
             {
                 txtRecAmt.Text = DateRangeWiseRecevedAmont[0].dblVoucherRecevedTAmount.ToString();
-              
+
             }
-            double dblCashinHand=0,dblBakAccount=0,dblBankOd=0;
+            double dblCashinHand = 0, dblBakAccount = 0, dblBankOd = 0;
             dblCashinHand = accms.mGetGroupClosing(strComID, Utility.gdteFinancialYearFrom, Utility.gdteFinancialYearTo, "Cash In Hand", strBranchId);
             dblBakAccount = accms.mGetGroupClosing(strComID, Utility.gdteFinancialYearFrom, Utility.gdteFinancialYearTo, "Bank Accounts", strBranchId);
             dblBankOd = accms.mGetGroupClosing(strComID, Utility.gdteFinancialYearFrom, Utility.gdteFinancialYearTo, "Bank OD A/c", strBranchId);
             if (dblCashinHand < 0)
             {
-                txtFTCashInHand.Text= Math.Abs(dblCashinHand) + " Dr" ;
+                txtFTCashInHand.Text = Math.Abs(dblCashinHand) + " Dr";
             }
             else
             {
@@ -221,7 +223,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             {
                 txtFTCashatBank.Text = Math.Abs(dblBakAccount) + " Cr";
             }
-             if (dblBankOd < 0)
+            if (dblBankOd < 0)
             {
                 txtBankOD.Text = Math.Abs(dblBankOd) + " Dr";
             }
@@ -230,17 +232,17 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                 txtBankOD.Text = Math.Abs(dblBankOd) + " Cr";
             }
 
-               
+
         }
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             mCalculateAmount();
-            
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            txtCurrentTime.Text = DateTime.Now.ToLongTimeString() ;
+            txtCurrentTime.Text = DateTime.Now.ToLongTimeString();
         }
 
         private void groupBox2_Enter(object sender, EventArgs e)
@@ -250,7 +252,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
 
         private void dteSDRWformDate_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar==(char)Keys.Return)
+            if (e.KeyChar == (char)Keys.Return)
             {
                 dteSDRWToDate.Focus();
             }
@@ -279,6 +281,88 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                 btnRefresh.Focus();
             }
         }
-     
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //string strSQL = "";
+            //string connstring = Utility.SQLConnstringComSwitch(strComID);
+            //string strFdate= "01-01-"+ DateTime.Now.ToString("yyyy");
+            //string strTdate= "31-12-"+ DateTime.Now.ToString("yyyy");
+
+            //using (SqlConnection gcnMain = new SqlConnection(connstring))
+            //{
+            //    if (gcnMain.State == ConnectionState.Open)
+            //    {
+            //        gcnMain.Close();
+            //    }
+            //    gcnMain.Open();
+            //    SqlCommand cmdinsert=new SqlCommand();
+            //    cmdinsert.Connection=gcnMain;
+            //    strSQL="ALTER VIEW SALES_TARGET_VIEW AS ";
+            //    strSQL += "SELECT ACC_LEDGER_Z_D_A.ZONE,  SUM(ACC_COMPANY_VOUCHER.COMP_VOUCHER_NET_AMOUNT ) total,0 TARGETAMOUNT ";
+            //    strSQL += "FROM ACC_LEDGER_Z_D_A,ACC_COMPANY_VOUCHER WHERE  ACC_LEDGER_Z_D_A.LEDGER_NAME=ACC_COMPANY_VOUCHER.LEDGER_NAME AND ACC_COMPANY_VOUCHER.COMP_VOUCHER_TYPE =16 ";
+            //    strSQL += "AND ACC_COMPANY_VOUCHER.BRANCH_ID ='0001' ";
+            //    strSQL += "AND ACC_COMPANY_VOUCHER.COMP_VOUCHER_DATE between " + Utility.cvtSQLDateString(strFdate) + " ";
+            //    strSQL += "AND " + Utility.cvtSQLDateString(strTdate) + " ";
+            //    strSQL += "AND ACC_LEDGER_Z_D_A.LEDGER_STATUS =0";
+            //    strSQL += "group by ACC_LEDGER_Z_D_A.ZONE ";
+            //    strSQL += "UNION ALL ";
+            //    strSQL += "select V.ZONE,0 total,   ";
+            //    strSQL += "sum(TARGET_CHANGE_AMNT) TARGETAMOUNT from SALES_TARGET_ACHIEVEMENT ST,ACC_LEDGER_Z_D_A V ";
+            //    strSQL += "where ST.LEDGER_NAME=V.LEDGER_NAME and  TARGET_ACHIEVE_FROM_DATE >= " + Utility.cvtSQLDateString(strFdate) + "  and TARGET_ACHIEVE_TO_DATE<=" + Utility.cvtSQLDateString(strTdate) + " ";
+            //    strSQL += "AND V.LEDGER_STATUS =0 AND v.BRANCH_ID ='0001' group by V.ZONE ";
+            //    cmdinsert.CommandText=strSQL;
+            //    cmdinsert.ExecuteNonQuery();
+
+            //    //string query = "SELECT ACC_LEDGER_Z_D_A.ZONE,  SUM(ACC_COMPANY_VOUCHER.COMP_VOUCHER_NET_AMOUNT ) total ";
+            //    //query += "FROM ACC_LEDGER_Z_D_A,ACC_COMPANY_VOUCHER WHERE ACC_LEDGER_Z_D_A.LEDGER_NAME=ACC_COMPANY_VOUCHER.LEDGER_NAME AND ACC_COMPANY_VOUCHER.COMP_VOUCHER_TYPE =16 ";
+            //    //query += "AND ACC_COMPANY_VOUCHER.BRANCH_ID ='0001' ";
+            //    //query += "AND ACC_COMPANY_VOUCHER.COMP_VOUCHER_DATE between " + Utility.cvtSQLDateString(strFdate) + " ";
+            //    //query += "AND " + Utility.cvtSQLDateString(strTdate) + " ";
+            //    //query += "group by ACC_LEDGER_Z_D_A.ZONE ORDER BY ACC_LEDGER_Z_D_A.ZONE ";
+
+            //    string query = "SELECT ZONE,ISNULL(SUM(total),0)total,ISNULL(SUM(TARGETAMOUNT),0) TARGETAMOUNT, (CASE WHEN ISNULL(SUM(TARGETAMOUNT),0) > 0 THEN ISNULL(SUM(total),0)/ISNULL(SUM(TARGETAMOUNT),0) *100  ELSE 0 END)ACH ";
+            //    query +=" FROM SALES_TARGET_VIEW ";
+            //    query += "GROUP BY ZONE ";
+
+
+               
+            //    //DataTable dt = GetData(query)
+            //    DataTable dt;
+            //    DataSet ds = new DataSet();
+            //    SqlDataAdapter da = new SqlDataAdapter(query, gcnMain);
+            //    da.Fill(ds);
+            //    dt = ds.Tables[0];
+            //    if (dt.Rows.Count > 0)
+            //    {
+            //        try
+            //        {
+
+            //            Chart1.DataSource = ds;
+            //            Chart1.Series["Sales"].XValueMember = "ZONE";
+            //            //set the member columns of the chart data source used to data bind to the X-values of the series  
+            //            Chart1.Series["Sales"].YValueMembers = "total";
+            //            Chart1.Series["Sales"].Label = "5";
+            //            Chart1.Series["Sales"].Label = "5";
+
+            //            //foreach (DataRow row in dt.Rows)
+                    
+            //            //{
+            //            //    double dblPer = Utility.Val(row["ACH"].ToString());
+            //            //    Chart1.Series["Sales"].LegendText = dblPer + "%";
+            //            //    Chart1.Series["Sales"].Label = dblPer + "%";
+            //            //}
+            //            //Chart1.Titles.Add("Sales for the date of "+ strFdate + " to" + strTdate );
+            //            gcnMain.Close();
+                       
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            MessageBox.Show(ex.ToString());
+            //        }
+            //    }
+            //}
+        }
+
     }
 }

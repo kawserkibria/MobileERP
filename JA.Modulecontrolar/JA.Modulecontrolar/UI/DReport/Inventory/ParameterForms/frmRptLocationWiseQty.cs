@@ -130,6 +130,19 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                 }
             }
         }
+        private void mLoadLocation2()
+        {
+            lstLeftNew.Items.Clear();
+            lstRightNew.Items.Clear();
+            List<Location> oogrp = invms.mLoadLocation(strComID, Utility.gblnAccessControl, Utility.gstrUserName).ToList();
+            if (oogrp.Count > 0)
+            {
+                foreach (Location ostk in oogrp)
+                {
+                    lstLeftNew.Items.Add(ostk.strLocation);
+                }
+            }
+        }
         private void mLaodItem()
         {
             lstLeft.Items.Clear();
@@ -142,6 +155,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                     lstLeft.Items.Add(ostk.strItemName);
                 }
             }
+            mLoadLocation2();
         }
         private void frmRptLocationWiseQty_Load(object sender, EventArgs e)
         {
@@ -201,6 +215,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             grpReportOption.Enabled = true;
             radGroupwise.Checked = true;
             mLoadLocation();
+            mLoadStockGroupNew();
             groupBox7.Enabled = true;
             txtSearch.Focus();
         }
@@ -445,7 +460,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         {
             lstLeftNew.Items.Clear();
             lstRightNew.Items.Clear();
-            List<StockItem> oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "N","").ToList();
+            List<StockItem> oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "N","","").ToList();
             if (oogrp.Count > 0)
             {
                 foreach (StockItem ostk in oogrp)

@@ -13,6 +13,6 @@ namespace JA.Modulecontrolar.UI.DReport.Accms
         ContactPartyBill2, PostDateCheque, TargetAchievement, ExpenseSumm, FixedAsset, Chequeprint, Statistics,
         Audit, JVSP, Budget, userPrevilegs, AccountsVoucherMR, DoctorsReceipt, FinalStatementCustomer, CreditLimit, BankRP, MpoCommissionSP,
         SP2, HondaLoan, LedgerConfig, MpoCommManuallist, ProfitLossLedger, commitionN, SP3, ExpenseSummYearly,
-        ExpenseSummMonthly, DailyCollectionNew, PFHL, userPrevilegsMenu, PFHLClosing
+        ExpenseSummMonthly, DailyCollectionNew, PFHL, userPrevilegsMenu, PFHLClosing, PFHLDetails, IncGenview, IncPoleci, IncMonthly
     }
 }

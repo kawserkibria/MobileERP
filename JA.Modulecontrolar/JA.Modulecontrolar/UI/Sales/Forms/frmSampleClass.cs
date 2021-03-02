@@ -32,8 +32,9 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             InitializeComponent();
             RegistryKey regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\SmartAccounts");
             strComID = (String)regKey.GetValue("CompanyID", "0001");
+            
+            this.uctxtItemName.GotFocus += new System.EventHandler(this.uctxtItemName_GotFocus);
             this.uctxtItemName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtItemName_KeyPress);
-           // this.uctxtItemName.GotFocus += new System.EventHandler(this.uctxtItemName_GotFocus);
             this.uctxtItemName.KeyDown += new KeyEventHandler(uctxtItemName_KeyDown);
 
             this.uclstGrdItem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uclstGrdItem_KeyPress);
@@ -60,6 +61,10 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             return false;
         }    
         #region "User Define"
+        private void uctxtItemName_GotFocus(object sender, System.EventArgs e)
+        {
+           
+        }
         private void uclstGrdItem_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             uclstGrdItem.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Yellow;
@@ -149,11 +154,21 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         }
         private void uclstGrdItem_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Return)
+            try
             {
-                uctxtItemName.Text = Utility.GetDgValue(uclstGrdItem, uctxtItemName, 0);
-                uclstGrdItem.Visible = false;
-                uctxtQty.Focus();
+
+
+                if (e.KeyChar == (char)Keys.Return)
+                {
+                    uctxtItemName.Text = Utility.GetDgValue(uclstGrdItem, uctxtItemName, 0);
+                    uclstGrdItem.Visible = false;
+                    uctxtQty.Focus();
+                }
+               
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
@@ -194,6 +209,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         }
         private void uctxtQty_KeyPress(object sender, KeyPressEventArgs e)
         {
+            
             if (e.KeyChar == (char)Keys.Return)
             {
 
@@ -264,24 +280,11 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         }
         #endregion
         #region "All Item"
-        private void mLoadAllItem()
+        private void mLoadAllItem(string strType)
         {
             int introw = 0;
 
-            oogrp = invms.mloadAddStockItemFg(strComID, "").ToList();
-            //oogrp = invms.gFillStockItemAll("").ToList();
-            //var bil = (from tsfee in oogrp
-            //           select new
-            //           {
-            //               tsfee.strItemName,
-            //               tsfee.dblClsBalance
-            //           }).ToList();
-
-            ////uclstGrdItem.value
-            //uclstGrdItem.DataSource = bil;
-            //uclstGrdItem.Columns[1].Name = "Stock Item";
-            //uclstGrdItem.Columns[2].Name = "Cls. Qty";
-
+            oogrp = invms.mloadAddStockItemFg(strComID, strType).ToList();
             if (oogrp.Count > 0)
             {
                 foreach (StockItem ogrp in oogrp)
@@ -290,14 +293,6 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     uclstGrdItem[0, introw].Value = ogrp.strItemName;
                     uclstGrdItem[1, introw].Value = ogrp.dblClsBalance + " " + ogrp.strUnit;
 
-                    //if (introw % 2 == 0)
-                    //{
-                    //    uclstGrdItem.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
-                    //}
-                    //else
-                    //{
-                    //    uclstGrdItem.Rows[introw].DefaultCellStyle.BackColor = Color.White;
-                    //}
                     introw += 1;
                 }
                 uclstGrdItem.AllowUserToAddRows = false;
@@ -311,7 +306,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             txtClassName.Select();
             this.DG.DefaultCellStyle.Font = new Font("verdana", 10);
             DG.AllowUserToAddRows = false;
-            mLoadAllItem();
+            mLoadAllItem("p");
            
         }
 
@@ -582,6 +577,42 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
              }
          }
         #endregion
+
+        private void chkFG_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkFG_Click(object sender, EventArgs e)
+        {
+            uctxtItemName.Text = "";
+            uctxtItemName.Focus();
+
+            string strstring = "";
+            if (chkFG.Checked)
+            {
+                strstring = "F";
+            }
+            else
+            {
+                strstring = "P";
+            }
+            //uclstGrdItem.Visible = true;
+
+            mLoadAllItem(strstring);
+        }
+
+        private void uclstGrdItem_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void uctxtQty_KeyPress_1(object sender, KeyPressEventArgs e)
+        
+        
+        {
+
+        }
 
 
     }

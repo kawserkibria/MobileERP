@@ -611,7 +611,7 @@ namespace JA.Modulecontrolar.UI.Projection.Forms
             Monthload();
             lstDivision.ValueMember = "strGRName";
             lstDivision.DisplayMember = "strGRName";
-            lstDivision.DataSource = objExtra.mGetLedgerGroupLoad(strComID, 2, Utility.gstrUserName).ToList();
+            lstDivision.DataSource = objExtra.mGetLedgerGroupLoad(strComID, 2, Utility.gstrUserName, 0, "").ToList();
             DGLoad();
             txtDivision.Select();
         }

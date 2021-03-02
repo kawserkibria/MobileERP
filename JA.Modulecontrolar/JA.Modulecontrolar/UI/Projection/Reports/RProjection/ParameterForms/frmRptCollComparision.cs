@@ -522,7 +522,7 @@ namespace JA.Modulecontrolar.UI.Projection.Reports.RProjection.ParameterForms
             int introw = 0,intStatus=0;
             DGMr.Rows.Clear();
 
-            ooPartyName = invms.mfillPartyNameNew(strComID, "", true, Utility.gstrUserName, intStatus, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, "", true, Utility.gstrUserName, intStatus, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {

@@ -9,7 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 using JA.Modulecontrolar.UI.Accms.Forms;
-
+using JA.Modulecontrolar.UI.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.Win32;
 
@@ -18,6 +18,8 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
     public partial class frmCustomer : JA.Shared.UI.frmJagoronFromSearch
     {
         JACCMS.SWJAGClient accms = new SWJAGClient();
+        JINVMS.IWSINVMS invms = new JINVMS.WSINVMSClient();
+        SPWOIS objwois = new SPWOIS();
         public int intvtype { get; set; }
         private ListBox lstUnder = new ListBox();
         private ListBox lstCostCenter = new ListBox();
@@ -34,6 +36,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         private ListBox lstLedgerBranch = new ListBox();
         private ListBox lstPFLedger = new ListBox();
         private ListBox lstHLLedger = new ListBox();
+        private ListBox lstRouteName = new ListBox();
         public long lngFormPriv { get; set; }
         public int intModuleType { get; set; }
         public string strFormname { get; set; }
@@ -56,6 +59,12 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             strComID = (String)regKey.GetValue("CompanyID", "0001");
             #region "User Define Ini"
 
+            this.txtRouteName.KeyDown += new KeyEventHandler(txtRouteName_KeyDown);
+            this.txtRouteName.TextChanged += new System.EventHandler(this.txtRouteName_TextChanged);
+            this.txtRouteName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRouteName_KeyPress);
+            this.txtRouteName.GotFocus += new System.EventHandler(this.txtRouteName_GotFocus);
+            this.lstRouteName.DoubleClick += new System.EventHandler(this.lstRouteName_DoubleClick);
+
             this.txtPFLedger.KeyDown += new KeyEventHandler(txtPFLedger_KeyDown);
             this.txtPFLedger.TextChanged += new System.EventHandler(this.txtPFLedger_TextChanged);
             this.txtPFLedger.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPFLedger_KeyPress);
@@ -65,8 +74,8 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             this.txtHLLedger.KeyDown += new KeyEventHandler(txtHLLedger_KeyDown);
             this.txtHLLedger.TextChanged += new System.EventHandler(this.txtHLLedger_TextChanged);
             this.txtHLLedger.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHLLedger_KeyPress);
-            this.txtHLLedger.GotFocus += new System.EventHandler(this.txtPFLedger_GotFocus);
-            this.lstPFLedger.DoubleClick += new System.EventHandler(this.lstPFLedger_DoubleClick);
+            this.txtHLLedger.GotFocus += new System.EventHandler(this.txtHLLedger_GotFocus);
+            this.lstHLLedger.DoubleClick += new System.EventHandler(this.lstHLLedger_DoubleClick);
 
 
             this.uctxtMpoName.GotFocus += new System.EventHandler(this.uctxtMpoName_GotFocus);
@@ -246,6 +255,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             Utility.CreateListBox(lstLedgerBranch, pnlMain, uctxtLedgerBranch);
             Utility.CreateListBoxHeight(lstPFLedger, pnlMain, txtPFLedger, 0, 200);
             Utility.CreateListBoxHeight(lstHLLedger, pnlMain, txtHLLedger, 0, 100);
+            Utility.CreateListBoxHeight(lstRouteName, pnlMain, txtRouteName, 0, 100);
             #endregion
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -447,6 +457,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     }
                     if (mdblOpeningBalance > 0)
                     {
+                        
                         mdblCredit = mdblCredit + mdblOpeningBalance;
                     }
                 }
@@ -555,6 +566,83 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         }
         #endregion
         #region "User Define"
+        private void txtRouteName_TextChanged(object sender, EventArgs e)
+        {
+
+            lstRouteName.Visible = false;
+            lstRouteName.Visible = true;
+            lstRouteName.SelectedIndex = lstRouteName.FindString(txtRouteName.Text);
+        }
+
+        private void lstRouteName_DoubleClick(object sender, EventArgs e)
+        {
+            txtRouteName.Text = lstRouteName.Text;
+            lstRouteName.Visible = false;
+            btnSave.Focus();
+        }
+
+        private void txtRouteName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+
+                if (txtRouteName.Text != "")
+                {
+                    txtRouteName.Text = lstRouteName.Text;
+                    lstRouteName.Visible = false;
+                    btnSave.Focus();
+                }
+                else
+                {
+                    lstRouteName.Visible = false;
+                    btnSave.Focus();
+                }
+
+
+
+            }
+        }
+        private void txtRouteName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                if (lstRouteName.SelectedItem != null)
+                {
+                    lstRouteName.SelectedIndex = lstRouteName.SelectedIndex - 1;
+                    txtRouteName.Text = lstRouteName.Text;
+                }
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                if (lstRouteName.Items.Count - 1 > lstRouteName.SelectedIndex)
+                {
+                    lstRouteName.SelectedIndex = lstRouteName.SelectedIndex + 1;
+                    txtRouteName.Text = lstRouteName.Text;
+                }
+            }
+
+        }
+
+        private void txtRouteName_GotFocus(object sender, System.EventArgs e)
+        {
+            lstCostCenter.Visible = false;
+            lsteffectInventory.Visible = false;
+            lstUnder.Visible = false;
+            lstInactive.Visible = false;
+            lstcurrency.Visible = false;
+            lstPriceLebel.Visible = false;
+            lstBranchName.Visible = false;
+            lstCostCenterNew.Visible = false;
+            lstCostCategory.Visible = false;
+            lstTeritorryName.Visible = false;
+            lstTeritorryCode.Visible = false;
+            lstLedgerBranch.Visible = false;
+            lstPFLedger.Visible = false;
+            lstHLLedger.Visible = false;
+            lstRouteName.Visible = true;
+            lstRouteName.SelectedIndex = lstRouteName.FindString(txtRouteName.Text);
+        }
+
         private void txtHLLedger_TextChanged(object sender, EventArgs e)
         {
          
@@ -579,12 +667,12 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 {
                     txtHLLedger.Text = lstHLLedger.Text;
                     lstHLLedger.Visible = false;
-                    btnSave.Focus();
+                    txtRouteName.Focus();
                 }
                 else
                 {
                     lstHLLedger.Visible = false;
-                    btnSave.Focus();
+                    txtRouteName.Focus();
                 }
 
 
@@ -598,7 +686,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 if (lstHLLedger.SelectedItem != null)
                 {
                     lstHLLedger.SelectedIndex = lstHLLedger.SelectedIndex - 1;
-                    txtHLLedger.Text = lstPFLedger.Text;
+                    txtHLLedger.Text = lstHLLedger.Text;
                 }
             }
             if (e.KeyCode == Keys.Down)
@@ -627,7 +715,8 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
-            lstHLLedger.Visible = false;
+            lstHLLedger.Visible = true;
+            lstRouteName.Visible = false;
             lstHLLedger.SelectedIndex = lstHLLedger.FindString(txtHLLedger.Text);
         }
 
@@ -698,6 +787,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lsteffectInventory.Visible = false;
             lstPFLedger.Visible = true;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
             lstPFLedger.SelectedIndex = lstPFLedger.FindString(txtPFLedger.Text);
         }
 
@@ -730,6 +820,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false ;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void cboBkash_GotFocus(object sender, System.EventArgs e)
         {
@@ -748,6 +839,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void cboBkash_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -835,7 +927,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryName.Visible = false;
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = true;
-       
+            lstRouteName.Visible = false;
             
 
             lstLedgerBranch.ValueMember = "BranchID";
@@ -861,7 +953,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryName.Visible = false;
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = false;
-           
+            lstRouteName.Visible = false;
         }
         private void cboClass_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -971,7 +1063,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstCostCategory.Visible = false;
             lstTeritorryName.Visible = false;
             lstLedgerBranch.Visible = false;
-            //lstTeritorryCode.Visible = true ;
+            lstRouteName.Visible = false;
             lstTeritorryCode.SelectedIndex = lstTeritorryCode.FindString(uctxtTerritoryCode.Text);
         }
         private void uctxtTerritoryCode_TextChanged(object sender, EventArgs e)
@@ -1227,6 +1319,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryName.Visible = false;
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void uctxtResignDate_GotFocus(object sender, System.EventArgs e)
         {
@@ -1245,6 +1338,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryName.Visible = false;
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void txtBillDrcr_GotFocus(object sender, System.EventArgs e)
         {
@@ -1263,6 +1357,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryName.Visible = false;
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void txtBillAmount_GotFocus(object sender, System.EventArgs e)
         {
@@ -1281,6 +1376,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryName.Visible = false;
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void dtedueDate_GotFocus(object sender, System.EventArgs e)
         {
@@ -1299,6 +1395,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void txtBillRefNo_GotFocus(object sender, System.EventArgs e)
         {
@@ -1317,6 +1414,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
             lstLedgerBranch.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void dteBillDate_GotFocus(object sender, System.EventArgs e)
         {
@@ -1335,6 +1433,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryName.Visible = false;
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void txtBillDrcr_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -1475,6 +1574,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryName.Visible = false;
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = false;
+            lstRouteName.Visible = false;
             lstBillwiseBranch.SelectedIndex = lstBillwiseBranch.FindString(txtBillWiseBranch.Text);
         }
 
@@ -1541,6 +1641,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstHLLedger.Visible = false;
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void uctxtCostCenterNew_TextChanged(object sender, EventArgs e)
         {
@@ -1603,6 +1704,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryName.Visible = false;
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = false;
+            lstRouteName.Visible = false;
             if (uctxtCostCategory.Text != "")
             {
                 lstCostCenterNew.ValueMember = "strCostCenter";
@@ -1671,6 +1773,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryName.Visible = false;
             lstTeritorryCode.Visible = false;
             lstLedgerBranch.Visible = false;
+            lstRouteName.Visible = false;
             lstCostCategory.SelectedIndex = lstCostCategory.FindString(uctxtCostCategory.Text);
         }
         private void uctxtBranch_TextChanged(object sender, EventArgs e)
@@ -1738,6 +1841,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
             lstTeritorryCode.Visible = false;
+            lstRouteName.Visible = false;
             lstLedgerBranch.Visible = true;
             lstLedgerBranch.SelectedIndex = lstLedgerBranch.FindString(uctxtBranch.Text);
         }
@@ -1890,6 +1994,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void uctxtEMail_GotFocus(object sender, System.EventArgs e)
         {
@@ -1907,6 +2012,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void uctxtFax_GotFocus(object sender, System.EventArgs e)
         {
@@ -1924,6 +2030,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void uctxtPostal_GotFocus(object sender, System.EventArgs e)
         {
@@ -1941,6 +2048,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void uctxtTeritorryName_GotFocus(object sender, System.EventArgs e)
         {
@@ -1958,6 +2066,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
             lstTeritorryName.SelectedIndex = lstTeritorryName.FindString(uctxtTeritorryName.Text);
         }
         private void uctxtAddress1_GotFocus(object sender, System.EventArgs e)
@@ -1976,6 +2085,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void txtPeriod_GotFocus(object sender, System.EventArgs e)
         {
@@ -1993,6 +2103,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void uctxtCreditDate_GotFocus(object sender, System.EventArgs e)
         {
@@ -2010,6 +2121,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void txtCreditLimit_GotFocus(object sender, System.EventArgs e)
         {
@@ -2027,6 +2139,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void uctxtDrCr_GotFocus(object sender, System.EventArgs e)
         {
@@ -2044,6 +2157,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void uctxtOpeningBalance_GotFocus(object sender, System.EventArgs e)
         {
@@ -2061,6 +2175,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
 
         private void uctxtCurrency_TextChanged(object sender, EventArgs e)
@@ -2124,6 +2239,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
             lstLedgerBranch.Visible = false;
+            lstRouteName.Visible = false;
             lstcurrency.SelectedIndex = lstcurrency.FindString(uctxtCurrency.Text);
         }
 
@@ -2144,6 +2260,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
         }
         private void uctxtInactive_TextChanged(object sender, EventArgs e)
         {
@@ -2209,6 +2326,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
             lstInactive.SelectedIndex = lstInactive.FindString(uctxtInactive.Text);
         }
         private void txtPriceLevel_TextChanged(object sender, EventArgs e)
@@ -2274,6 +2392,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
             lstPriceLebel.SelectedIndex = lstPriceLebel.FindString(txtPriceLevel.Text);
         }
         private void txtBillWise_TextChanged(object sender, EventArgs e)
@@ -2340,6 +2459,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
             lstTeritorryCode.Visible = false;
+            lstRouteName.Visible = false;
             lsteffectInventory.SelectedIndex = lsteffectInventory.FindString(txtBillWise.Text);
         }
 
@@ -2405,6 +2525,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
             lstCostCenter.SelectedIndex = lstCostCenter.FindString(uctxtCostCentre.Text);
         }
         private void uctxtUnder_TextChanged(object sender, EventArgs e)
@@ -2476,6 +2597,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLedgerBranch.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
             lstUnder.SelectedIndex = lstUnder.FindString(uctxtUnder.Text);
         }
 
@@ -2533,6 +2655,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryCode.Visible = false;
             lstPFLedger.Visible = false;
             lstHLLedger.Visible = false;
+            lstRouteName.Visible = false;
 
             lstBranchName.ValueMember = "BranchID";
             lstBranchName.DisplayMember = "BranchName";
@@ -2564,6 +2687,11 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstTeritorryName.DisplayMember = "strTeritorryName";
             lstTeritorryName.DataSource = accms.mFillTeritorry(strComID, "").ToList();
 
+
+
+            lstRouteName.ValueMember = "strDeliveryRoute";
+            lstRouteName.DisplayMember = "strDeliveryRoute";
+            lstRouteName.DataSource = invms.mFillDeliveryRoute(strComID).ToList();
 
             lstHLLedger.ValueMember = "strLedgerName";
             lstHLLedger.DisplayMember = "strLedgerName";
@@ -2635,6 +2763,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     uctxtTeritorryName.Text = ooled[0].strTerritoryName;
                     txtPFLedger.Text = ooled[0].strPFLedger;
                     txtHLLedger.Text = ooled[0].strHLLedgerName;
+                    txtRouteName.Text = ooled[0].strRouteName;
 
                     uctxtOpeningBalance.Text = Math.Abs(ooled[0].dblOpnBalance).ToString();
                     mdblOpeningBalance = ooled[0].dblOpnBalance;
@@ -2970,6 +3099,12 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 cboClass.Focus();
                 return false;
             }
+            //if (txtRouteName.Text == "")
+            //{
+            //    MessageBox.Show("Cannot be Empty");
+            //    txtRouteName.Focus();
+            //    return false;
+            //}
             if (m_acction == 2)
             {
                 if (mstrOldLedger.Trim().ToUpper() != uctxtMpoName.Text.ToUpper())
@@ -3149,25 +3284,25 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 if (m_acction == 1)
                 {
 
-                    strmsg = accms.mSaveCustomerLedger(strComID, strBranchID, uctxtMpoName.Text, uctxtUnder.Text, txtPriceLevel.Text, uctxtCreditDate.Text, uctxtEMail.Text,
+                    strmsg = objwois.mSaveCustomerLedger(strComID, strBranchID, uctxtMpoName.Text, uctxtUnder.Text, txtPriceLevel.Text, uctxtCreditDate.Text, uctxtEMail.Text,
                                                         uctxtFax.Text, uctxtAddress1.Text, "", uctxtTeritorryName.Text,txtCountry.Text,txtContact.Text ,
                                                         uctxtPostal.Text, uctxtPhone.Text, txtComments.Text, uctxtCurrency.Text, txtBillWise.Text,
                                                         uctxtInactive.Text, uctxtCostCentre.Text, uctxtDrCr.Text,
                                                         dblOpnBalance, strCostcenter, strBranch,strBillGrid,
                                                         dblCreditLimit, dblPeriod, Utility.gdteFinancialYearFrom, strResindate, intStatus
                                                         , uctxtTerritoryCode.Text, uctxtTeritorryName.Text.Replace("'", "''"), strClass, intBkash, strCloseDate,
-                                                        txtPFLedger.Text, txtHLLedger.Text);
+                                                        txtPFLedger.Text, txtHLLedger.Text, txtRouteName.Text);
                                                         
                 }
                 else
                 {
-                    strmsg = accms.mUpDateCustomerLedger(strComID, mstrOldLedger, strBranchID, mlngSlNo, uctxtMpoName.Text, uctxtUnder.Text, txtPriceLevel.Text, uctxtCreditDate.Text, uctxtEMail.Text,
+                    strmsg = objwois.mUpDateCustomerLedger(strComID, mstrOldLedger, strBranchID, mlngSlNo, uctxtMpoName.Text, uctxtUnder.Text, txtPriceLevel.Text, uctxtCreditDate.Text, uctxtEMail.Text,
                                                         uctxtFax.Text, uctxtAddress1.Text, "", uctxtTeritorryName.Text, txtCountry.Text, txtContact.Text,
                                                         uctxtPostal.Text, uctxtPhone.Text, txtComments.Text, uctxtCurrency.Text, txtBillWise.Text,
                                                         uctxtInactive.Text, uctxtCostCentre.Text, uctxtDrCr.Text,
                                                         dblOpnBalance, strCostcenter, strBranch, strBillGrid,
                                                         dblCreditLimit, dblPeriod, Utility.gdteFinancialYearFrom, strResindate, intStatus
-                                                        , uctxtTerritoryCode.Text, uctxtTeritorryName.Text.Replace("'", "''"), strClass, intBkash, strCloseDate, txtPFLedger.Text, txtHLLedger.Text);
+                                                        , uctxtTerritoryCode.Text, uctxtTeritorryName.Text.Replace("'", "''"), strClass, intBkash, strCloseDate, txtPFLedger.Text, txtHLLedger.Text, txtRouteName.Text);
                 }
                 if (strmsg == "1")
                 {
@@ -3262,6 +3397,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             uctxtOpeningBalance.Text = "";
             txtCreditLimit.Text = "";
             cboCommission.Text = "Yes";
+            txtRouteName.Text="";
             m_acction = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
 
             string strDiffenece = accms.mDisplayOpening(strComID);

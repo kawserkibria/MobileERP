@@ -59,8 +59,8 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             {
                 frmLedgerConfiguration objfrm = (frmLedgerConfiguration)Application.OpenForms["frmLedgerConfiguration"];
                 objfrm.lngFormPriv = 102;
-                objfrm.Focus();
                 objfrm.MdiParent = this.MdiParent;
+                objfrm.Focus();
             }
         }
 
@@ -79,8 +79,8 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                 frmCollectionMonthSetup objfrm = new frmCollectionMonthSetup();
                 objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
                 objfrm.lngFormPriv = 16;
-                objfrm.Show();
                 objfrm.MdiParent = MdiParent;
+                objfrm.Show();
 
             }
             else
@@ -107,8 +107,8 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                 frmMpoCommManual objfrm = new frmMpoCommManual();
                 objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
                 objfrm.lngFormPriv = 174;
-                objfrm.Show();
                 objfrm.MdiParent = this.MdiParent;
+                objfrm.Show();
 
             }
             else
@@ -117,6 +117,33 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                 objfrm.lngFormPriv = 107;
                 objfrm.Focus();
                 objfrm.MdiParent = this.MdiParent;
+            }
+        }
+
+        private void btnIncentiveConfiguration_Click(object sender, EventArgs e)
+        {
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 213))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            
+            if (System.Windows.Forms.Application.OpenForms["frmIncentiveCalculation"] as frmIncentiveCalculation == null)
+            {
+                frmIncentiveCalculation objfrm = new frmIncentiveCalculation();
+                objfrm.lngFormPriv = 213;
+                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                objfrm.MdiParent = this.MdiParent;
+                objfrm.Show();
+            }
+            else
+            {
+                frmIncentiveCalculation objfrm = (frmIncentiveCalculation)Application.OpenForms["frmIncentiveCalculation"];
+                objfrm.Focus();
+
             }
         }    
        

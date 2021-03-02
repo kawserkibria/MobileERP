@@ -8,16 +8,17 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
-
+using JA.Modulecontrolar.UI.Accms.Forms;
+using JA.Modulecontrolar.UI.Forms;
 using Microsoft.VisualBasic;
 using Microsoft.Win32;
-using JA.Modulecontrolar.UI.Master.Accounts;
 
 namespace JA.Modulecontrolar.UI.Sales.Forms
 {
     public partial class frmSupplier : JA.Shared.UI.frmJagoronFromSearch
     {
         JACCMS.SWJAGClient accms = new SWJAGClient();
+        SPWOIS objwois = new SPWOIS();
         public int intvtype { get; set; }
         private ListBox lstUnder = new ListBox();
         private ListBox lstCostCenter = new ListBox();
@@ -2474,24 +2475,24 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 if (m_acction == 1)
                 {
 
-                    strmsg = accms.mSaveCustomerLedger(strComID, "", uctxtSupplierName.Text, uctxtUnder.Text, txtPriceLevel.Text, "", uctxtEMail.Text,
+                    strmsg = objwois.mSaveCustomerLedger(strComID, "", uctxtSupplierName.Text, uctxtUnder.Text, txtPriceLevel.Text, "", uctxtEMail.Text,
                                                         uctxtFax.Text, uctxtAddress1.Text, "", "",txtCountry.Text,txtContact.Text ,
                                                         uctxtPostal.Text, uctxtPhone.Text, txtComments.Text, uctxtCurrency.Text, txtBillWise.Text,
                                                         uctxtInactive.Text, uctxtCostCentre.Text, uctxtDrCr.Text,
                                                         dblOpnBalance, strCostcenter, strBranch,strBillGrid,
                                                         dblCreditLimit, dblPeriod, Utility.gdteFinancialYearFrom, strResindate, intStatus
-                                                        ,"","","",0,"","","");
+                                                        ,"","","",0,"","","","");
                                                         
                 }
                 else
                 {
-                    strmsg = accms.mUpDateCustomerLedger(strComID, mstrOldLedger, "", mlngSlNo, uctxtSupplierName.Text, uctxtUnder.Text, txtPriceLevel.Text, "", uctxtEMail.Text,
+                    strmsg = objwois.mUpDateCustomerLedger(strComID, mstrOldLedger, "", mlngSlNo, uctxtSupplierName.Text, uctxtUnder.Text, txtPriceLevel.Text, "", uctxtEMail.Text,
                                                         uctxtFax.Text, uctxtAddress1.Text, "", "", txtCountry.Text, txtContact.Text,
                                                         uctxtPostal.Text, uctxtPhone.Text, txtComments.Text, uctxtCurrency.Text, txtBillWise.Text,
                                                         uctxtInactive.Text, uctxtCostCentre.Text, uctxtDrCr.Text,
                                                         dblOpnBalance, strCostcenter, strBranch, strBillGrid,
                                                         dblCreditLimit, dblPeriod, Utility.gdteFinancialYearFrom, strResindate, intStatus
-                                                        , "", "","",0,"","","");
+                                                        , "", "","",0,"","","","");
                 }
                 if (strmsg == "1")
                 {
@@ -2610,10 +2611,10 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            //frmTreeView objfrm = new frmTreeView();
-            //objfrm.strType = "C";
-            //objfrm.MdiParent = this.MdiParent;
-            //objfrm.Show();
+            frmTreeView objfrm = new frmTreeView();
+            objfrm.strType = "C";
+            objfrm.MdiParent = this.MdiParent;
+            objfrm.Show();
         }
 
         private void dgBranch_CellEndEdit(object sender, DataGridViewCellEventArgs e)

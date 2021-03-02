@@ -24,6 +24,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         private int mintIsPrin { get; set; }
         public long lngFormPriv { get; set; }
         public string strFormName { get; set; }
+        private string mstrPrserveSql { get; set; }
         private string strComID { get; set; }
         List<InvoiceConfig> oinv;
         public int mintVtype { get; set; }
@@ -93,6 +94,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             #endregion
 
         }
+        #region "Formating"
         private void uclstGrdItem_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             uclstGrdItem.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Yellow;
@@ -113,6 +115,7 @@ namespace JA.Modulecontrolar.UI.Inventory
 
             return false;
         }
+        #endregion
         #region "PriorSetFocus"
         private void PriorSetFocusText(TextBox txtbox, object sender, KeyPressEventArgs e)
         {
@@ -220,7 +223,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 uctxtProcessName.Focus();
               
                 DG.Rows.Clear();
-                List<ManuProcess> omanuProcess = invms.mDisplayProcess(strComID, vstrProcess,"P").ToList();
+                List<ManuProcess> omanuProcess = invms.mDisplayProcess(strComID, vstrProcess,"S").ToList();
                 if (omanuProcess.Count > 0)
                 {
                     foreach (ManuProcess ts in omanuProcess)
@@ -230,25 +233,27 @@ namespace JA.Modulecontrolar.UI.Inventory
                             DG.Rows.Add();
                             if (dblMaualQty == 0)
                             {
-                                DG[0, intfg].Value = ts.stritemName;
-                                DG[2, intfg].Value = ts.dblqnty;
-                                DG[3, intfg].Value = ts.strUnit;
+                                DG[0, intfg].Value = ts.strGroupName ;
+                                DG[1, intfg].Value = ts.stritemName;
+                                DG[3, intfg].Value = ts.dblqnty;
+                                DG[4, intfg].Value = ts.strUnit;
                                 //dblrate = Utility.gdblGetCostPrice(strComID, ts.stritemName, dteDate.Text);
                                 dblrate = Utility.gdblGetCostPriceNew(strComID, ts.stritemName, dteDate.Text);
-                                DG[4, intfg].Value = dblrate;
-                                DG[5, intfg].Value = Math.Round(ts.dblqnty * dblrate, 2);
-                                DG[7, intfg].Value = "Delete";
+                                DG[5, intfg].Value = dblrate;
+                                DG[6, intfg].Value = Math.Round(ts.dblqnty * dblrate, 2);
+                                DG[8, intfg].Value = "Delete";
                             }
                             else
                             {
-                                DG[0, intfg].Value = ts.stritemName;
-                                DG[2, intfg].Value = ts.dblqnty * dblMaualQty;
-                                DG[3, intfg].Value = ts.strUnit;
+                                DG[0, intfg].Value = ts.strGroupName;
+                                DG[1, intfg].Value = ts.stritemName;
+                                DG[3, intfg].Value = ts.dblqnty * dblMaualQty;
+                                DG[4, intfg].Value = ts.strUnit;
                                 //dblrate = Utility.gdblGetCostPrice(strComID, ts.stritemName, dteDate.Text);
                                 dblrate = Utility.gdblGetCostPriceNew(strComID, ts.stritemName, dteDate.Text);
-                                DG[4, intfg].Value = dblrate;
-                                DG[5, intfg].Value = Math.Round((ts.dblqnty * dblMaualQty) * dblrate, 2);
-                                DG[7, intfg].Value = "Delete";
+                                DG[5, intfg].Value = dblrate;
+                                DG[6, intfg].Value = Math.Round((ts.dblqnty * dblMaualQty) * dblrate, 2);
+                                DG[8, intfg].Value = "Delete";
                             }
                             intfg += 1;
                             DG.AllowUserToAddRows = false;
@@ -322,6 +327,12 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstProcess.Visible = true;
             uclstGrdItem.Visible = false;
             uctxtProcessManuQty.Text = "0";
+            if (uctxtFromLocation.Text != "")
+            {
+                lstProcess.ValueMember = "strProcessName";
+                lstProcess.DisplayMember = "strProcessName";
+                lstProcess.DataSource = invms.mLoadProcessNew(strComID, "", "", 0, 0,uctxtFromLocation.Text).ToList();
+            }
             lstProcess.SelectedIndex = lstProcess.FindString(uctxtProcessName.Text);
         }
 
@@ -527,9 +538,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         private void uctxtNarration_GotFocus(object sender, System.EventArgs e)
         {
             lstBranch.Visible = false;
-           
             lstFromLocation.Visible = false;
-           
             uclstGrdItem.Visible = false;
             lstProcess.Visible = false;
         }
@@ -578,49 +587,58 @@ namespace JA.Modulecontrolar.UI.Inventory
             int selRaw;
             string strDown = "";
             Boolean blngCheck = false;
-            for (int j = 0; j < dg.RowCount; j++)
+            try
             {
-                if (dg[0, j].Value != null)
+                for (int j = 0; j < dg.RowCount; j++)
                 {
-                    strDown = dg[0, j].Value.ToString();
+                    if (dg[1, j].Value != null)
+                    {
+                        strDown = dg[1, j].Value.ToString();
+                    }
+                    if (strItemName == strDown.ToString())
+                    {
+                        blngCheck = true;
+                    }
+
                 }
-                if (strItemName == strDown.ToString())
+                if (blngCheck == false)
                 {
-                    blngCheck = true;
+
+                    dg.AllowUserToAddRows = true;
+                    if (strBatch == Utility.gcEND_OF_LIST)
+                    {
+                        strBatch = "";
+                    }
+
+                    selRaw = Convert.ToInt16(dg.RowCount.ToString());
+                    selRaw = selRaw - 1;
+                    dg.Rows.Add();
+                    dg[0, selRaw].Value = Utility.gGetStockGroup(strComID, strItemName).ToString();
+                    dg[3, selRaw].Value = 0;
+                    dg[1, selRaw].Value = strItemName.ToString();
+                    dg[2, selRaw].Value = 0;
+                    dg[3, selRaw].Value = dblQty;
+                    dg[4, selRaw].Value = Utility.gGetBaseUOM(strComID, strItemName.ToString());
+                    dg[5, selRaw].Value = dblRate;
+                    dg[6, selRaw].Value = (dblQty * dblRate);
+                    dg[7, selRaw].Value = strBatch;
+                    dg[8, selRaw].Value = "Delete";
+                    dg.AllowUserToAddRows = false;
+
+
+                    calculateTotal();
+                    dg.ClearSelection();
+                    int nColumnIndex = 2;
+                    int nRowIndex = dg.Rows.Count - 1;
+                    dg.Rows[nRowIndex].Cells[nColumnIndex].Selected = true;
+                    dg.FirstDisplayedScrollingRowIndex = nRowIndex;
+                  
                 }
+            }
+            catch (Exception ex)
+            {
 
             }
-            if (blngCheck == false)
-            {
-
-                dg.AllowUserToAddRows = true;
-                if (strBatch == Utility.gcEND_OF_LIST)
-                {
-                    strBatch = "";
-                }
-
-                selRaw = Convert.ToInt16(dg.RowCount.ToString());
-                selRaw = selRaw - 1;
-                dg.Rows.Add();
-                dg[0, selRaw].Value = strItemName.ToString();
-                dg[1, selRaw].Value = 0;
-                dg[2, selRaw].Value = dblQty;
-                dg[3, selRaw].Value = Utility.gGetBaseUOM(strComID, strItemName.ToString());
-                dg[4, selRaw].Value = dblRate;
-                dg[5, selRaw].Value = (dblQty * dblRate);
-                dg[6, selRaw].Value = strBatch;
-                dg[7, selRaw].Value = "Delete";
-                dg.AllowUserToAddRows = false;
-               
-                
-                calculateTotal();
-                dg.ClearSelection();
-                int nColumnIndex = 2;
-                int nRowIndex = dg.Rows.Count - 1;
-                dg.Rows[nRowIndex].Cells[nColumnIndex].Selected = true;
-                dg.FirstDisplayedScrollingRowIndex = nRowIndex;
-            }
-
         }
        
 
@@ -633,7 +651,6 @@ namespace JA.Modulecontrolar.UI.Inventory
         private void lstFromLocation_DoubleClick(object sender, EventArgs e)
         {
             uctxtFromLocation.Text = lstFromLocation.Text;
-          
             uctxtProcessName.Focus();
         }
 
@@ -645,7 +662,6 @@ namespace JA.Modulecontrolar.UI.Inventory
                 {
                     uctxtFromLocation.Text = lstFromLocation.Text;
                 }
-              
                 uctxtProcessName.Focus();
             }
             if (e.KeyChar == (char)Keys.Back)
@@ -657,11 +673,29 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             int introw = 0;
             uclstGrdItem.Rows.Clear();
+            //string strLocation = "Main Location";
             string strBranchID = Utility.gstrGetBranchIDfromGodown(strComID, uctxtFromLocation.Text.Trim());
-            oogrp = objWIS.mGetProductStatementView(strComID, "", strBranchID, uctxtFromLocation.Text,"NOTIN").ToList();
+            if (uctxtFromLocation.Text =="")
+            {
+                MessageBox.Show("Location Cannot be empty");
+                uctxtFromLocation.Focus();
+                return;
+            }
+            if (chkFG.Checked)
+            {
+                oogrp = objWIS.mGetProductRequisition(strComID, "", strBranchID, uctxtFromLocation.Text, "FGU").ToList();
+            }
+            else if (chkStationary.Checked)
+            {
+                oogrp = objWIS.mGetProductRequisition(strComID, "", strBranchID, uctxtFromLocation.Text, "STA").ToList();
+            }
+            else
+            {
+                oogrp = objWIS.mGetProductRequisition(strComID, "", strBranchID, uctxtFromLocation.Text, "NOTIN").ToList();
+            }
             if (oogrp.Count > 0)
             {
-
+               
                 foreach (StockItem ogrp in oogrp)
                 {
                     uclstGrdItem.Rows.Add();
@@ -730,6 +764,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         #region "Load"
         private void frmStockDamage_Load(object sender, EventArgs e)
         {
+            string strYesNo = "Y";
             mGetConfig();
             mClear(); ;
             oinv = invms.mGetInvoiceConfig(strComID).ToList();
@@ -738,27 +773,53 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstProcess.Visible = false;
             DG.AllowUserToAddRows = false;
 
-            frmLabel.Text = "Stock Requsition";
+            frmLabel.Text = "Stock Requisition";
             this.DG.DefaultCellStyle.Font = new Font("verdana", 9);
-            DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 300, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, false, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
-            DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 202, m_action))
+                {
+                    strYesNo = "N";
+                }
+            }
+           
+          
+            if (strYesNo == "Y")
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Group Name", "Group Name", 170, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 170, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 80, true, DataGridViewContentAlignment.TopLeft, false));
+                DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 60, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+              
+            }
+            else
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Group Name", "Group Name", 180, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 250, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 150, true, DataGridViewContentAlignment.TopLeft, false));
+                DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                label8.Visible = false;
+                lblAmount.Visible = false;
+            }
             DG.Columns.Add(Utility.Create_Grid_Column("Batch", "Batch", 150, false, DataGridViewContentAlignment.TopLeft, true));
             DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 80, true, DataGridViewContentAlignment.TopCenter, true));
             DG.Columns.Add(Utility.Create_Grid_Column("InvTranKey", "InvTranKey", 200, false, DataGridViewContentAlignment.TopLeft, true));
 
-          
+            //DG.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            //DG.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            //DG.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             
             lstFromLocation.ValueMember = "strLocation";
             lstFromLocation.DisplayMember = "strLocation";
             lstFromLocation.DataSource = invms.gLoadLocation(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName,2).ToList();
 
-            lstProcess.ValueMember = "strProcessName";
-            lstProcess.DisplayMember = "strProcessName";
-            lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", 0,0).ToList();
+           
 
             lstBranch.ValueMember = "BranchID";
             lstBranch.DisplayMember = "BranchName";
@@ -783,6 +844,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             uctxtNarration.Text = "";
             uctxtProcessName.Text = "";
             lblQnty.Text = "";
+            uctxtBatch1.Text = "";
             m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
             if (mblnNumbMethod)
             {
@@ -808,9 +870,9 @@ namespace JA.Modulecontrolar.UI.Inventory
 
             for (int i = 0; i < DG.Rows.Count; i++)
             {
-                DG.Rows[i].Cells[5].Value = Utility.Val(DG.Rows[i].Cells[2].Value.ToString()) * Utility.Val(DG.Rows[i].Cells[4].Value.ToString());
-                dblamnt = dblamnt + Utility.Val(DG.Rows[i].Cells[5].Value.ToString());
-                dblQnty = dblQnty + Utility.Val(DG.Rows[i].Cells[2].Value.ToString());
+                DG.Rows[i].Cells[6].Value = Utility.Val(DG.Rows[i].Cells[3].Value.ToString()) * Utility.Val(DG.Rows[i].Cells[5].Value.ToString());
+                dblamnt = dblamnt + Utility.Val(DG.Rows[i].Cells[6].Value.ToString());
+                dblQnty = dblQnty + Utility.Val(DG.Rows[i].Cells[3].Value.ToString());
             }
 
             lblAmount.Text =  dblamnt.ToString();
@@ -874,9 +936,9 @@ namespace JA.Modulecontrolar.UI.Inventory
                 {
                     if (DG[0, i].Value.ToString() != "")
                     {
-                        if (DG[8, i].Value != null)
+                        if (DG[9, i].Value != null)
                         {
-                            strBillKey = DG[8, i].Value.ToString();
+                            strBillKey = DG[9, i].Value.ToString();
                         }
                         else
                         {
@@ -884,21 +946,21 @@ namespace JA.Modulecontrolar.UI.Inventory
                         }
 
                         //dblClosingQTY = Utility.gdblClosingStock(strComID, DG[0, i].Value.ToString(), uctxtFromLocation.Text, dteDate.Text);
-                        dblClosingQTY = Utility.gdblClosingStockSales(strComID, DG[0, i].Value.ToString(), strBranchID, "",uctxtFromLocation.Text);
+                        dblClosingQTY = Utility.gdblClosingStockSales(strComID, DG[1, i].Value.ToString(), strBranchID, "",uctxtFromLocation.Text);
                         if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                         {
-                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey, uctxtFromLocation.Text);
                         }
-                        dblCurrentQTY = Utility.Val(DG[2, i].Value.ToString());
+                        dblCurrentQTY = Utility.Val(DG[3, i].Value.ToString());
                         if ((dblClosingQTY) - dblCurrentQTY < 0)
                         {
-                            strNegetiveItem = strNegetiveItem + Environment.NewLine + DG[0, i].Value.ToString();
+                            strNegetiveItem = strNegetiveItem + Environment.NewLine + DG[1, i].Value.ToString();
                             intCheckNegetive = 1;
                             dblClosingQTY = 0;
                         }
                         else if (dblClosingQTY == 0)
                         {
-                            strNegetiveItem = strNegetiveItem + Environment.NewLine + DG[0, i].Value.ToString();
+                            strNegetiveItem = strNegetiveItem + Environment.NewLine + DG[1, i].Value.ToString();
                             intCheckNegetive = 1;
                             dblClosingQTY = 0;
                         }
@@ -923,7 +985,21 @@ namespace JA.Modulecontrolar.UI.Inventory
         #region "Click"
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string i = "", strGrid = "", strBranchID = "", strRefNo = "";
+            string i = "", strGrid = "", strBranchID = "", strRefNo = "", strBatch = "";
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, lngFormPriv, m_action))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            if (txtBranch.Text == "")
+            {
+                MessageBox.Show("Branch Name Cannot be Empty");
+                txtBranch.Focus();
+                return;
+            }
             if (uctxtInvoiceNo.Text == "")
             {
                 MessageBox.Show("Requisition No Cannot be Empty");
@@ -937,6 +1013,18 @@ namespace JA.Modulecontrolar.UI.Inventory
                 uctxtItemName.Focus();
                 return;
             }
+            string strLockvoucher = Utility.gLockVocher(strComID, mintVtype);
+            long lngDate = Convert.ToInt64(dteDate.Value.ToString("yyyyMMdd"));
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
+                {
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return;
+                }
+            }
+
             strBranchID = Utility.gstrGetBranchID(strComID, txtBranch.Text);
             if (m_action == 1)
             {
@@ -947,13 +1035,13 @@ namespace JA.Modulecontrolar.UI.Inventory
                     {
                         for (int introw = 0; introw < DG.Rows.Count; introw++)
                         {
-                            strGrid += DG[0, introw].Value.ToString() + "|" + DG[2, introw].Value.ToString() + "|" + DG[3, introw].Value.ToString() +
-                                                    "|" + DG[4, introw].Value.ToString() + "|" + DG[5, introw].Value.ToString() + "~";
+                            strGrid += DG[1, introw].Value.ToString() + "|" + DG[3, introw].Value.ToString() + "|" + DG[4, introw].Value.ToString() +
+                                                    "|" + DG[5, introw].Value.ToString() + "|" + DG[6, introw].Value.ToString() + "~";
                         }
-                     
+
                         if (mblnNumbMethod)
                         {
-                            strRefNo = gobjVoucherName.VoucherName.GetVoucherString(mintVtype) + strBranchID + uctxtInvoiceNo.Text;
+                            strRefNo = gobjVoucherName.VoucherName.GetVoucherString(mintVtype) + strBranchID + Utility.gstrLastNumber(strComID, mintVtype);
 
                         }
                         else
@@ -962,14 +1050,39 @@ namespace JA.Modulecontrolar.UI.Inventory
                             strRefNo = gobjVoucherName.VoucherName.GetVoucherString(mintVtype) + strBranchID + uctxtInvoiceNo.Text;
                         }
 
+                        strBatch = uctxtBatch1.Text;
+
                         i = invms.mSaveRequisition(strComID, strRefNo, mintVtype, dteDate.Value.ToShortDateString(),
                              Utility.Val(lblAmount.Text), Utility.gCheckNull(uctxtNarration.Text), strBranchID,
-                               uctxtFromLocation.Text, uctxtProcessName.Text, Utility.Val(lblQnty.Text), 1, strGrid, mblnNumbMethod);
+                               uctxtFromLocation.Text, uctxtProcessName.Text, Utility.Val(lblQnty.Text), 1, strGrid, mblnNumbMethod, strBatch);
 
                         if (i == "Inserted...")
                         {
                             btnNew.PerformClick();
                             mClear();
+                            if (Utility.gblnAccessControl)
+                            {
+                                if (Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 206, m_action))
+                                {
+                                    JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer();
+                                    frmviewer.selector = JA.Modulecontrolar.UI.DReport.Inventory.ViewerSelector.StockRequisition;
+                                    frmviewer.strFdate = "";
+                                    frmviewer.strString = Utility.Mid(strRefNo, 6, strRefNo.Length - 6);
+                                    frmviewer.strSelction = "T";
+                                    frmviewer.Show();
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer();
+                                frmviewer.selector = JA.Modulecontrolar.UI.DReport.Inventory.ViewerSelector.StockRequisition;
+                                frmviewer.strFdate = "";
+                                frmviewer.strString = Utility.Mid(strRefNo, 6, strRefNo.Length - 6);
+                                frmviewer.strSelction = "T";
+                                frmviewer.Show();
+                                return;
+                            }
 
                         }
 
@@ -992,38 +1105,16 @@ namespace JA.Modulecontrolar.UI.Inventory
                     {
                         for (int introw = 0; introw < DG.Rows.Count; introw++)
                         {
-                            strGrid += DG[0, introw].Value.ToString() + "|" + DG[2, introw].Value.ToString() + "|" + DG[3, introw].Value.ToString() +
-                                                    "|" + DG[4, introw].Value.ToString() + "|" + DG[5, introw].Value.ToString() + "~";
+                            strGrid += DG[1, introw].Value.ToString() + "|" + DG[3, introw].Value.ToString() + "|" + DG[4, introw].Value.ToString() +
+                                                    "|" + DG[5, introw].Value.ToString() + "|" + DG[6, introw].Value.ToString() + "~";
                         }
-                        //if (mintVtype == (long)Utility.VOUCHER_TYPE.vtSTOCK_MFG_VOUCHER)
-                        //{
-                        //    if (mblnNumbMethod)
-                        //    {
-                        //        strRefNo = gobjVoucherName.VoucherName.GetVoucherString(mintVtype) + strBranchID + Utility.gstrLastNumber(strComID, (int)mintVtype);
 
-                        //    }
-                        //    else
-                        //    {
 
-                        //        strRefNo = gobjVoucherName.VoucherName.GetVoucherString(mintVtype) + strBranchID + Utility.gstrLastNumber(strComID, (int)mintVtype);
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    if (mblnNumbMethod)
-                        //    {
-                        //        strRefNo = gobjVoucherName.VoucherName.GetVoucherString(mintVtype) + strBranchID + Utility.gstrLastNumber(strComID, (int)mintVtype);
-                        //    }
-                        //    else
-                        //    {
-                        //        strRefNo = gobjVoucherName.VoucherName.GetVoucherString(mintVtype) + strBranchID + Utility.gstrLastNumber(strComID, (int)mintVtype);
-                        //    }
-                        //}
-
+                        strBatch = uctxtBatch1.Text;
 
                         i = invms.mUpdateRequisitionNew(strComID, textBox1.Text, uctxtInvoiceNo.Text, mintVtype, dteDate.Value.ToShortDateString(),
                                  Utility.Val(lblAmount.Text), Utility.gCheckNull(uctxtNarration.Text), strBranchID,
-                                   uctxtFromLocation.Text, uctxtProcessName.Text, Utility.Val(lblQnty.Text), 1, strGrid, mblnNumbMethod);
+                                   uctxtFromLocation.Text, uctxtProcessName.Text, Utility.Val(lblQnty.Text), 1, strGrid, mblnNumbMethod, strBatch);
 
                         if (i == "Updated...")
                         {
@@ -1031,7 +1122,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                             mClear();
 
                         }
-                       
+
                     }
 
 
@@ -1048,7 +1139,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         }
         private void DG_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 7)
+            if (e.ColumnIndex == 8)
             {
                 DG.Rows.RemoveAt(e.RowIndex);
             }
@@ -1060,8 +1151,9 @@ namespace JA.Modulecontrolar.UI.Inventory
             mClear();
             frmStockRequisitionList objfrm = new frmStockRequisitionList();
             objfrm.intvType = mintVtype;
-            //objfrm.lngFormPriv = lngFormPriv;
+            objfrm.lngFormPriv = lngFormPriv;
             objfrm.onAddAllButtonClicked = new frmStockRequisitionList.AddAllClick(DisplayVoucherList);
+            objfrm.strPreserveSQl = mstrPrserveSql;
             objfrm.Show();
             objfrm.MdiParent = MdiParent;
             uctxtInvoiceNo.Focus();
@@ -1088,6 +1180,8 @@ namespace JA.Modulecontrolar.UI.Inventory
                 dteDate.Text = tests[0].strDate;
                 uctxtNarration.Text = tests[0].strNarration;
                 txtBranch.Text = tests[0].strBranchName;
+                uctxtBatch1.Text = tests[0].strBatch;
+                mstrPrserveSql = tests[0].strPreserveSQL;
                 List<StockItem> oRm = objWIS.mFillDisplayStockRequisition(strComID, tests[0].strRefNo).ToList();
                 {
                     if (oRm.Count > 0)
@@ -1097,15 +1191,16 @@ namespace JA.Modulecontrolar.UI.Inventory
 
                             DG.Rows.Add();
                             //dblclsQnty = Utility.gdblClosingStock(ooRm.strItemName, oRm[0].strLocation, "");
-                            DG[0, intrm].Value = ooRm.strItemName;
-                            DG[1, intrm].Value = "";
-                            DG[2, intrm].Value = Math.Abs(ooRm.dblOpnQty);
-                            DG[3, intrm].Value = ooRm.strToUnit;
-                            DG[4, intrm].Value = Math.Abs(ooRm.dblOpnRate);
-                            DG[5, intrm].Value = Math.Abs(ooRm.dblOpnValue);
-                            DG[6, intrm].Value = "";
-                            DG[7, intrm].Value = "Delete";
-                            DG[8, intrm].Value = ooRm.strBillKey;
+                            DG[0, intrm].Value = ooRm.strItemGroup;
+                            DG[1, intrm].Value = ooRm.strItemName;
+                            DG[2, intrm].Value = "";
+                            DG[3, intrm].Value = Math.Abs(ooRm.dblOpnQty);
+                            DG[4, intrm].Value = ooRm.strToUnit;
+                            DG[5, intrm].Value = Math.Abs(ooRm.dblOpnRate);
+                            DG[6, intrm].Value = Math.Abs(ooRm.dblOpnValue);
+                            DG[7, intrm].Value = "";
+                            DG[8, intrm].Value = "Delete";
+                            DG[9, intrm].Value = ooRm.strBillKey;
                             intrm += 1;
                             DG.AllowUserToAddRows = false;
 
@@ -1186,20 +1281,115 @@ namespace JA.Modulecontrolar.UI.Inventory
         #region "CellEdut"
         private void DG_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            DG.Rows[e.RowIndex].Cells[5].Value = Utility.Val(DG.Rows[e.RowIndex].Cells[2].Value.ToString()) * Utility.Val(DG.Rows[e.RowIndex].Cells[4].Value.ToString());
+            DG.Rows[e.RowIndex].Cells[6].Value = Utility.Val(DG.Rows[e.RowIndex].Cells[3].Value.ToString()) * Utility.Val(DG.Rows[e.RowIndex].Cells[5].Value.ToString());
             calculateTotal();
         }
         #endregion
-
+        #region "Click"
         private void btnGenerate_Click(object sender, EventArgs e)
         {
             if (uctxtProcessName.Text != "")
             {
                 
                 DisplayProcessRm(uctxtProcessName.Text, Utility.Val(uctxtProcessManuQty.Text));
+                uctxtNarration.Focus();
             }
         }
-   
+        #endregion
+
+        private void chkFG_Click(object sender, EventArgs e)
+        {
+            if (chkFG.Checked == true)
+            {
+                chkStationary.Checked = false;
+                mLoadAllItem();
+            }
+          
+        }
+
+        private void btnSerach1_Click(object sender, EventArgs e)
+        {
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 62))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmBatchconfig"] as frmBatchconfig == null)
+            {
+                frmBatchconfig objfrm = new frmBatchconfig();
+                objfrm.MdiParent = this.MdiParent;
+                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                objfrm.lngFormPriv = 62;
+                objfrm.strFormName = "Batch Configuration";
+                objfrm.mSingleEntry = 1;
+                objfrm.MdiParent = this.MdiParent;
+                objfrm.onAddAllButtonClicked = new frmBatchconfig.AddAllClick(Display);
+                objfrm.Show();
+
+            }
+            else
+            {
+                frmBatchconfig objfrm = (frmBatchconfig)Application.OpenForms["frmBatchconfig"];
+                objfrm.strFormName = "Batch Configuration";
+                objfrm.lngFormPriv = 62;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
+        }
+
+
+        private void Display(List<Batch> tests, object sender, EventArgs e)
+        {
+            try
+            {
+                uctxtBatch1.Text = tests[0].strLogNo;
+                uctxtFromLocation.Focus();
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnDisplay_Click(object sender, EventArgs e)
+        {
+            frmBatchConfigList objfrm = new frmBatchConfigList();
+            objfrm.onAddAllButtonClicked = new frmBatchConfigList.AddAllClick(DisplayVoucherList);
+            objfrm.MdiParent = MdiParent;
+            objfrm.lngFormPriv = lngFormPriv;
+            objfrm.strPreserveSQl = mstrPrserveSql;
+            objfrm.Show();
+            objfrm.MdiParent = this.MdiParent;
+        }
+        private void DisplayVoucherList(List<Batch> tests, object sender, EventArgs e)
+        {
+            try
+            {
+                List<Batch> oogrp = invms.mDisPlaybatch(strComID, Convert.ToInt64(tests[0].lngSlno), "", "", "", "", "", "").ToList();
+                if (oogrp.Count > 0)
+                {
+                    uctxtBatch1.Text = oogrp[0].strLogNo;
+                    uctxtFromLocation.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void chkStationary_Click(object sender, EventArgs e)
+        {
+            if (chkStationary.Checked == true)
+            {
+                chkFG.Checked = false;
+                mLoadAllItem();
+            }
+        }
     }
 
 }

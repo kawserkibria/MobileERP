@@ -46,6 +46,7 @@
             this.uctxtTeritorryName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.uctxtTerritoryCode = new System.Windows.Forms.TextBox();
+            this.chkSuppress = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -61,6 +62,7 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.chkSuppress);
             this.pnlMain.Controls.Add(this.label6);
             this.pnlMain.Controls.Add(this.uctxtTeritorryName);
             this.pnlMain.Controls.Add(this.label4);
@@ -103,19 +105,19 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(358, 398);
+            this.btnClose.Location = new System.Drawing.Point(373, 397);
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(236, 398);
+            this.btnPrint.Location = new System.Drawing.Point(251, 397);
             this.btnPrint.Size = new System.Drawing.Size(119, 39);
             this.btnPrint.Text = "Preview";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 446);
+            this.groupBox1.Location = new System.Drawing.Point(0, 437);
             this.groupBox1.Size = new System.Drawing.Size(487, 25);
             // 
             // groupBox6
@@ -323,10 +325,21 @@
             this.uctxtTerritoryCode.TabIndex = 15;
             this.uctxtTerritoryCode.Visible = false;
             // 
+            // chkSuppress
+            // 
+            this.chkSuppress.AutoSize = true;
+            this.chkSuppress.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkSuppress.Location = new System.Drawing.Point(379, 454);
+            this.chkSuppress.Name = "chkSuppress";
+            this.chkSuppress.Size = new System.Drawing.Size(97, 18);
+            this.chkSuppress.TabIndex = 19;
+            this.chkSuppress.Text = "0 Suppress";
+            this.chkSuppress.UseVisualStyleBackColor = true;
+            // 
             // frmRptGroupSummary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(487, 471);
+            this.ClientSize = new System.Drawing.Size(487, 462);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
@@ -366,5 +379,6 @@
         private System.Windows.Forms.CheckBox chkClosing;
         private System.Windows.Forms.CheckBox chkTransaction;
         private System.Windows.Forms.CheckBox chkOpening;
+        private System.Windows.Forms.CheckBox chkSuppress;
     }
 }

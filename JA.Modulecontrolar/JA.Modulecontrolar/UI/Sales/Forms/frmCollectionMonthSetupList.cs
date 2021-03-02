@@ -51,7 +51,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             int introw = 0;
             this.DG.DefaultCellStyle.Font = new Font("verdana", 9);
             DG.Rows.Clear();
-            List<AccountdGroup> oogrp = accms.mDisplayMonthsetupList(strComID, "").ToList();
+            List<AccountdGroup> oogrp = accms.mDisplayMonthsetupList(strComID, "",Utility.gdteFinancialYearFrom,Utility.gdteFinancialYearTo).ToList();
             if (oogrp.Count > 0)
             {
                 foreach (AccountdGroup ogrp in oogrp)

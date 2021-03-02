@@ -37,6 +37,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dteFromDate = new System.Windows.Forms.DateTimePicker();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.cboGroupName = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -48,6 +49,7 @@
             this.lstRight = new System.Windows.Forms.ListBox();
             this.lstLeft = new System.Windows.Forms.ListBox();
             this.grpGroup = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtSerchGroup = new System.Windows.Forms.TextBox();
             this.btnLeftAllNew = new System.Windows.Forms.Button();
@@ -57,11 +59,13 @@
             this.lstRightNew = new System.Windows.Forms.ListBox();
             this.lstLeftNew = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rbtnPacksize = new System.Windows.Forms.RadioButton();
             this.rbtnPackingRawStock = new System.Windows.Forms.RadioButton();
             this.rbtnConsumption = new System.Windows.Forms.RadioButton();
             this.rbtnClassPower = new System.Windows.Forms.RadioButton();
             this.rbtnFG = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.txtSearchPower = new System.Windows.Forms.TextBox();
             this.btnLeftAllPower = new System.Windows.Forms.Button();
@@ -95,15 +99,16 @@
             this.pnlMain.Controls.Add(this.groupBox6);
             this.pnlMain.Controls.Add(this.groupBox2);
             this.pnlMain.Location = new System.Drawing.Point(0, -86);
-            this.pnlMain.Size = new System.Drawing.Size(704, 673);
+            this.pnlMain.Size = new System.Drawing.Size(726, 674);
+            this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
             // 
             // pnlTop
             // 
-            this.pnlTop.Size = new System.Drawing.Size(707, 58);
+            this.pnlTop.Size = new System.Drawing.Size(726, 58);
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(492, 605);
+            this.btnEdit.Location = new System.Drawing.Point(495, 602);
             this.btnEdit.Size = new System.Drawing.Size(10, 14);
             // 
             // btnSave
@@ -113,7 +118,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(605, 605);
+            this.btnDelete.Location = new System.Drawing.Point(608, 602);
             this.btnDelete.Size = new System.Drawing.Size(10, 14);
             // 
             // btnNew
@@ -123,14 +128,14 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(596, 593);
+            this.btnClose.Location = new System.Drawing.Point(618, 590);
             this.btnClose.Visible = true;
             // 
             // btnPrint
             // 
             this.btnPrint.ImageIndex = -1;
             this.btnPrint.ImageKey = "print.png";
-            this.btnPrint.Location = new System.Drawing.Point(471, 593);
+            this.btnPrint.Location = new System.Drawing.Point(493, 590);
             this.btnPrint.Size = new System.Drawing.Size(124, 39);
             this.btnPrint.Text = "Preview";
             this.btnPrint.Visible = true;
@@ -138,17 +143,17 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 634);
-            this.groupBox1.Size = new System.Drawing.Size(707, 25);
+            this.groupBox1.Location = new System.Drawing.Point(0, 629);
+            this.groupBox1.Size = new System.Drawing.Size(726, 25);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.radSelection);
             this.groupBox2.Controls.Add(this.radAllItem);
             this.groupBox2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(11, 142);
+            this.groupBox2.Location = new System.Drawing.Point(5, 149);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(144, 71);
+            this.groupBox2.Size = new System.Drawing.Size(173, 71);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Selection Option";
@@ -185,9 +190,9 @@
             this.groupBox6.Controls.Add(this.label5);
             this.groupBox6.Controls.Add(this.dteFromDate);
             this.groupBox6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(10, 355);
+            this.groupBox6.Location = new System.Drawing.Point(5, 363);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(144, 138);
+            this.groupBox6.Size = new System.Drawing.Size(172, 120);
             this.groupBox6.TabIndex = 4;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Period Selection";
@@ -197,7 +202,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(8, 71);
+            this.label1.Location = new System.Drawing.Point(8, 62);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 16);
             this.label1.TabIndex = 23;
@@ -207,7 +212,7 @@
             // 
             this.dteToDate.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteToDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteToDate.Location = new System.Drawing.Point(6, 94);
+            this.dteToDate.Location = new System.Drawing.Point(6, 85);
             this.dteToDate.Name = "dteToDate";
             this.dteToDate.Size = new System.Drawing.Size(115, 22);
             this.dteToDate.TabIndex = 22;
@@ -218,7 +223,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(10, 29);
+            this.label5.Location = new System.Drawing.Point(10, 20);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 16);
             this.label5.TabIndex = 21;
@@ -228,7 +233,7 @@
             // 
             this.dteFromDate.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteFromDate.Location = new System.Drawing.Point(5, 46);
+            this.dteFromDate.Location = new System.Drawing.Point(5, 37);
             this.dteFromDate.Name = "dteFromDate";
             this.dteFromDate.Size = new System.Drawing.Size(115, 22);
             this.dteFromDate.TabIndex = 20;
@@ -236,6 +241,7 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.label10);
             this.groupBox7.Controls.Add(this.cboGroupName);
             this.groupBox7.Controls.Add(this.label6);
             this.groupBox7.Controls.Add(this.label3);
@@ -246,11 +252,22 @@
             this.groupBox7.Controls.Add(this.btnRightSingle);
             this.groupBox7.Controls.Add(this.lstRight);
             this.groupBox7.Controls.Add(this.lstLeft);
-            this.groupBox7.Location = new System.Drawing.Point(161, 143);
+            this.groupBox7.Location = new System.Drawing.Point(180, 150);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(534, 175);
             this.groupBox7.TabIndex = 5;
             this.groupBox7.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.Blue;
+            this.label10.Location = new System.Drawing.Point(6, 9);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(95, 16);
+            this.label10.TabIndex = 32;
+            this.label10.Text = "Stock Group";
             // 
             // cboGroupName
             // 
@@ -267,7 +284,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(308, 7);
+            this.label6.Location = new System.Drawing.Point(358, 8);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(168, 16);
             this.label6.TabIndex = 24;
@@ -279,7 +296,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(6, 11);
+            this.label3.Location = new System.Drawing.Point(190, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 16);
             this.label3.TabIndex = 22;
@@ -291,8 +308,9 @@
             this.txtSearch.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.Location = new System.Drawing.Point(6, 29);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(240, 22);
+            this.txtSearch.Size = new System.Drawing.Size(242, 22);
             this.txtSearch.TabIndex = 6;
+            this.txtSearch.Visible = false;
             // 
             // btnLeftAll
             // 
@@ -366,6 +384,7 @@
             // 
             // grpGroup
             // 
+            this.grpGroup.Controls.Add(this.label11);
             this.grpGroup.Controls.Add(this.label4);
             this.grpGroup.Controls.Add(this.txtSerchGroup);
             this.grpGroup.Controls.Add(this.btnLeftAllNew);
@@ -374,18 +393,29 @@
             this.grpGroup.Controls.Add(this.btnRightNew);
             this.grpGroup.Controls.Add(this.lstRightNew);
             this.grpGroup.Controls.Add(this.lstLeftNew);
-            this.grpGroup.Location = new System.Drawing.Point(160, 316);
+            this.grpGroup.Location = new System.Drawing.Point(179, 323);
             this.grpGroup.Name = "grpGroup";
             this.grpGroup.Size = new System.Drawing.Size(534, 170);
             this.grpGroup.TabIndex = 6;
             this.grpGroup.TabStop = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Blue;
+            this.label11.Location = new System.Drawing.Point(7, 7);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(70, 16);
+            this.label11.TabIndex = 32;
+            this.label11.Text = "Location";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(6, 8);
+            this.label4.Location = new System.Drawing.Point(191, 10);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 16);
             this.label4.TabIndex = 22;
@@ -397,7 +427,7 @@
             this.txtSerchGroup.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSerchGroup.Location = new System.Drawing.Point(6, 26);
             this.txtSerchGroup.Name = "txtSerchGroup";
-            this.txtSerchGroup.Size = new System.Drawing.Size(240, 22);
+            this.txtSerchGroup.Size = new System.Drawing.Size(243, 22);
             this.txtSerchGroup.TabIndex = 6;
             // 
             // btnLeftAllNew
@@ -472,44 +502,58 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.rbtnPacksize);
             this.groupBox3.Controls.Add(this.rbtnPackingRawStock);
             this.groupBox3.Controls.Add(this.rbtnConsumption);
             this.groupBox3.Controls.Add(this.rbtnClassPower);
             this.groupBox3.Controls.Add(this.rbtnFG);
             this.groupBox3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(11, 220);
+            this.groupBox3.Location = new System.Drawing.Point(5, 227);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(146, 129);
+            this.groupBox3.Size = new System.Drawing.Size(175, 131);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Report ";
+            this.groupBox3.Text = "Report Option";
+            // 
+            // rbtnPacksize
+            // 
+            this.rbtnPacksize.AutoSize = true;
+            this.rbtnPacksize.Location = new System.Drawing.Point(13, 162);
+            this.rbtnPacksize.Name = "rbtnPacksize";
+            this.rbtnPacksize.Size = new System.Drawing.Size(116, 18);
+            this.rbtnPacksize.TabIndex = 6;
+            this.rbtnPacksize.Text = "Conversion FG";
+            this.rbtnPacksize.UseVisualStyleBackColor = true;
+            this.rbtnPacksize.Click += new System.EventHandler(this.rbtnPacksize_Click);
             // 
             // rbtnPackingRawStock
             // 
             this.rbtnPackingRawStock.AutoSize = true;
-            this.rbtnPackingRawStock.Location = new System.Drawing.Point(19, 98);
+            this.rbtnPackingRawStock.Location = new System.Drawing.Point(12, 104);
             this.rbtnPackingRawStock.Name = "rbtnPackingRawStock";
-            this.rbtnPackingRawStock.Size = new System.Drawing.Size(59, 18);
+            this.rbtnPackingRawStock.Size = new System.Drawing.Size(113, 18);
             this.rbtnPackingRawStock.TabIndex = 5;
-            this.rbtnPackingRawStock.Text = "Stock";
+            this.rbtnPackingRawStock.Text = "Raw / Packing";
             this.rbtnPackingRawStock.UseVisualStyleBackColor = true;
+            this.rbtnPackingRawStock.ClientSizeChanged += new System.EventHandler(this.rbtnPackingRawStock_ClientSizeChanged);
             this.rbtnPackingRawStock.Click += new System.EventHandler(this.rbtnPackingRawStock_Click);
             // 
             // rbtnConsumption
             // 
             this.rbtnConsumption.AutoSize = true;
-            this.rbtnConsumption.Location = new System.Drawing.Point(19, 72);
+            this.rbtnConsumption.Location = new System.Drawing.Point(13, 76);
             this.rbtnConsumption.Name = "rbtnConsumption";
             this.rbtnConsumption.Size = new System.Drawing.Size(96, 18);
             this.rbtnConsumption.TabIndex = 4;
             this.rbtnConsumption.Text = "Conversion";
             this.rbtnConsumption.UseVisualStyleBackColor = true;
+            this.rbtnConsumption.CheckedChanged += new System.EventHandler(this.rbtnConsumption_CheckedChanged);
             this.rbtnConsumption.Click += new System.EventHandler(this.rbtnConsumption_Click);
             // 
             // rbtnClassPower
             // 
             this.rbtnClassPower.AutoSize = true;
-            this.rbtnClassPower.Location = new System.Drawing.Point(19, 46);
+            this.rbtnClassPower.Location = new System.Drawing.Point(13, 49);
             this.rbtnClassPower.Name = "rbtnClassPower";
             this.rbtnClassPower.Size = new System.Drawing.Size(104, 18);
             this.rbtnClassPower.TabIndex = 3;
@@ -521,17 +565,18 @@
             // 
             this.rbtnFG.AutoSize = true;
             this.rbtnFG.Checked = true;
-            this.rbtnFG.Location = new System.Drawing.Point(19, 18);
+            this.rbtnFG.Location = new System.Drawing.Point(13, 22);
             this.rbtnFG.Name = "rbtnFG";
-            this.rbtnFG.Size = new System.Drawing.Size(41, 18);
+            this.rbtnFG.Size = new System.Drawing.Size(121, 18);
             this.rbtnFG.TabIndex = 2;
             this.rbtnFG.TabStop = true;
-            this.rbtnFG.Text = "FG";
+            this.rbtnFG.Text = "Finished Goods";
             this.rbtnFG.UseVisualStyleBackColor = true;
             this.rbtnFG.Click += new System.EventHandler(this.rbtnFG_Click);
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.txtSearchPower);
             this.groupBox4.Controls.Add(this.btnLeftAllPower);
@@ -540,18 +585,29 @@
             this.groupBox4.Controls.Add(this.btnRightPower);
             this.groupBox4.Controls.Add(this.lstRightPower);
             this.groupBox4.Controls.Add(this.lstLeftPowet);
-            this.groupBox4.Location = new System.Drawing.Point(159, 486);
+            this.groupBox4.Location = new System.Drawing.Point(178, 493);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(534, 176);
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Blue;
+            this.label8.Location = new System.Drawing.Point(6, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 16);
+            this.label8.TabIndex = 33;
+            this.label8.Text = "Power";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(6, 11);
+            this.label9.Location = new System.Drawing.Point(192, 10);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(58, 16);
             this.label9.TabIndex = 22;
@@ -563,7 +619,7 @@
             this.txtSearchPower.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchPower.Location = new System.Drawing.Point(6, 29);
             this.txtSearchPower.Name = "txtSearchPower";
-            this.txtSearchPower.Size = new System.Drawing.Size(240, 22);
+            this.txtSearchPower.Size = new System.Drawing.Size(242, 22);
             this.txtSearchPower.TabIndex = 6;
             // 
             // btnLeftAllPower
@@ -639,7 +695,7 @@
             // frmRptProduction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(707, 659);
+            this.ClientSize = new System.Drawing.Size(726, 654);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
@@ -708,5 +764,9 @@
         private System.Windows.Forms.Button btnRightPower;
         private System.Windows.Forms.ListBox lstRightPower;
         private System.Windows.Forms.ListBox lstLeftPowet;
+        private System.Windows.Forms.RadioButton rbtnPacksize;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
     }
 }

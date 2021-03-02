@@ -9,7 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 using JA.Modulecontrolar.UI.Accms.Forms;
-
+using JA.Modulecontrolar.UI.Forms;
 using JA.Modulecontrolar.JACCMS;
 using JA.Modulecontrolar.UI.Inventory;
 using Microsoft.VisualBasic;
@@ -229,6 +229,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             this.uctxtGroupName.TextChanged += new System.EventHandler(this.uctxtGroupName_TextChanged);
             this.lstGroup.DoubleClick += new System.EventHandler(this.lstGroup_DoubleClick);
             this.uctxtGroupName.GotFocus += new System.EventHandler(this.uctxtGroupName_GotFocus);
+            this.uctxtGroupName.LostFocus += new System.EventHandler(this.uctxtGroupName_LostFocus);
 
             this.uctxtTerritoryCode.GotFocus += new System.EventHandler(this.uctxtTerritoryCode_GotFocus);
             this.uctxtTerritoryCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtTerritoryCode_KeyPress);
@@ -620,7 +621,14 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                         {
                             string strFDate = Utility.FirstDayOfMonth(dtePreparedDate.Value).ToString();
                             //double dblLedgerClosing = Utility.dblLedgerClosingBalance(strComID, strFDate, dtePreparedDate.Text, uctxtMedicalRep.Text, "");
-                            lblPending.Text = Math.Round(Utility.Val(lblCreditLimit.Text) - Math.Abs(dblCls), 2).ToString();
+                            if (dblCls > 0)
+                            {
+                                lblPending.Text = Math.Round(Utility.Val(lblCreditLimit.Text) + Math.Abs(dblCls), 2).ToString();
+                            }
+                            else
+                            {
+                                lblPending.Text = Math.Round(Utility.Val(lblCreditLimit.Text) - Math.Abs(dblCls), 2).ToString();
+                            }
                             DGMr.Visible = false;
                             uctxtCustomer.Focus();
                         }
@@ -685,7 +693,15 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 {
                     string strFDate = Utility.FirstDayOfMonth(dtePreparedDate.Value).ToString();
                     //double dblLedgerClosing = Utility.dblLedgerClosingBalance(strComID, strFDate, dtePreparedDate.Text, uctxtMedicalRep.Text, "");
-                    lblPending.Text = Math.Round(Utility.Val(lblCreditLimit.Text) - Math.Abs(dblCls), 2).ToString();
+                    if (dblCls>0)
+                    {
+                        lblPending.Text = Math.Round(Utility.Val(lblCreditLimit.Text) + Math.Abs(dblCls), 2).ToString();
+                    }
+                    else
+                    {
+                        lblPending.Text = Math.Round(Utility.Val(lblCreditLimit.Text) - Math.Abs(dblCls), 2).ToString();
+                    }
+                    
                     DGMr.Visible = false;
                     uctxtCustomer.Focus();
                 }
@@ -720,7 +736,14 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 {
                     string strFDate = Utility.FirstDayOfMonth(dtePreparedDate.Value).ToString();
                     //double dblLedgerClosing = Utility.dblLedgerClosingBalance(strComID, strFDate, dtePreparedDate.Text, uctxtMedicalRep.Text, "");
-                    lblPending.Text = Math.Round(Utility.Val(lblCreditLimit.Text) - Math.Abs(dblCls), 2).ToString();
+                    if (dblCls > 0)
+                    {
+                        lblPending.Text = Math.Round(Utility.Val(lblCreditLimit.Text) + Math.Abs(dblCls), 2).ToString();
+                    }
+                    else
+                    {
+                        lblPending.Text = Math.Round(Utility.Val(lblCreditLimit.Text) - Math.Abs(dblCls), 2).ToString();
+                    }
                     DGMr.Visible = false;
                     uctxtCustomer.Focus();
                 }
@@ -943,21 +966,32 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
         private void uctxtGroupName_KeyPress(object sender, KeyPressEventArgs e)
         {
+
             if (e.KeyChar == (char)Keys.Return)
             {
-
-                if (lstGroup.Items.Count > 0)
+                try
                 {
-                    uctxtGroupName.Text = lstGroup.Text;
+                    if (lstGroup.Items.Count > 0)
+                    {
+                        uctxtGroupName.Text = lstGroup.Text;
+                    }
+                    uctxtItemName.Text = "";
+                    //mloadItem();
+                    uctxtItemName.Focus();
                 }
-                uctxtItemName.Text = "";
-                mloadItem();
-                uctxtItemName.Focus();
+                catch (Exception ex)
+                {
+
+                }
             }
             if (e.KeyChar == (char)Keys.Back)
             {
                 PriorSetFocusText(uctxtGroupName, sender, e);
             }
+        }
+        private void uctxtGroupName_LostFocus(object sender, System.EventArgs e)
+        {
+            mloadItem();
         }
         private void uctxtGroupName_KeyDown(object sender, KeyEventArgs e)
         {
@@ -980,29 +1014,33 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
         private void uctxtGroupName_GotFocus(object sender, System.EventArgs e)
         {
+            try
+            {
+                lstPartyName.Visible = false;
+                lstLedgerName.Visible = false;
+                lstSalesLedger.Visible = false;
+                lstBranchName.Visible = false;
+                lstLocation.Visible = false;
+                lstCustomer.Visible = false;
+                lstRefType.Visible = false;
+                lstGroup.Visible = true;
+                lstBatch.Visible = false;
+                lstAddlessLedger.Visible = false;
+                lstTypeofRef.Visible = false;
+                lstCostCategory.Visible = false;
+                lstCostCenter.Visible = false;
+                lstTeritorryName.Visible = false;
+                lstTeritorryCode.Visible = false;
+                ucdgList.Visible = false;
+                DGMr.Visible = false;
+                DGcustomer.Visible = false;
+               
+            }
+            catch (Exception ex)
+            {
 
-            lstPartyName.Visible = false;
-            lstLedgerName.Visible = false;
-            lstSalesLedger.Visible = false;
-            lstBranchName.Visible = false;
-            lstLocation.Visible = false;
-            lstCustomer.Visible = false;
-            lstRefType.Visible = false;
-            lstGroup.Visible = true;
-            lstBatch.Visible = false;
-            lstAddlessLedger.Visible = false;
-            lstTypeofRef.Visible = false;
-            lstCostCategory.Visible = false;
-            lstCostCenter.Visible = false;
-            lstTeritorryName.Visible = false;
-            lstTeritorryCode.Visible = false;
-            ucdgList.Visible = false;
-            DGMr.Visible = false;
-            DGcustomer.Visible = false;
-            //lstGroup.DisplayMember = "strGroupName";
-            //lstGroup.ValueMember = "strGroupName";
-            //lstGroup.DataSource = invms.mFillSample(strComID).ToList();
-            //lstGroup.SelectedIndex = lstGroup.FindString(uctxtGroupName.Text);
+            }
+           
         }
         private void ucdgList_DoubleClick(object sender, EventArgs e)
         {
@@ -1055,10 +1093,17 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             {
                 if (txtRefTypeNew.Text != Utility.gcEND_OF_LIST)
                 {
+                   
                     long lngRefType = gobjVoucherName.VoucherName.GetVoucherType(uctxtRefType.Text);
                     string strBraID = Utility.gstrGetBranchID(strComID, uctxtBranchName.Text);
                    
                     DGSalesGrid.Rows.Clear();
+                    //string strHalt = Utility.checkMPOHalt(strComID, uctxtTerritoryCode.Text);
+                    //if (strHalt != "")
+                    //{
+                    //    MessageBox.Show(uctxtTerritoryCode.Text + " MPO is Halt,Contact With Your Responsible Person");
+                    //    return;
+                    //}
                     for (int introw = 0; introw < DGSalesOrder.Rows.Count; introw++)
                     {
                        
@@ -1073,8 +1118,13 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                                     strString = strString + Utility.Mid(DGSalesOrder[0, introw].Value.ToString(),6,DGSalesOrder[0, introw].Value.ToString().Length-6) + ",";
                                     strPowerClass = Utility.mGetPowerClass(strComID, uctxtItemName.Text);
                                     strPackSize = Utility.mGetPackSize(strComID, uctxtItemName.Text);
-                                    uctxtCustomer.Text = Utility.gGetAppsCustomerMerze(strComID, uctxtMedicalRep.Text, DGSalesOrder[0, introw].Value.ToString());
+                                    if (uctxtCustomer.Text == "")
+                                    {
+                                        uctxtCustomer.Text = Utility.gGetAppsCustomerMerze(strComID, uctxtMedicalRep.Text, DGSalesOrder[0, introw].Value.ToString());
+                                    }
+                                    txtCustomerCode.Text = Utility.gGetLedgerNameFromMerze(strComID,   uctxtCustomer.Text);
                                     txtCustomerAddress.Text = Utility.gstrGetLedgerAddress(strComID, uctxtCustomer.Text);
+                                    uctxtNarration.Text = Utility.gGetAppsCustomerNanation(strComID, uctxtMedicalRep.Text, DGSalesOrder[0, introw].Value.ToString());
                                     DGSalesGrid[0, i].Value = oinv.strGroupName;
                                     DGSalesGrid[1, i].Value = oinv.strGroupName;
                                     DGSalesGrid[2, i].Value = oinv.strItemName.ToString();
@@ -1128,6 +1178,27 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             ucdgList.Visible = false;
             DGMr.Visible = false;
             DGcustomer.Visible = false;
+            if (uctxtRefType.Text !=Utility.gcEND_OF_LIST  )
+            {
+                if (DGSalesOrder.Rows.Count == 0)
+                {
+
+                    lstRefTypeNew.Visible = true;
+                    //txtFoodCode.Text = "";
+                    //txtFoodName.Text = "";
+                   
+
+                    lstRefTypeNew.Top = txtRefTypeNew.Top + 25;
+                    lstRefTypeNew.Left = txtRefTypeNew.Left;
+                    lstRefTypeNew.Width = txtRefTypeNew.Width;
+                    lstRefTypeNew.Height = 200;
+                    //ucdgList.Size = new Size(546, 222);
+                    lstRefTypeNew.BringToFront();
+                    lstRefTypeNew.AllowUserToAddRows = false;
+                    //uctxtItemName.Text = Utility.GetDgValue(ucdgList, uctxtItemName, 0);
+                    //ucdgList.Focus();
+                }
+            }
         }
         private void txtRefTypeNew_KeyDown(object sender, KeyEventArgs e)
         {
@@ -2487,16 +2558,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstBatch.SelectedIndex = lstBatch.FindString(uctxtBatch.Text);
         }
 
-        //private void uctxtItemName_TextChanged(object sender, EventArgs e)
-        //{
-        //    lstItemName.SelectedIndex = lstItemName.FindString(uctxtItemName.Text);
-        //}
-
-        //private void lstItemName_DoubleClick(object sender, EventArgs e)
-        //{
-        //    uctxtItemName.Text = lstItemName.Text;
-        //    uctxtQty.Focus();
-        //}
+       
 
         private void uctxtItemName_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -2575,6 +2637,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             ucdgList.Visible = true;
             //txtFoodCode.Text = "";
             //txtFoodName.Text = "";
+            
             if (e.KeyCode == Keys.Up)
             {
                 ucdgList.Focus();
@@ -2593,6 +2656,10 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             ucdgList.AllowUserToAddRows = false;
             //uctxtItemName.Text = Utility.GetDgValue(ucdgList, uctxtItemName, 0);
             //ucdgList.Focus();
+            if(e.KeyCode==Keys.F2)
+            {
+                mloadItem();
+            }
             return;
            
         }
@@ -2624,38 +2691,51 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             {
                 return;
             }
-            string strDate=DateTime.Now.ToString("dd-MM-yyyy");
+            if (oogrp != null)
+            {
+                if (oogrp.Count > 0)
+                {
+                    oogrp.Clear();
+                }
+            }
+            //string strDate=DateTime.Now.ToString("dd-MM-yyyy");
             if (uctxtGroupName.Text =="")
             {
                 MessageBox.Show("Cannot be Empty");
-                uctxtGroupName.FindForm();
+                uctxtGroupName.Focus();
                 return;
             }
-            if (uctxtLocation.Text =="Main Location")
+            try
             {
-                oogrp = objWIS.mGetProductStatementView(strComID, uctxtGroupName.Text, "0001",uctxtLocation.Text,"").ToList();
-            }
-            else
-            {
-                oogrp = objWIS.mGetProductStatementView(strComID, uctxtGroupName.Text, "0002", uctxtLocation.Text,"").ToList();
-            }
-            
-           //oogrp = invms.mloadAddStockItemSI(strComID, uctxtGroupName.Text, uctxtLocation.Text).ToList();
-            //oogrp = objWIS.mGetProductStatementNew(strComID, strDate, "'" + uctxtGroupName.Text.ToString() + "' ", "0001").ToList();
-
-            if (oogrp.Count > 0)
-            {
-
-                foreach (StockItem ogrp in oogrp)
+                if (uctxtLocation.Text == "Main Location")
                 {
-                    ucdgList.Rows.Add();
-                    ucdgList[0, introw].Value = ogrp.strItemName;
-                    ucdgList[1, introw].Value = ogrp.dblClsBalance + " " + ogrp.strUnit;
-                    
-                    introw += 1;
+                    oogrp = objWIS.mGetProductStatementView(strComID, uctxtGroupName.Text.TrimEnd(), "0001", uctxtLocation.Text.TrimEnd(), "").ToList();
+                }
+                else
+                {
+                    oogrp = objWIS.mGetProductStatementView(strComID, uctxtGroupName.Text.TrimEnd(), "0002", uctxtLocation.Text.TrimEnd(), "").ToList();
                 }
 
-                ucdgList.AllowUserToAddRows = false;
+                //oogrp = invms.mloadAddStockItemSI(strComID, uctxtGroupName.Text, uctxtLocation.Text).ToList();
+                //oogrp = objWIS.mGetProductStatementNew(strComID, strDate, "'" + uctxtGroupName.Text.ToString() + "' ", "0001").ToList();
+
+                if (oogrp.Count > 0)
+                {
+
+                    foreach (StockItem ogrp in oogrp)
+                    {
+                        ucdgList.Rows.Add();
+                        ucdgList[0, introw].Value = ogrp.strItemName;
+                        ucdgList[1, introw].Value = ogrp.dblClsBalance + " " + ogrp.strUnit;
+                        introw += 1;
+                    }
+
+                    ucdgList.AllowUserToAddRows = false;
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
         private void uctxtShortQty_KeyPress(object sender, KeyPressEventArgs e)
@@ -2704,6 +2784,20 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             string strDown = "";
             double  dblDis=0;
             Boolean blngCheck = false;
+
+            string vstrGroup = Utility.gCheckItem(strComID, strItemName);
+            if (vstrGroup.ToUpper()!=strGroupName.ToUpper())
+            {
+                uctxtItemName.Text = "";
+                ucdgList.Rows.Clear();
+                uctxtQty.Text = "";
+                uctxtRate.Text = "";
+                mloadItem();
+                MessageBox.Show ("Please Check Your Item,Item is not Valid Group");
+                return;
+            }
+
+
             for (int j = 0; j < DGSalesGrid.RowCount; j++)
             {
                 if (DGSalesGrid[2, j].Value != null)
@@ -3821,8 +3915,25 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
             lstGroup.DisplayMember = "strGroupName";
             lstGroup.ValueMember = "strGroupName";
-            lstGroup.DataSource = invms.mFillSample(strComID,"SI").ToList();
+            lstGroup.DataSource = invms.mFillSample(strComID, "SI", Utility.gstrUserName).ToList();
             lstGroup.SelectedIndex = lstGroup.FindString(uctxtGroupName.Text);
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 210, m_action))
+                {
+                    dtePreparedDate.Enabled = false;
+                    return;
+                }
+                else
+                {
+                    dtePreparedDate.Text = "01-01-2021";
+                    dtePreparedDate.Enabled = true;
+                }
+            }
+            else
+            {
+                dtePreparedDate.Enabled = true;
+            }
            
         }
         private void mloadParty(string strBranchID)
@@ -3915,6 +4026,12 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 uctxtOrderNo.Focus();
                 return false;
             }
+            if (uctxtCustomer.Text == "New Doctor")
+            {
+                MessageBox.Show("Sorry! New Doctor Cannot be a Customer,You Need to Modify it");
+                uctxtCustomer.Focus();
+                return false;
+            }
             if (DGSalesGrid.Rows.Count==0)
             {
                 MessageBox.Show("Item Cannot be Empty");
@@ -3935,6 +4052,9 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     return false;
                 }
             }
+
+           
+
             long lngDate = Convert.ToInt64(dtePreparedDate.Value.ToString("yyyyMMdd"));
             long lngFiscalYearfrom = Convert.ToInt64(Convert.ToDateTime(Utility.gdteFinancialYearFrom).ToString("yyyyMMdd"));
             long lngFiscalYearTo = Convert.ToInt64(Convert.ToDateTime(Utility.gdteFinancialYearTo).ToString("yyyyMMdd"));
@@ -3960,55 +4080,24 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                      return false;
                  }
             }
+
+            string strLockvoucher = Utility.gLockVocher(strComID, intVtype);
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
+                {
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return false;
+                }
+            }
             //strBranchId = Utility.gstrGetBranchID(uctxtBranchName.Text.Replace("'", "''"));
             if (intVtype == (int)Utility.VOUCHER_TYPE.vtSALES_INVOICE)
             {
                
                  //dblCreditLimit = Utility.Val (lblCreditLimit.Text);
-                 dblCreditLimit = Utility.gdblCreditLimit(strComID, uctxtMedicalRep.Text, dtePreparedDate.Value.ToString("MMMyy"));
-               
-                if (dblCreditLimit != 0)
-                {
-                    string strFDate = Utility.FirstDayOfMonth(dtePreparedDate.Value).ToString("dd-MM-yyyy");
-                    //dblLedgerClosing = Utility.dblLedgerClosingBalance(strComID, strFDate, dtePreparedDate.Text, uctxtMedicalRep.Text, "");
-                    dblLedgerClosing  = Utility.dblLedgerClosingBalance(strComID, Utility.gdteFinancialYearFrom.ToString(), Utility.gdteFinancialYearTo.ToString(), uctxtMedicalRep.Text, "");
-                    if (m_action == 1)
-                    {
-                        dblPending = Math.Round(dblCreditLimit - Math.Abs(dblLedgerClosing), 2);
-                    }
-                    else
-                    {
-                        if (mstrOldMedicalName.ToUpper() == uctxtMedicalRep.Text.ToUpper())
-                        {
-                            dblPending = Math.Round(dblCreditLimit - (Math.Abs(dblLedgerClosing) - Math.Abs(mdblNetAmount)), 2);
-                            dblPending = dblPending - Math.Abs(mdblNetAmount);
-                        }
-                        else
-                        {
-                            dblPending = Math.Round(dblCreditLimit - (Math.Abs(dblLedgerClosing)), 2);
-                            dblPending =dblPending - Math.Abs(Utility.Val(lblNetAmount.Text));
-                        }
-                    }
-                    if (dblPending < Utility.Val(lblNetAmount.Text))
-                    {
-                        string strCls = "";
-                        if (dblLedgerClosing < 0)
-                        {
-                            strCls = dblLedgerClosing *-1+ " Dr";
-                        }
-                        else
-                        {
-                            strCls = dblLedgerClosing  + " Cr";
-                        }
-                        MessageBox.Show("You have crossed your Credit Limit" + Environment.NewLine + "Closing Balance :" + strCls + Environment.NewLine 
-                                                                        + "Credit Limt :" + dblCreditLimit + Environment.NewLine + "Pending : " + dblPending , "Credit Limit Information", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                        return false;
-                       
-                    }
-                }
 
-              
-               
+
                 strBranchID = lstBranchName.SelectedValue.ToString();
                 if (oinv[0].mlngBlockNegativeStock > 0)
                 {
@@ -4023,34 +4112,133 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                         {
                             strBillKey = "";
                         }
-                        
-                        if (DGSalesGrid[1, i].Value.ToString() != "Dilution" && strBranchID !="0001")
-                        {
 
-                            dblClosingQTY = Utility.gdblClosingStockSales(strComID, DGSalesGrid[2, i].Value.ToString(), strBranchID, DGSalesGrid[1, i].Value.ToString(), uctxtLocation.Text);
-                            if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+                        if (DGSalesGrid[1, i].Value.ToString() != "Dilution")
+                        {
+                            if (strBranchID == "0001")
                             {
-                                dblClosingQTY = dblClosingQTY + Utility.gdblGetBillTranQty(strComID, strBillKey);
-                            }
-                            dblCurrentQTY = Utility.Val(DGSalesGrid[5, i].Value.ToString());
-                            if ((dblClosingQTY) - dblCurrentQTY < 0)
-                            {
-                                strNegetiveItem = strNegetiveItem + Environment.NewLine + DGSalesGrid[2, i].Value.ToString();
-                                intCheckNegetive = 1;
-                                dblClosingQTY = 0;
+                                string strRefno = gobjVoucherName.VoucherName.GetVoucherString(intVtype) + strBranchID + uctxtRefNo.Text;
+                                dblClosingQTY = Utility.gdblClosingStockSales(strComID, DGSalesGrid[2, i].Value.ToString(), strBranchID, DGSalesGrid[1, i].Value.ToString(), uctxtLocation.Text);
+                                if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+                                {
+                                    dblClosingQTY = dblClosingQTY + Utility.gdblGetBillTranQty(strComID, strRefno, DGSalesGrid[2, i].Value.ToString());
+                                }
+                                dblCurrentQTY = Utility.Val(DGSalesGrid[5, i].Value.ToString());
+                                if ((dblClosingQTY) - dblCurrentQTY < 0)
+                                {
+                                    strNegetiveItem = strNegetiveItem + Environment.NewLine + DGSalesGrid[2, i].Value.ToString();
+                                    intCheckNegetive = 1;
+                                    dblClosingQTY = 0;
+                                }
                             }
                         }
+                       
                     }
-                    if (strNegetiveItem !="")
+                    if (strNegetiveItem != "")
                     {
                         MessageBox.Show("You have no valid quantity for Item: " + strNegetiveItem);
                         DGSalesGrid.Focus();
-                        strNegetiveItem="";
+                        strNegetiveItem = "";
                         return false;
                     }
                     dblClosingQTY = 0;
 
                 }
+
+                 dblCreditLimit = Utility.gdblCreditLimit(strComID, uctxtMedicalRep.Text, dtePreparedDate.Value.ToString("MMMyy"));
+               
+                if (dblCreditLimit != 0)
+                {
+                    string strFDate = Utility.FirstDayOfMonth(dtePreparedDate.Value).ToString("dd-MM-yyyy");
+                    //dblLedgerClosing = Utility.dblLedgerClosingBalance(strComID, strFDate, dtePreparedDate.Text, uctxtMedicalRep.Text, "");
+                    
+                    dblLedgerClosing  = Utility.dblLedgerClosingBalance(strComID, Utility.gdteFinancialYearFrom.ToString(), Utility.gdteFinancialYearTo.ToString(), uctxtMedicalRep.Text, "");
+                    if (m_action == 1)
+                    {
+                        if (dblLedgerClosing > 0)
+                        {
+                            dblPending = Math.Round(dblCreditLimit + Math.Abs(dblLedgerClosing), 2);
+                        }
+                        else
+                        {
+                            dblPending = Math.Round(dblCreditLimit - Math.Abs(dblLedgerClosing), 2);
+                        }
+                        if (dblPending < Utility.Val(lblNetAmount.Text))
+                        {
+                            string strCls = "";
+                            if (dblLedgerClosing < 0)
+                            {
+                                strCls = dblLedgerClosing * -1 + " Dr";
+                            }
+                            else
+                            {
+                                strCls = dblLedgerClosing + " Cr";
+                            }
+                            MessageBox.Show("You have crossed your Credit Limit" + Environment.NewLine + "Closing Balance :" + strCls + Environment.NewLine
+                                                                            + "Credit Limt :" + dblCreditLimit + Environment.NewLine + "Pending : " + dblPending, "Credit Limit Information", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                            return false;
+
+                        }
+                    }
+                    else
+                    {
+                        if (mstrOldMedicalName.ToUpper() == uctxtMedicalRep.Text.ToUpper())
+                        {
+                            //dblPending = Math.Round(dblCreditLimit - Math.Abs(dblLedgerClosing), 2);
+                            if (dblLedgerClosing > 0)
+                            {
+                                dblPending = Math.Round(dblCreditLimit + Math.Abs(dblLedgerClosing), 2);
+                            }
+                            else
+                            {
+                                dblPending = Math.Round(dblCreditLimit - Math.Abs(dblLedgerClosing), 2);
+                            }
+                            dblPending = dblPending + Math.Abs(mdblNetAmount);
+                            if (dblPending < Utility.Val(lblNetAmount.Text))
+                            {
+                                string strCls = "";
+                                if (dblLedgerClosing < 0)
+                                {
+                                    strCls = dblLedgerClosing * -1 + " Dr";
+                                }
+                                else
+                                {
+                                    strCls = dblLedgerClosing + " Cr";
+                                }
+                                MessageBox.Show("You have crossed your Credit Limit" + Environment.NewLine + "Closing Balance :" + strCls + Environment.NewLine
+                                                                                + "Credit Limt :" + dblCreditLimit + Environment.NewLine + "Pending : " + dblPending, "Credit Limit Information", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                                return false;
+
+                            }
+                        }
+                        else
+                        {
+                            dblPending = Math.Round(dblCreditLimit - (Math.Abs(dblLedgerClosing)), 2);
+                            if (dblPending < Utility.Val(lblNetAmount.Text))
+                            {
+                                string strCls = "";
+                                if (dblLedgerClosing < 0)
+                                {
+                                    strCls = dblLedgerClosing * -1 + " Dr";
+                                }
+                                else
+                                {
+                                    strCls = dblLedgerClosing + " Cr";
+                                }
+                                MessageBox.Show("You have crossed your Credit Limit" + Environment.NewLine + "Closing Balance :" + strCls + Environment.NewLine
+                                                                                + "Credit Limt :" + dblCreditLimit + Environment.NewLine + "Pending : " + dblPending, "Credit Limit Information", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                                return false;
+
+                            }
+                        }
+                       
+                    }
+                   
+                }
+
+              
+               
+               
                
                 //if (Utility.mblnBillWise(uctxtMedicalRep.Text) == true)
                 //{
@@ -4070,17 +4258,17 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         }
         #endregion
         #region "Save Sales invoice"
-        private string  mSaveSalesInvoice()
+        private string mSaveSalesInvoice()
         {
             long lngAgstRef;
             double dblcostRate = 0;
-            int introundoff=0;
+            int introundoff = 0;
             if (chkRoundOff.Checked)
-                introundoff=1;
-            string strBarchID = "", strDGSales = "", strRefNo = "", strDGSalesOrder = "", strDGBillWise = "", strDgvector = "", strDGAddless="",strAgnstRefNo="";
+                introundoff = 1;
+            string strBarchID = "", strDGSales = "", strRefNo = "", strDGSalesOrder = "", strDGBillWise = "", strDgvector = "", strDGAddless = "", strAgnstRefNo = "";
             for (int i = 0; i < DGSalesGrid.Rows.Count; i++)
             {
-                if (DGSalesGrid[16, i].Value ==null)
+                if (DGSalesGrid[16, i].Value == null)
                 {
                     DGSalesGrid[16, i].Value = 0;
                 }
@@ -4166,14 +4354,18 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             {
                 strRefNo = gobjVoucherName.VoucherName.GetVoucherString(intVtype) + strBarchID + Utility.gstrLastNumber(strComID, intVtype);
             }
-            if(txtCustomerCode.Text == "")
+            if (txtCustomerCode.Text == "")
             {
                 txtCustomerCode.Text = Utility.GetLedgerNameFromMerzeName(strComID, uctxtCustomer.Text);
                 //txtCustomerAddress.Text = Utility.gstrGetLedgerAddress(strComID, txtCustomerCode.Text);
             }
 
+
+            
+
+
             string k = objWIS.mSaveSalesInvoice(strComID, strRefNo, intVtype, dtePreparedDate.Text, dtePreparedDate.Text, dtePreparedDate.Value.ToString("MMMyy"), uctxtMedicalRep.Text,
-                                                uctxtLedgerName.Text, Utility.Val(lblNetTotal.Text),  Utility.Val(lblNetAmount.Text),
+                                                uctxtLedgerName.Text, Utility.Val(lblNetTotal.Text), Utility.Val(lblNetAmount.Text),
                                                 Utility.Val(uctxtAdd.Text), Utility.Val(uctxtLess.Text), uctxtRefType.Text, lngAgstRef, oinv[0].mlngIsInvEffinDirSalesInv, 1,
                                                 uctxtNarration.Text, strBarchID, uctxtLocation.Text, 0, txtCustomerCode.Text, strDGSales,
                                                 strDgvector, strDGBillWise, strDGSalesOrder, strDGAddless, false, 0, "", mblnNumbMethod, uctxtOrderNo.Text, dteOrderDateNew.Text,
@@ -4280,7 +4472,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                                                 Utility.Val(uctxtAdd.Text), Utility.Val(uctxtLess.Text), uctxtRefType.Text, lngAgstRef, oinv[0].mlngIsInvEffinDirSalesInv, 1,
                                                 uctxtNarration.Text, strBarchID, uctxtLocation.Text, 0, txtCustomerCode.Text, strDGSales,
                                                 strDgvector, strDGBillWise, strDGSalesOrder, strDGAddless,false, 0, "", uctxtOrderNo.Text, dteOrderDateNew.Text,
-                                               Utility.gstrUserName, dteDeliveryDate.Text, Utility.Val(uctxtcommission.Text), Utility.Val(txtRoundOff.Text));
+                                               Utility.gstrUserName, dteDeliveryDate.Text, Utility.Val(uctxtcommission.Text), Utility.Val(txtRoundOff.Text),mdblNetAmount);
 
 
             return k;
@@ -4292,17 +4484,18 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         {
             if (e.ColumnIndex == 14)
             {
-                if (uctxtRefType.Text == Utility.gcEND_OF_LIST)
-                {
-                    DGSalesGrid.Rows.RemoveAt(e.RowIndex);
-                    calculateTotal();
-                }
-                else
-                {
-                    MessageBox.Show("You Cannot Delete,Because Your Ref. Type is Sales Order");
-                    uctxtNarration.Focus();
-                    return;
-                }
+                //if (uctxtRefType.Text == Utility.gcEND_OF_LIST)
+                //{
+                //After discussion with 104
+                DGSalesGrid.Rows.RemoveAt(e.RowIndex);
+                calculateTotal();
+                //}
+                //else
+                //{
+                //    MessageBox.Show("You Cannot Delete,Because Your Ref. Type is Sales Order");
+                //    uctxtNarration.Focus();
+                //    return;
+                //}
             }
         }
 
@@ -5117,8 +5310,85 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             }
         }
 
-       
+        private void btnType_Click(object sender, EventArgs e)
+        {
 
+            frmSalesOrderPending objfrm = new frmSalesOrderPending();
+            objfrm.mintVType = 12;
+            objfrm.intAreaStaus = 2;
+            objfrm.lngFormPriv = lngFormPriv;
+            //objfrm.strFormName = "Sales Order";
+            objfrm.onAddAllButtonClicked = new frmSalesOrderPending.AddAllClick(DisplayOderPending);
+            objfrm.Show();
+            objfrm.MdiParent = MdiParent;
+        }
+
+
+        private void DisplayOderPending(List<AccountsVoucher> tests, object sender, EventArgs e)
+        {
+            try
+            {
+                //mClear();
+                string strHalt = Utility.checkMPOHalt(strComID, tests[0].strLedgerName);
+                if (strHalt !="")
+                {
+                    MessageBox.Show(tests[0].strMerzeName + " MPO is Halt,Contact With Your Responsible Person");
+                    return ;
+                }
+
+                mClear1();
+                uctxtOrderNo.Text = tests[0].strOrderNo;
+                //uctxtLedgerName.Text = tests[0].strLedgerName;
+                uctxtMedicalRep.Text = tests[0].strLedgerName;
+                uctxtTerritoryCode.Text = tests[0].strMerzeName;
+              
+              
+                uctxtRefType.Text = "Sales Order";
+                DisplayReferance(tests[0].strAgnstRefNo, tests[0].strOrderNo, tests[0].strOrderDate);
+                txtRefTypeNew_LostFocus(sender, e);
+                uctxtLedgerName.Text = "Sales Accounts";
+                txtCustomerCode.Text = Utility.gGetLedgerNameFromMerze(strComID, uctxtCustomer.Text);
+                lblCreditLimit.Text = Utility.gdblCreditLimit(strComID, uctxtMedicalRep.Text, dtePreparedDate.Value.ToString("MMMyy")).ToString();
+                double dblCls = Utility.dblLedgerClosingBalance(strComID, Utility.gdteFinancialYearFrom.ToString(), Utility.gdteFinancialYearTo.ToString(), uctxtMedicalRep.Text, "");
+                if (dblCls < 0)
+                {
+                    lblCurrentBalance.Text = Math.Abs(dblCls) + "Dr";
+                }
+                else
+                {
+                    lblCurrentBalance.Text = Math.Abs(dblCls) + "Cr";
+                }
+                if (lblCreditLimit.Text != "0")
+                {
+                    string strFDate = Utility.FirstDayOfMonth(dtePreparedDate.Value).ToString();
+                    //double dblLedgerClosing = Utility.dblLedgerClosingBalance(strComID, strFDate, dtePreparedDate.Text, uctxtMedicalRep.Text, "");
+                    lblPending.Text = Math.Round(Utility.Val(lblCreditLimit.Text) - Math.Abs(dblCls), 2).ToString();
+                    DGMr.Visible = false;
+                    uctxtCustomer.Focus();
+                }
+                uctxtNarration.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        private void btndown_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uctxtItemName_KeyDown_1(object sender, KeyEventArgs e)
+        {
+
+        }
 
 
 

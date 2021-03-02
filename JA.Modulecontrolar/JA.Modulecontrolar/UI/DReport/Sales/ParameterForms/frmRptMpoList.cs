@@ -406,7 +406,63 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
                 frmviewer.strTdate = dteToDate.Value.ToString("dd-MM-yyyy");
                 frmviewer.strBranchId = strBranchId;
                 frmviewer.secondParameter1 = strBranchName;
+                frmviewer.strSelction = "Class";
                 frmviewer.reportTitle2 = "A";
+                frmviewer.intSuppress2 = 1;
+                frmviewer.intStatus = intStatus;
+                frmviewer.Show();
+
+            }
+            if ((radIndividual.Checked == true) && (rbtnClass.Checked == true))
+            {
+
+
+                frmReportViewer frmviewer = new frmReportViewer();
+                frmviewer.selector = ViewerSelector.rptMpoListLedgerWAll;
+                frmviewer.strFdate = dteFromDate.Value.ToString("dd-MM-yyyy");
+                frmviewer.strTdate = dteToDate.Value.ToString("dd-MM-yyyy");
+                frmviewer.strBranchId = strBranchId;
+                frmviewer.secondParameter1 = strBranchName;
+                frmviewer.strString = uctxtLedgerConfig.Text;
+                frmviewer.strSelction = "Class";
+                frmviewer.reportTitle2 = "A";
+                frmviewer.intSuppress2 = 1;
+                frmviewer.intStatus = intStatus;
+                frmviewer.Show();
+
+            }
+            if ((radAll.Checked == true) && (rbtnRoute.Checked == true))
+            {
+
+
+                frmReportViewer frmviewer = new frmReportViewer();
+                frmviewer.selector = ViewerSelector.rptMpoListLedgerWAll;
+                frmviewer.strFdate = dteFromDate.Value.ToString("dd-MM-yyyy");
+                frmviewer.strTdate = dteToDate.Value.ToString("dd-MM-yyyy");
+                frmviewer.strBranchId = strBranchId;
+                frmviewer.secondParameter1 = strBranchName;
+                frmviewer.reportTitle2 = "A";
+                frmviewer.strSelction = "Route";
+                frmviewer.intMode =8;
+                frmviewer.intSuppress2 = 1;
+                frmviewer.intStatus = intStatus;
+                frmviewer.Show();
+
+            }
+            if ((radIndividual.Checked == true) && (rbtnRoute.Checked == true))
+            {
+
+
+                frmReportViewer frmviewer = new frmReportViewer();
+                frmviewer.selector = ViewerSelector.rptMpoListLedgerWAll;
+                frmviewer.strFdate = dteFromDate.Value.ToString("dd-MM-yyyy");
+                frmviewer.strTdate = dteToDate.Value.ToString("dd-MM-yyyy");
+                frmviewer.strBranchId = strBranchId;
+                frmviewer.secondParameter1 = strBranchName;
+                frmviewer.strString = uctxtLedgerConfig.Text;
+                frmviewer.reportTitle2 = "A";
+                frmviewer.strSelction = "Route";
+                frmviewer.intMode = 8;
                 frmviewer.intSuppress2 = 1;
                 frmviewer.intStatus = intStatus;
                 frmviewer.Show();

@@ -211,7 +211,7 @@ namespace JA.Modulecontrolar.UI.Sales
             lstBranch.ValueMember = "BranchID";
             lstBranch.DisplayMember = "BranchName";
             lstBranch.DataSource = accms.mFillBranch(strComID, Utility.gblnAccessControl, Utility.gstrUserName).ToList();
-            List<AccountdGroup> oogrp = accms.mDisplayMonthsetupList(strComID, "1").ToList();
+            List<AccountdGroup> oogrp = accms.mDisplayMonthsetupList(strComID, "1", Utility.gdteFinancialYearFrom, Utility.gdteFinancialYearTo).ToList();
             if (oogrp.Count>0)
             {
                 uctxtMonthID.Text = oogrp[0].strMonthID;

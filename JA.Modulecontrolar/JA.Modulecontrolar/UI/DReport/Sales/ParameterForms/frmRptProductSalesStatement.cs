@@ -442,13 +442,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
             lstBranch.DataSource = accms.mFillBranch(strComID, Utility.gblnAccessControl, Utility.gstrUserName).ToList();
             label6.Text = "Invoice Wise";
             viiissibalefales();
-            //int year = DateTime.Now.Year;
-            //int Month = DateTime.Now.Month;
-            //int Day = DateTime.Now.Day;
-            //DateTime firstDay = new DateTime(year, Month, 1);
-            //dteFromDate.Text = firstDay.ToString();
-            //dteToDate.Text = dteFromDate.Text;
-            //dteToDate.Text = firstDay.AddMonths(1).AddDays(-1).ToString();
+           
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -734,7 +728,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
              try
              {
                  string strBarchID = Utility.gstrGetBranchID(strComID, uctxtBranch.Text);
-                 ooPartyName = invms.mfillPartyNameNew(strComID, strBarchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "X").ToList();
+                 ooPartyName = invms.mfillPartyNameNew(strComID, strBarchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "X","").ToList();
 
                  if (ooPartyName.Count > 0)
                  {

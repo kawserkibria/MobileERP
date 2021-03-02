@@ -40,6 +40,7 @@
             this.uctxtItemName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtLocationName = new System.Windows.Forms.TextBox();
+            this.chkFG = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -54,6 +55,7 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.chkFG);
             this.pnlMain.Controls.Add(this.label4);
             this.pnlMain.Controls.Add(this.txtLocationName);
             this.pnlMain.Controls.Add(this.label3);
@@ -237,6 +239,19 @@
             this.txtLocationName.Size = new System.Drawing.Size(518, 22);
             this.txtLocationName.TabIndex = 28;
             // 
+            // chkFG
+            // 
+            this.chkFG.AutoSize = true;
+            this.chkFG.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFG.ForeColor = System.Drawing.Color.Blue;
+            this.chkFG.Location = new System.Drawing.Point(409, 207);
+            this.chkFG.Name = "chkFG";
+            this.chkFG.Size = new System.Drawing.Size(130, 18);
+            this.chkFG.TabIndex = 30;
+            this.chkFG.Text = "Finished Product";
+            this.chkFG.UseVisualStyleBackColor = true;
+            this.chkFG.Click += new System.EventHandler(this.chkFG_Click);
+            // 
             // frmRptStoreLedger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,5 +287,6 @@
         private System.Windows.Forms.DateTimePicker dteFromDate;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtLocationName;
+        private System.Windows.Forms.CheckBox chkFG;
     }
 }

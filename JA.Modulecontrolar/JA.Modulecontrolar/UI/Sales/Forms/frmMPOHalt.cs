@@ -54,10 +54,10 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         private void frmMPOHalt_Load(object sender, EventArgs e)
         {
            
-            List<Mprojection> orptt = objExtra.mGetLedgerGroupLoad(strComID, 1, Utility.gstrUserName).ToList();
+            List<Mprojection> orptt = objExtra.mGetLedgerGroupLoad(strComID, 1, Utility.gstrUserName,0,"").ToList();
             cboMPOHalt.DisplayMember = "strGRName";
             cboMPOHalt.ValueMember = "strGRName";
-            cboMPOHalt.DataSource = objExtra.mGetLedgerGroupLoad(strComID, 1, Utility.gstrUserName).ToList();
+            cboMPOHalt.DataSource = objExtra.mGetLedgerGroupLoad(strComID, 1, Utility.gstrUserName, 0, "").ToList();
            
         }
 

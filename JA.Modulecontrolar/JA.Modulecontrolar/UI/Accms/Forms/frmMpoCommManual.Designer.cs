@@ -36,6 +36,7 @@
             this.uctxtOldKey = new MayhediControlLibrary.StandardTextBox();
             this.DG = new MayhediDataGridView();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btnGen = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DG)).BeginInit();
@@ -50,6 +51,7 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.btnGen);
             this.pnlMain.Controls.Add(this.DG);
             this.pnlMain.Controls.Add(this.chkStatus);
             this.pnlMain.Controls.Add(this.uctxtBranch);
@@ -111,7 +113,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(1007, 146);
+            this.label16.Location = new System.Drawing.Point(958, 146);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(93, 17);
             this.label16.TabIndex = 215;
@@ -122,7 +124,7 @@
             this.uctxtMonthID.BackColor = System.Drawing.Color.White;
             this.uctxtMonthID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtMonthID.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtMonthID.Location = new System.Drawing.Point(1143, 144);
+            this.uctxtMonthID.Location = new System.Drawing.Point(1052, 144);
             this.uctxtMonthID.Name = "uctxtMonthID";
             this.uctxtMonthID.ReadOnly = true;
             this.uctxtMonthID.Size = new System.Drawing.Size(105, 23);
@@ -160,6 +162,7 @@
             this.chkStatus.TabIndex = 218;
             this.chkStatus.Text = "Active";
             this.chkStatus.UseVisualStyleBackColor = true;
+            this.chkStatus.CheckedChanged += new System.EventHandler(this.chkStatus_CheckedChanged);
             // 
             // uctxtOldKey
             // 
@@ -186,6 +189,17 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(579, 23);
             this.progressBar1.TabIndex = 16;
+            // 
+            // btnGen
+            // 
+            this.btnGen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnGen.Location = new System.Drawing.Point(1157, 143);
+            this.btnGen.Name = "btnGen";
+            this.btnGen.Size = new System.Drawing.Size(37, 26);
+            this.btnGen.TabIndex = 220;
+            this.btnGen.Text = "&G";
+            this.btnGen.UseVisualStyleBackColor = false;
+            this.btnGen.Click += new System.EventHandler(this.btnGen_Click_1);
             // 
             // frmMpoCommManual
             // 
@@ -226,6 +240,7 @@
         private MayhediControlLibrary.StandardTextBox uctxtOldKey;
         private MayhediDataGridView DG;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button btnGen;
 
     }
 }

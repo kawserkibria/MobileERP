@@ -32,6 +32,9 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             this.uctxtTypeOfVoucher.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtTypeOfVoucher_KeyPress);
             this.uctxtTypeOfVoucher.GotFocus += new System.EventHandler(this.uctxtTypeOfVoucher_GotFocus);
 
+            this.dteVoucherDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dteVoucherDate_KeyPress);
+            this.dteVoucherDate.GotFocus += new System.EventHandler(this.dteVoucherDate_GotFocus);
+
             this.uctxtVoucher.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtVoucher_KeyPress);
             this.uctxtVoucher.GotFocus += new System.EventHandler(this.uctxtVoucher_GotFocus);
 
@@ -81,7 +84,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            int intEffectBkash = 2;
+            int intEffectBkash = 2,intSample=0;
             if (uctxtTypeOfVoucher.Text == "")
             {
                 MessageBox.Show("Name Cannot be Empty");
@@ -131,6 +134,14 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             {
                 intEffectBkash = 1;
             }
+            if (uctxtTypeOfVoucher.Text == "Sales Sample")
+            {
+                intSample = 1;
+            }
+            else
+            {
+                intSample = 0;
+            }
             var strResponseInsert = MessageBox.Show("Do You  want to Save?", "Save Button", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (strResponseInsert == DialogResult.Yes)
             {
@@ -147,7 +158,8 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     }
                     string strmsg = accms.mUpdteVoucherTypes(strComID, lngMtype, lngvtype, Convert.ToInt64(uctxtNuemricalPart.Text.ToString()), Utility.gCheckNull(uctxtPrefix.Text),
                                                             Utility.gCheckNull(uctxtNumeringMethod.Text), Utility.gCheckNull(uctxtSuffix.Text),
-                                                            blngcheck, uctxtVoucher.Text, Convert.ToInt64(uctxtStartingMethod.Text), Utility.gCheckNull(uctxtPrintAfterSavingVoucher.Text), intEffectBkash);
+                                                            blngcheck, uctxtVoucher.Text, Convert.ToInt64(uctxtStartingMethod.Text),
+                                                            Utility.gCheckNull(uctxtPrintAfterSavingVoucher.Text), intEffectBkash, intSample,dteVoucherDate.Text);
 
                     if (Utility.gblnAccessControl)
                     {
@@ -252,7 +264,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
         {
             if (e.KeyChar == (char)Keys.Return)
             {
-                uctxtPrintAfterSavingVoucher.Focus();
+                dteVoucherDate.Focus();
 
             }
             if (e.KeyChar == (char)Keys.Back)
@@ -278,6 +290,20 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             {
                 PriorSetFocusText(uctxtPrefix, sender, e);
             }
+        }
+        private void dteVoucherDate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                dteVoucherDate.Text = Utility.ctrlDateFormat(dteVoucherDate.Text);
+                uctxtPrintAfterSavingVoucher.Focus();
+            }
+        }
+        private void dteVoucherDate_GotFocus(object sender, System.EventArgs e)
+        {
+            lstPrintSave.Visible = false;
+            lstNoMethod.Visible = false;
+
         }
         private void uctxtVoucher_GotFocus(object sender, System.EventArgs e)
         {
@@ -432,6 +458,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             {
                 chkBkash.Visible = true;
             }
+           
             List<VoucherTypes> oogrp = accms.mLaodVoucherTypes(strComID, 0, lngvtype).ToList();
             if (oogrp.Count > 0)
             {
@@ -446,6 +473,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     uctxtNuemricalPart.Text = ogrp.noWidth.ToString();
                     uctxtPrefix.Text = ogrp.Prefix;
                     uctxtSuffix.Text = ogrp.Suffix;
+                    dteVoucherDate.Text = ogrp.strLockDate;
                     if (ogrp.PrintSaving == 2)
                     {
                         uctxtPrintAfterSavingVoucher.Text = "Yes";
@@ -518,6 +546,8 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             lstPrintSave.DataSource = new BindingSource(userCache1, null);
 
         }
+
+        
 
       
     }

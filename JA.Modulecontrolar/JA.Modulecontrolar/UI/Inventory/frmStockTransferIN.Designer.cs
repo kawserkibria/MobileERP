@@ -85,34 +85,36 @@
             this.pnlMain.Controls.Add(this.panel2);
             this.pnlMain.Controls.Add(this.label4);
             this.pnlMain.Controls.Add(this.uctxtNarration);
-            this.pnlMain.Controls.Add(this.uctxtFromLocation);
             this.pnlMain.Controls.Add(this.uctxtInvoiceNo);
             this.pnlMain.Controls.Add(this.label5);
             this.pnlMain.Controls.Add(this.dteDate);
             this.pnlMain.Controls.Add(this.label9);
-            this.pnlMain.Controls.Add(this.label1);
             this.pnlMain.Controls.Add(this.label3);
             this.pnlMain.Controls.Add(this.uctxtToLocation);
-            this.pnlMain.Size = new System.Drawing.Size(953, 594);
+            this.pnlMain.Size = new System.Drawing.Size(953, 528);
             // 
             // pnlTop
             // 
             this.pnlTop.Controls.Add(this.textBox1);
+            this.pnlTop.Controls.Add(this.uctxtFromLocation);
+            this.pnlTop.Controls.Add(this.label1);
             this.pnlTop.Size = new System.Drawing.Size(956, 58);
+            this.pnlTop.Controls.SetChildIndex(this.label1, 0);
+            this.pnlTop.Controls.SetChildIndex(this.uctxtFromLocation, 0);
             this.pnlTop.Controls.SetChildIndex(this.textBox1, 0);
             this.pnlTop.Controls.SetChildIndex(this.frmLabel, 0);
             this.pnlTop.Controls.SetChildIndex(this.btnTopClose, 0);
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(6, 510);
+            this.btnEdit.Location = new System.Drawing.Point(6, 444);
             this.btnEdit.Size = new System.Drawing.Size(135, 39);
             this.btnEdit.Text = "List All";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(726, 510);
+            this.btnSave.Location = new System.Drawing.Point(726, 444);
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
@@ -129,7 +131,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(840, 510);
+            this.btnClose.Location = new System.Drawing.Point(840, 444);
             // 
             // btnPrint
             // 
@@ -139,7 +141,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 556);
+            this.groupBox1.Location = new System.Drawing.Point(0, 483);
             this.groupBox1.Size = new System.Drawing.Size(956, 25);
             // 
             // uctxtInvoiceNo
@@ -155,7 +157,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label5.Location = new System.Drawing.Point(483, 187);
+            this.label5.Location = new System.Drawing.Point(479, 182);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(104, 16);
             this.label5.TabIndex = 106;
@@ -163,6 +165,7 @@
             // 
             // dteDate
             // 
+            this.dteDate.Enabled = false;
             this.dteDate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dteDate.Location = new System.Drawing.Point(119, 178);
@@ -184,17 +187,18 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label1.Location = new System.Drawing.Point(480, 159);
+            this.label1.Location = new System.Drawing.Point(742, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 16);
             this.label1.TabIndex = 108;
             this.label1.Text = "From Location:";
+            this.label1.Visible = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label3.Location = new System.Drawing.Point(22, 203);
+            this.label3.Location = new System.Drawing.Point(490, 157);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 16);
             this.label3.TabIndex = 110;
@@ -204,7 +208,7 @@
             // 
             this.uctxtToLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtToLocation.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtToLocation.Location = new System.Drawing.Point(119, 202);
+            this.uctxtToLocation.Location = new System.Drawing.Point(592, 156);
             this.uctxtToLocation.Name = "uctxtToLocation";
             this.uctxtToLocation.Size = new System.Drawing.Size(347, 23);
             this.uctxtToLocation.TabIndex = 109;
@@ -213,7 +217,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label4.Location = new System.Drawing.Point(245, 565);
+            this.label4.Location = new System.Drawing.Point(245, 496);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 16);
             this.label4.TabIndex = 115;
@@ -223,7 +227,7 @@
             // 
             this.uctxtNarration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtNarration.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtNarration.Location = new System.Drawing.Point(325, 562);
+            this.uctxtNarration.Location = new System.Drawing.Point(325, 493);
             this.uctxtNarration.Name = "uctxtNarration";
             this.uctxtNarration.Size = new System.Drawing.Size(422, 23);
             this.uctxtNarration.TabIndex = 114;
@@ -245,16 +249,16 @@
             this.panel2.Controls.Add(this.DG);
             this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.uctxtItemName);
-            this.panel2.Location = new System.Drawing.Point(5, 238);
+            this.panel2.Location = new System.Drawing.Point(5, 210);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(941, 318);
+            this.panel2.Size = new System.Drawing.Size(941, 276);
             this.panel2.TabIndex = 116;
             // 
             // lblQnty
             // 
             this.lblQnty.AutoSize = true;
             this.lblQnty.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQnty.Location = new System.Drawing.Point(432, 291);
+            this.lblQnty.Location = new System.Drawing.Point(432, 251);
             this.lblQnty.Name = "lblQnty";
             this.lblQnty.Size = new System.Drawing.Size(15, 14);
             this.lblQnty.TabIndex = 97;
@@ -264,7 +268,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(307, 291);
+            this.label15.Location = new System.Drawing.Point(307, 251);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(100, 14);
             this.label15.TabIndex = 96;
@@ -330,7 +334,7 @@
             // 
             this.lblAmount.AutoSize = true;
             this.lblAmount.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAmount.Location = new System.Drawing.Point(714, 291);
+            this.lblAmount.Location = new System.Drawing.Point(714, 251);
             this.lblAmount.Name = "lblAmount";
             this.lblAmount.Size = new System.Drawing.Size(15, 14);
             this.lblAmount.TabIndex = 75;
@@ -340,7 +344,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(590, 291);
+            this.label8.Location = new System.Drawing.Point(590, 251);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(94, 14);
             this.label8.TabIndex = 74;
@@ -421,7 +425,7 @@
             // 
             // DG
             // 
-            this.DG.BackgroundColor = System.Drawing.Color.White;
+            this.DG.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -439,7 +443,6 @@
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DG.DefaultCellStyle = dataGridViewCellStyle7;
-            this.DG.Enabled = false;
             this.DG.Location = new System.Drawing.Point(3, 53);
             this.DG.Name = "DG";
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -451,7 +454,7 @@
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DG.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.DG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.DG.Size = new System.Drawing.Size(934, 235);
+            this.DG.Size = new System.Drawing.Size(934, 192);
             this.DG.TabIndex = 58;
             this.DG.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DG_CellContentClick);
             this.DG.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DG_CellEndEdit);
@@ -483,10 +486,11 @@
             // 
             this.uctxtFromLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtFromLocation.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtFromLocation.Location = new System.Drawing.Point(592, 156);
+            this.uctxtFromLocation.Location = new System.Drawing.Point(863, 12);
             this.uctxtFromLocation.Name = "uctxtFromLocation";
-            this.uctxtFromLocation.Size = new System.Drawing.Size(347, 23);
+            this.uctxtFromLocation.Size = new System.Drawing.Size(25, 23);
             this.uctxtFromLocation.TabIndex = 107;
+            this.uctxtFromLocation.Visible = false;
             // 
             // textBox1
             // 
@@ -520,7 +524,7 @@
             // frmStockTransferIN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(956, 581);
+            this.ClientSize = new System.Drawing.Size(956, 508);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;

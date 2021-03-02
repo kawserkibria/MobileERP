@@ -7,6 +7,7 @@ using JA.Modulecontrolar.UI.DReport.Inventory.ReportUI;
 using JA.Modulecontrolar.UI.DReport.Sales.ReportUI;
 using Microsoft.Win32;
 using System;
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +25,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
         JINVMS.IWSINVMS invms = new JINVMS.WSINVMSClient();
         SPWOIS objWoIS = new SPWOIS();
         JRPT.SWRPTClient orptCnn = new SWRPTClient();
+       
         public string strTdate { get; set; }
         public string strString { get; set; }
         public string strString7 { get; set; }
@@ -118,9 +120,11 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
         #region "Load"
         private void frmReportViewer_Load(object sender, EventArgs e)
         {
-            ReportDocument rpt1;
+            ReportDocument rpt1=new ReportDocument();
             try
             {
+               
+               
                 switch (selector)
                 {
                     case ViewerSelector.rptDailyCollectionRV:
@@ -271,7 +275,6 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
 
                         break;
                     #endregion
-
                     #region "ProductWiseSalesStatementQty"
                     case ViewerSelector.MpoProductWiseSalesStatementQty:
                         if (intMode <= 4)
@@ -317,15 +320,45 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
                             rptAllTarget Target = new rptAllTarget();
                             rpt1 = (ReportDocument)Target;
                         }
+
+                        else if (strSelction == "ACTUAL")
+                        {
+                            rptAllSalesTarget3 Target = new rptAllSalesTarget3();
+                            rpt1 = (ReportDocument)Target;
+                        }
+                        else if (strSelction == "CTN")
+                        {
+                            rptAllSalesTarget3 Target = new rptAllSalesTarget3();
+                            rpt1 = (ReportDocument)Target;
+                        }
                         else
                         {
                             rptAllTarget2 Target = new rptAllTarget2();
                             rpt1 = (ReportDocument)Target;
                         }
-                        this.reportTitle = reportTitle2;
+                        if (strSelction == "CT")
+                        {
+                            this.reportTitle = "Actual Collection Target";
+                        }
+                        else if (strSelction == "CTN")
+                        {
+                            this.reportTitle = "Revised Collection Target";
+                        }
+                        else if (strSelction == "TA")
+                        {
+                            this.reportTitle = "Actual Sales Target";
+                        }
+                        else if (strSelction == "ACTUAL")
+                        {
+                            this.reportTitle = "Revised Sales Target";
+                        }
+                        else
+                        {
+                            this.reportTitle = reportTitle2;
+                        }
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(orptCnn.mDisplayCreditLimitListAll(strComID, strString, strSelction).ToList());
+                        rpt1.SetDataSource(orptCnn.mDisplayCreditLimitListAll(strComID, strString, strSelction,Utility.gstrUserName).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -340,7 +373,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
                         //rpt1.SetDataSource(orpt.mGetMpoListNew(strComID, strFdate, strTdate, strBranchId, strString, intMode).ToList());
-                        rpt1.SetDataSource(objWoIS.mGetMpoListNew(strComID, strFdate, strTdate, strBranchId, strString, intMode, intStatus).ToList());
+                        rpt1.SetDataSource(objWoIS.mGetMpoListNew(strComID, strFdate, strTdate, strBranchId, strString, intMode, intStatus, "").ToList());
                         rpt1.Subreports[0].SetDataSource(objWoIS.mGetMpoListZone(strComID).ToList());
 
                         crystalReportViewer1.ReportSource = rpt1;
@@ -348,19 +381,28 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
                         break;
 
                     case ViewerSelector.rptMpoListLedgerWAll:
-                        rptMpoList_LedgerW_All rptMpoListLedgerWAll1 = new rptMpoList_LedgerW_All();
-                        rpt1 = (ReportDocument)rptMpoListLedgerWAll1;
+                        if (strSelction == "Route")
+                        {
+                            rptMpoList_LedgerRoute rptMpoListLedgerWAll1 = new rptMpoList_LedgerRoute();
+                            rpt1 = (ReportDocument)rptMpoListLedgerWAll1;
+                        }
+                        else
+                        {
+                            rptMpoList_LedgerW_All rptMpoListLedgerWAll1 = new rptMpoList_LedgerW_All();
+                            rpt1 = (ReportDocument)rptMpoListLedgerWAll1;
+                        }
+
                         this.reportTitle = "Territory Code Based MPO List ";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
                         //rpt1.SetDataSource(orpt.mGetMpoListNew(strComID, strFdate, strTdate, strBranchId, strString, intMode).ToList());
                         if (intSuppress2 == 1)
                         {
-                            rpt1.SetDataSource(objWoIS.mGetMpoListNew(strComID, strFdate, strTdate, strBranchId, strString, 10, intStatus).ToList());
+                            rpt1.SetDataSource(objWoIS.mGetMpoListNew(strComID, strFdate, strTdate, strBranchId, strString, 10, intStatus, strSelction).ToList());
                         }
                         else
                         {
-                            rpt1.SetDataSource(objWoIS.mGetMpoListNew(strComID, strFdate, strTdate, strBranchId, strString, 6, intStatus).ToList());
+                            rpt1.SetDataSource(objWoIS.mGetMpoListNew(strComID, strFdate, strTdate, strBranchId, strString, 6, intStatus, "").ToList());
                         }
                         crystalReportViewer1.ReportSource = rpt1;
                         rpt1.SetParameterValue("intSuppres", intSuppress2);
@@ -601,8 +643,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
 
 
                     case ViewerSelector.ProductSalesAll:
-
-
+             
                         if (intMode == 5)
                         {
                             rptProductSales_All_MPO rptProductSalesAll2 = new rptProductSales_All_MPO();
@@ -624,7 +665,6 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
                                 this.reportTitle = "Product Sales Statement";
                             }
 
-
                         }
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
@@ -635,7 +675,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
                         {
                             rpt1.SetParameterValue("refNo", strString7.Replace("'", ""));
                         }
-                        ShowReport(rpt1, false, "");
+                        //ShowReport(rpt1, false, "");
                         break;
 
                     case ViewerSelector.ProductSalesAllFM:
@@ -1424,36 +1464,54 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
                     #endregion
                     #region "Sales & Collection Performance"
                     case ViewerSelector.SalesCollectonperformance:
-
-                        if (intMode == 1)
+                        if (intSuppress2 == 1)
                         {
-                            rptSales_Collection_Performance_Zone rptMposa = new rptSales_Collection_Performance_Zone();
-                            rpt1 = (ReportDocument)rptMposa;
-                        }
-                        else if (intMode == 2)
-                        {
-                            rptSales_Collection_Performance_Division rptMposa = new rptSales_Collection_Performance_Division();
-                            rpt1 = (ReportDocument)rptMposa;
-                        }
-                        else if (intMode == 3)
-                        {
-                            rptSales_Collection_Performance_Area rptMposa = new rptSales_Collection_Performance_Area();
-                            rpt1 = (ReportDocument)rptMposa;
-                        }
-                        else if (intMode == 4)
-                        {
-                            rptSales_Collection_Performance_MPO rptMposa = new rptSales_Collection_Performance_MPO();
-                            rpt1 = (ReportDocument)rptMposa;
+                            if (intMode == 5)
+                            {
+                                rptSales_Collection_Performance_NationalPerfor_All rptMposa = new rptSales_Collection_Performance_NationalPerfor_All();
+                                rpt1 = (ReportDocument)rptMposa;
+                            }
+                            else
+                            {
+                                rptSales_Collection_Performance_NationalPerfor rptMposa = new rptSales_Collection_Performance_NationalPerfor();
+                                rpt1 = (ReportDocument)rptMposa;
+                            }
                         }
                         else
                         {
-                            rptSales_Collection_Performance_All rptMposa = new rptSales_Collection_Performance_All();
-                            rpt1 = (ReportDocument)rptMposa;
+                            if (intMode == 1)
+                            {
+                                rptSales_Collection_Performance_Zone rptMposa = new rptSales_Collection_Performance_Zone();
+                                rpt1 = (ReportDocument)rptMposa;
+                            }
+                            else if (intMode == 2)
+                            {
+                                rptSales_Collection_Performance_Division rptMposa = new rptSales_Collection_Performance_Division();
+                                rpt1 = (ReportDocument)rptMposa;
+                            }
+                            else if (intMode == 3)
+                            {
+                                rptSales_Collection_Performance_Area rptMposa = new rptSales_Collection_Performance_Area();
+                                rpt1 = (ReportDocument)rptMposa;
+                            }
+                            else if (intMode == 4)
+                            {
+                                rptSales_Collection_Performance_MPO rptMposa = new rptSales_Collection_Performance_MPO();
+                                rpt1 = (ReportDocument)rptMposa;
+                            }
+                            else if (intMode == 5)
+                            {
+                                rptSales_Collection_Performance_All rptMposa = new rptSales_Collection_Performance_All();
+                                rpt1 = (ReportDocument)rptMposa;
+                            }
+                            else
+                            {
+                                rptSales_Collection_Performance_All rptMposa = new rptSales_Collection_Performance_All();
+                                rpt1 = (ReportDocument)rptMposa;
+                            }
                         }
                         this.reportTitle = "Sales & Collection Performance";
                         this.secondParameter = strFdate + " to " + strTdate;
-
-
 
                         string FFdate = Utility.FirstDayOfMonth(Convert.ToDateTime(strFdate)).ToString("dd-MM-yyyy");
                         string TTdate = Utility.LastDayOfMonth(Convert.ToDateTime(strTdate)).ToString("dd-MM-yyyy");
@@ -1462,16 +1520,10 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
                         DateTime dT = Convert.ToDateTime(TTdate);
 
                         long intnoofdays = Utility.DateDiff(Utility.DateInterval.Day, df, dT) + 1;
-
-
                         long lonnDays = Utility.DateDiff(Utility.DateInterval.Day, Convert.ToDateTime(strFdate), Convert.ToDateTime(strTdate)) + 1;
-
-
-
                         rpt1.SetDataSource(orpt.mGetSalesCollectionPerformanceRep(strComID, strFdate, strTdate, strBranchId, strString2, intMode, intStatus,
                                                                                Utility.gstrUserName, Convert.ToDateTime(FFdate), Convert.ToDateTime(TTdate), Convert.ToInt32(intnoofdays),
-                                                                               Convert.ToInt32(lonnDays),Utility.gstrUserName).ToList());
-
+                                                                               Convert.ToInt32(lonnDays), Utility.gstrUserName, intStatusNew,intCheckStatus).ToList());
 
                         crystalReportViewer1.ReportSource = rpt1;
                         InitialiseLabels(rpt1);
@@ -1538,6 +1590,32 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
                         break;
 
                     #endregion
+                    #region "Pending order"
+                    case ViewerSelector.Pendingorder:
+                        rptPending_Order rptPendingOr = new rptPending_Order();
+                        rpt1 = (ReportDocument)rptPendingOr;
+                        if (intStatusNew == 2)
+                        {
+                            rpt1.SetDataSource(orpt.gFillPendingOrder(strComID, strBranchId, strFPreviousdate, intMode, strFdate, strTdate, 2).ToList());
+                        }
+                        else
+                        {
+                            rpt1.SetDataSource(orpt.gFillPendingOrder(strComID, strBranchId, strFPreviousdate, intMode, strFdate, strTdate, 1).ToList());
+                        }
+                        if (intStatusNew == 2)
+                        {
+                            this.reportTitle = "Pending order";
+                        }
+                        else
+                        {
+                            this.reportTitle = "ZH Not Approve (Order)";
+                        }
+                        this.secondParameter = Convert.ToDateTime(strFdate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(strTdate).ToString("dd-MM-yyyy");
+                        InitialiseLabels(rpt1);
+                        crystalReportViewer1.ReportSource = rpt1;
+                        ShowReport(rpt1, false, "");
+                        break;
+                    #endregion
                 }
                  
 
@@ -1562,12 +1640,17 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.Viewer
             }
             else
             {
-                //InitialiseParameterLabels(rpt, strReportTitle);
                 this.Show();
+               
             }
 
         }
         #endregion
+
+        private void crystalReportViewer1_Load(object sender, EventArgs e)
+        {
+
+        }
 
 
 

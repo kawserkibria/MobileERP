@@ -54,6 +54,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cboGroupName = new System.Windows.Forms.ComboBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.chkStationary = new System.Windows.Forms.CheckBox();
+            this.chkMainLocation = new System.Windows.Forms.CheckBox();
+            this.chkboxRate = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -65,12 +69,18 @@
             // 
             // frmLabel
             // 
-            this.frmLabel.Location = new System.Drawing.Point(235, 9);
-            this.frmLabel.Size = new System.Drawing.Size(270, 33);
-            this.frmLabel.Text = "Top Sheet Sales Price";
+            this.frmLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.frmLabel.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.frmLabel.Location = new System.Drawing.Point(250, 9);
+            this.frmLabel.Size = new System.Drawing.Size(159, 23);
+            this.frmLabel.Text = "Stock Information";
+            this.frmLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.chkboxRate);
+            this.pnlMain.Controls.Add(this.chkMainLocation);
+            this.pnlMain.Controls.Add(this.chkStationary);
             this.pnlMain.Controls.Add(this.groupBox7);
             this.pnlMain.Controls.Add(this.groupBox9);
             this.pnlMain.Controls.Add(this.gboxInwardPurchase);
@@ -82,7 +92,7 @@
             // 
             // pnlTop
             // 
-            this.pnlTop.Size = new System.Drawing.Size(731, 57);
+            this.pnlTop.Size = new System.Drawing.Size(731, 51);
             this.pnlTop.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlTop_Paint);
             // 
             // btnEdit
@@ -134,7 +144,7 @@
             this.groupBox6.Controls.Add(this.dteFromDate);
             this.groupBox6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.groupBox6.Location = new System.Drawing.Point(186, 426);
+            this.groupBox6.Location = new System.Drawing.Point(186, 419);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(342, 89);
             this.groupBox6.TabIndex = 4;
@@ -188,16 +198,16 @@
             // 
             this.uctxtBranchName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtBranchName.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtBranchName.Location = new System.Drawing.Point(178, 201);
+            this.uctxtBranchName.Location = new System.Drawing.Point(128, 194);
             this.uctxtBranchName.Name = "uctxtBranchName";
-            this.uctxtBranchName.Size = new System.Drawing.Size(350, 23);
+            this.uctxtBranchName.Size = new System.Drawing.Size(293, 23);
             this.uctxtBranchName.TabIndex = 58;
             // 
             // lblCategory
             // 
             this.lblCategory.AutoSize = true;
             this.lblCategory.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCategory.Location = new System.Drawing.Point(80, 204);
+            this.lblCategory.Location = new System.Drawing.Point(27, 197);
             this.lblCategory.Name = "lblCategory";
             this.lblCategory.Size = new System.Drawing.Size(95, 14);
             this.lblCategory.TabIndex = 59;
@@ -208,7 +218,7 @@
             this.gboxInwardPurchase.Controls.Add(this.groupBox3);
             this.gboxInwardPurchase.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gboxInwardPurchase.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.gboxInwardPurchase.Location = new System.Drawing.Point(6, 491);
+            this.gboxInwardPurchase.Location = new System.Drawing.Point(6, 484);
             this.gboxInwardPurchase.Name = "gboxInwardPurchase";
             this.gboxInwardPurchase.Size = new System.Drawing.Size(10, 11);
             this.gboxInwardPurchase.TabIndex = 62;
@@ -259,55 +269,57 @@
             this.groupBox9.Controls.Add(this.rbtnPurchase);
             this.groupBox9.Controls.Add(this.rbtntopSheet);
             this.groupBox9.Controls.Add(this.rbtnInvoiceP);
-            this.groupBox9.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox9.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox9.ForeColor = System.Drawing.Color.Black;
-            this.groupBox9.Location = new System.Drawing.Point(20, 146);
+            this.groupBox9.Location = new System.Drawing.Point(20, 139);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(686, 47);
             this.groupBox9.TabIndex = 66;
             this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Report Value Option";
             this.groupBox9.Enter += new System.EventHandler(this.groupBox9_Enter);
             // 
             // rbtnPurchase
             // 
             this.rbtnPurchase.AutoSize = true;
-            this.rbtnPurchase.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnPurchase.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnPurchase.ForeColor = System.Drawing.Color.Black;
-            this.rbtnPurchase.Location = new System.Drawing.Point(313, 19);
+            this.rbtnPurchase.Location = new System.Drawing.Point(526, 19);
             this.rbtnPurchase.Name = "rbtnPurchase";
-            this.rbtnPurchase.Size = new System.Drawing.Size(123, 20);
+            this.rbtnPurchase.Size = new System.Drawing.Size(121, 22);
             this.rbtnPurchase.TabIndex = 3;
-            this.rbtnPurchase.Text = "Purchase Price";
+            this.rbtnPurchase.Text = "Raw Material";
             this.rbtnPurchase.UseVisualStyleBackColor = true;
+            this.rbtnPurchase.Click += new System.EventHandler(this.rbtnPurchase_Click);
             this.rbtnPurchase.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rbtnPurchase_MouseClick);
             // 
             // rbtntopSheet
             // 
             this.rbtntopSheet.AutoSize = true;
-            this.rbtntopSheet.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtntopSheet.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtntopSheet.ForeColor = System.Drawing.Color.Black;
-            this.rbtntopSheet.Location = new System.Drawing.Point(465, 19);
+            this.rbtntopSheet.Location = new System.Drawing.Point(228, 19);
             this.rbtntopSheet.Name = "rbtntopSheet";
-            this.rbtntopSheet.Size = new System.Drawing.Size(94, 20);
+            this.rbtntopSheet.Size = new System.Drawing.Size(218, 22);
             this.rbtntopSheet.TabIndex = 1;
-            this.rbtntopSheet.Text = "Top Sheet";
+            this.rbtntopSheet.Text = "Finished Goods Top Sheet";
             this.rbtntopSheet.UseVisualStyleBackColor = true;
+            this.rbtntopSheet.Click += new System.EventHandler(this.rbtntopSheet_Click);
             this.rbtntopSheet.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rbtnCostP_MouseClick);
             // 
             // rbtnInvoiceP
             // 
             this.rbtnInvoiceP.AutoSize = true;
             this.rbtnInvoiceP.Checked = true;
-            this.rbtnInvoiceP.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnInvoiceP.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnInvoiceP.ForeColor = System.Drawing.Color.Black;
-            this.rbtnInvoiceP.Location = new System.Drawing.Point(165, 19);
+            this.rbtnInvoiceP.Location = new System.Drawing.Point(41, 19);
             this.rbtnInvoiceP.Name = "rbtnInvoiceP";
-            this.rbtnInvoiceP.Size = new System.Drawing.Size(111, 20);
+            this.rbtnInvoiceP.Size = new System.Drawing.Size(139, 22);
             this.rbtnInvoiceP.TabIndex = 0;
             this.rbtnInvoiceP.TabStop = true;
-            this.rbtnInvoiceP.Text = "Invoice Price";
+            this.rbtnInvoiceP.Text = "Finished Goods";
             this.rbtnInvoiceP.UseVisualStyleBackColor = true;
+            this.rbtnInvoiceP.Click += new System.EventHandler(this.rbtnInvoiceP_Click);
             this.rbtnInvoiceP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rbtnInvoiceP_MouseClick);
             // 
             // lstLeft
@@ -392,22 +404,22 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(6, 12);
+            this.label3.Location = new System.Drawing.Point(202, 11);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 16);
+            this.label3.Size = new System.Drawing.Size(58, 16);
             this.label3.TabIndex = 22;
             this.label3.Text = "Search";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
             this.label6.Location = new System.Drawing.Point(308, 8);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(136, 16);
+            this.label6.Size = new System.Drawing.Size(144, 16);
             this.label6.TabIndex = 24;
             this.label6.Text = "Stock Group Select";
             this.label6.Visible = false;
@@ -421,9 +433,11 @@
             this.cboGroupName.Name = "cboGroupName";
             this.cboGroupName.Size = new System.Drawing.Size(220, 22);
             this.cboGroupName.TabIndex = 25;
+            this.cboGroupName.SelectedIndexChanged += new System.EventHandler(this.cboGroupName_SelectedIndexChanged_1);
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.label11);
             this.groupBox7.Controls.Add(this.cboGroupName);
             this.groupBox7.Controls.Add(this.label6);
             this.groupBox7.Controls.Add(this.label3);
@@ -434,11 +448,61 @@
             this.groupBox7.Controls.Add(this.btnRightSingle);
             this.groupBox7.Controls.Add(this.lstRight);
             this.groupBox7.Controls.Add(this.lstLeft);
-            this.groupBox7.Location = new System.Drawing.Point(94, 230);
+            this.groupBox7.Location = new System.Drawing.Point(91, 223);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(534, 190);
             this.groupBox7.TabIndex = 72;
             this.groupBox7.TabStop = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Blue;
+            this.label11.Location = new System.Drawing.Point(7, 11);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(95, 16);
+            this.label11.TabIndex = 33;
+            this.label11.Text = "Stock Group";
+            // 
+            // chkStationary
+            // 
+            this.chkStationary.AutoSize = true;
+            this.chkStationary.Font = new System.Drawing.Font("Verdana", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkStationary.Location = new System.Drawing.Point(451, 200);
+            this.chkStationary.Name = "chkStationary";
+            this.chkStationary.Size = new System.Drawing.Size(15, 14);
+            this.chkStationary.TabIndex = 73;
+            this.chkStationary.UseVisualStyleBackColor = true;
+            this.chkStationary.Visible = false;
+            this.chkStationary.Click += new System.EventHandler(this.chkStationary_Click);
+            // 
+            // chkMainLocation
+            // 
+            this.chkMainLocation.AutoSize = true;
+            this.chkMainLocation.Checked = true;
+            this.chkMainLocation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMainLocation.Enabled = false;
+            this.chkMainLocation.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkMainLocation.Location = new System.Drawing.Point(12, 491);
+            this.chkMainLocation.Name = "chkMainLocation";
+            this.chkMainLocation.Size = new System.Drawing.Size(115, 17);
+            this.chkMainLocation.TabIndex = 74;
+            this.chkMainLocation.Text = "Main Location";
+            this.chkMainLocation.UseVisualStyleBackColor = true;
+            // 
+            // chkboxRate
+            // 
+            this.chkboxRate.AutoSize = true;
+            this.chkboxRate.Font = new System.Drawing.Font("Verdana", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkboxRate.Location = new System.Drawing.Point(628, 235);
+            this.chkboxRate.Name = "chkboxRate";
+            this.chkboxRate.Size = new System.Drawing.Size(94, 18);
+            this.chkboxRate.TabIndex = 75;
+            this.chkboxRate.Text = "Summary";
+            this.chkboxRate.UseVisualStyleBackColor = true;
+            this.chkboxRate.Visible = false;
+            this.chkboxRate.Click += new System.EventHandler(this.chkboxRate_Click);
             // 
             // frmRptProductN
             // 
@@ -494,5 +558,9 @@
         private System.Windows.Forms.Button btnRightSingle;
         private System.Windows.Forms.ListBox lstRight;
         private System.Windows.Forms.ListBox lstLeft;
+        private System.Windows.Forms.CheckBox chkStationary;
+        private System.Windows.Forms.CheckBox chkMainLocation;
+        private System.Windows.Forms.CheckBox chkboxRate;
+        private System.Windows.Forms.Label label11;
     }
 }

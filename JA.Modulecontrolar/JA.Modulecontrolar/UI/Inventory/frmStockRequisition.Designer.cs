@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -36,6 +37,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStockRequisition));
             this.uctxtInvoiceNo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.dteDate = new System.Windows.Forms.DateTimePicker();
@@ -68,6 +70,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.uctxtProcessManuQty = new System.Windows.Forms.TextBox();
             this.btnGenerate = new System.Windows.Forms.Button();
+            this.chkFG = new System.Windows.Forms.CheckBox();
+            this.btnSerach1 = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.uctxtBatch1 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnDisplay = new System.Windows.Forms.Button();
+            this.chkStationary = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -77,10 +86,15 @@
             // 
             // frmLabel
             // 
-            this.frmLabel.Location = new System.Drawing.Point(329, 6);
+            this.frmLabel.Location = new System.Drawing.Point(329, 1);
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.btnDisplay);
+            this.pnlMain.Controls.Add(this.btnSerach1);
+            this.pnlMain.Controls.Add(this.uctxtBatch1);
+            this.pnlMain.Controls.Add(this.label6);
+            this.pnlMain.Controls.Add(this.chkFG);
             this.pnlMain.Controls.Add(this.btnGenerate);
             this.pnlMain.Controls.Add(this.label3);
             this.pnlMain.Controls.Add(this.uctxtProcessManuQty);
@@ -97,30 +111,32 @@
             this.pnlMain.Controls.Add(this.dteDate);
             this.pnlMain.Controls.Add(this.label9);
             this.pnlMain.Controls.Add(this.label1);
-            this.pnlMain.Size = new System.Drawing.Size(810, 636);
+            this.pnlMain.Size = new System.Drawing.Size(810, 562);
             // 
             // pnlTop
             // 
+            this.pnlTop.Controls.Add(this.chkStationary);
             this.pnlTop.Controls.Add(this.textBox1);
             this.pnlTop.Controls.Add(this.uctxtRate);
             this.pnlTop.Controls.Add(this.label10);
-            this.pnlTop.Size = new System.Drawing.Size(815, 58);
+            this.pnlTop.Size = new System.Drawing.Size(815, 44);
             this.pnlTop.Controls.SetChildIndex(this.label10, 0);
             this.pnlTop.Controls.SetChildIndex(this.uctxtRate, 0);
             this.pnlTop.Controls.SetChildIndex(this.frmLabel, 0);
             this.pnlTop.Controls.SetChildIndex(this.textBox1, 0);
             this.pnlTop.Controls.SetChildIndex(this.btnTopClose, 0);
+            this.pnlTop.Controls.SetChildIndex(this.chkStationary, 0);
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(6, 558);
+            this.btnEdit.Location = new System.Drawing.Point(6, 477);
             this.btnEdit.Size = new System.Drawing.Size(135, 39);
             this.btnEdit.Text = "List All";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(588, 553);
+            this.btnSave.Location = new System.Drawing.Point(588, 477);
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
@@ -137,7 +153,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(702, 553);
+            this.btnClose.Location = new System.Drawing.Point(702, 477);
             // 
             // btnPrint
             // 
@@ -147,13 +163,14 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Location = new System.Drawing.Point(0, 517);
             this.groupBox1.Size = new System.Drawing.Size(815, 25);
             // 
             // uctxtInvoiceNo
             // 
             this.uctxtInvoiceNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtInvoiceNo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtInvoiceNo.Location = new System.Drawing.Point(9, 225);
+            this.uctxtInvoiceNo.Location = new System.Drawing.Point(9, 208);
             this.uctxtInvoiceNo.Name = "uctxtInvoiceNo";
             this.uctxtInvoiceNo.Size = new System.Drawing.Size(180, 23);
             this.uctxtInvoiceNo.TabIndex = 105;
@@ -162,7 +179,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Verdana", 11.25F);
-            this.label5.Location = new System.Drawing.Point(9, 200);
+            this.label5.Location = new System.Drawing.Point(9, 183);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(118, 18);
             this.label5.TabIndex = 106;
@@ -172,16 +189,16 @@
             // 
             this.dteDate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteDate.Location = new System.Drawing.Point(9, 271);
+            this.dteDate.Location = new System.Drawing.Point(202, 208);
             this.dteDate.Name = "dteDate";
-            this.dteDate.Size = new System.Drawing.Size(180, 23);
+            this.dteDate.Size = new System.Drawing.Size(158, 23);
             this.dteDate.TabIndex = 111;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Verdana", 11.25F);
-            this.label9.Location = new System.Drawing.Point(9, 250);
+            this.label9.Location = new System.Drawing.Point(202, 187);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(43, 18);
             this.label9.TabIndex = 112;
@@ -191,7 +208,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 11.25F);
-            this.label1.Location = new System.Drawing.Point(392, 152);
+            this.label1.Location = new System.Drawing.Point(392, 135);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 18);
             this.label1.TabIndex = 108;
@@ -201,7 +218,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label4.Location = new System.Drawing.Point(170, 599);
+            this.label4.Location = new System.Drawing.Point(170, 536);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 16);
             this.label4.TabIndex = 115;
@@ -211,7 +228,7 @@
             // 
             this.uctxtNarration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtNarration.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtNarration.Location = new System.Drawing.Point(250, 596);
+            this.uctxtNarration.Location = new System.Drawing.Point(250, 533);
             this.uctxtNarration.Name = "uctxtNarration";
             this.uctxtNarration.Size = new System.Drawing.Size(422, 23);
             this.uctxtNarration.TabIndex = 114;
@@ -230,16 +247,16 @@
             this.panel2.Controls.Add(this.DG);
             this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.uctxtItemName);
-            this.panel2.Location = new System.Drawing.Point(5, 300);
+            this.panel2.Location = new System.Drawing.Point(5, 283);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(797, 288);
+            this.panel2.Size = new System.Drawing.Size(797, 246);
             this.panel2.TabIndex = 116;
             // 
             // lblQnty
             // 
             this.lblQnty.AutoSize = true;
             this.lblQnty.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQnty.Location = new System.Drawing.Point(330, 259);
+            this.lblQnty.Location = new System.Drawing.Point(330, 224);
             this.lblQnty.Name = "lblQnty";
             this.lblQnty.Size = new System.Drawing.Size(15, 14);
             this.lblQnty.TabIndex = 97;
@@ -249,7 +266,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(205, 259);
+            this.label15.Location = new System.Drawing.Point(205, 224);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(100, 14);
             this.label15.TabIndex = 96;
@@ -316,7 +333,7 @@
             // 
             this.lblAmount.AutoSize = true;
             this.lblAmount.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAmount.Location = new System.Drawing.Point(612, 259);
+            this.lblAmount.Location = new System.Drawing.Point(612, 224);
             this.lblAmount.Name = "lblAmount";
             this.lblAmount.Size = new System.Drawing.Size(15, 14);
             this.lblAmount.TabIndex = 75;
@@ -326,7 +343,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(488, 259);
+            this.label8.Location = new System.Drawing.Point(488, 224);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(94, 14);
             this.label8.TabIndex = 74;
@@ -392,7 +409,7 @@
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DG.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.DG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.DG.Size = new System.Drawing.Size(786, 201);
+            this.DG.Size = new System.Drawing.Size(786, 163);
             this.DG.TabIndex = 58;
             this.DG.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DG_CellContentClick);
             this.DG.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DG_CellEndEdit);
@@ -443,7 +460,7 @@
             // 
             this.uctxtFromLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtFromLocation.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtFromLocation.Location = new System.Drawing.Point(392, 172);
+            this.uctxtFromLocation.Location = new System.Drawing.Point(392, 155);
             this.uctxtFromLocation.Name = "uctxtFromLocation";
             this.uctxtFromLocation.Size = new System.Drawing.Size(377, 23);
             this.uctxtFromLocation.TabIndex = 107;
@@ -452,7 +469,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Verdana", 11.25F);
-            this.label13.Location = new System.Drawing.Point(392, 200);
+            this.label13.Location = new System.Drawing.Point(392, 183);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(115, 18);
             this.label13.TabIndex = 118;
@@ -462,7 +479,7 @@
             // 
             this.uctxtProcessName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtProcessName.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtProcessName.Location = new System.Drawing.Point(392, 225);
+            this.uctxtProcessName.Location = new System.Drawing.Point(392, 208);
             this.uctxtProcessName.Name = "uctxtProcessName";
             this.uctxtProcessName.Size = new System.Drawing.Size(377, 23);
             this.uctxtProcessName.TabIndex = 117;
@@ -473,7 +490,7 @@
             this.textBox1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(733, 22);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(37, 23);
+            this.textBox1.Size = new System.Drawing.Size(10, 23);
             this.textBox1.TabIndex = 119;
             this.textBox1.Visible = false;
             // 
@@ -481,7 +498,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(9, 152);
+            this.label14.Location = new System.Drawing.Point(9, 135);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(59, 18);
             this.label14.TabIndex = 121;
@@ -491,7 +508,7 @@
             // 
             this.txtBranch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBranch.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBranch.Location = new System.Drawing.Point(9, 172);
+            this.txtBranch.Location = new System.Drawing.Point(9, 155);
             this.txtBranch.Name = "txtBranch";
             this.txtBranch.Size = new System.Drawing.Size(352, 23);
             this.txtBranch.TabIndex = 120;
@@ -500,7 +517,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Verdana", 11.25F);
-            this.label3.Location = new System.Drawing.Point(392, 250);
+            this.label3.Location = new System.Drawing.Point(392, 233);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(111, 18);
             this.label3.TabIndex = 123;
@@ -510,7 +527,7 @@
             // 
             this.uctxtProcessManuQty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtProcessManuQty.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtProcessManuQty.Location = new System.Drawing.Point(392, 273);
+            this.uctxtProcessManuQty.Location = new System.Drawing.Point(392, 256);
             this.uctxtProcessManuQty.Name = "uctxtProcessManuQty";
             this.uctxtProcessManuQty.Size = new System.Drawing.Size(115, 23);
             this.uctxtProcessManuQty.TabIndex = 122;
@@ -518,7 +535,7 @@
             // btnGenerate
             // 
             this.btnGenerate.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerate.Location = new System.Drawing.Point(509, 272);
+            this.btnGenerate.Location = new System.Drawing.Point(509, 255);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(75, 24);
             this.btnGenerate.TabIndex = 124;
@@ -526,10 +543,90 @@
             this.btnGenerate.UseVisualStyleBackColor = true;
             this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
             // 
+            // chkFG
+            // 
+            this.chkFG.AutoSize = true;
+            this.chkFG.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFG.Location = new System.Drawing.Point(724, 260);
+            this.chkFG.Name = "chkFG";
+            this.chkFG.Size = new System.Drawing.Size(75, 18);
+            this.chkFG.TabIndex = 125;
+            this.chkFG.Text = "FG Item";
+            this.chkFG.UseVisualStyleBackColor = true;
+            this.chkFG.Click += new System.EventHandler(this.chkFG_Click);
+            // 
+            // btnSerach1
+            // 
+            this.btnSerach1.BackColor = System.Drawing.Color.White;
+            this.btnSerach1.ForeColor = System.Drawing.Color.Teal;
+            this.btnSerach1.ImageIndex = 0;
+            this.btnSerach1.ImageList = this.imageList1;
+            this.btnSerach1.Location = new System.Drawing.Point(328, 255);
+            this.btnSerach1.Name = "btnSerach1";
+            this.btnSerach1.Size = new System.Drawing.Size(30, 25);
+            this.btnSerach1.TabIndex = 129;
+            this.btnSerach1.UseVisualStyleBackColor = false;
+            this.btnSerach1.Click += new System.EventHandler(this.btnSerach1_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "FOLDRS01.ICO");
+            this.imageList1.Images.SetKeyName(1, "DATA16.ICO");
+            this.imageList1.Images.SetKeyName(2, "Text.ico");
+            // 
+            // uctxtBatch1
+            // 
+            this.uctxtBatch1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.uctxtBatch1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uctxtBatch1.Location = new System.Drawing.Point(9, 257);
+            this.uctxtBatch1.MaxLength = 50;
+            this.uctxtBatch1.Name = "uctxtBatch1";
+            this.uctxtBatch1.ReadOnly = true;
+            this.uctxtBatch1.Size = new System.Drawing.Size(288, 23);
+            this.uctxtBatch1.TabIndex = 128;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(9, 234);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(76, 18);
+            this.label6.TabIndex = 127;
+            this.label6.Text = "Batch No";
+            // 
+            // btnDisplay
+            // 
+            this.btnDisplay.BackColor = System.Drawing.Color.White;
+            this.btnDisplay.ForeColor = System.Drawing.Color.Teal;
+            this.btnDisplay.ImageIndex = 2;
+            this.btnDisplay.ImageList = this.imageList1;
+            this.btnDisplay.Location = new System.Drawing.Point(298, 255);
+            this.btnDisplay.Name = "btnDisplay";
+            this.btnDisplay.Size = new System.Drawing.Size(30, 25);
+            this.btnDisplay.TabIndex = 130;
+            this.btnDisplay.UseVisualStyleBackColor = false;
+            this.btnDisplay.Click += new System.EventHandler(this.btnDisplay_Click);
+            // 
+            // chkStationary
+            // 
+            this.chkStationary.AutoSize = true;
+            this.chkStationary.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkStationary.Location = new System.Drawing.Point(622, 16);
+            this.chkStationary.Name = "chkStationary";
+            this.chkStationary.Size = new System.Drawing.Size(91, 18);
+            this.chkStationary.TabIndex = 131;
+            this.chkStationary.Text = "Stationary";
+            this.chkStationary.UseVisualStyleBackColor = true;
+            this.chkStationary.Visible = false;
+            this.chkStationary.Click += new System.EventHandler(this.chkStationary_Click);
+            // 
             // frmStockRequisition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(815, 623);
+            this.ClientSize = new System.Drawing.Size(815, 542);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
@@ -581,5 +678,12 @@
         private System.Windows.Forms.Button btnGenerate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox uctxtProcessManuQty;
+        private System.Windows.Forms.CheckBox chkFG;
+        private System.Windows.Forms.Button btnSerach1;
+        private System.Windows.Forms.TextBox uctxtBatch1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Button btnDisplay;
+        private System.Windows.Forms.CheckBox chkStationary;
     }
 }

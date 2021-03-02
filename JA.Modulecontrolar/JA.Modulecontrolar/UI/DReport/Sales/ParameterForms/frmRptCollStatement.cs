@@ -353,7 +353,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
             {
                 intstatus = 1;
             }
-            ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, intstatus, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, intstatus, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {

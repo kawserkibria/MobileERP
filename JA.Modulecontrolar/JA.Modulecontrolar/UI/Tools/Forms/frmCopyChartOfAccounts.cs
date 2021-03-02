@@ -720,7 +720,7 @@ namespace JA.Modulecontrolar.UI.Tools.Forms
                     _imageData = new byte[ms.Length];
                     ms.Position = 0;
                     ms.Read(_imageData, 0, _imageData.Length);
-                    CreateDefaultdata.gInsertAccessControl("Deeplaid", "DeepLaid", _imageData, txtBranchId.Text);
+                    CreateDefaultdata.gInsertAccessControl("Deeplaid", "Deeplaid", _imageData, txtBranchId.Text);
                     if (txtUserControl.Text.ToUpper() == "YES")
                     {
                         Utility.gblnAccessControl = true;

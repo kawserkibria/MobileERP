@@ -41,21 +41,26 @@
             this.radFromLocation = new System.Windows.Forms.RadioButton();
             this.label14 = new System.Windows.Forms.Label();
             this.txtFgLocation = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.rbtnTransferIN = new System.Windows.Forms.RadioButton();
+            this.rbtnTransferOut = new System.Windows.Forms.RadioButton();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.pnlSelection.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.pnlIndividual.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // frmLabel
             // 
             this.frmLabel.Location = new System.Drawing.Point(124, 9);
-            this.frmLabel.Size = new System.Drawing.Size(184, 33);
-            this.frmLabel.Text = "Stock Register";
+            this.frmLabel.Size = new System.Drawing.Size(187, 33);
+            this.frmLabel.Text = "Stock Transfer";
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.panel2);
             this.pnlMain.Controls.Add(this.label14);
             this.pnlMain.Controls.Add(this.txtFgLocation);
             this.pnlMain.Controls.Add(this.pnlIndividual);
@@ -114,7 +119,7 @@
             // 
             this.pnlSelection.Controls.Add(this.radIndividual);
             this.pnlSelection.Controls.Add(this.radAll);
-            this.pnlSelection.Location = new System.Drawing.Point(20, 148);
+            this.pnlSelection.Location = new System.Drawing.Point(20, 217);
             this.pnlSelection.Name = "pnlSelection";
             this.pnlSelection.Size = new System.Drawing.Size(383, 52);
             this.pnlSelection.TabIndex = 0;
@@ -123,11 +128,11 @@
             // 
             this.radIndividual.AutoSize = true;
             this.radIndividual.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radIndividual.Location = new System.Drawing.Point(238, 15);
+            this.radIndividual.Location = new System.Drawing.Point(221, 15);
             this.radIndividual.Name = "radIndividual";
-            this.radIndividual.Size = new System.Drawing.Size(86, 18);
+            this.radIndividual.Size = new System.Drawing.Size(143, 18);
             this.radIndividual.TabIndex = 1;
-            this.radIndividual.Text = "Individual";
+            this.radIndividual.Text = "Individual Location";
             this.radIndividual.UseVisualStyleBackColor = true;
             this.radIndividual.Click += new System.EventHandler(this.radIndividual_Click);
             // 
@@ -136,12 +141,12 @@
             this.radAll.AutoSize = true;
             this.radAll.Checked = true;
             this.radAll.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radAll.Location = new System.Drawing.Point(103, 15);
+            this.radAll.Location = new System.Drawing.Point(86, 15);
             this.radAll.Name = "radAll";
-            this.radAll.Size = new System.Drawing.Size(39, 18);
+            this.radAll.Size = new System.Drawing.Size(96, 18);
             this.radAll.TabIndex = 0;
             this.radAll.TabStop = true;
-            this.radAll.Text = "All";
+            this.radAll.Text = "All Location";
             this.radAll.UseVisualStyleBackColor = true;
             this.radAll.Click += new System.EventHandler(this.radAll_Click);
             // 
@@ -203,7 +208,7 @@
             // 
             this.pnlIndividual.Controls.Add(this.radToLocation);
             this.pnlIndividual.Controls.Add(this.radFromLocation);
-            this.pnlIndividual.Location = new System.Drawing.Point(20, 203);
+            this.pnlIndividual.Location = new System.Drawing.Point(20, 272);
             this.pnlIndividual.Name = "pnlIndividual";
             this.pnlIndividual.Size = new System.Drawing.Size(383, 52);
             this.pnlIndividual.TabIndex = 6;
@@ -213,31 +218,33 @@
             // 
             this.radToLocation.AutoSize = true;
             this.radToLocation.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radToLocation.Location = new System.Drawing.Point(244, 15);
+            this.radToLocation.Location = new System.Drawing.Point(227, 15);
             this.radToLocation.Name = "radToLocation";
             this.radToLocation.Size = new System.Drawing.Size(96, 18);
             this.radToLocation.TabIndex = 1;
             this.radToLocation.Text = "To Location";
             this.radToLocation.UseVisualStyleBackColor = true;
+            this.radToLocation.Click += new System.EventHandler(this.radToLocation_Click);
             // 
             // radFromLocation
             // 
             this.radFromLocation.AutoSize = true;
             this.radFromLocation.Checked = true;
             this.radFromLocation.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radFromLocation.Location = new System.Drawing.Point(103, 15);
+            this.radFromLocation.Location = new System.Drawing.Point(86, 15);
             this.radFromLocation.Name = "radFromLocation";
             this.radFromLocation.Size = new System.Drawing.Size(113, 18);
             this.radFromLocation.TabIndex = 0;
             this.radFromLocation.TabStop = true;
             this.radFromLocation.Text = "From Location";
             this.radFromLocation.UseVisualStyleBackColor = true;
+            this.radFromLocation.Click += new System.EventHandler(this.radFromLocation_Click);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label14.Location = new System.Drawing.Point(34, 291);
+            this.label14.Location = new System.Drawing.Point(34, 360);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(70, 16);
             this.label14.TabIndex = 110;
@@ -248,10 +255,43 @@
             this.txtFgLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFgLocation.Enabled = false;
             this.txtFgLocation.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFgLocation.Location = new System.Drawing.Point(110, 288);
+            this.txtFgLocation.Location = new System.Drawing.Point(110, 357);
             this.txtFgLocation.Name = "txtFgLocation";
             this.txtFgLocation.Size = new System.Drawing.Size(293, 23);
             this.txtFgLocation.TabIndex = 109;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.rbtnTransferIN);
+            this.panel2.Controls.Add(this.rbtnTransferOut);
+            this.panel2.Location = new System.Drawing.Point(20, 159);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(383, 52);
+            this.panel2.TabIndex = 111;
+            // 
+            // rbtnTransferIN
+            // 
+            this.rbtnTransferIN.AutoSize = true;
+            this.rbtnTransferIN.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnTransferIN.Location = new System.Drawing.Point(221, 15);
+            this.rbtnTransferIN.Name = "rbtnTransferIN";
+            this.rbtnTransferIN.Size = new System.Drawing.Size(94, 18);
+            this.rbtnTransferIN.TabIndex = 1;
+            this.rbtnTransferIN.Text = "Transfer IN";
+            this.rbtnTransferIN.UseVisualStyleBackColor = true;
+            // 
+            // rbtnTransferOut
+            // 
+            this.rbtnTransferOut.AutoSize = true;
+            this.rbtnTransferOut.Checked = true;
+            this.rbtnTransferOut.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnTransferOut.Location = new System.Drawing.Point(86, 15);
+            this.rbtnTransferOut.Name = "rbtnTransferOut";
+            this.rbtnTransferOut.Size = new System.Drawing.Size(103, 18);
+            this.rbtnTransferOut.TabIndex = 0;
+            this.rbtnTransferOut.TabStop = true;
+            this.rbtnTransferOut.Text = "Transfer Out";
+            this.rbtnTransferOut.UseVisualStyleBackColor = true;
             // 
             // frmRptStockRegister
             // 
@@ -272,6 +312,8 @@
             this.groupBox6.PerformLayout();
             this.pnlIndividual.ResumeLayout(false);
             this.pnlIndividual.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -291,5 +333,8 @@
         private System.Windows.Forms.RadioButton radFromLocation;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtFgLocation;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton rbtnTransferIN;
+        private System.Windows.Forms.RadioButton rbtnTransferOut;
     }
 }

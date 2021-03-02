@@ -48,10 +48,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.chkBaseTarget = new System.Windows.Forms.CheckBox();
+            this.cboCompanyID = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.radAllStatus = new System.Windows.Forms.RadioButton();
+            this.radInactive = new System.Windows.Forms.RadioButton();
+            this.radActive = new System.Windows.Forms.RadioButton();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupSelection.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // frmLabel
@@ -62,13 +70,17 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.panel2);
+            this.pnlMain.Controls.Add(this.label4);
+            this.pnlMain.Controls.Add(this.cboCompanyID);
+            this.pnlMain.Controls.Add(this.chkBaseTarget);
             this.pnlMain.Controls.Add(this.progressBar2);
             this.pnlMain.Controls.Add(this.progressBar1);
             this.pnlMain.Controls.Add(this.label3);
             this.pnlMain.Controls.Add(this.groupSelection);
             this.pnlMain.Controls.Add(this.txtLedgerType);
             this.pnlMain.Controls.Add(this.groupBox6);
-            this.pnlMain.Size = new System.Drawing.Size(748, 577);
+            this.pnlMain.Size = new System.Drawing.Size(748, 601);
             this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
             // 
             // pnlTop
@@ -83,36 +95,36 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(299, 62);
+            this.btnSave.Location = new System.Drawing.Point(219, 35);
             this.btnSave.Size = new System.Drawing.Size(10, 10);
             this.btnSave.Visible = false;
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(170, 62);
+            this.btnDelete.Location = new System.Drawing.Point(90, 35);
             this.btnDelete.Size = new System.Drawing.Size(10, 10);
             this.btnDelete.Visible = false;
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(186, 62);
+            this.btnNew.Location = new System.Drawing.Point(106, 35);
             this.btnNew.Size = new System.Drawing.Size(10, 10);
             this.btnNew.Visible = false;
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(638, 493);
+            this.btnClose.Location = new System.Drawing.Point(638, 518);
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(505, 493);
+            this.btnPrint.Location = new System.Drawing.Point(505, 518);
             this.btnPrint.Size = new System.Drawing.Size(130, 39);
             this.btnPrint.Text = "Preview";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 532);
+            this.groupBox1.Location = new System.Drawing.Point(0, 560);
             this.groupBox1.Size = new System.Drawing.Size(751, 25);
             // 
             // groupBox6
@@ -122,7 +134,7 @@
             this.groupBox6.Controls.Add(this.label5);
             this.groupBox6.Controls.Add(this.dteFromDate);
             this.groupBox6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(459, 491);
+            this.groupBox6.Location = new System.Drawing.Point(459, 521);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(274, 74);
             this.groupBox6.TabIndex = 6;
@@ -172,9 +184,9 @@
             // txtLedgerType
             // 
             this.txtLedgerType.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLedgerType.Location = new System.Drawing.Point(234, 164);
+            this.txtLedgerType.Location = new System.Drawing.Point(234, 158);
             this.txtLedgerType.Name = "txtLedgerType";
-            this.txtLedgerType.Size = new System.Drawing.Size(316, 25);
+            this.txtLedgerType.Size = new System.Drawing.Size(281, 25);
             this.txtLedgerType.TabIndex = 214;
             // 
             // groupSelection
@@ -190,7 +202,7 @@
             this.groupSelection.Controls.Add(this.lstRight);
             this.groupSelection.Controls.Add(this.lstLeft);
             this.groupSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupSelection.Location = new System.Drawing.Point(11, 204);
+            this.groupSelection.Location = new System.Drawing.Point(11, 234);
             this.groupSelection.Name = "groupSelection";
             this.groupSelection.Size = new System.Drawing.Size(727, 286);
             this.groupSelection.TabIndex = 215;
@@ -306,7 +318,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(133, 168);
+            this.label3.Location = new System.Drawing.Point(133, 158);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 16);
             this.label3.TabIndex = 24;
@@ -316,22 +328,114 @@
             // 
             this.progressBar1.BackColor = System.Drawing.Color.Wheat;
             this.progressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.progressBar1.Location = new System.Drawing.Point(17, 539);
+            this.progressBar1.Location = new System.Drawing.Point(17, 569);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(436, 23);
             this.progressBar1.TabIndex = 216;
             // 
             // progressBar2
             // 
-            this.progressBar2.Location = new System.Drawing.Point(17, 509);
+            this.progressBar2.Location = new System.Drawing.Point(17, 539);
             this.progressBar2.Name = "progressBar2";
             this.progressBar2.Size = new System.Drawing.Size(436, 23);
             this.progressBar2.TabIndex = 217;
             // 
+            // chkBaseTarget
+            // 
+            this.chkBaseTarget.AutoSize = true;
+            this.chkBaseTarget.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkBaseTarget.Location = new System.Drawing.Point(633, 192);
+            this.chkBaseTarget.Name = "chkBaseTarget";
+            this.chkBaseTarget.Size = new System.Drawing.Size(104, 17);
+            this.chkBaseTarget.TabIndex = 218;
+            this.chkBaseTarget.Text = "Base Target";
+            this.chkBaseTarget.UseVisualStyleBackColor = true;
+            // 
+            // cboCompanyID
+            // 
+            this.cboCompanyID.Font = new System.Drawing.Font("Verdana", 11F);
+            this.cboCompanyID.FormattingEnabled = true;
+            this.cboCompanyID.Items.AddRange(new object[] {
+            "0001",
+            "0002",
+            "0003",
+            "0004",
+            "0005",
+            "0006",
+            "0007",
+            "0008",
+            "0009",
+            "0010"});
+            this.cboCompanyID.Location = new System.Drawing.Point(619, 158);
+            this.cboCompanyID.Name = "cboCompanyID";
+            this.cboCompanyID.Size = new System.Drawing.Size(111, 26);
+            this.cboCompanyID.TabIndex = 219;
+            this.cboCompanyID.Text = "0003";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(521, 160);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(93, 16);
+            this.label4.TabIndex = 220;
+            this.label4.Text = "Company ID:";
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.radAllStatus);
+            this.panel2.Controls.Add(this.radInactive);
+            this.panel2.Controls.Add(this.radActive);
+            this.panel2.Location = new System.Drawing.Point(105, 189);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(461, 41);
+            this.panel2.TabIndex = 234;
+            // 
+            // radAllStatus
+            // 
+            this.radAllStatus.AutoSize = true;
+            this.radAllStatus.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radAllStatus.Location = new System.Drawing.Point(92, 11);
+            this.radAllStatus.Name = "radAllStatus";
+            this.radAllStatus.Size = new System.Drawing.Size(39, 17);
+            this.radAllStatus.TabIndex = 234;
+            this.radAllStatus.Text = "All";
+            this.radAllStatus.UseVisualStyleBackColor = true;
+            this.radAllStatus.Click += new System.EventHandler(this.radAllStatus_Click);
+            // 
+            // radInactive
+            // 
+            this.radInactive.AutoSize = true;
+            this.radInactive.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radInactive.Location = new System.Drawing.Point(341, 11);
+            this.radInactive.Name = "radInactive";
+            this.radInactive.Size = new System.Drawing.Size(71, 17);
+            this.radInactive.TabIndex = 233;
+            this.radInactive.Text = "Inactive";
+            this.radInactive.UseVisualStyleBackColor = true;
+            this.radInactive.Click += new System.EventHandler(this.radInactive_Click);
+            // 
+            // radActive
+            // 
+            this.radActive.AutoSize = true;
+            this.radActive.Checked = true;
+            this.radActive.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radActive.Location = new System.Drawing.Point(203, 11);
+            this.radActive.Name = "radActive";
+            this.radActive.Size = new System.Drawing.Size(60, 17);
+            this.radActive.TabIndex = 232;
+            this.radActive.TabStop = true;
+            this.radActive.Text = "Active";
+            this.radActive.UseVisualStyleBackColor = true;
+            this.radActive.Click += new System.EventHandler(this.radActive_Click);
+            // 
             // frmRptPerfoemance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(751, 557);
+            this.ClientSize = new System.Drawing.Size(751, 585);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
@@ -345,6 +449,8 @@
             this.groupBox6.PerformLayout();
             this.groupSelection.ResumeLayout(false);
             this.groupSelection.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -371,5 +477,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.ProgressBar progressBar2;
+        private System.Windows.Forms.CheckBox chkBaseTarget;
+        private System.Windows.Forms.ComboBox cboCompanyID;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton radAllStatus;
+        private System.Windows.Forms.RadioButton radInactive;
+        private System.Windows.Forms.RadioButton radActive;
     }
 }

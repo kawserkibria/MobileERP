@@ -237,9 +237,9 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
             {
                 Intmode = 1;
             }
-  
 
-            List<Mprojection> orptt = objExtra.mGetLedgerGroupLoad(strComID, Intmode, Utility.gstrUserName).ToList();
+
+            List<Mprojection> orptt = objExtra.mGetLedgerGroupLoad(strComID, Intmode, Utility.gstrUserName, 0, "").ToList();
             if (orptt.Count > 0)
             {
 

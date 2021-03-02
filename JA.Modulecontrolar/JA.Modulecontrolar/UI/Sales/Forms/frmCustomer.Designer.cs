@@ -151,6 +151,8 @@
             this.label33 = new System.Windows.Forms.Label();
             this.txtPFLedger = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
+            this.txtRouteName = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.pnlBranch.SuspendLayout();
@@ -170,6 +172,8 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.txtRouteName);
+            this.pnlMain.Controls.Add(this.label35);
             this.pnlMain.Controls.Add(this.txtHLLedger);
             this.pnlMain.Controls.Add(this.label33);
             this.pnlMain.Controls.Add(this.txtPFLedger);
@@ -489,7 +493,7 @@
             this.lblCity.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCity.Location = new System.Drawing.Point(30, 188);
             this.lblCity.Name = "lblCity";
-            this.lblCity.Size = new System.Drawing.Size(112, 16);
+            this.lblCity.Size = new System.Drawing.Size(111, 16);
             this.lblCity.TabIndex = 75;
             this.lblCity.Text = "Territory Name:";
             // 
@@ -1151,7 +1155,7 @@
             this.label16.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.Location = new System.Drawing.Point(312, 58);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(56, 16);
+            this.label16.Size = new System.Drawing.Size(55, 16);
             this.label16.TabIndex = 57;
             this.label16.Text = "Ref. No";
             // 
@@ -1343,7 +1347,7 @@
             this.label28.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label28.Location = new System.Drawing.Point(33, 161);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(109, 16);
+            this.label28.Size = new System.Drawing.Size(108, 16);
             this.label28.TabIndex = 118;
             this.label28.Text = "Territory Code:";
             // 
@@ -1574,7 +1578,7 @@
             // 
             this.txtHLLedger.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtHLLedger.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHLLedger.Location = new System.Drawing.Point(605, 364);
+            this.txtHLLedger.Location = new System.Drawing.Point(605, 360);
             this.txtHLLedger.Name = "txtHLLedger";
             this.txtHLLedger.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtHLLedger.Size = new System.Drawing.Size(220, 22);
@@ -1584,7 +1588,7 @@
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(610, 344);
+            this.label33.Location = new System.Drawing.Point(610, 340);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(73, 16);
             this.label33.TabIndex = 134;
@@ -1594,7 +1598,7 @@
             // 
             this.txtPFLedger.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPFLedger.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPFLedger.Location = new System.Drawing.Point(606, 306);
+            this.txtPFLedger.Location = new System.Drawing.Point(606, 311);
             this.txtPFLedger.Name = "txtPFLedger";
             this.txtPFLedger.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtPFLedger.Size = new System.Drawing.Size(220, 22);
@@ -1604,11 +1608,31 @@
             // 
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(611, 286);
+            this.label34.Location = new System.Drawing.Point(611, 291);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(73, 16);
             this.label34.TabIndex = 132;
             this.label34.Text = "PF Ledger";
+            // 
+            // txtRouteName
+            // 
+            this.txtRouteName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRouteName.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRouteName.Location = new System.Drawing.Point(605, 408);
+            this.txtRouteName.Name = "txtRouteName";
+            this.txtRouteName.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtRouteName.Size = new System.Drawing.Size(220, 22);
+            this.txtRouteName.TabIndex = 137;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(610, 388);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(87, 16);
+            this.label35.TabIndex = 136;
+            this.label35.Text = "Route Name";
             // 
             // frmCustomer
             // 
@@ -1770,5 +1794,7 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.TextBox txtPFLedger;
         private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TextBox txtRouteName;
+        private System.Windows.Forms.Label label35;
     }
 }

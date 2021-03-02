@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.chkGroup = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dteToDate = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
@@ -43,7 +44,8 @@
             this.btnRightSingle = new System.Windows.Forms.Button();
             this.lstRight = new System.Windows.Forms.ListBox();
             this.lstLeft = new System.Windows.Forms.ListBox();
-            this.chkGroup = new System.Windows.Forms.CheckBox();
+            this.uctxtBranchName = new System.Windows.Forms.TextBox();
+            this.lblCategory = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -59,15 +61,17 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.uctxtBranchName);
+            this.pnlMain.Controls.Add(this.lblCategory);
             this.pnlMain.Controls.Add(this.grpSelction);
             this.pnlMain.Controls.Add(this.groupBox6);
             this.pnlMain.Controls.Add(this.pnlSelection);
             this.pnlMain.Location = new System.Drawing.Point(0, -86);
-            this.pnlMain.Size = new System.Drawing.Size(427, 449);
+            this.pnlMain.Size = new System.Drawing.Size(444, 532);
             // 
             // pnlTop
             // 
-            this.pnlTop.Size = new System.Drawing.Size(432, 58);
+            this.pnlTop.Size = new System.Drawing.Size(450, 58);
             // 
             // btnEdit
             // 
@@ -95,19 +99,19 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(319, 368);
+            this.btnClose.Location = new System.Drawing.Point(331, 452);
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(183, 368);
+            this.btnPrint.Location = new System.Drawing.Point(195, 452);
             this.btnPrint.Size = new System.Drawing.Size(133, 39);
             this.btnPrint.Text = "Preview";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 418);
-            this.groupBox1.Size = new System.Drawing.Size(432, 25);
+            this.groupBox1.Location = new System.Drawing.Point(0, 494);
+            this.groupBox1.Size = new System.Drawing.Size(450, 25);
             // 
             // groupBox6
             // 
@@ -117,12 +121,22 @@
             this.groupBox6.Controls.Add(this.label5);
             this.groupBox6.Controls.Add(this.dteFromDate);
             this.groupBox6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(23, 208);
+            this.groupBox6.Location = new System.Drawing.Point(30, 271);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(395, 88);
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Period Seletion";
+            // 
+            // chkGroup
+            // 
+            this.chkGroup.AutoSize = true;
+            this.chkGroup.Location = new System.Drawing.Point(243, 63);
+            this.chkGroup.Name = "chkGroup";
+            this.chkGroup.Size = new System.Drawing.Size(146, 18);
+            this.chkGroup.TabIndex = 24;
+            this.chkGroup.Text = "Group Wise Comm.";
+            this.chkGroup.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -194,9 +208,9 @@
             // 
             this.pnlSelection.Controls.Add(this.radIndividual);
             this.pnlSelection.Controls.Add(this.radAll);
-            this.pnlSelection.Location = new System.Drawing.Point(20, 148);
+            this.pnlSelection.Location = new System.Drawing.Point(28, 194);
             this.pnlSelection.Name = "pnlSelection";
-            this.pnlSelection.Size = new System.Drawing.Size(383, 52);
+            this.pnlSelection.Size = new System.Drawing.Size(383, 46);
             this.pnlSelection.TabIndex = 0;
             // 
             // grpSelction
@@ -207,9 +221,9 @@
             this.grpSelction.Controls.Add(this.btnRightSingle);
             this.grpSelction.Controls.Add(this.lstRight);
             this.grpSelction.Controls.Add(this.lstLeft);
-            this.grpSelction.Location = new System.Drawing.Point(25, 298);
+            this.grpSelction.Location = new System.Drawing.Point(28, 379);
             this.grpSelction.Name = "grpSelction";
-            this.grpSelction.Size = new System.Drawing.Size(395, 145);
+            this.grpSelction.Size = new System.Drawing.Size(402, 145);
             this.grpSelction.TabIndex = 6;
             this.grpSelction.TabStop = false;
             // 
@@ -283,26 +297,36 @@
             this.lstLeft.Size = new System.Drawing.Size(189, 128);
             this.lstLeft.TabIndex = 0;
             // 
-            // chkGroup
+            // uctxtBranchName
             // 
-            this.chkGroup.AutoSize = true;
-            this.chkGroup.Location = new System.Drawing.Point(243, 63);
-            this.chkGroup.Name = "chkGroup";
-            this.chkGroup.Size = new System.Drawing.Size(146, 18);
-            this.chkGroup.TabIndex = 24;
-            this.chkGroup.Text = "Group Wise Comm.";
-            this.chkGroup.UseVisualStyleBackColor = true;
+            this.uctxtBranchName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.uctxtBranchName.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uctxtBranchName.Location = new System.Drawing.Point(128, 150);
+            this.uctxtBranchName.Name = "uctxtBranchName";
+            this.uctxtBranchName.Size = new System.Drawing.Size(271, 23);
+            this.uctxtBranchName.TabIndex = 60;
+            // 
+            // lblCategory
+            // 
+            this.lblCategory.AutoSize = true;
+            this.lblCategory.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCategory.Location = new System.Drawing.Point(27, 153);
+            this.lblCategory.Name = "lblCategory";
+            this.lblCategory.Size = new System.Drawing.Size(95, 14);
+            this.lblCategory.TabIndex = 61;
+            this.lblCategory.Text = "Branch Name:";
             // 
             // frmRptGroupCommission
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(432, 443);
+            this.ClientSize = new System.Drawing.Size(450, 519);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
             this.Name = "frmRptGroupCommission";
             this.Load += new System.EventHandler(this.frmRptGroupCommission_Load);
             this.pnlMain.ResumeLayout(false);
+            this.pnlMain.PerformLayout();
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -332,5 +356,7 @@
         private System.Windows.Forms.ListBox lstRight;
         private System.Windows.Forms.ListBox lstLeft;
         private System.Windows.Forms.CheckBox chkGroup;
+        private System.Windows.Forms.TextBox uctxtBranchName;
+        private System.Windows.Forms.Label lblCategory;
     }
 }

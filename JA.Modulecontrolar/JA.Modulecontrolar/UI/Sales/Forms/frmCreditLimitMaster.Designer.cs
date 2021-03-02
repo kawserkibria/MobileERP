@@ -101,16 +101,15 @@
             this.btnGraceMonth.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnGraceMonth.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnGraceMonth.HoverColorB = System.Drawing.Color.White;
-            this.btnGraceMonth.Location = new System.Drawing.Point(6, 134);
+            this.btnGraceMonth.Location = new System.Drawing.Point(91, 187);
             this.btnGraceMonth.Name = "btnGraceMonth";
             this.btnGraceMonth.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnGraceMonth.NormalColorA = System.Drawing.Color.White;
             this.btnGraceMonth.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnGraceMonth.Size = new System.Drawing.Size(20, 19);
+            this.btnGraceMonth.Size = new System.Drawing.Size(269, 40);
             this.btnGraceMonth.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnGraceMonth.TabIndex = 44;
             this.btnGraceMonth.Text = "Grace Month";
-            this.btnGraceMonth.Visible = false;
             this.btnGraceMonth.Click += new System.EventHandler(this.btnCollectionMonth_Click);
             // 
             // btnCreditLimitNew
@@ -122,7 +121,7 @@
             this.btnCreditLimitNew.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnCreditLimitNew.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnCreditLimitNew.HoverColorB = System.Drawing.Color.White;
-            this.btnCreditLimitNew.Location = new System.Drawing.Point(91, 154);
+            this.btnCreditLimitNew.Location = new System.Drawing.Point(91, 145);
             this.btnCreditLimitNew.Name = "btnCreditLimitNew";
             this.btnCreditLimitNew.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnCreditLimitNew.NormalColorA = System.Drawing.Color.White;

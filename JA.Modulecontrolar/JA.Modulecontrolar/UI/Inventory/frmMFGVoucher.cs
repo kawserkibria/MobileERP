@@ -183,7 +183,8 @@ namespace JA.Modulecontrolar.UI.Inventory
                             DgRm[0, intrm].Value = ts.stritemName;
                             DgRm[1, intrm].Value = ts.dblqnty + " " + ts.strUnit;
                             DgRm[2, intrm].Value = ts.strUnit;
-                            dblrate = Utility.gdblPurchasePrice(strComID, ts.stritemName, dteDate.Text);
+                            //dblrate = Utility.gdblPurchasePrice(strComID, ts.stritemName, dteDate.Text);
+                            dblrate = Math.Abs(Utility.gdblGetCostPriceNew(strComID, ts.stritemName, dteDate.Text));
                             DgRm[3, intrm].Value = Math.Round((ts.dblqnty * dblrate), 4);
                             DgRm[4, intrm].Value = "Del.";
                             DgRm[5, intrm].Value = ts.dblqnty;
@@ -202,7 +203,8 @@ namespace JA.Modulecontrolar.UI.Inventory
                             DgPm[0, intPm].Value = ts.stritemName;
                             DgPm[1, intPm].Value = Math.Round(ts.dblqnty) + " " + ts.strUnit;
                             DgPm[2, intPm].Value = ts.strUnit;
-                            dblrate = Utility.gdblPurchasePrice(strComID, ts.stritemName, dteDate.Text);
+                            //dblrate = Utility.gdblPurchasePrice(strComID, ts.stritemName, dteDate.Text);
+                            dblrate = Math.Abs(Utility.gdblGetCostPriceNew(strComID, ts.stritemName, dteDate.Text));
                             DgPm[3, intPm].Value = Math.Round((Math.Round(ts.dblqnty) * dblrate), 4);
                             DgPm[4, intPm].Value = "Del.";
                             DgPm[5, intPm].Value = ts.dblqnty;
@@ -223,7 +225,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         intWastage += 1;
                         if (ts.intType == 0)
                         {
-                            uctxtFgItem.Text = ts.stritemName;
+                            //uctxtFgItem.Text = ts.stritemName;
                         }
                     }
 
@@ -276,11 +278,12 @@ namespace JA.Modulecontrolar.UI.Inventory
             lblWastageRmAmnt.Text = Math.Round(dblWastageAmount).ToString();
             txtFgValue.Text = "";
             txtFgValue.Text = (Math.Round(dblRmAmount + dblWastageAmount + dblpm + dblWastagePm, 2)).ToString();
-            dblUnitPrice = (dblRmAmount + dblWastageAmount + dblpm) / dblfgQnty;
-            if (chkChangeRm.Checked == true || chkChangePm.Checked == true)
-            {
+            //dblUnitPrice = (dblRmAmount + dblWastageAmount + dblpm + dblWastagePm) / dblfgQnty;
+            dblUnitPrice = Math.Round(Math.Round(dblRmAmount + dblWastageAmount + dblpm + dblWastagePm, 2) / dblfgQnty,2);
+            //if (chkChangeRm.Checked == true || chkChangePm.Checked == true)
+            //{
                 lblUnitPrice.Text = "Unit Price of F. Goods: " + Math.Round(dblUnitPrice, 2).ToString();
-            }
+            //}
 
         }
         #endregion
@@ -454,6 +457,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstFgLocation.Visible = true;
             if (uctxtBranchName.Text != "")
             {
+
                 lstFgLocation.ValueMember = "strLocation";
                 lstFgLocation.DisplayMember = "strLocation";
                 lstFgLocation.DataSource = invms.gLoadInvoiceLocation(strComID, lstBranchName.SelectedValue.ToString(), Utility.gblnAccessControl, Utility.gstrUserName, 0).ToList();
@@ -497,8 +501,17 @@ namespace JA.Modulecontrolar.UI.Inventory
             lblBatchSize.Text = "Batch Size: " + Utility.mGetBatchSize(strComID, uctxtBatch.Text);
             lblPending.Text = "Pending: " + Utility.mGetBatchUsed(strComID, uctxtBatch.Text);
             lblUsed.Text = "Used: " + mGetSubstractValue(Utility.mGetBatchSize(strComID, uctxtBatch.Text), Utility.mGetBatchUsed(strComID, uctxtBatch.Text)).ToString();
-          
-            dteDate.Focus();
+            uctxtFgItem.Text = Utility.gstrGetAlias(strComID, Utility.gstrGetItemCodefromBatch(uctxtBatch.Text));
+            if (Utility.gstrUserName.ToUpper() == "DEEPLAID")
+            {
+                dteDate.Enabled = true;
+                dteDate.Focus();
+            }
+            else
+            {
+
+                uctxtBranchName.Select();
+            }
         }
 
         private void uctxtBatch_KeyPress(object sender, KeyPressEventArgs e)
@@ -516,8 +529,20 @@ namespace JA.Modulecontrolar.UI.Inventory
                     lblBatchSize.Text = "Batch Size: " + Utility.mGetBatchSize(strComID, uctxtBatch.Text);
                     lblPending.Text = "Pending: "  + Utility.mGetBatchUsed(strComID, uctxtBatch.Text);
                     lblUsed.Text = "Used: " + mGetSubstractValue(Utility.mGetBatchSize(strComID, uctxtBatch.Text), Utility.mGetBatchUsed(strComID, uctxtBatch.Text)).ToString();
+                    uctxtFgItem.Text = Utility.gstrGetAlias(strComID, Utility.gstrGetItemCodefromBatch(uctxtBatch.Text));
+                    
                 }
-                dteDate.Focus();
+                if (Utility.gstrUserName.ToUpper() == "DEEPLAID")
+                {
+                    dteDate.Enabled = true;
+                    dteDate.Focus();
+                }
+                else
+                {
+
+                    uctxtBranchName.Select();
+                }
+             
             }
             if (e.KeyChar == (char)Keys.Back)
             {
@@ -541,6 +566,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 if (lstBatch.SelectedItem != null)
                 {
                     lstBatch.SelectedIndex = lstBatch.SelectedIndex - 1;
+                    lblFGName.Text = Utility.gstrGetAlias(strComID, Utility.gstrGetItemCodefromBatch(lstBatch.Text.ToString()));
                 }
             }
             if (e.KeyCode == Keys.Down)
@@ -548,6 +574,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 if (lstBatch.Items.Count - 1 > lstBatch.SelectedIndex)
                 {
                     lstBatch.SelectedIndex = lstBatch.SelectedIndex + 1;
+                    lblFGName.Text = Utility.gstrGetAlias(strComID, Utility.gstrGetItemCodefromBatch(lstBatch.Text.ToString()));
                 }
             }
 
@@ -570,7 +597,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstFgLocation.Visible = false;
             lstBatch.DisplayMember = "Key";
             lstBatch.ValueMember = "Key";
-            lstBatch.DataSource = new BindingSource(invms.mFillOpeningBatchNew(strComID), null);
+            lstBatch.DataSource = new BindingSource(invms.mFillOpeningBatchNew(strComID,Utility.gstrUserName), null);
             lstBatch.SelectedIndex = lstBatch.FindString(uctxtBatch.Text);
         }
       
@@ -660,6 +687,12 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstBatch.Visible = false;
             lstProcess.Visible = true;
             lstFgLocation.Visible = false;
+            if (uctxtLocation.Text != "")
+            {
+                lstProcess.ValueMember = "strProcessName";
+                lstProcess.DisplayMember = "strProcessName";
+                lstProcess.DataSource = invms.mLoadProcessNew(strComID, "", "", 0, 1, uctxtLocation.Text).ToList();
+            }
             lstProcess.SelectedIndex = lstProcess.FindString(uctxtProcessName.Text);
         }
         private void dteDate_GotFocus(object sender, System.EventArgs e)
@@ -830,33 +863,91 @@ namespace JA.Modulecontrolar.UI.Inventory
         #region "Load"
         private void frmMFGVoucher_Load(object sender, EventArgs e)
         {
-            DgRm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 270, true, DataGridViewContentAlignment.TopLeft, true));
-            DgRm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
-            DgRm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
-            DgRm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 110, true, DataGridViewContentAlignment.TopLeft, false));
+            string strYesNo = "Y";
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 202, m_action))
+                {
+                    strYesNo = "N";
+                }
+            }
+            if (strYesNo == "Y")
+            {
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 270, true, DataGridViewContentAlignment.TopLeft, true));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 110, true, DataGridViewContentAlignment.TopLeft, true));
+            }
+            else
+            {
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 370, true, DataGridViewContentAlignment.TopLeft, true));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 110, true, DataGridViewContentAlignment.TopLeft, false));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
+                DgRm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 110, false, DataGridViewContentAlignment.TopLeft, true));
+                lblRMTotal.Visible = false;
+                lblRmAmount.Visible = false;
+                lblPMTotal.Visible = false;
+                lblPmAmount.Visible = false;
+                lblWastaeRm.Visible = false;
+                lblPMWastage.Visible = false;
+                lblWastageRmAmnt.Visible = false;
+                lblWastagePmAmount.Visible = false;
+                lblUnitPrice.Visible = false;
+
+            }
             DgRm.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, false, DataGridViewContentAlignment.TopCenter, true));
             DgRm.Columns.Add(Utility.Create_Grid_Column("RQnty", "RQnty", 100, false, DataGridViewContentAlignment.TopLeft, false));
             DgRm.Columns.Add(Utility.Create_Grid_Column("billKey", "billKey", 100, false, DataGridViewContentAlignment.TopLeft, false));
 
-            DgPm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 270, true, DataGridViewContentAlignment.TopLeft, true));
-            DgPm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
-            DgPm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
-            DgPm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, false));
+            if (strYesNo == "Y")
+            {
+                DgPm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 270, true, DataGridViewContentAlignment.TopLeft, true));
+                DgPm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
+                DgPm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
+                DgPm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+            }
+            else
+            {
+                DgPm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 350, true, DataGridViewContentAlignment.TopLeft, true));
+                DgPm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 110, true, DataGridViewContentAlignment.TopLeft, false));
+                DgPm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
+                DgPm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, false, DataGridViewContentAlignment.TopLeft, true));
+            }
             DgPm.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, false, DataGridViewContentAlignment.TopCenter, true));
             DgPm.Columns.Add(Utility.Create_Grid_Column("RQnty", "RQnty", 100, false, DataGridViewContentAlignment.TopLeft, false));
             DgPm.Columns.Add(Utility.Create_Grid_Column("billKey", "billKey", 100, false, DataGridViewContentAlignment.TopLeft, false));
 
-            DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 270, true, DataGridViewContentAlignment.TopLeft, true));
-            DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 80, true, DataGridViewContentAlignment.TopLeft, false));
-            DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
-            DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 90, true, DataGridViewContentAlignment.TopLeft, true));
+            if (strYesNo == "Y")
+            {
+                DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 270, true, DataGridViewContentAlignment.TopLeft, true));
+                DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 80, true, DataGridViewContentAlignment.TopLeft, false));
+                DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
+                DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 90, true, DataGridViewContentAlignment.TopLeft, true));
+            }
+            else
+            {
+                DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 370, true, DataGridViewContentAlignment.TopLeft, true));
+                DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 80, true, DataGridViewContentAlignment.TopLeft, false));
+                DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
+                DgWastageRm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 90, false, DataGridViewContentAlignment.TopLeft, true));
+            }
             DgWastageRm.Columns.Add(Utility.Create_Grid_Column_button("", "", "", 50, false, DataGridViewContentAlignment.TopCenter, true));
             DgWastageRm.Columns.Add(Utility.Create_Grid_Column("billKey", "billKey", 100, false, DataGridViewContentAlignment.TopLeft, false));
 
-            dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 270, true, DataGridViewContentAlignment.TopLeft, true));
-            dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 80, true, DataGridViewContentAlignment.TopLeft, false));
-            dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
-            dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 80, true, DataGridViewContentAlignment.TopLeft, true));
+            if (strYesNo == "Y")
+            {
+                dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 270, true, DataGridViewContentAlignment.TopLeft, true));
+                dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 80, true, DataGridViewContentAlignment.TopLeft, false));
+                dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
+                dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 80, true, DataGridViewContentAlignment.TopLeft, true));
+            }
+            else
+            {
+                dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 350, true, DataGridViewContentAlignment.TopLeft, true));
+                dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 80, true, DataGridViewContentAlignment.TopLeft, false));
+                dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Unit", "Unit", 70, false, DataGridViewContentAlignment.TopLeft, true));
+                dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 80, false, DataGridViewContentAlignment.TopLeft, true));
+            }
             dgWastagePm.Columns.Add(Utility.Create_Grid_Column_button("", "", "", 50, false, DataGridViewContentAlignment.TopCenter, true));
             dgWastagePm.Columns.Add(Utility.Create_Grid_Column("billKey", "billKey", 100, false, DataGridViewContentAlignment.TopLeft, false));
 
@@ -881,9 +972,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstProcess.Visible = false;
             lstFgLocation.Visible = false;
             oinv = invms.mGetInvoiceConfig(strComID).ToList();
-            lstProcess.ValueMember = "strProcessName";
-            lstProcess.DisplayMember = "strProcessName";
-            lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", 0,1).ToList();
+          
         }
         #endregion
         #region "GetMonth"
@@ -942,197 +1031,365 @@ namespace JA.Modulecontrolar.UI.Inventory
         }
         #endregion
         #region "Validation Field"
-        private bool ValidateFields()
+        //private bool ValidateFields()
+        //{
+
+        //    try
+        //    {
+        //        if (uctxtProcessName.Text == "")
+        //        {
+        //            MessageBox.Show("Cannot Empty");
+        //            uctxtProcessName.Focus();
+        //            return false;
+        //        }
+        //        if (uctxtBatch.Text == "")
+        //        {
+        //            MessageBox.Show("Cannot Empty");
+        //            uctxtBatch.Focus();
+        //            return false;
+        //        }
+
+        //        if (uctxtLocation.Text == "")
+        //        {
+        //            MessageBox.Show("Cannot Empty");
+        //            uctxtLocation.Focus();
+        //            return false;
+        //        }
+        //        if (txtFgLocation.Text == "")
+        //        {
+        //            MessageBox.Show("Cannot Empty");
+        //            txtFgLocation.Focus();
+        //            return false;
+        //        }
+        //        if (uctxtVoucherNo.Text == "")
+        //        {
+        //            MessageBox.Show("Cannot Empty");
+        //            uctxtVoucherNo.Focus();
+        //            return false;
+        //        }
+
+        //        long lngDate = Convert.ToInt64(dteDate.Value.ToString("yyyyMMdd"));
+        //        long lngFiscalYearfrom = Convert.ToInt64(Convert.ToDateTime(Utility.gdteFinancialYearFrom).ToString("yyyyMMdd"));
+        //        long lngFiscalYearTo = Convert.ToInt64(Convert.ToDateTime(Utility.gdteFinancialYearTo).ToString("yyyyMMdd"));
+
+        //        if (lngDate < lngFiscalYearfrom)
+        //        {
+        //            MessageBox.Show("Invalid Date, Date Can't less then Financial Year");
+        //            return false;
+        //        }
+        //        if (lngDate > lngFiscalYearTo)
+        //        {
+        //            MessageBox.Show("Invalid Date, Date Can't less then Financial Year");
+        //            return false;
+        //        }
+
+        //        string strBacklockDate = Utility.gCheckBackLock(strComID);
+        //        if (strBacklockDate != "")
+        //        {
+        //            long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strBacklockDate).ToString("yyyyMMdd"));
+        //            if (lngDate <= lngBackdate)
+        //            {
+        //                MessageBox.Show("Invalid Date, Back Date is locked");
+        //                return false;
+        //            }
+        //        }
+        //        double dblClosingQTY = 0, dblCurrentQTY = 0;
+        //        string strBillKey = "", strNegetiveItem = "";
+        //        int intCheckNegetive = 0;
+        //        if (oinv[0].mlngBlockNegativeStock > 0)
+        //        {
+        //            for (int i = 0; i < DgRm.Rows.Count; i++)
+        //            {
+        //                if (DgRm[0, i].Value.ToString() != "")
+        //                {
+
+        //                    dblClosingQTY = Utility.gdblClosingStock(strComID, DgRm[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
+        //                    //dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgRm[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
+        //                    if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+        //                    {
+        //                        strBillKey = DgRm[6, i].Value.ToString();
+        //                        dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+        //                    }
+        //                    dblCurrentQTY = Utility.Val(DgRm[1, i].Value.ToString());
+        //                    if ((dblClosingQTY) - dblCurrentQTY < 0)
+        //                    {
+        //                        strNegetiveItem = strNegetiveItem + Environment.NewLine + DgRm[0, i].Value.ToString();
+        //                        intCheckNegetive = 1;
+        //                        dblClosingQTY = 0;
+        //                    }
+        //                }
+        //                dblClosingQTY = 0;
+        //            }
+        //            for (int i = 0; i < DgPm.Rows.Count; i++)
+        //            {
+        //                if (DgPm[0, i].Value.ToString() != "")
+        //                {
+
+        //                    dblClosingQTY = Utility.gdblClosingStock(strComID, DgPm[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
+        //                    //dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgPm[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
+        //                    if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+        //                    {
+        //                        strBillKey = DgPm[6, i].Value.ToString();
+        //                        dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+        //                    }
+        //                    dblCurrentQTY = Utility.Val(DgPm[1, i].Value.ToString());
+        //                    if ((dblClosingQTY) - dblCurrentQTY < 0)
+        //                    {
+        //                        strNegetiveItem = strNegetiveItem + Environment.NewLine + DgPm[0, i].Value.ToString();
+        //                        intCheckNegetive = 1;
+        //                        dblClosingQTY = 0;
+        //                    }
+        //                }
+        //                dblClosingQTY = 0;
+        //            }
+        //            if (intCheckNegetive > 0)
+        //            {
+        //                MessageBox.Show("You have no valid quantity for Item: " + strNegetiveItem);
+        //                DgRm.Focus();
+        //                return false;
+        //            }
+        //            for (int i = 0; i < DgWastageRm.Rows.Count; i++)
+        //            {
+        //                if (DgWastageRm[0, i].Value.ToString() != "")
+        //                {
+        //                    //strBillKey = DgWastageRm[5, i].Value.ToString();
+        //                    dblClosingQTY = Utility.gdblClosingStock(strComID, DgWastageRm[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
+        //                    //dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgWastageRm[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
+        //                    if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+        //                    {
+        //                        strBillKey = DgWastageRm[5, i].Value.ToString();
+        //                        dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+        //                    }
+        //                    dblCurrentQTY = Utility.Val(DgWastageRm[1, i].Value.ToString());
+        //                    if ((dblClosingQTY) - dblCurrentQTY < 0)
+        //                    {
+        //                        strNegetiveItem = strNegetiveItem + Environment.NewLine + DgWastageRm[0, i].Value.ToString();
+        //                        intCheckNegetive = 1;
+        //                        dblClosingQTY = 0;
+        //                    }
+        //                }
+        //                dblClosingQTY = 0;
+        //            }
+
+        //            if (intCheckNegetive > 0)
+        //            {
+        //                MessageBox.Show("You have no valid quantity for Item: " + strNegetiveItem);
+        //                DgRm.Focus();
+        //                return false;
+        //            }
+        //            for (int i = 0; i < dgWastagePm.Rows.Count; i++)
+        //            {
+        //                if (dgWastagePm[0, i].Value.ToString() != "")
+        //                {
+
+        //                    dblClosingQTY = Utility.gdblClosingStock(strComID, dgWastagePm[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
+        //                    //dblClosingQTY = Utility.gdblClosingStockSales(strComID, dgWastagePm[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
+        //                    if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+        //                    {
+        //                        strBillKey = dgWastagePm[5, i].Value.ToString();
+        //                        dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+        //                    }
+        //                    dblCurrentQTY = Utility.Val(dgWastagePm[1, i].Value.ToString());
+        //                    if ((dblClosingQTY) - dblCurrentQTY < 0)
+        //                    {
+        //                        strNegetiveItem = strNegetiveItem + Environment.NewLine + dgWastagePm[0, i].Value.ToString();
+        //                        intCheckNegetive = 1;
+        //                        dblClosingQTY = 0;
+        //                    }
+        //                }
+        //                dblClosingQTY = 0;
+        //            }
+
+        //            if (intCheckNegetive > 0)
+        //            {
+        //                MessageBox.Show("You have no valid quantity for Item: " + strNegetiveItem);
+        //                DgRm.Focus();
+        //                return false;
+        //            }
+        //        }
+
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+        //}
+        private string  ValidateFields(DataGridView DgRm, DataGridView DgPm, DataGridView DgWastageRm, DataGridView dgWastagePm, string strBranchID, string strGodownsName, string strDate)
         {
+            string strmsg = "";
 
             try
             {
-                if (uctxtProcessName.Text == "")
-                {
-                    MessageBox.Show("Cannot Empty");
-                    uctxtProcessName.Focus();
-                    return false;
-                }
-                if (uctxtBatch.Text == "")
-                {
-                    MessageBox.Show("Cannot Empty");
-                    uctxtBatch.Focus();
-                    return false;
-                }
 
-                if (uctxtLocation.Text == "")
-                {
-                    MessageBox.Show("Cannot Empty");
-                    uctxtLocation.Focus();
-                    return false;
-                }
-                if (txtFgLocation.Text == "")
-                {
-                    MessageBox.Show("Cannot Empty");
-                    txtFgLocation.Focus();
-                    return false;
-                }
-                if (uctxtVoucherNo.Text == "")
-                {
-                    MessageBox.Show("Cannot Empty");
-                    uctxtVoucherNo.Focus();
-                    return false;
-                }
-
-                long lngDate = Convert.ToInt64(dteDate.Value.ToString("yyyyMMdd"));
-                long lngFiscalYearfrom = Convert.ToInt64(Convert.ToDateTime(Utility.gdteFinancialYearFrom).ToString("yyyyMMdd"));
-                long lngFiscalYearTo = Convert.ToInt64(Convert.ToDateTime(Utility.gdteFinancialYearTo).ToString("yyyyMMdd"));
-
-                if (lngDate < lngFiscalYearfrom)
-                {
-                    MessageBox.Show("Invalid Date, Date Can't less then Financial Year");
-                    return false;
-                }
-                if (lngDate > lngFiscalYearTo)
-                {
-                    MessageBox.Show("Invalid Date, Date Can't less then Financial Year");
-                    return false;
-                }
-
-                string strBacklockDate = Utility.gCheckBackLock(strComID);
-                if (strBacklockDate != "")
-                {
-                    long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strBacklockDate).ToString("yyyyMMdd"));
-                    if (lngDate <= lngBackdate)
-                    {
-                        MessageBox.Show("Invalid Date, Back Date is locked");
-                        return false;
-                    }
-                }
-                double dblClosingQTY = 0, dblCurrentQTY = 0;
+                double dblClosingQTY = 0, dblCurrentQTY = 0,dblCurrentAmnt=0;
                 string strBillKey = "", strNegetiveItem = "";
                 int intCheckNegetive = 0;
-                if (oinv[0].mlngBlockNegativeStock > 0)
+                //if (oinv[0].mlngBlockNegativeStock > 0)
+                //{
+
+                for (int i = 0; i < DgRm.Rows.Count; i++)
                 {
-                    for (int i = 0; i < DgRm.Rows.Count; i++)
+                    if (DgRm[0, i].Value.ToString() != "")
                     {
-                        if (DgRm[0, i].Value.ToString() != "")
-                        {
-                           
-                            //dblClosingQTY = Utility.gdblClosingStock(strComID, DgRm[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
-                            dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgRm[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
-                            if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
-                            {
-                                strBillKey = DgRm[6, i].Value.ToString();
-                                dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
-                            }
-                            dblCurrentQTY = Utility.Val(DgRm[1, i].Value.ToString());
-                            if ((dblClosingQTY) - dblCurrentQTY < 0)
-                            {
-                                strNegetiveItem = strNegetiveItem + Environment.NewLine + DgRm[0, i].Value.ToString();
-                                intCheckNegetive = 1;
-                                dblClosingQTY = 0;
-                            }
-                        }
-                        dblClosingQTY = 0;
-                    }
-                    for (int i = 0; i < DgPm.Rows.Count; i++)
-                    {
-                        if (DgPm[0, i].Value.ToString() != "")
-                        {
-                           
-                            //dblClosingQTY = Utility.gdblClosingStock(strComID, DgRm[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
-                            dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgPm[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
-                            if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
-                            {
-                                strBillKey = DgPm[6, i].Value.ToString();
-                                dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
-                            }
-                            dblCurrentQTY = Utility.Val(DgPm[1, i].Value.ToString());
-                            if ((dblClosingQTY) - dblCurrentQTY < 0)
-                            {
-                                strNegetiveItem = strNegetiveItem + Environment.NewLine + DgPm[0, i].Value.ToString();
-                                intCheckNegetive = 1;
-                                dblClosingQTY = 0;
-                            }
-                        }
-                        dblClosingQTY = 0;
-                    }
-                    if (intCheckNegetive > 0)
-                    {
-                        MessageBox.Show("You have no valid quantity for Item: " + strNegetiveItem);
-                        DgRm.Focus();
-                        return false;
-                    }
-                    for (int i = 0; i < DgWastageRm.Rows.Count; i++)
-                    {
-                        if (DgWastageRm[0, i].Value.ToString() != "")
-                        {
-                            //strBillKey = DgWastageRm[5, i].Value.ToString();
-                            //dblClosingQTY = Utility.gdblClosingStock(strComID, DgWastage[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
-                            dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgWastageRm[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
-                            if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
-                            {
-                                strBillKey = DgWastageRm[5, i].Value.ToString();
-                                dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
-                            }
-                            dblCurrentQTY = Utility.Val(DgWastageRm[1, i].Value.ToString());
-                            if ((dblClosingQTY) - dblCurrentQTY < 0)
-                            {
-                                strNegetiveItem = strNegetiveItem + Environment.NewLine + DgWastageRm[0, i].Value.ToString();
-                                intCheckNegetive = 1;
-                                dblClosingQTY = 0;
-                            }
-                        }
-                        dblClosingQTY = 0;
-                    }
+                        //if (DgRm[0, i].Value.ToString()=="B6")
+                        //{
+                        //    MessageBox.Show("");
+                        //}
 
-                    if (intCheckNegetive > 0)
-                    {
-                        MessageBox.Show("You have no valid quantity for Item: " + strNegetiveItem);
-                        DgRm.Focus();
-                        return false;
-                    }
-                    for (int i = 0; i < dgWastagePm.Rows.Count; i++)
-                    {
-                        if (dgWastagePm[0, i].Value.ToString() != "")
+                        dblClosingQTY = Utility.gdblClosingStock(strComID, DgRm[0, i].Value.ToString(), strGodownsName, strDate);
+                        //dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgRm[0, i].Value.ToString(), strBranchID, "", strGodownsName);
+                        if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                         {
-                           
-                            //dblClosingQTY = Utility.gdblClosingStock(strComID, DgWastage[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
-                            dblClosingQTY = Utility.gdblClosingStockSales(strComID, dgWastagePm[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
-                            if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+                            strBillKey = DgRm[6, i].Value.ToString();
+                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey, strGodownsName);
+                        }
+                        dblCurrentQTY = Utility.Val(DgRm[1, i].Value.ToString());
+                        dblCurrentAmnt = Utility.Val(DgRm[3, i].Value.ToString());
+                        if (dblCurrentQTY > 0)
+                        {
+                            if (dblCurrentAmnt ==0)
                             {
-                                strBillKey = dgWastagePm[5, i].Value.ToString();
-                                dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
-                            }
-                            dblCurrentQTY = Utility.Val(dgWastagePm[1, i].Value.ToString());
-                            if ((dblClosingQTY) - dblCurrentQTY < 0)
-                            {
-                                strNegetiveItem = strNegetiveItem + Environment.NewLine + dgWastagePm[0, i].Value.ToString();
-                                intCheckNegetive = 1;
-                                dblClosingQTY = 0;
+                                strmsg = ("You have no valid Amount for Item: " + DgRm[0, i].Value.ToString());
+                                DgRm.Focus();
+                                return strmsg;
                             }
                         }
-                        dblClosingQTY = 0;
+                        for (int iW = 0; iW < DgWastageRm.Rows.Count; iW++)
+                        {
+                            if (DgRm[0, i].Value.ToString() == DgWastageRm[0, iW].Value.ToString())
+                            {
+                                if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+                                {
+                                    strBillKey = DgWastageRm[5, i].Value.ToString();
+                                }
+                                dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey,strGodownsName);
+                                dblCurrentQTY = dblCurrentQTY + Utility.Val(DgWastageRm[1, iW].Value.ToString());
+                                dblCurrentAmnt = Utility.Val(DgWastageRm[3, iW].Value.ToString());
+                                if (Utility.Val(DgWastageRm[1, iW].Value.ToString()) > 0)
+                                {
+                                    if (dblCurrentAmnt == 0)
+                                    {
+                                        strmsg = ("You have no valid Amount for Wastage Item: " + DgWastageRm[0, i].Value.ToString());
+                                        DgRm.Focus();
+                                        return strmsg;
+                                    }
+                                }
+                            }
+                        }
+                        if ((dblClosingQTY) - dblCurrentQTY < 0)
+                        {
+                            strNegetiveItem = strNegetiveItem + Environment.NewLine + DgRm[0, i].Value.ToString();
+                            intCheckNegetive = 1;
+                            dblClosingQTY = 0;
+                        }
                     }
-
-                    if (intCheckNegetive > 0)
+                    dblClosingQTY = 0;
+                }
+                if (intCheckNegetive > 0)
+                {
+                    strmsg = ("You have no valid quantity for Item: " + strNegetiveItem);
+                    DgRm.Focus();
+                    return strmsg;
+                }
+                for (int i = 0; i < DgPm.Rows.Count; i++)
+                {
+                    if (DgPm[0, i].Value.ToString() != "")
                     {
-                        MessageBox.Show("You have no valid quantity for Item: " + strNegetiveItem);
-                        DgRm.Focus();
-                        return false;
+
+                        dblClosingQTY = Utility.gdblClosingStock(strComID, DgPm[0, i].Value.ToString(), strGodownsName, strDate);
+                        //dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgPm[0, i].Value.ToString(), strBranchID, "", strGodownsName);
+                        if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+                        {
+                            strBillKey = DgPm[6, i].Value.ToString();
+                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey,strGodownsName );
+                        }
+
+                        dblCurrentQTY = Utility.Val(DgPm[1, i].Value.ToString());
+                        dblCurrentAmnt = Utility.Val(DgPm[3, i].Value.ToString());
+                        if (dblCurrentQTY > 0)
+                        {
+                            if (dblCurrentAmnt == 0)
+                            {
+                                strmsg = ("You have no valid Amount for Item: " + DgPm[0, i].Value.ToString());
+                                DgRm.Focus();
+                                return strmsg;
+                            }
+                        }
+                        for (int iW = 0; iW < dgWastagePm.Rows.Count; iW++)
+                        {
+                            if (DgPm[0, i].Value.ToString() == dgWastagePm[0, iW].Value.ToString())
+                            {
+                                if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+                                {
+                                    strBillKey = dgWastagePm[5, i].Value.ToString();
+                                }
+                                dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey,strGodownsName);
+                                dblCurrentQTY = dblCurrentQTY + Utility.Val(dgWastagePm[1, iW].Value.ToString());
+                                dblCurrentAmnt = Utility.Val(dgWastagePm[3, iW].Value.ToString());
+                                if (Utility.Val(dgWastagePm[1, iW].Value.ToString()) > 0)
+                                {
+                                    if (dblCurrentAmnt == 0)
+                                    {
+                                        strmsg = ("You have no valid Amount for Wastage Item: " + dgWastagePm[0, i].Value.ToString());
+                                        DgRm.Focus();
+                                        return strmsg;
+                                    }
+                                }
+                            }
+
+                           
+                        }
+
+
+                        if ((dblClosingQTY) - dblCurrentQTY < 0)
+                        {
+                            strNegetiveItem = strNegetiveItem + Environment.NewLine + DgPm[0, i].Value.ToString();
+                            intCheckNegetive = 1;
+                            dblClosingQTY = 0;
+                        }
+                    }
+                    dblClosingQTY = 0;
+                }
+                if (intCheckNegetive > 0)
+                {
+                    strmsg=("You have no valid quantity for Item: " + strNegetiveItem);
+                    DgRm.Focus();
+                    return strmsg;
+                }
+                string strLockvoucher = Utility.gLockVocher(strComID, intvType);
+                long lngDate = Convert.ToInt64(dteDate.Value.ToString("yyyyMMdd"));
+                if (strLockvoucher != "")
+                {
+                    long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                    if (lngDate <= lngBackdate)
+                    {
+                        strmsg=("Invalid Date, Back Date is locked");
+                        return strmsg;
                     }
                 }
 
-                return true;
+               
+               
+
+                return strmsg;
             }
             catch (Exception ex)
             {
-                return false;
+                return ex.ToString();
             }
         }
         #endregion
         #region "Save"
         private string mSaveMFGvoucher()
         {
-            string strBranchId = "", strInsert = "", strUnit = "", strbatch = "", strDG = "", strRefNo = "", strNarrtion = "";
+            string strBranchId = "", strInsert = "", strUnit = "", strbatch = "", strDG = "", strRefNo = "", strNarrtion = "", strFG = "";
             double dblReceipeqty = 0, dblSampleFg = 1, dblSampleQC = 1;
-            int intRow = 0, intVtype = 51;
+            int intRow = 0, intVtype = 51,intbatchComp=0;
+            if (chkBatchComplete.Checked)
+            {
+                intbatchComp = 1;
+            }
             if (uctxtBatch.Text == Utility.gcEND_OF_LIST)
             {
                 strbatch = "";
@@ -1162,13 +1419,14 @@ namespace JA.Modulecontrolar.UI.Inventory
             strUnit = Utility.gGetBaseUOM(strComID, uctxtFgItem.Text.ToString());
             strBranchId = Utility.gstrGetBranchID(strComID, uctxtBranchName.Text); ;
             //strBranchIdTo = Utility.gstrGetBranchID(strComID, txtFgLocation.Text);
-            strDG = uctxtFgItem.Text + "|" + txtFGQnty.Text + "|" + strUnit + "|" + Utility.Val(txtFgValue.Text.ToString()) + "|" + dblReceipeqty + "|" + 0 + "|" + "~";
+            strFG = uctxtFgItem.Text + "|" + txtFGQnty.Text + "|" + strUnit + "|" + Utility.Val(txtFgValue.Text.ToString()) + "|" + dblReceipeqty + "|" + 0 + "|" + "~";
 
 
             for (intRow = 0; intRow < DgRm.Rows.Count; intRow++)
             {
                 if (DgRm[0, intRow].Value != null)
                 {
+
                     strDG = strDG + Utility.gCheckNull(DgRm[0, intRow].Value.ToString()) + "|" + Utility.Val(DgRm[1, intRow].Value.ToString()) + "|"
                                             + Utility.gCheckNull(DgRm[2, intRow].Value.ToString()) + "|" + Utility.Val(DgRm[3, intRow].Value.ToStringNull()) + "|" +
                                             Utility.gCheckNull(DgRm[5, intRow].Value.ToString()) + "|" + 1 + "~";
@@ -1217,16 +1475,21 @@ namespace JA.Modulecontrolar.UI.Inventory
                 {
                     strRefNo = gobjVoucherName.VoucherName.GetVoucherString(intVtype) + strBranchId + Utility.gstrLastNumber(strComID, (int)intVtype);
                 }
+                string strmsg = ValidateFields(DgRm, DgPm, DgWastageRm, dgWastagePm, strBranchId, uctxtLocation.Text, dteDate.Text);
+                if (strmsg != "")
+                {
+                    return strmsg;
+                }
 
                 strInsert = objWIS.mInsertProductionMfg(strComID, strRefNo, strbatch, strBranchId, uctxtLocation.Text.ToString(),
                                                                 txtFgLocation.Text.ToString(), uctxtProcessName.Text, uctxtFgItem.Text, Utility.Val(txtFGQnty.Text.ToString()),
                                                                 Utility.Val(txtFgValue.Text.ToString()), dteDate.Value.ToShortDateString(),
-                                                                uctxtNarration.Text.ToString(), strDG, 0, dblSampleFg, dblSampleQC, strNarrtion);
+                                                                uctxtNarration.Text.ToString(), strDG, strFG, 0, dblSampleFg, dblSampleQC, strNarrtion, intbatchComp);
                 if (strInsert == "Inseretd...")
                 {
                     if (Utility.gblnAccessControl)
                     {
-                        string strAudit = Utility.gblnAuditTrail(Utility.gstrUserName, DateTime.Now.ToString("dd/MM/yyyy"), "MFG Production", uctxtProcessName.Text,
+                        string strAudit = Utility.gblnAuditTrail(Utility.gstrUserName, DateTime.Now.ToString("dd/MM/yyyy"), "MFG Production", strRefNo,
                                                                 m_action, 0, (int)Utility.MODULE_TYPE.mtSTOCK, "0001");
                     }
                 }
@@ -1243,9 +1506,14 @@ namespace JA.Modulecontrolar.UI.Inventory
         }
         private string mUpdatMFGvoucher()
         {
-            string strBranchId = "", strInsert = "", strUnit = "", strbatch = "", strDG = "", strRefNo = "", strNarrtion="";
+            string strBranchId = "", strInsert = "", strUnit = "", strbatch = "", strDG = "",strFG="", strRefNo = "", strNarrtion="";
            double dblReceipeqty = 0, dblSampleFg = 1, dblSampleQC = 1;
-           int intRow = 0, intVtype = 29;
+           int intRow = 0, intVtype = 29, intbatchComp=0;
+
+           if (chkBatchComplete.Checked)
+           {
+               intbatchComp = 1;
+           }
            if (uctxtBatch.Text == Utility.gcEND_OF_LIST)
            {
                strbatch = "";
@@ -1274,7 +1542,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             strUnit = Utility.gGetBaseUOM(strComID, uctxtFgItem.Text.ToString());
             strBranchId = Utility.gstrGetBranchID(strComID, uctxtBranchName.Text); ;
             //strBranchIdTo = Utility.gstrGetBranchID(strComID, txtFgLocation.Text);
-            strDG = uctxtFgItem.Text + "|" + txtFGQnty.Text + "|" + strUnit + "|" + Utility.Val(txtFgValue.Text.ToString()) + "|" + dblReceipeqty + "|" + 0 + "|" + "~";
+            strFG = uctxtFgItem.Text + "|" + txtFGQnty.Text + "|" + strUnit + "|" + Utility.Val(txtFgValue.Text.ToString()) + "|" + dblReceipeqty + "|" + 0 + "|" + "~";
 
 
             for (intRow = 0; intRow < DgRm.Rows.Count; intRow++)
@@ -1321,17 +1589,21 @@ namespace JA.Modulecontrolar.UI.Inventory
 
             try
             {
-                
+                string strmsg = ValidateFields(DgRm, DgPm, DgWastageRm, dgWastagePm, strBranchId, uctxtLocation.Text, dteDate.Text);
+                if (strmsg != "")
+                {
+                    return strmsg;
+                }
                 strRefNo = textBox1.Text.Trim();
                 strInsert = objWIS.mUpdateProductionMfg(strComID, strRefNo, strbatch, strBranchId, uctxtLocation.Text.ToString(),
                                                                 txtFgLocation.Text.ToString(), uctxtProcessName.Text, uctxtFgItem.Text, Utility.Val(txtFGQnty.Text.ToString()),
                                                                 Utility.Val(txtFgValue.Text.ToString()), dteDate.Value.ToShortDateString(),
-                                                                uctxtNarration.Text.ToString(), strDG, 0, dblSampleFg, dblSampleQC, strNarrtion);
+                                                                uctxtNarration.Text.ToString(), strDG,strFG, 0, dblSampleFg, dblSampleQC, strNarrtion,intbatchComp);
                 if (strInsert == "Updated...")
                 {
                     if (Utility.gblnAccessControl)
                     {
-                        string strAudit = Utility.gblnAuditTrail(Utility.gstrUserName, DateTime.Now.ToString("dd/MM/yyyy"), "MFG Production", uctxtProcessName.Text,
+                        string strAudit = Utility.gblnAuditTrail(Utility.gstrUserName, DateTime.Now.ToString("dd/MM/yyyy"), "MFG Production", strRefNo,
                                                                 m_action, 0, (int)Utility.MODULE_TYPE.mtSTOCK, "0001");
                     }
                 }
@@ -1354,6 +1626,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             uctxtLocation.Text = "";
             uctxtVoucherNo.Text = "";
             uctxtBatch.Text = "";
+            chkBatchComplete.Checked = false;
             uctxtProcessName.Text = "";
             textBox1.Text = "";
             DgRm.Rows.Clear();
@@ -1397,7 +1670,16 @@ namespace JA.Modulecontrolar.UI.Inventory
                 uctxtLocation.Text = "Main Location";
             }
             m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+            if (Utility.gstrUserName.ToUpper() == "DEEPLAID")
+            {
+                dteDate.Enabled = true;
+                dteDate.Focus();
+            }
+            else
+            {
 
+                uctxtBranchName.Select();
+            }
             if (mblnNumbMethod)
             {
                 uctxtVoucherNo.Text = Utility.gstrLastNumber(strComID, (int)Utility.VOUCHER_TYPE.vtSTOCK_MFG_PRODUCTION);
@@ -1417,10 +1699,10 @@ namespace JA.Modulecontrolar.UI.Inventory
         #region "Click"
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (ValidateFields() == false)
-            {
-                return;
-            }
+            //if (ValidateFields())
+            //{
+            //    return;
+            //}
 
             try
             {
@@ -1466,6 +1748,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             objfrm.lngFormPriv = lngFormPriv;
             objfrm.strFormName = strFormName;
             objfrm.intConvert = 0;
+            objfrm.intVoucherType = intvType;
             objfrm.Show();
             objfrm.MdiParent = this.MdiParent;
         }
@@ -1478,12 +1761,12 @@ namespace JA.Modulecontrolar.UI.Inventory
                 int intrm = 0, intPm = 0, intrmWastage = 0, intPmWastage = 0;
                 double dblCostPercent = 0, dblCostFgQnt = 0, dblTotalBatchSize = 0, dblUsedBatchSize=0;
                 dteDate.Focus();
-               
+                mClear();
                 uctxtProcessName.Enabled = false;
                 uctxtBatch.Enabled = false;
                 lstBatch.Visible = false;
                 uctxtBatch.Focus();
-
+               
                 //dteDate.Text = tests[0].strDate;
                 //txtRm.Text = tests[0].strRMRefNo;
                 //txtWm.Text = tests[0].strWmRefNo;
@@ -1503,10 +1786,18 @@ namespace JA.Modulecontrolar.UI.Inventory
                 lblBatchSize.Text = "Batch Size: " + Utility.mGetBatchSize(strComID, tests[0].strBatch);
                 lblPending.Text = "Pending: "  + Utility.mGetBatchUsed(strComID, tests[0].strBatch);
                 lblUsed.Text = "Used: " + mGetSubstractValue(Utility.mGetBatchSize(strComID, tests[0].strBatch), Utility.mGetBatchUsed(strComID, tests[0].strBatch)).ToString();
-                List<MFGvouhcer> oRm = objWIS.mDisplayProductionList(strComID, tests[0].strFgRefNo).ToList();
+                List<MFGvouhcer> oRm = objWIS.mDisplayProductionList(strComID, tests[0].strFgRefNo,"N").ToList();
                 {
                     if (oRm.Count > 0)
                     {
+                        if (oRm[0].intBatchComp==1)
+                        {
+                            chkBatchComplete.Checked = true;
+                        }
+                        else
+                        {
+                            chkBatchComplete.Checked = false;
+                        }
                         uctxtLocation.Text = oRm[0].strLocation;
                         uctxtVoucherNo.Text = Utility.Mid(oRm[0].strVoucherNo,6,oRm[0].strVoucherNo.Length -6);
                         if (tests[0].strBatch != "")
@@ -1524,6 +1815,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         uctxtNarration.Text = oRm[0].strNarration;
                         uctxtSampletoFg.Text =oRm[0].dblSampleFG.ToString();
                         uctxtSampleToQC.Text = oRm[0].dblSampleQC.ToString();
+                        dteDate.Text = oRm[0].strDate.ToString();
 
                         foreach (MFGvouhcer ooRm in oRm)
                         {
@@ -1543,11 +1835,11 @@ namespace JA.Modulecontrolar.UI.Inventory
                                 DgRm[1, intrm].Value = ooRm.dblQnty + " " + ooRm.strUOM;
                                 DgRm[2, intrm].Value = ooRm.strUOM;
                                 //dblrate = Utility.gdblPurchasePrice(strComID, ts.stritemName, dteDate.Text);
-                                DgRm[3, intrm].Value = Math.Round((ooRm.dblAmount), 4);
+                                DgRm[3, intrm].Value = Math.Round((ooRm.dblAmount), 2);
                                 DgRm[4, intrm].Value = "Del.";
                                 DgRm[5, intrm].Value = ooRm.dblQnty;
                                 DgRm[6, intrm].Value = ooRm.strBillKey;
-                                mdblAmount = mdblAmount + Math.Round(Utility.Val(DgRm[3, intrm].Value.ToString()), 4);
+                                mdblAmount = mdblAmount + Math.Round(Utility.Val(DgRm[3, intrm].Value.ToString()), 2);
                                 intrm += 1;
                             }
                             if (ooRm.intProcessType == 2)
@@ -1557,11 +1849,11 @@ namespace JA.Modulecontrolar.UI.Inventory
                                 DgPm[1, intPm].Value = ooRm.dblQnty + " " + ooRm.strUOM;
                                 DgPm[2, intPm].Value = ooRm.strUOM;
                                 //dblrate = Utility.gdblPurchasePrice(strComID, ts.stritemName, dteDate.Text);
-                                DgPm[3, intPm].Value = Math.Round((ooRm.dblAmount), 4);
+                                DgPm[3, intPm].Value = Math.Round((ooRm.dblAmount), 2);
                                 DgPm[4, intPm].Value = "Del.";
                                 DgPm[5, intPm].Value = ooRm.dblQnty;
                                 DgPm[6, intPm].Value = ooRm.strBillKey;
-                                mdblAmount = mdblAmount + Math.Round(Utility.Val(DgPm[3, intPm].Value.ToString()), 4);
+                                mdblAmount = mdblAmount + Math.Round(Utility.Val(DgPm[3, intPm].Value.ToString()), 2);
                                 intPm += 1;
                             }
                             if (ooRm.intProcessType == 3)
@@ -1575,7 +1867,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                                 DgWastageRm[4, intrmWastage].Value = "Del.";
                                 //DgWastageRm[5, intrmWastage].Value = ooRm.dblQnty;
                                 DgWastageRm[5, intrmWastage].Value = ooRm.strBillKey;
-                                mdblAmount = mdblAmount + Math.Round(Utility.Val(DgWastageRm[3, intrmWastage].Value.ToString()), 4);
+                                mdblAmount = mdblAmount + Math.Round(Utility.Val(DgWastageRm[3, intrmWastage].Value.ToString()), 2);
                                 intrmWastage += 1;
                             }
                             if (ooRm.intProcessType == 4)
@@ -1585,11 +1877,11 @@ namespace JA.Modulecontrolar.UI.Inventory
                                 dgWastagePm[1, intPmWastage].Value = ooRm.dblQnty + " " + ooRm.strUOM;
                                 dgWastagePm[2, intPmWastage].Value = ooRm.strUOM;
                                 //dblrate = Utility.gdblPurchasePrice(strComID, ts.stritemName, dteDate.Text);
-                                dgWastagePm[3, intPmWastage].Value = Math.Round((ooRm.dblAmount), 4);
+                                dgWastagePm[3, intPmWastage].Value = Math.Round((ooRm.dblAmount), 2);
                                 dgWastagePm[4, intPmWastage].Value = "Del.";
                                 //dgWastagePm[5, intPmWastage].Value = ooRm.dblQnty;
                                 dgWastagePm[5, intPmWastage].Value = ooRm.strBillKey;
-                                mdblAmount = mdblAmount + Math.Round(Utility.Val(dgWastagePm[3, intPmWastage].Value.ToString()), 4);
+                                mdblAmount = mdblAmount + Math.Round(Utility.Val(dgWastagePm[3, intPmWastage].Value.ToString()), 2);
                                 intPmWastage += 1;
                             }
                             DgRm.AllowUserToAddRows = false;
@@ -1648,9 +1940,10 @@ namespace JA.Modulecontrolar.UI.Inventory
             if (e.ColumnIndex == 1)
             {
                 dblQty = Convert.ToDouble(DgPm[1, e.RowIndex].Value);
-                dblrate = Utility.gdblPurchasePrice(strComID, DgPm[0, e.RowIndex].Value.ToString(), dteDate.Text);
+                //dblrate = Utility.gdblPurchasePrice(strComID, DgPm[0, e.RowIndex].Value.ToString(), dteDate.Text);
+                dblrate = Utility.gdblGetCostPriceNew(strComID, DgPm[0, e.RowIndex].Value.ToString(), dteDate.Text);
                 DgPm[1, e.RowIndex].Value = DgPm[1, e.RowIndex].Value + " " + Utility.gGetBaseUOM(strComID, DgPm[0, e.RowIndex].Value.ToString());
-                DgPm[3, e.RowIndex].Value = Math.Round(dblQty * dblrate, 4);
+                DgPm[3, e.RowIndex].Value = Math.Round(dblQty * dblrate, 2);
                 calculateTotal();
             }
         }
@@ -1662,9 +1955,10 @@ namespace JA.Modulecontrolar.UI.Inventory
                 if (e.ColumnIndex == 1)
                 {
                     dblQty = Convert.ToDouble(dgWastagePm[1, e.RowIndex].Value);
-                    dblrate = Utility.gdblPurchasePrice(strComID, dgWastagePm[0, e.RowIndex].Value.ToString(), dteDate.Text);
+                    //dblrate = Utility.gdblPurchasePrice(strComID, dgWastagePm[0, e.RowIndex].Value.ToString(), dteDate.Text);
+                    dblrate = Utility.gdblGetCostPriceNew(strComID, dgWastagePm[0, e.RowIndex].Value.ToString(), dteDate.Text);
                     dgWastagePm[1, e.RowIndex].Value = dgWastagePm[1, e.RowIndex].Value + " " + Utility.gGetBaseUOM(strComID, dgWastagePm[0, e.RowIndex].Value.ToString());
-                    dgWastagePm[3, e.RowIndex].Value = Math.Round(dblQty * dblrate, 4);
+                    dgWastagePm[3, e.RowIndex].Value = Math.Round(dblQty * dblrate, 2);
                     calculateTotal();
                 }
             }
@@ -1681,9 +1975,10 @@ namespace JA.Modulecontrolar.UI.Inventory
                 if (e.ColumnIndex == 1)
                 {
                     dblQty = Convert.ToDouble(DgWastageRm[1, e.RowIndex].Value);
-                    dblrate = Utility.gdblPurchasePrice(strComID, DgWastageRm[0, e.RowIndex].Value.ToString(), dteDate.Text);
+                    //dblrate = Utility.gdblPurchasePrice(strComID, DgWastageRm[0, e.RowIndex].Value.ToString(), dteDate.Text);
+                    dblrate = Utility.gdblGetCostPriceNew(strComID, DgWastageRm[0, e.RowIndex].Value.ToString(), dteDate.Text);
                     DgWastageRm[1, e.RowIndex].Value = DgWastageRm[1, e.RowIndex].Value + " " + Utility.gGetBaseUOM(strComID, DgWastageRm[0, e.RowIndex].Value.ToString());
-                    DgWastageRm[3, e.RowIndex].Value = Math.Round(dblQty * dblrate, 4);
+                    DgWastageRm[3, e.RowIndex].Value = Math.Round(dblQty * dblrate, 2);
                     calculateTotal();
                 }
             }
@@ -1701,9 +1996,10 @@ namespace JA.Modulecontrolar.UI.Inventory
                 if (e.ColumnIndex == 1)
                 {
                     dblQty = Convert.ToDouble(DgRm[1, e.RowIndex].Value);
-                    dblrate = Utility.gdblPurchasePrice(strComID, DgRm[0, e.RowIndex].Value.ToString(), dteDate.Text);
+                    //dblrate = Utility.gdblPurchasePrice(strComID, DgRm[0, e.RowIndex].Value.ToString(), dteDate.Text);
+                    dblrate = Utility.gdblGetCostPriceNew(strComID, DgRm[0, e.RowIndex].Value.ToString(), dteDate.Text);
                     DgRm[1, e.RowIndex].Value = DgRm[1, e.RowIndex].Value + " " + Utility.gGetBaseUOM(strComID, DgRm[0, e.RowIndex].Value.ToString());
-                    DgRm[3, e.RowIndex].Value = Math.Round(dblQty * dblrate, 4);
+                    DgRm[3, e.RowIndex].Value = Math.Round(dblQty * dblrate, 2);
                     calculateTotal();
                 }
             }
@@ -1745,12 +2041,13 @@ namespace JA.Modulecontrolar.UI.Inventory
                     {
                         dblrate = 0;
                         //dblrate = Utility.gdblPurchasePrice(strComID, ts1.stritemName, dteDate.Text);
-                        dblrate = Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text);
-                        DgRm[1, intrm].Value = Math.Round(Utility.Val(ts1.dblqnty.ToString()) * (dblFgEdit / dblfgQnty), 4) + " " + strUnit;
+                        dblrate = Math.Abs(Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text));
+                        //DgRm[1, intrm].Value = Math.Round(Utility.Val(ts1.dblqnty.ToString()) * (dblFgEdit / dblfgQnty), 3) + " " + strUnit;
+                        DgRm[1, intrm].Value = Utility.GetDecimalPart(((Utility.Val(ts1.dblqnty.ToString()) * dblFgEdit) / dblfgQnty), 3) + " " + strUnit;
 
-                        DgRm[3, intrm].Value = Math.Round((Utility.Val(DgRm[1, intrm].Value.ToString()) * dblrate), 4);
-                        dblRmAmount = dblRmAmount + Utility.Val(DgRm[3, intrm].Value.ToString());
-                        DgRm[5, intrm].Value = Utility.Val(DgRm[1, intrm].Value.ToString());
+                        DgRm[3, intrm].Value = Math.Round((Utility.Val(DgRm[1, intrm].Value.ToString()) * dblrate), 2);
+                        dblRmAmount = dblRmAmount + Math.Abs(Utility.Val(DgRm[3, intrm].Value.ToString()));
+                        DgRm[5, intrm].Value = Utility.Val(ts1.dblqnty.ToString());
                         intrm += 1;
                     }
                     else
@@ -1759,12 +2056,13 @@ namespace JA.Modulecontrolar.UI.Inventory
                         {
                             dblrate = 0;
                             //dblrate = Utility.gdblPurchasePrice(strComID, ts1.stritemName, dteDate.Text);
-                            dblrate = Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text);
-                            DgRm[1, intrm].Value = Math.Round(Utility.Val(ts1.dblqnty.ToString()) * (dblFgEdit / dblfgQnty), 4) + " " + strUnit;
+                            dblrate = Math.Abs(Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text));
+                            //DgRm[1, intrm].Value = Math.Round(Utility.Val(ts1.dblqnty.ToString()) * (dblFgEdit / dblfgQnty), 3) + " " + strUnit;
+                            DgRm[1, intrm].Value = Utility.GetDecimalPart(((Utility.Val(ts1.dblqnty.ToString()) * dblFgEdit) / dblfgQnty), 3) + " " + strUnit;
 
-                            DgRm[3, intrm].Value = Math.Round((Utility.Val(DgRm[1, intrm].Value.ToString()) * dblrate), 4);
-                            dblRmAmount = dblRmAmount + Utility.Val(DgRm[3, intrm].Value.ToString());
-                            DgRm[5, intrm].Value = Utility.Val(DgRm[1, intrm].Value.ToString());
+                            DgRm[3, intrm].Value = Math.Round((Utility.Val(DgRm[1, intrm].Value.ToString()) * dblrate), 2);
+                            dblRmAmount = dblRmAmount + Math.Abs(Utility.Val(DgRm[3, intrm].Value.ToString()));
+                            DgRm[5, intrm].Value = Utility.Val(ts1.dblqnty.ToString());
                             intrm += 1;
                         }
                     }
@@ -1799,6 +2097,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             }
             calculateTotal();
         }
+       
         private void mDisplayReceipeChangeFG()
         {
             double dblfgQnty = 0, dblFgEdit = 0, dblrate = 0, dblRmAmount = 0, dblPmAmount = 0, dblUnitPrice, dblRMSchangeSize = 0;
@@ -1807,14 +2106,9 @@ namespace JA.Modulecontrolar.UI.Inventory
             dblfgQnty = Utility.mGetBatchSize(strComID, uctxtBatch.Text);
             dblFgEdit = Utility.Val(txtFGQnty.Text);
             dblRMSchangeSize = Utility.mGetBatchUsed(strComID, uctxtBatch.Text);
-            //if (dblfgQnty == dblRMSchangeSize)
-            //{
-            //    dblFgEdit = Utility.Val(txtFGQnty.Text);
-            //}
-            //else
-            //{
+            
             dblFgEdit = dblRMSchangeSize;
-            //}
+            
             if (dblFgEdit==0)
             {
                 MessageBox.Show("Batch Size Not Found");
@@ -1831,10 +2125,11 @@ namespace JA.Modulecontrolar.UI.Inventory
                     //{
                         dblrate = 0;
                         //dblrate = Utility.gdblPurchasePrice(strComID, ts1.stritemName, dteDate.Text);
-                        dblrate = Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text);
-                        DgRm[1, intrm].Value = Math.Round(Utility.Val(ts1.dblqnty.ToString()) * (dblFgEdit / dblfgQnty), 4) + " " + strUnit;
+                        dblrate = Math.Abs(Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text));
+                        //DgRm[1, intrm].Value = Math.Round(Utility.Val(ts1.dblqnty.ToString()) * (dblFgEdit / dblfgQnty), 3) + " " + strUnit;
+                        DgRm[1, intrm].Value = Utility.GetDecimalPart(((Utility.Val(ts1.dblqnty.ToString()) * dblFgEdit) / dblfgQnty), 3) + " " + strUnit;
 
-                        DgRm[3, intrm].Value = Math.Round((Utility.Val(DgRm[1, intrm].Value.ToString()) * dblrate), 4);
+                        DgRm[3, intrm].Value = Math.Round((Utility.Val(DgRm[1, intrm].Value.ToString()) * dblrate), 2);
                         dblRmAmount = dblRmAmount + Utility.Val(DgRm[3, intrm].Value.ToString());
                         //DgRm[5, intrm].Value = Utility.Val(DgRm[1, intrm].Value.ToString());
                         intrm += 1;
@@ -1846,10 +2141,10 @@ namespace JA.Modulecontrolar.UI.Inventory
                     //{
                         dblrate = 0;
                         //dblrate = Utility.gdblPurchasePrice(strComID, ts1.stritemName, dteDate.Text);
-                        dblrate = Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text);
-                        DgPm[1, intPm].Value = Math.Round(Utility.Val(Math.Round(ts1.dblqnty).ToString()) * (dblFgEdit / dblfgQnty), 0) + " " + strUnit;
-
-                        DgPm[3, intPm].Value = Math.Round((Utility.Val(DgPm[1, intPm].Value.ToString()) * dblrate), 4);
+                        dblrate = Math.Abs(Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text));
+                        DgPm[1, intPm].Value = Math.Round(Utility.Val(Math.Round(ts1.dblqnty).ToString()) * (dblFgEdit / dblfgQnty), 3) + " " + strUnit;
+                        //DgPm[1, intPm].Value = Utility.GetDecimalPart(Utility.Val(Math.Round(ts1.dblqnty).ToString()) * (dblFgEdit / dblfgQnty), 3) + " " + strUnit;
+                        DgPm[3, intPm].Value = Math.Round((Utility.Val(DgPm[1, intPm].Value.ToString()) * dblrate), 2);
                         dblPmAmount = dblPmAmount + Utility.Val(DgPm[3, intPm].Value.ToString());
                         //DgPm[5, intPm].Value = Utility.Val(DgPm[1, intPm].Value.ToString());
                         intPm += 1;
@@ -1911,12 +2206,12 @@ namespace JA.Modulecontrolar.UI.Inventory
                     {
                         dblrate = 0;
                         //dblrate = Utility.gdblPurchasePrice(strComID, ts1.stritemName, dteDate.Text);
-                        dblrate = Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text);
-                        DgPm[1, intPm].Value = Math.Round(Utility.Val(Math.Round(ts1.dblqnty).ToString()) * (dblFgEdit / dblfgQnty), 0) + " " + strUnit;
+                        dblrate = Math.Abs(Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text));
+                        DgPm[1, intPm].Value = Math.Round(Utility.Val(Math.Round(ts1.dblqnty).ToString()) * (dblFgEdit / dblfgQnty), 3) + " " + strUnit;
 
-                        DgPm[3, intPm].Value = Math.Round((Utility.Val(DgPm[1, intPm].Value.ToString()) * dblrate), 4);
-                        dblPmAmount = dblPmAmount + Utility.Val(DgPm[3, intPm].Value.ToString());
-                        //DgPm[5, intPm].Value = Utility.Val(DgPm[1, intPm].Value.ToString());
+                        DgPm[3, intPm].Value = Math.Round((Utility.Val(DgPm[1, intPm].Value.ToString()) * dblrate), 2);
+                        dblPmAmount = dblPmAmount + Math.Abs(Utility.Val(DgPm[3, intPm].Value.ToString()));
+                        DgPm[5, intPm].Value = Utility.Val(ts1.dblqnty.ToString());
                         intPm += 1;
                     }
                     else
@@ -1925,12 +2220,13 @@ namespace JA.Modulecontrolar.UI.Inventory
                         {
                             dblrate = 0;
                             //dblrate = Utility.gdblPurchasePrice(strComID, ts1.stritemName, dteDate.Text);
-                            dblrate = Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text);
-                            DgPm[1, intPm].Value = Math.Round(Utility.Val(Math.Round(ts1.dblqnty).ToString()) * (dblFgEdit / dblfgQnty), 0) + " " + strUnit;
+                            dblrate = Math.Abs(Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text));
+                            DgPm[1, intPm].Value = Math.Round(Utility.Val(Math.Round(ts1.dblqnty).ToString()) * (dblFgEdit / dblfgQnty), 3) + " " + strUnit;
 
-                            DgPm[3, intPm].Value = Math.Round((Utility.Val(DgPm[1, intPm].Value.ToString()) * dblrate), 4);
-                            dblPmAmount = dblPmAmount + Utility.Val(DgPm[3, intPm].Value.ToString());
+                            DgPm[3, intPm].Value = Math.Round((Utility.Val(DgPm[1, intPm].Value.ToString()) * dblrate), 2);
+                            dblPmAmount = dblPmAmount + Math.Abs(Utility.Val(DgPm[3, intPm].Value.ToString()));
                             //DgPm[5, intPm].Value = Utility.Val(DgPm[1, intPm].Value.ToString());
+                            DgPm[5, intPm].Value = Utility.Val(ts1.dblqnty.ToString());
                             intPm += 1;
                         }
                     
@@ -1971,8 +2267,8 @@ namespace JA.Modulecontrolar.UI.Inventory
                             {
                                 //dblrate = Utility.gdblPurchasePrice(strComID, ts1.stritemName, dteDate.Text);
                                 dblrate = Utility.gdblGetCostPriceNew(strComID, ts1.stritemName, dteDate.Text);
-                                DgRm[1, intrm].Value = Math.Round(Utility.Val(ts1.dblqnty.ToString()) * (dblFgEdit / dblfgQnty), 4);
-                                DgRm[3, intrm].Value = Math.Round((Utility.Val(DgRm[1, intrm].Value.ToString()) * dblrate), 4);
+                                DgRm[1, intrm].Value = Math.Round(Utility.Val(ts1.dblqnty.ToString()) * (dblFgEdit / dblfgQnty), 3);
+                                DgRm[3, intrm].Value = Math.Round((Utility.Val(DgRm[1, intrm].Value.ToString()) * dblrate), 2);
                                 dblRmAmount = dblRmAmount + Utility.Val(DgRm[3, intrm].Value.ToString());
                                 intrm += 1;
                             }
@@ -1991,7 +2287,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             if (DgRm.Rows.Count > 0)
             {
                 dblUnitPrice = (dblRmAmount + dblWastageAmount) / Utility.Val(txtFGQnty.Text);
-                lblUnitPrice.Text = "Unit Price of F. Goods: " + Math.Round(dblUnitPrice, 4).ToString();
+                lblUnitPrice.Text = "Unit Price of F. Goods: " + Math.Round(dblUnitPrice, 2).ToString();
             }
             calculateTotal();
 
@@ -2014,7 +2310,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             {
                 if (e.KeyChar == (char)Keys.Return)
                 {
-                    uctxtSampletoFg.Focus();
+                    uctxtNarration.Focus();
                     mDisplayReceipeChangeFG();
                   
                 }
@@ -2044,6 +2340,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         }
                         ooItem = invms.mDisplayProcess(strComID, uctxtProcessName.Text, "").ToList();
                         mDisplayReceipeChangeRM(0);
+                        //uctxtProcessName.Focus();
                     }
                     else
                     {
@@ -2136,7 +2433,24 @@ namespace JA.Modulecontrolar.UI.Inventory
             }
         }
 
-       
+        private void btnSerach_Click(object sender, EventArgs e)
+        {
+            frmAllReferanceGroup objfrm = new frmAllReferanceGroup();
+            objfrm.lngVtype = 9991;
+            objfrm.onAddAllButtonClickedFG = new frmAllReferanceGroup.AddAllClickFG(DisplayVoucherListFG);
+            objfrm.Show();
+            objfrm.MdiParent = this.MdiParent;
+           
+        }
+
+        private void DisplayVoucherListFG(List<StockItem> tests, object sender, EventArgs e)
+        {
+
+            uctxtFgItem.Text = tests[0].strItemName;
+            uctxtFgItem.Focus();
+
+
+        }
 
     }
 }

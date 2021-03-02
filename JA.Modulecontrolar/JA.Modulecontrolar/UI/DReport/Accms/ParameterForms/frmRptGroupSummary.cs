@@ -247,12 +247,20 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
         private void btnPrint_Click(object sender, EventArgs e)
         {
             string strBrachID = "";
-            int intselection = 0;
+            int intselection = 0,intSuppress=0;
             if (uctxtLedgerName.Text =="")
             {
                 MessageBox.Show("Name Cannot be Empty");
                 uctxtLedgerName.Focus();
                 return;
+            }
+            if (chkSuppress.Checked ==true)
+            {
+                intSuppress = 1;
+            }
+            else
+            {
+                intSuppress = 0;
             }
 
             //1 =opn + tran +clos
@@ -309,6 +317,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             frmviewer.strString = uctxtLedgerName.Text;
             frmviewer.strBranchID = strBrachID;
             frmviewer.intSummDetails  = intselection;
+            frmviewer.intSP = intSuppress;
             if (radGroupWise.Checked == true)
             {
                 frmviewer.strSelction = "Group";

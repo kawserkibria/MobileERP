@@ -34,6 +34,7 @@
             this.btnCashBankBook = new ColorButton.ColorButton();
             this.btnGroupSummary = new ColorButton.ColorButton();
             this.btnRptHLPFStatement = new ColorButton.ColorButton();
+            this.btnRptMonthlyIncentive = new ColorButton.ColorButton();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
@@ -47,13 +48,14 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.btnRptMonthlyIncentive);
             this.pnlMain.Controls.Add(this.btnRptHLPFStatement);
             this.pnlMain.Controls.Add(this.btnGroupSummary);
             this.pnlMain.Controls.Add(this.btnCashBankBook);
             this.pnlMain.Controls.Add(this.btnDayBook);
             this.pnlMain.Controls.Add(this.btnLedger);
             this.pnlMain.Controls.Add(this.btnVoucherReports);
-            this.pnlMain.Size = new System.Drawing.Size(451, 279);
+            this.pnlMain.Size = new System.Drawing.Size(451, 316);
             // 
             // pnlTop
             // 
@@ -97,7 +99,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 192);
+            this.groupBox1.Location = new System.Drawing.Point(0, 231);
             this.groupBox1.Size = new System.Drawing.Size(454, 25);
             // 
             // btnVoucherReports
@@ -220,10 +222,30 @@
             this.btnRptHLPFStatement.Text = "HL/PF Statement";
             this.btnRptHLPFStatement.Click += new System.EventHandler(this.btnRptHLPFStatement_Click);
             // 
+            // btnRptMonthlyIncentive
+            // 
+            this.btnRptMonthlyIncentive.Active = true;
+            this.btnRptMonthlyIncentive.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
+            this.btnRptMonthlyIncentive.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRptMonthlyIncentive.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
+            this.btnRptMonthlyIncentive.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
+            this.btnRptMonthlyIncentive.HoverColorA = System.Drawing.Color.LemonChiffon;
+            this.btnRptMonthlyIncentive.HoverColorB = System.Drawing.Color.White;
+            this.btnRptMonthlyIncentive.Location = new System.Drawing.Point(10, 263);
+            this.btnRptMonthlyIncentive.Name = "btnRptMonthlyIncentive";
+            this.btnRptMonthlyIncentive.NormalBorderColor = System.Drawing.Color.Aqua;
+            this.btnRptMonthlyIncentive.NormalColorA = System.Drawing.Color.White;
+            this.btnRptMonthlyIncentive.NormalColorB = System.Drawing.Color.Honeydew;
+            this.btnRptMonthlyIncentive.Size = new System.Drawing.Size(218, 40);
+            this.btnRptMonthlyIncentive.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
+            this.btnRptMonthlyIncentive.TabIndex = 11;
+            this.btnRptMonthlyIncentive.Text = "Monthly Incentive";
+            this.btnRptMonthlyIncentive.Click += new System.EventHandler(this.btnRptMonthlyIncentive_Click);
+            // 
             // frmAccountBooks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(454, 217);
+            this.ClientSize = new System.Drawing.Size(454, 256);
             this.isEnterTabAllow = true;
             this.MinimizeBox = false;
             this.Name = "frmAccountBooks";
@@ -242,5 +264,6 @@
         private ColorButton.ColorButton btnGroupSummary;
         private ColorButton.ColorButton btnCashBankBook;
         private ColorButton.ColorButton btnRptHLPFStatement;
+        private ColorButton.ColorButton btnRptMonthlyIncentive;
     }
 }

@@ -44,7 +44,10 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
         public string strBranchID { get; set; }
         public string strHeading { get; set; }
         public string mstrBranchName { get; set; }
+        public string strPreviousFDate { get; set; }
+        public string strPreviousTDate { get; set; }
         public int intVtype { get; set; }
+        public int intTarget { get; set; }
         public int intNarration { get; set; }
         public int intSignatory { get; set; }
         public int intSummDetails { get; set; }
@@ -142,10 +145,89 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
             ReportDocument rpt1;
             try
             {
-               switch (selector)
+                switch (selector)
                 {
-                    case ViewerSelector.userPrevilegsMenu:
+                    #region "Incentive "
+                    case ViewerSelector.IncPoleci:
+                        List<RoIncentive> opIncentiveR = orptCnn.mGetIncentive(strComID, intNarration, strString).ToList();
+                        if (opIncentiveR.Count > 0)
+                        {
+                            rptIncentivePolicy rpt = new rptIncentivePolicy();
+                            rpt1 = (ReportDocument)rpt;
+                            rpt1.SetDataSource(opIncentiveR.ToList());
+                            this.reportTitle = strHeading;
+                            this.secondParameter = "55";
+                            InitialiseLabels(rpt1);
+                            crystalReportViewer1.ReportSource = rpt1;
+                            ShowReport(rpt1, false, "");
+                        }
 
+                        break;
+                    case ViewerSelector.IncMonthly:
+                        List<RoIncentive> opIncentiveMonthly = orptCnn.mGetIncentiveMonthly(strComID, strFdate, strTdate, strString, strString2).ToList();
+                        if (opIncentiveMonthly.Count > 0)
+                        {
+
+                            if (strString == "MPO")
+                            {
+                                rptIncentiveMonthlyMPO rpt = new rptIncentiveMonthlyMPO();
+                                rpt1 = (ReportDocument)rpt;
+                            }
+                            else
+                            {
+                                rptIncentiveMontlyAH_DH rpt = new rptIncentiveMontlyAH_DH();
+                                rpt1 = (ReportDocument)rpt;
+                            }
+                            rpt1.SetDataSource(opIncentiveMonthly.ToList());
+                            this.reportTitle = strHeading;
+                            this.secondParameter = Convert.ToDateTime(strFdate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(strTdate).ToString("dd-MM-yyyy");
+                            InitialiseLabels(rpt1);
+                            crystalReportViewer1.ReportSource = rpt1;
+                            ShowReport(rpt1, false, "");
+                        }
+
+                        break;
+                    #endregion
+                    #region "Incentive View"
+                    case ViewerSelector.IncGenview:
+                        List<RoIncentive> opIncentive = orptCnn.GetIncentiveList(strComID, strString, strString2, intSalesCollection).ToList();
+                        if (opIncentive.Count > 0)
+                        {
+                            rptIncentiveView rpt = new rptIncentiveView();
+                            rpt1 = (ReportDocument)rpt;
+                            rpt1.SetDataSource(opIncentive.ToList());
+                            this.reportTitle = strHeading;
+                            this.secondParameter = "";
+                            InitialiseLabels(rpt1);
+                            crystalReportViewer1.ReportSource = rpt1;
+                            ShowReport(rpt1, false, "");
+
+                        }
+
+                        break;
+                    #endregion
+                    #region "PF_HL Information_Details"
+                    case ViewerSelector.PFHLDetails:
+                        List<RoPaymentSummaryMonthly> oPFHLDetails = orptCnn.mGetHLPFMonthly(strComID, strBranchID, strFdate, strTdate, strString, intSP).ToList();
+                        if (oPFHLDetails.Count > 0)
+                        {
+                            DateTime datevale = Convert.ToDateTime(DateTime.Today.ToString("dd-MM-yyyy"));
+                            rptHL_PF_12Month rpt = new rptHL_PF_12Month();
+                            rpt1 = (ReportDocument)rpt;
+                            rpt1.SetDataSource(oPFHLDetails.ToList());
+                            this.reportTitle = strHeading;
+                            this.secondParameter = Convert.ToDateTime(strFdate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(strTdate).ToString("dd-MM-yyyy");
+                            InitialiseLabels(rpt1);
+                            rpt1.SetParameterValue("BranchName", strString2);
+                            crystalReportViewer1.ReportSource = rpt1;
+                            ShowReport(rpt1, false, "");
+
+                        }
+
+                        break;
+                    #endregion
+                    #region "Privileges"
+                    case ViewerSelector.userPrevilegsMenu:
                         List<RAudit> oUserPrevilegsmenu = orptCnn.mgetUserPrivilage(strComID, strSelction).ToList();
                         if (oUserPrevilegsmenu.Count > 0)
                         {
@@ -159,6 +241,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             ShowReport(rpt1, false, "");
                         }
                         break;
+                    #endregion
                     #region "Closing_PF_HL Information"
                     case ViewerSelector.PFHLClosing:
                         List<RoPFHL> oPFHLClosing = orptCnn.mGetMpoClosingValue(strComID, strFdate, strBranchID, strString, intSP).ToList();
@@ -180,7 +263,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                     #endregion
                     #region "PF_HL Information"
                     case ViewerSelector.PFHL:
-                        List<RoPFHL> oPFHL = orptCnn.mGetPFHL(strComID, strFdate, strTdate, strBranchID , strString).ToList();
+                        List<RoPFHL> oPFHL = orptCnn.mGetPFHL(strComID, strFdate, strTdate, strBranchID, strString, intSP).ToList();
                         if (oPFHL.Count > 0)
                         {
                             DateTime datevale = Convert.ToDateTime(DateTime.Today.ToString("dd-MM-yyyy"));
@@ -200,7 +283,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                     #endregion
                     #region "PaymentSummary New"
                     case ViewerSelector.ExpenseSummMonthly:
-                        List<RoPaymentSummaryMonthly> oPaymentSummaryMonthly = orptCnn.mGetPaymentSummaryMonthly(strComID, strString, intHor_ver).ToList();
+                        List<RoPaymentSummaryMonthly> oPaymentSummaryMonthly = orptCnn.mGetPaymentSummaryMonthlyReportView(strComID).ToList();
                         if (oPaymentSummaryMonthly.Count > 0)
                         {
                             DateTime datevale = Convert.ToDateTime(DateTime.Today.ToString("dd-MM-yyyy"));
@@ -254,6 +337,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
                         break;
                     #endregion
+                    #region "Commition"
                     case ViewerSelector.commitionN:
                         List<RStockInformation> commitionN2 = orptCnn.mGetCommitionN(strComID, strFdate, strTdate, strBranchID, strString).ToList();
                         if (commitionN2.Count > 0)
@@ -272,7 +356,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
-
+                    #endregion
+                    #region "LedgerConfig"
                     case ViewerSelector.LedgerConfig:
                         List<RAccountsGroup> objList = orptCnn.mFillLedgerListMpoPercen(strComID, strString).ToList();
                         if (strString == "Salary By Voucher")
@@ -293,7 +378,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
-
+                    #endregion
+                    #region "MPOCommManual"
                     case ViewerSelector.MpoCommManuallist:
                         List<RAccountsGroup> oMpoComm = orptCnn.mFillDisplayBill(strComID, strString).ToList();
                         rptMPOCommMenual rptMPOCommMenual = new rptMPOCommMenual();
@@ -305,10 +391,11 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
-
+                    #endregion
+                    #region "Honda Loan"
                     case ViewerSelector.HondaLoan:
                         double dblFineRecAmount = 0;
-                        List<RHondaLoan> ohondaLoan = orptCnn.mGetHondaLoan(strComID, strBranchID, strledgerName, strGroup, strFdate, strTdate, intVtype, strString3, intValueSuppress ).ToList();
+                        List<RHondaLoan> ohondaLoan = orptCnn.mGetHondaLoan(strComID, strBranchID, strledgerName, strGroup, strFdate, strTdate, intVtype, strString3, intValueSuppress).ToList();
                         if (ohondaLoan.Count > 0)
                         {
                             if (intVtype == 1)
@@ -350,6 +437,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
 
                         }
                         break;
+                    #endregion
+                    #region "SP"
                     case ViewerSelector.SP3:
 
                         int intloop = 0;
@@ -362,7 +451,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             {
                                 if (intloop == 0)
                                 {
-                                    Header1 = ooObj.ToString().Replace("'","");
+                                    Header1 = ooObj.ToString().Replace("'", "");
 
                                 }
                                 if (intloop == 1)
@@ -464,7 +553,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         rpt1.SetParameterValue("Header13", Header13);
                         rpt1.SetParameterValue("Header14", Header14);
                         rpt1.SetParameterValue("Header15", Header15);
-                     
+
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -488,8 +577,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         rptAccountsVoucherSP2 rptAccountsVoucherSP2 = new rptAccountsVoucherSP2();
                         rpt1 = (ReportDocument)rptAccountsVoucherSP2;
 
-                        rpt1.SetDataSource(objWoIS.mGetMpoCommissionSP(strComID, intVtype, intSummDetails, strString, strBranchID, strFdate, strTdate,strPFdate,strPTdate,
-                                                                            Utility.gstrUserName,strPMonthID).ToList());
+                        rpt1.SetDataSource(objWoIS.mGetMpoCommissionSP(strComID, intVtype, intSummDetails, strString, strBranchID, strFdate, strTdate, strPFdate, strPTdate,
+                                                                            Utility.gstrUserName, strPMonthID, strPreviousFDate, strPreviousTDate).ToList());
                         this.reportTitle = strHeading;
 
                         this.secondParameter = "";
@@ -511,14 +600,15 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         ShowReport(rpt1, false, "");
 
                         break;
-
+                    #endregion
+                    #region "Bank RP"
                     case ViewerSelector.BankRP:
                         if (intSummDetails == 0)
                         {
-                            string strInsert = objWoIS.mInserRPBank(strComID, strFdate, strTdate,strBranchID );
+                            string strInsert = objWoIS.mInserRPBank(strComID, strFdate, strTdate, strBranchID);
                             if (strInsert != "")
                             {
-                                List<RAccountsGroup> oreport = objWoIS.mGetBankwiseQuery(strComID, 0, "", "",strBranchID );
+                                List<RAccountsGroup> oreport = objWoIS.mGetBankwiseQuery(strComID, 0, "", "", strBranchID);
                                 rptBankWiseRP rptBankWiseRP = new rptBankWiseRP();
                                 rpt1 = (ReportDocument)rptBankWiseRP;
                                 rpt1.SetDataSource(oreport.ToList());
@@ -531,13 +621,13 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
                         else
                         {
-                            double dblAmount = 0, dblHLAmount = 0, dblPFAmount=0;
+                            double dblAmount = 0, dblHLAmount = 0, dblPFAmount = 0;
                             List<RAccountsGroup> oreport = objWoIS.mGetBankwiseQuery(strComID, 1, strFdate, strTdate, strBranchID);
-                            foreach(RAccountsGroup objReport in oreport)
+                            foreach (RAccountsGroup objReport in oreport)
                             {
-                                if (objReport.strLedgerName=="Bkash Non Active")
+                                if (objReport.strLedgerName == "Bkash Non Active")
                                 {
-                                    dblAmount=dblAmount+objReport.dblAmount;
+                                    dblAmount = dblAmount + objReport.dblAmount;
                                 }
                                 else if (objReport.strLedgerName == "Southeast Bank SNd A/C")
                                 {
@@ -552,7 +642,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                                     dblAmount = dblAmount + objReport.dblAmount;
                                 }
                             }
-                            List<RAccountsGroup> oreport1 = objWoIS.mGetBankwiseHLPF(strComID, 1, strFdate, strTdate,strBranchID);
+                            List<RAccountsGroup> oreport1 = objWoIS.mGetBankwiseHLPF(strComID, 1, strFdate, strTdate, strBranchID);
                             foreach (RAccountsGroup objReport in oreport1)
                             {
 
@@ -567,11 +657,11 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                                     dblAmount = dblAmount + dblPFAmount;
                                 }
                             }
-                            
+
                             rptBankCollectionReceipt rptBankCollectionReceipt = new rptBankCollectionReceipt();
                             rpt1 = (ReportDocument)rptBankCollectionReceipt;
                             rpt1.SetDataSource(oreport.ToList());
-                            this.reportTitle = "Collection Summary(" + strString + ")" ;
+                            this.reportTitle = "Collection Summary(" + strString + ")";
                             this.secondParameter = Convert.ToDateTime(strFdate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(strTdate).ToString("dd-MM-yyyy");
                             rpt1.SetParameterValue("dblHondaloan", dblHLAmount);
                             rpt1.SetParameterValue("dblPF", dblPFAmount);
@@ -583,14 +673,25 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
+                    #endregion
+                    #region "Credit Limit"
                     case ViewerSelector.CreditLimit:
 
-                        List<RCreditLimit> oCriditLimit = objWoIS.mGetCreditLimit(strComID, strBranchID, strFdate, strTdate, strString, strString2, strString3, strSelction, intVtype, Utility.gstrUserName).ToList();
+                        List<RCreditLimit> oCriditLimit = objWoIS.mGetCreditLimit(strComID, strBranchID, strFdate, strTdate, strString, strString2, strString3, strSelction, intVtype, Utility.gstrUserName, intSP).ToList();
                         if (oCriditLimit.Count > 0)
                         {
-                            rptCreditLimit rptCreditLimit = new rptCreditLimit();
-                            rpt1 = (ReportDocument)rptCreditLimit;
-                            rptCreditLimit.SetDataSource(oCriditLimit.ToList());
+                            if (intSP >= 1)
+                            {
+                                rptCreditLimitOneM rptCreditLimit = new rptCreditLimitOneM();
+                                rpt1 = (ReportDocument)rptCreditLimit;
+                                rptCreditLimit.SetDataSource(oCriditLimit.ToList());
+                            }
+                            else
+                            {
+                                rptCreditLimit rptCreditLimit = new rptCreditLimit();
+                                rpt1 = (ReportDocument)rptCreditLimit;
+                                rptCreditLimit.SetDataSource(oCriditLimit.ToList());
+                            }
                             this.reportTitle = "Credit Limit";
                             this.secondParameter = Convert.ToDateTime(strFdate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(strSelf).ToString("dd-MM-yyyy");
                             rpt1.SetParameterValue("First_Month", Convert.ToDateTime(strFdate).ToString("MMMyy"));
@@ -603,6 +704,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             ShowReport(rpt1, false, "");
                         }
                         break;
+                    #endregion
+                    #region "Privilegs"
                     case ViewerSelector.userPrevilegs:
 
                         List<RAudit> oUserPrevilegs = orptCnn.mgetUserPrivilage(strComID, strSelction).ToList();
@@ -618,9 +721,11 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             ShowReport(rpt1, false, "");
                         }
                         break;
+                    #endregion
+                    #region "Budget"
                     case ViewerSelector.Budget:
 
-                        List<RAccountsGroup> oBudget = orptCnn.mGetBudget(strComID, strString,strFdate,strTdate).ToList();
+                        List<RAccountsGroup> oBudget = orptCnn.mGetBudget(strComID, strString, strFdate, strTdate).ToList();
                         if (oBudget.Count > 0)
                         {
                             rptBudget rpt = new rptBudget();
@@ -634,31 +739,118 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
+                    #endregion
+                    #region "Market Monitoring Sheet"
                     case ViewerSelector.MarketMonitoring:
-                        List<RFinalStatement> oMarketMonitor = orptCnn.mGetMarketMonitoringSheet(strComID, strFdate, strTdate, 
-                                                                                                    strBranchID, intNarration, strString,Utility.gstrUserName,intSummDetails).ToList();
-                        if (oMarketMonitor.Count > 0)
+                        if (intSP == 1)
                         {
-                            strMonth = Convert.ToDateTime(strTdate).ToString(("MMMM")) + "'" + Convert.ToDateTime(strTdate).ToString(("yyyy"));
-                            if (intSummDetails == 1)
+
+                            string FFdate = Utility.FirstDayOfMonth(Convert.ToDateTime(strFdate)).ToString("dd-MM-yyyy");
+                            string TTdate = Utility.LastDayOfMonth(Convert.ToDateTime(strTdate)).ToString("dd-MM-yyyy");
+                            List<RFinalStatement> oMarketMonitorSP = objWoIS.mGetSalesCollSp(strComID, strFdate, strTdate,
+                                                                                                       strBranchID, intNarration, strString, Utility.gstrUserName,
+                                                                                                       intSummDetails, intTarget, intVtype, strString2, FFdate, TTdate).ToList();
+                            if (oMarketMonitorSP.Count > 0)
                             {
-                                rptMarketMonitoringSheet rpt = new rptMarketMonitoringSheet();
+                                rptSalesCollSpecial rpt = new rptSalesCollSpecial();
                                 rpt1 = (ReportDocument)rpt;
+                                rpt1.SetDataSource(oMarketMonitorSP.ToList());
+                                this.reportTitle = "Special Monitor ";
+                                this.secondParameter = strFdate + " to " + strTdate;
+                                InitialiseLabels(rpt1);
+                                rpt1.SetParameterValue("Dateee", Convert.ToDateTime(strTdate).ToString(("dd-MMM-yyyy")));
+                                crystalReportViewer1.ReportSource = rpt1;
+                                ShowReport(rpt1, false, "");
                             }
-                            else
+                        }
+                        else
+                        {
+
+                            string FFdate = Utility.FirstDayOfMonth(Convert.ToDateTime(strFdate)).ToString("dd-MM-yyyy");
+                            string TTdate = Utility.LastDayOfMonth(Convert.ToDateTime(strTdate)).ToString("dd-MM-yyyy");
+
+                            DateTime df = Convert.ToDateTime(FFdate);
+                            DateTime dT = Convert.ToDateTime(TTdate);
+
+                            long intnoofdays = Utility.DateDiff(Utility.DateInterval.Day, df, dT) + 1;
+                            long lonnDays = Utility.DateDiff(Utility.DateInterval.Day, Convert.ToDateTime(strFdate), Convert.ToDateTime(strTdate)) + 1;
+
+                            List<RFinalStatement> oMarketMonitor = orptCnn.mGetMarketMonitoringSheet(strComID, strFdate, strTdate,
+                                                                                                        strBranchID, intNarration, strString, Utility.gstrUserName,
+                                                                                                        intSummDetails, intTarget, intVtype, strString2, Convert.ToInt32(intnoofdays),
+                                                                                   Convert.ToInt32(lonnDays), FFdate, TTdate).ToList();
+                            if (oMarketMonitor.Count > 0)
                             {
-                                rptMarketMonitoringSheetMPO rpt = new rptMarketMonitoringSheetMPO();
-                                rpt1 = (ReportDocument)rpt;
+                                strMonth = Convert.ToDateTime(strTdate).ToString(("MMMM")) + "'" + Convert.ToDateTime(strTdate).ToString(("yyyy"));
+
+                                if (intValueSuppress == 1)
+                                {
+
+                                    rptMarketMonitoringSheet rpt = new rptMarketMonitoringSheet();
+                                    rpt1 = (ReportDocument)rpt;
+                                }
+                                else
+                                {
+                                    if (intVtype == 1)
+                                    {
+
+                                        rptMarketMonitoringSheet rpt = new rptMarketMonitoringSheet();
+                                        rpt1 = (ReportDocument)rpt;
+
+                                    }
+                                    else if (intVtype == 2)
+                                    {
+                                        if (intValueSuppress == 1)
+                                        {
+                                            //rptMarketMonitoringSheetMPO rpt = new rptMarketMonitoringSheetMPO();
+                                            rptMarketMonitoringSheet rpt = new rptMarketMonitoringSheet();
+                                            rpt1 = (ReportDocument)rpt;
+                                        }
+                                        else
+                                        {
+                                            rptMarketMonitoringSheetMPO rpt = new rptMarketMonitoringSheetMPO();
+                                            rpt1 = (ReportDocument)rpt;
+                                        }
+                                    }
+                                    else if (intVtype == 3)
+                                    {
+                                        //rptMarketMonitoringSheetMPO rpt = new rptMarketMonitoringSheetMPO();
+                                        rptMarketMonitoringSheet_Area rpt = new rptMarketMonitoringSheet_Area();
+                                        rpt1 = (ReportDocument)rpt;
+                                    }
+                                    else if (intVtype == 4)
+                                    {
+                                        //rptMarketMonitoringSheetMPO rpt = new rptMarketMonitoringSheetMPO();
+                                        rptMarketMonitoringSheetDivision rpt = new rptMarketMonitoringSheetDivision();
+                                        rpt1 = (ReportDocument)rpt;
+                                    }
+                                    else if ((intVtype == 5))
+                                    {
+                                        //rptMarketMonitoringSheet_Zone rpt = new rptMarketMonitoringSheet_Zone();
+                                        rptMarketMonitoringSheet_Zone rpt = new rptMarketMonitoringSheet_Zone();
+                                        rpt1 = (ReportDocument)rpt;
+                                    }
+                                    else
+                                    {
+                                        rptMarketMonitoringSheet rpt = new rptMarketMonitoringSheet();
+                                        rpt1 = (ReportDocument)rpt;
+                                    }
+                                }
+                                rpt1.SetDataSource(oMarketMonitor.ToList());
+                                this.reportTitle = "Market Monitoring Sheet ";
+                                this.secondParameter = strFdate + " to " + strTdate;
+                                InitialiseLabels(rpt1);
+                                rpt1.SetParameterValue("Tdate1", FFdate);
+                                rpt1.SetParameterValue("Tdate2", TTdate);
+                                rpt1.SetParameterValue("Adate1", strFdate);
+                                rpt1.SetParameterValue("Adate2", strTdate);
+                                crystalReportViewer1.ReportSource = rpt1;
+                                ShowReport(rpt1, false, "");
                             }
-                           
-                            rpt1.SetDataSource(oMarketMonitor.ToList());
-                            this.reportTitle = "Market Monitoring Sheet " + "-" + strMonth;
-                            this.secondParameter = strFdate + " to " + strTdate;
-                            InitialiseLabels(rpt1);
-                            crystalReportViewer1.ReportSource = rpt1;
-                            ShowReport(rpt1, false, "");
                         }
                         break;
+                    #endregion
+                    #region "Final Statement"
                     case ViewerSelector.FinalStatement:
                         if (intSummDetails == 1)
                         {
@@ -673,8 +865,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             strPartyName = "";
                             strGroupName = "";
                         }
-                        List<RFinalStatement> oFinalState = orptCnn.mGetFinalStattemnet(strComID, strFdate, strTdate, strBranchID, strGroupName, strPartyName, 
-                                                                                            intNarration, intSummDetails, dblClosingBalance,dblClosingBalance1, strSelction,Utility.gstrUserName).ToList();
+                        List<RFinalStatement> oFinalState = orptCnn.mGetFinalStattemnet(strComID, strFdate, strTdate, strBranchID, strGroupName, strPartyName,
+                                                                                            intNarration, intSummDetails, dblClosingBalance, dblClosingBalance1, strSelction, Utility.gstrUserName).ToList();
                         if (oFinalState.Count > 0)
                         {
                             strMonth = "For the Month of " + Convert.ToDateTime(strFdate).ToString("MMMMyyyy");
@@ -690,7 +882,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                                 rpt1 = (ReportDocument)rpt;
                             }
                             rpt1.SetDataSource(oFinalState.ToList());
-                            if (dblClosingBalance > 0 && dblClosingBalance==0)
+                            if (dblClosingBalance > 0 && dblClosingBalance == 0)
                             {
                                 this.reportTitle = "Final Statement (Closing Balance " + strSelction + " " + dblClosingBalance + ")";
                             }
@@ -710,10 +902,10 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                                     this.reportTitle = "Final Statement";
                                     this.secondParameter = strFdate + " to " + strTdate;
                                     strMonth = this.ReportTitle + " From " + '-' + this.secondParameter;
-                                  
+
                                 }
                             }
-                           
+
                             this.ReportHeading = "Branch : " + strBranchName;
                             InitialiseLabels(rpt1);
                             crystalReportViewer1.ReportSource = rpt1;
@@ -724,8 +916,10 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
+                    #endregion
+                    #region "Daily Collection"
                     case ViewerSelector.DailyCollection:
-                        List<RAccountsGroup> odailyColeDetails = objWoIS.mGetDailyCollectionDetails(strComID, strFdate, strTdate, strBranchID, intSP,Utility.gstrUserName,strSelction,0,"").ToList();
+                        List<RAccountsGroup> odailyColeDetails = objWoIS.mGetDailyCollectionDetails(strComID, strFdate, strTdate, strBranchID, intSP, Utility.gstrUserName, strSelction, intSummDetails, "").ToList();
                         if (odailyColeDetails.Count > 0)
                         {
                             if (intSP == 1)
@@ -733,8 +927,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                                 rptDailyCollection_Only_Aacounts rpt = new rptDailyCollection_Only_Aacounts();
                                 rpt1 = (ReportDocument)rpt;
                                 rpt1.SetDataSource(odailyColeDetails.ToList());
-                                rpt.Subreports[0].SetDataSource(orptCnn.mGetDailyCollection(strComID, strFdate, strTdate, strBranchID, Utility.gstrUserName, "BN",intSalesColl,strFdate  ).ToList());
-                                rpt.Subreports[1].SetDataSource(orptCnn.mGetDailyCollection(strComID, strTdate, strTdate, strBranchID, Utility.gstrUserName, strSelction, intSalesColl,strFdate ).ToList());
+                                rpt.Subreports[0].SetDataSource(orptCnn.mGetDailyCollection(strComID, strFdate, strTdate, strBranchID, Utility.gstrUserName, "BN", intSalesColl, strFdate, intSummDetails).ToList());
+                                rpt.Subreports[1].SetDataSource(orptCnn.mGetDailyCollection(strComID, strTdate, strTdate, strBranchID, Utility.gstrUserName, strSelction, intSalesColl, strFdate, intSummDetails).ToList());
                                 this.reportTitle = strHeading;
                                 this.secondParameter = Convert.ToDateTime(strFdate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(strTdate).ToString("dd-MM-yyyy");
                                 InitialiseLabels(rpt1);
@@ -747,8 +941,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                                 rptDailyCollection rpt = new rptDailyCollection();
                                 rpt1 = (ReportDocument)rpt;
                                 rpt1.SetDataSource(odailyColeDetails.ToList());
-                                rpt.Subreports[0].SetDataSource(orptCnn.mGetDailyCollection(strComID, strFdate, strTdate, strBranchID, Utility.gstrUserName, "BN", intSalesColl,strFdate).ToList());
-                                rpt.Subreports[1].SetDataSource(orptCnn.mGetDailyCollection(strComID, strTdate, strTdate, strBranchID, Utility.gstrUserName, strSelction, intSalesColl,strFdate ).ToList());
+                                rpt.Subreports[0].SetDataSource(orptCnn.mGetDailyCollection(strComID, strFdate, strTdate, strBranchID, Utility.gstrUserName, "BN", intSalesColl, strFdate, intSummDetails).ToList());
+                                rpt.Subreports[1].SetDataSource(orptCnn.mGetDailyCollection(strComID, strTdate, strTdate, strBranchID, Utility.gstrUserName, strSelction, intSalesColl, strFdate, intSummDetails).ToList());
                                 this.reportTitle = strHeading;
                                 this.secondParameter = Convert.ToDateTime(strFdate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(strTdate).ToString("dd-MM-yyyy");
                                 InitialiseLabels(rpt1);
@@ -759,7 +953,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
-
+                    #endregion
+                    #region "ContractParty Bill"
                     case ViewerSelector.ContactPartyBill:
                         List<RAccountsGroup> ocontactPartyBill = orptCnn.mGetContractsPartBill(strComID, strFdate, strTdate, strBranchID, strString).ToList();
                         if (ocontactPartyBill.Count > 0)
@@ -794,7 +989,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
-
+                    #endregion
+                    #region "Post Dated checque"
 
                     case ViewerSelector.PostDateCheque:
                         List<RAccountsGroup> rptPostDatedCheque = orptCnn.mGetPostDateCheque(strComID, strFdate, strTdate, strSelction, strString).ToList();
@@ -811,11 +1007,13 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
-
+                    #endregion
+                    #region "Balance Sheet"
                     case ViewerSelector.BalanceSheet:
                         double dblLia = 0, dblAssets = 0;
-                        double dblClosing = objWoIS.gGetDebtorAmount(strComID, dteFdate.ToString("dd-MM-yyyy"), dteTdate.ToString("dd-MM-yyyy"),"");
-                        int oStock = orptCnn.mGetBalanceSheet(strComID, dteFdate, dteTdate, intHor_ver,dblClosing);
+                        double dblClosing = objWoIS.gGetDebtorAmount(strComID, "Sundry Debetors", 3, 0, dteFdate.ToString("dd-MM-yyyy"), dteTdate.ToString("dd-MM-yyyy"));
+                        //double dblClosing = objWoIS.gGetDebtorAmount(strComID, dteFdate.ToString("dd-MM-yyyy"), dteTdate.ToString("dd-MM-yyyy"),"");
+                        int oStock = orptCnn.mGetBalanceSheet(strComID, dteFdate, dteTdate, intHor_ver, dblClosing);
                         if (oStock == 1)
                         {
                             List<RAccountsGroup> oliabilities = orptCnn.mGetBalanceSheetQuery(strComID, 1).ToList();
@@ -842,6 +1040,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
+                    #endregion
+                    #region "Profit Loss"
                     case ViewerSelector.ProfitLoss:
                         double dblProfit = 0, dblLoss = 0;
                         int oProfit = orptCnn.mGetProfitLoss(strComID, dteFdate, dteTdate, "", intHor_ver);
@@ -886,7 +1086,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
-
+                    #endregion
+                    #region "Tral Balance"
                     case ViewerSelector.TrailBalance:
 
                         double dblDr = 0, dblCr = 0;
@@ -959,6 +1160,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
+                    #endregion
+                    #region "Accounts Voucher"
                     case ViewerSelector.AccountsVoucher:
 
                         List<RAudit> otheading = orptCnn.mGetHeader(strComID, intVtype).ToList();
@@ -986,7 +1189,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                                 {
                                     rptAccountsVoucherNHalf rptAccountsVoucher = new rptAccountsVoucherNHalf();
                                     rpt1 = (ReportDocument)rptAccountsVoucher;
-                                    
+
 
                                 }
                                 goto kk;
@@ -1034,9 +1237,11 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             ShowReport(rpt1, false, "");
                         }
                         break;
+                    #endregion
+                    #region "Doctors Receipt"
                     case ViewerSelector.DoctorsReceipt:
 
-                         List<RAudit> otheadingD = orptCnn.mGetHeader(strComID, intVtype).ToList();
+                        List<RAudit> otheadingD = orptCnn.mGetHeader(strComID, intVtype).ToList();
                         if (otheadingD.Count > 0)
                         {
                             foreach (RAudit oo in otheadingD)
@@ -1066,22 +1271,23 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             }
                         }
                         break;
-
+                    #endregion
+                    #region "JVSP"
                     case ViewerSelector.JVSP:
-                          List<RAudit> otheading1 = orptCnn.mGetHeader(strComID, intVtype).ToList();
-                          if (otheading1.Count > 0)
-                          {
-                              foreach (RAudit oo in otheading1)
-                              {
-                                  Header1 = oo.strHeader1;
-                                  Header2 = oo.strHeader2;
-                                  Header3 = oo.strHeader3;
-                                  Header4 = oo.strHeader4;
-                                  Header5 = oo.strHeader5;
-                                  dblPasesize = oo.dblPazeSize;
+                        List<RAudit> otheading1 = orptCnn.mGetHeader(strComID, intVtype).ToList();
+                        if (otheading1.Count > 0)
+                        {
+                            foreach (RAudit oo in otheading1)
+                            {
+                                Header1 = oo.strHeader1;
+                                Header2 = oo.strHeader2;
+                                Header3 = oo.strHeader3;
+                                Header4 = oo.strHeader4;
+                                Header5 = oo.strHeader5;
+                                dblPasesize = oo.dblPazeSize;
 
-                              }
-                          }
+                            }
+                        }
                         rptAccountsVoucherSP rptAccountsVoucherSP = new rptAccountsVoucherSP();
                         rpt1 = (ReportDocument)rptAccountsVoucherSP;
 
@@ -1099,25 +1305,19 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         {
                             rpt1.SetParameterValue("intSuppress", 1);
                         }
-                           rpt1.SetParameterValue("strHeaderr1", Header1);
-                            rpt1.SetParameterValue("strHeaderr2", Header2);
-                            rpt1.SetParameterValue("strHeaderr3", Header3);
-                            rpt1.SetParameterValue("strHeaderr4", Header4);
+                        rpt1.SetParameterValue("strHeaderr1", Header1);
+                        rpt1.SetParameterValue("strHeaderr2", Header2);
+                        rpt1.SetParameterValue("strHeaderr3", Header3);
+                        rpt1.SetParameterValue("strHeaderr4", Header4);
 
                         ShowReport(rpt1, false, "");
 
                         break;
+                    #endregion
+                    #region "Accounts voucher"
                     case ViewerSelector.AccountsVoucherMR:
-                        //if (intSummDetails == 1)
-                        //{
                         rptAccountsVoucherMR rptAccountsVoucherMR = new rptAccountsVoucherMR();
                         rpt1 = (ReportDocument)rptAccountsVoucherMR;
-                        //}
-                        //else
-                        //{
-                        //    rptAccountsVoucherSumm rptAccountsVoucherSumm = new rptAccountsVoucherSumm();
-                        //    rpt1 = (ReportDocument)rptAccountsVoucherSumm;
-                        //}
                         if (strHeading != "")
                         {
                             this.reportTitle = strHeading;
@@ -1145,6 +1345,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         ShowReport(rpt1, false, "");
 
                         break;
+                    #endregion
+                    #region "Ledger"
                     case ViewerSelector.Ledger:
                         string strBarnchName = "";
                         List<RAccountsGroup> oAccvou = objWoIS.RefreshLedger(strComID, strFdate, strTdate, strString, strBranchID, strSelction, intSalesColl).ToList();
@@ -1231,8 +1433,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
-
-
+                    #endregion
+                    #region "DayBook"
                     case ViewerSelector.Daybook:
 
                         List<RAccountsGroup> oAccDaybook = orptCnn.mReportDayBookDetails(strComID, strFdate, strTdate, strSelction, strString, strBranchID).ToList();
@@ -1273,8 +1475,9 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
+                    #endregion
+                    #region "Group"
                     case ViewerSelector.Group:
-
                         List<RAccountsGroup> oGrp = orptCnn.GroupSummaryReport(strComID, strFdate, strTdate, strSelction, strString, strBranchID, intSP).ToList();
                         if (oGrp.Count > 0)
                         {
@@ -1343,6 +1546,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             crystalReportViewer1.ReportSource = rpt1;
                             rpt1.SetParameterValue("CLDR", oGrp[0].dblDr);
                             rpt1.SetParameterValue("CLCR", oGrp[0].dblCr);
+                            //rpt1.SetParameterValue("suppress", intSP);
                             if (intSummDetails == 1)
                             {
                                 rpt1.SetParameterValue("strString", strString);
@@ -1352,7 +1556,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
-
+                    #endregion
+                    #region "Receipt Payment"
                     case ViewerSelector.ReceiptPayment:
                         double dblReceipt = 0, dblPayment = 0;
                         int i = orptCnn.mReceiptPayment(strComID, dteFdate, dteTdate);
@@ -1394,7 +1599,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
-
+                    #endregion
+                    #region "Cash Flow"
                     case ViewerSelector.CashFlow:
 
                         List<RAccountsGroup> oCashFlow = orptCnn.mCashFlow(strComID, strFdate, strTdate).ToList();
@@ -1422,6 +1628,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             ShowReport(rpt1, false, "");
                         }
                         break;
+                    #endregion
+                    #region "Trading"
                     case ViewerSelector.Trading:
                         double dblPurchase = 0, dblSales = 0;
 
@@ -1469,6 +1677,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             ShowReport(rpt1, false, "");
                         }
                         break;
+                    #endregion
+                    #region "Cost Center Ledger"
                     case ViewerSelector.CostCenterLedger:
 
                         List<RAccountsGroup> oCostCenterLedger = orptCnn.GetCostCenterLedger(strComID, strFdate, strTdate, strBranchID, strString).ToList();
@@ -1493,6 +1703,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             ShowReport(rpt1, false, "");
                         }
                         break;
+                    #endregion
+                    #region "Cost Category"
 
                     case ViewerSelector.CostCategory:
 
@@ -1541,6 +1753,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         ShowReport(rpt1, false, "");
 
                         break;
+                    #endregion
+                    #region "Manufacruring"
                     case ViewerSelector.Manufacturing:
 
                         double dblmanu = orptCnn.dblManufacturing(strComID, strFdate, strTdate, strBranchID);
@@ -1560,7 +1774,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             ShowReport(rpt1, false, "");
                         }
                         break;
-
+                    #endregion
+                    #region"cheque"
                     case ViewerSelector.Cheque:
                         List<RAccountsGroup> pcheque = orptCnn.getrptChequePayment(strComID, strFdate, strTdate, intSP).ToList();
                         rptAcc_Cheque_Payment_details rptAcc_Cheque_Payment_details = new rptAcc_Cheque_Payment_details();
@@ -1572,6 +1787,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
+                    #endregion
+                    #region "SP"
                     case ViewerSelector.SP:
                         List<RAccountsGroup> oSP = objWoIS.GetrptSPCommission(strComID, strFdate, strTdate).ToList();
                         rptSPCommission rptSPCommission = new rptSPCommission();
@@ -1583,13 +1800,15 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
+                    #endregion
+                    #region "TargetAchievement"
                     case ViewerSelector.TargetAchievement:
                         {
                             if (intSalesColl == 0)
                             {
 
-                                List<RAccountsGroup> otarget = orptCnn.GetrptCollectionTargetAchieve(strComID, strBranchID, strSelction, strString, strFdate, strTdate,strSalesFdate,strSalesTdate, 
-                                                intSummDetails, intNarration,Utility.gstrUserName).ToList();
+                                List<RAccountsGroup> otarget = orptCnn.GetrptCollectionTargetAchieve(strComID, strBranchID, strSelction, strString, strFdate, strTdate, strSalesFdate, strSalesTdate,
+                                                intSummDetails, intNarration, Utility.gstrUserName, intTarget).ToList();
                                 if (intTargetSuppress == 0)
                                 {
                                     if (intSP == 1)
@@ -1630,13 +1849,13 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                                     {
                                         rptSalesCollectionZone rptSalesCollection = new rptSalesCollectionZone();
                                         rpt1 = (ReportDocument)rptSalesCollection;
-                                        
+
                                     }
                                     else if (intSP == 3)
                                     {
                                         rptSalesCollectionDivision rptSalesCollection = new rptSalesCollectionDivision();
                                         rpt1 = (ReportDocument)rptSalesCollection;
-                                        
+
                                     }
                                     else if (intSP == 4)
                                     {
@@ -1656,7 +1875,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             {
 
 
-                                List<RAccountsGroup> otarget = orptCnn.GetrptSalesCollection(strComID, strBranchID, strString, strFdate, strTdate, intSP, intNarration, intSummDetails).ToList();
+                                List<RAccountsGroup> otarget = orptCnn.GetrptSalesCollection(strComID, strBranchID, strString, strFdate, strTdate, intSP,
+                                                            intNarration, intSummDetails, Utility.gstrUserName).ToList();
                                 if (intSP == 1)
                                 {
                                     rptCollectionReceiptLedger rptCollectionReceiptLedgerWise = new rptCollectionReceiptLedger();
@@ -1675,6 +1895,11 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                                 else if (intSP == 4)
                                 {
                                     rptCollectionReceiptLedgerArea rptCollectionReceiptLedgerArea = new rptCollectionReceiptLedgerArea();
+                                    rpt1 = (ReportDocument)rptCollectionReceiptLedgerArea;
+                                }
+                                else if (intSP == 5)
+                                {
+                                    rptCollectionReceiptLedgerZone rptCollectionReceiptLedgerArea = new rptCollectionReceiptLedgerZone();
                                     rpt1 = (ReportDocument)rptCollectionReceiptLedgerArea;
                                 }
                                 else
@@ -1731,23 +1956,29 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             {
                                 this.reportTitle = "Sales & Collection Achievement  ";
                             }
-                            if (strSalesFdate =="")
+                            if (strSalesFdate == "")
                             {
                                 this.secondParameter = strFdate + " to " + strTdate;
                             }
                             else
                             {
-                                this.secondParameter =  "(Sales : " + strSalesFdate + " to" +  strSalesTdate +") (Collection" + strFdate + " to " + strTdate + ")";
+                                this.secondParameter = "(Sales : " + strSalesFdate + " to" + strSalesTdate + ") (Collection" + strFdate + " to " + strTdate + ")";
                             }
-                            
+
                             InitialiseLabels(rpt1);
+                            if ((intSP == 5) || (intSP == 2))
+                            {
+                                rpt1.SetParameterValue("intHeadName", intSP);
+                            }
                             rpt1.SetParameterValue("suppress", intSuppress);
                             crystalReportViewer1.ReportSource = rpt1;
                             ShowReport(rpt1, false, "");
                         }
                         break;
+                    #endregion
+                    #region "Expense Summ"
                     case ViewerSelector.ExpenseSumm:
-                        List<RAccountsGroup> oExpSumm = orptCnn.GetrptExpenseSummary(strComID, strFdate, strTdate,intSummDetails).ToList();
+                        List<RAccountsGroup> oExpSumm = orptCnn.GetrptExpenseSummary(strComID, strFdate, strTdate, intSummDetails).ToList();
                         if (intSummDetails == 0)
                         {
                             rptExpenseSummary rptExpenseSummary = new rptExpenseSummary();
@@ -1763,7 +1994,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         this.secondParameter = Convert.ToDateTime(strFdate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(strTdate).ToString("dd-MM-yyyy");
                         InitialiseLabels(rpt1);
                         string strBackYear = "";
-                        double dblBalanceBF = 0, dblBalanceBF1 = 0, dblCashReceived = 0, dblBanlReceived = 0, dblBanlReceivedFac=0,dblOthersCashRv=0,dblTotalHead=0,dblTotalFac=0;
+                        double dblBalanceBF = 0, dblBalanceBF1 = 0, dblCashReceived = 0, dblBanlReceived = 0, dblBanlReceivedFac = 0, dblOthersCashRv = 0, dblTotalHead = 0, dblTotalFac = 0;
                         if (intSummDetails == 0)
                         {
                             strBackYear = Convert.ToDateTime(strFdate).ToString("MMMM-yyyy");
@@ -1776,13 +2007,13 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             dblBalanceBF = Utility.gGetdblLedgerClosingBalance(strComID, strFdate, strTdate, "Cash Of Head Office", "");
                             dblBalanceBF1 = Math.Abs(Utility.gGetdblLedgerClosingBalance(strComID, strFdate, strTdate, "Cash In Hand Factory", ""));
                         }
-                       
-                        dblCashReceived = Utility.gdblCasReceivedfrommpo (strComID,"Cash Of Head Office" ,(int)Utility.VOUCHER_TYPE.vtRECEIPT_VOUCHER, strFdate, strTdate);
+
+                        dblCashReceived = Utility.gdblCasReceivedfrommpo(strComID, "Cash Of Head Office", (int)Utility.VOUCHER_TYPE.vtRECEIPT_VOUCHER, strFdate, strTdate);
                         //dblBanlReceived = Utility.gdblExpneseBank(strComID, (int)Utility.GR_GROUP_TYPE.grBANKACCOUNTS, strFdate, strTdate);
                         dblBanlReceived = Utility.gdblCasReceivedfrommpo(strComID, "Cash Of Head Office", (int)Utility.VOUCHER_TYPE.vtCONTRA_VOUCHER, strFdate, strTdate);
                         dblBanlReceivedFac = Utility.gdblCasReceivedfrommpo(strComID, "Cash In Hand Factory", (int)Utility.VOUCHER_TYPE.vtCONTRA_VOUCHER, strFdate, strTdate);
                         dblOthersCashRv = Utility.gdblCasReceivedfromOthers(strComID, "Cash Of Head Office", (int)Utility.VOUCHER_TYPE.vtJOURNAL_VOUCHER, strFdate, strTdate);
-                      
+
                         if (intSummDetails == 1)
                         {
                             dblTotalHead = Utility.gdblDisplayTemp(strComID, "Cash Of Head Office");
@@ -1791,7 +2022,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             rpt1.SetParameterValue("dblTotalFactoryBalance", dblTotalFac);
                         }
 
-                        rpt1.SetParameterValue("HEAD1", "Cash Of Head Office Opening (" + strBackYear +")");
+                        rpt1.SetParameterValue("HEAD1", "Cash Of Head Office Opening (" + strBackYear + ")");
                         rpt1.SetParameterValue("HEAD2", "Cash In Hand Factory Opening(" + strBackYear + ")");
                         rpt1.SetParameterValue("CashReceived", dblCashReceived);
                         rpt1.SetParameterValue("ChequeReceived", dblBanlReceived);
@@ -1801,10 +2032,12 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         rpt1.SetParameterValue("PreMontYear", strBackYear);
                         rpt1.SetParameterValue("OthersRv", dblOthersCashRv);
                         rpt1.SetParameterValue("CurrentMonthYear", "(" + strFdate + " to " + strTdate + ")");
-                       
+
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
+                    #endregion
+                    #region "Fixed Asset"
                     case ViewerSelector.FixedAsset:
                         List<RFixedAsset> oFixedAssets;
                         DateTime dtePrevidate = Convert.ToDateTime(Utility.gdteFinancialYearFrom);
@@ -1840,7 +2073,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         ShowReport(rpt1, false, "");
 
                         break;
-
+                    #endregion
+                    #region "Cheque Print"
                     case ViewerSelector.Chequeprint:
                         List<RAccountsGroup> oChequePrint = orptCnn.mGetChequePrint(strComID, intVtype, strString, strSelction).ToList();
                         if (oChequePrint.Count > 0)
@@ -1871,6 +2105,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
+                    #endregion
+                    #region "Statistics"
                     case ViewerSelector.Statistics:
                         rptStatistics rptMpoListLedgerWAll1 = new rptStatistics();
                         rpt1 = (ReportDocument)rptMpoListLedgerWAll1;
@@ -1881,8 +2117,10 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
+                    #endregion
+                    #region "Audit"
                     case ViewerSelector.Audit:
-                        List<RAudit> oAudit = orptCnn.mGetAudit(strComID, strFdate, strTdate, intVtype, strString, intNarration).ToList();
+                        List<RAudit> oAudit = orptCnn.mGetAudit(strComID, strFdate, strTdate, intVtype, strString, intSP).ToList();
                         if (oAudit.Count > 0)
                         {
                             rptAudit rptAudit = new rptAudit();
@@ -1898,6 +2136,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                             break;
                         }
                         break;
+                    #endregion
+                    #region "Final StatementCustomer"
                     case ViewerSelector.FinalStatementCustomer:
 
                         List<RFinalStatement> oFinalStateCustomer = objWoIS.mGetFinalStattemnetCustomer(strComID, strFdate, strTdate, strBranchID, strSelction, strString, intNarration, strString2, strString3).ToList();
@@ -1919,11 +2159,13 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.Viewer
                         }
 
                         break;
+                    #endregion
+                    #region "Profit Loss Ledger"
                     case ViewerSelector.ProfitLossLedger:
-
                         int ivv = orptCnn.gintProfitLossLedger(strComID, dteFdate, dteTdate, strBranchID, (int)Utility.glngBusinessType, 0);
-
                         break;
+                    #endregion
+
                 }
 
 

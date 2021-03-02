@@ -460,7 +460,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
 
             //oogrp = invms.gFillStockItemAll("").ToList();
-            oogrp = invms.mloadAddStockItemFg(strComID, "").ToList();
+            oogrp = invms.mloadAddStockItemFg(strComID, "F").ToList();
             //var bil = (from tsfee in oogrp
             //           select new
             //           {

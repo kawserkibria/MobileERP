@@ -155,6 +155,7 @@
             this.DG.Size = new System.Drawing.Size(1183, 445);
             this.DG.TabIndex = 2;
             this.DG.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DG_CellContentClick);
+          
             // 
             // imageList1
             // 
@@ -307,9 +308,9 @@
             // 
             this.btnpreview.Location = new System.Drawing.Point(148, 14);
             this.btnpreview.Name = "btnpreview";
-            this.btnpreview.Size = new System.Drawing.Size(0, 26);
+            this.btnpreview.Size = new System.Drawing.Size(1, 7);
             this.btnpreview.TabIndex = 16;
-            this.btnpreview.Text = "&View";
+            this.btnpreview.Text = "&ZView";
             this.btnpreview.UseVisualStyleBackColor = true;
             this.btnpreview.Click += new System.EventHandler(this.btnpreview_Click);
             // 

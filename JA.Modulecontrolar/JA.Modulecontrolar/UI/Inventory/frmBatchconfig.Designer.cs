@@ -55,6 +55,8 @@
             this.dteEnddate = new System.Windows.Forms.TextBox();
             this.uctxtBatch1 = new System.Windows.Forms.TextBox();
             this.btnSerach1 = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtFgLocation = new System.Windows.Forms.TextBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
@@ -67,6 +69,8 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.label14);
+            this.pnlMain.Controls.Add(this.txtFgLocation);
             this.pnlMain.Controls.Add(this.btnSerach1);
             this.pnlMain.Controls.Add(this.uctxtBatch1);
             this.pnlMain.Controls.Add(this.dteEnddate);
@@ -78,8 +82,6 @@
             this.pnlMain.Controls.Add(this.label11);
             this.pnlMain.Controls.Add(this.label10);
             this.pnlMain.Controls.Add(this.label9);
-            this.pnlMain.Controls.Add(this.label8);
-            this.pnlMain.Controls.Add(this.uctxtPartyName);
             this.pnlMain.Controls.Add(this.label12);
             this.pnlMain.Controls.Add(this.cboYear);
             this.pnlMain.Controls.Add(this.cboStatus);
@@ -90,64 +92,68 @@
             this.pnlMain.Controls.Add(this.label1);
             this.pnlMain.Controls.Add(this.label5);
             this.pnlMain.Controls.Add(this.uctxtBatchNo);
-            this.pnlMain.Size = new System.Drawing.Size(754, 405);
+            this.pnlMain.Size = new System.Drawing.Size(754, 489);
             this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
             // 
             // pnlTop
             // 
             this.pnlTop.Controls.Add(this.txtSlNo);
+            this.pnlTop.Controls.Add(this.label8);
+            this.pnlTop.Controls.Add(this.uctxtPartyName);
             this.pnlTop.Size = new System.Drawing.Size(757, 58);
+            this.pnlTop.Controls.SetChildIndex(this.uctxtPartyName, 0);
+            this.pnlTop.Controls.SetChildIndex(this.label8, 0);
             this.pnlTop.Controls.SetChildIndex(this.txtSlNo, 0);
             this.pnlTop.Controls.SetChildIndex(this.frmLabel, 0);
             this.pnlTop.Controls.SetChildIndex(this.btnTopClose, 0);
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(8, 321);
+            this.btnEdit.Location = new System.Drawing.Point(8, 405);
             this.btnEdit.Size = new System.Drawing.Size(132, 39);
             this.btnEdit.Text = "List All";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(529, 321);
+            this.btnSave.Location = new System.Drawing.Point(529, 405);
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(355, 320);
+            this.btnDelete.Location = new System.Drawing.Point(355, 404);
             this.btnDelete.Size = new System.Drawing.Size(10, 14);
             this.btnDelete.Visible = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(411, 319);
+            this.btnNew.Location = new System.Drawing.Point(411, 403);
             this.btnNew.Size = new System.Drawing.Size(10, 16);
             this.btnNew.Visible = false;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(643, 321);
+            this.btnClose.Location = new System.Drawing.Point(643, 405);
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(475, 323);
+            this.btnPrint.Location = new System.Drawing.Point(475, 407);
             this.btnPrint.Size = new System.Drawing.Size(10, 14);
             this.btnPrint.Visible = false;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 360);
+            this.groupBox1.Location = new System.Drawing.Point(0, 445);
             this.groupBox1.Size = new System.Drawing.Size(757, 25);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(284, 321);
+            this.label3.Location = new System.Drawing.Point(284, 272);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 18);
             this.label3.TabIndex = 56;
@@ -157,7 +163,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 321);
+            this.label1.Location = new System.Drawing.Point(8, 272);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 18);
             this.label1.TabIndex = 54;
@@ -167,7 +173,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(8, 204);
+            this.label5.Location = new System.Drawing.Point(8, 155);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(76, 18);
             this.label5.TabIndex = 52;
@@ -177,7 +183,7 @@
             // 
             this.uctxtBatchNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtBatchNo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtBatchNo.Location = new System.Drawing.Point(231, 227);
+            this.uctxtBatchNo.Location = new System.Drawing.Point(231, 178);
             this.uctxtBatchNo.MaxLength = 5;
             this.uctxtBatchNo.Name = "uctxtBatchNo";
             this.uctxtBatchNo.Size = new System.Drawing.Size(150, 23);
@@ -216,7 +222,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(586, 321);
+            this.label6.Location = new System.Drawing.Point(586, 272);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(103, 18);
             this.label6.TabIndex = 59;
@@ -230,7 +236,7 @@
             "Active",
             "Suspend",
             "Complete"});
-            this.cboStatus.Location = new System.Drawing.Point(586, 344);
+            this.cboStatus.Location = new System.Drawing.Point(586, 295);
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(131, 24);
             this.cboStatus.TabIndex = 60;
@@ -240,7 +246,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label12.Location = new System.Drawing.Point(191, 153);
+            this.label12.Location = new System.Drawing.Point(225, 442);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(43, 16);
             this.label12.TabIndex = 99;
@@ -303,7 +309,7 @@
             "2048",
             "2049",
             "2050"});
-            this.cboYear.Location = new System.Drawing.Point(243, 152);
+            this.cboYear.Location = new System.Drawing.Point(277, 441);
             this.cboYear.Name = "cboYear";
             this.cboYear.Size = new System.Drawing.Size(169, 22);
             this.cboYear.TabIndex = 98;
@@ -312,7 +318,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(533, 147);
+            this.label8.Location = new System.Drawing.Point(606, 11);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(103, 18);
             this.label8.TabIndex = 104;
@@ -323,7 +329,7 @@
             // 
             this.uctxtPartyName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtPartyName.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtPartyName.Location = new System.Drawing.Point(632, 153);
+            this.uctxtPartyName.Location = new System.Drawing.Point(690, 21);
             this.uctxtPartyName.MaxLength = 60;
             this.uctxtPartyName.Name = "uctxtPartyName";
             this.uctxtPartyName.Size = new System.Drawing.Size(28, 23);
@@ -334,7 +340,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(284, 266);
+            this.label9.Location = new System.Drawing.Point(284, 217);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(93, 18);
             this.label9.TabIndex = 105;
@@ -352,7 +358,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(466, 204);
+            this.label10.Location = new System.Drawing.Point(466, 155);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(86, 18);
             this.label10.TabIndex = 110;
@@ -362,7 +368,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(8, 266);
+            this.label11.Location = new System.Drawing.Point(8, 217);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(140, 18);
             this.label11.TabIndex = 111;
@@ -372,7 +378,7 @@
             // 
             this.uctxtBatchSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtBatchSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtBatchSize.Location = new System.Drawing.Point(466, 227);
+            this.uctxtBatchSize.Location = new System.Drawing.Point(466, 178);
             this.uctxtBatchSize.Name = "uctxtBatchSize";
             this.uctxtBatchSize.Size = new System.Drawing.Size(251, 24);
             this.uctxtBatchSize.TabIndex = 113;
@@ -381,7 +387,7 @@
             // 
             this.mskManufactureDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mskManufactureDate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mskManufactureDate.Location = new System.Drawing.Point(8, 289);
+            this.mskManufactureDate.Location = new System.Drawing.Point(8, 240);
             this.mskManufactureDate.MaxLength = 50;
             this.mskManufactureDate.Name = "mskManufactureDate";
             this.mskManufactureDate.Size = new System.Drawing.Size(223, 23);
@@ -391,7 +397,7 @@
             // 
             this.dteExpireDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dteExpireDate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dteExpireDate.Location = new System.Drawing.Point(284, 289);
+            this.dteExpireDate.Location = new System.Drawing.Point(284, 240);
             this.dteExpireDate.MaxLength = 50;
             this.dteExpireDate.Name = "dteExpireDate";
             this.dteExpireDate.Size = new System.Drawing.Size(251, 23);
@@ -400,7 +406,7 @@
             // btnDashBoard
             // 
             this.btnDashBoard.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDashBoard.Location = new System.Drawing.Point(416, 150);
+            this.btnDashBoard.Location = new System.Drawing.Point(450, 439);
             this.btnDashBoard.Name = "btnDashBoard";
             this.btnDashBoard.Size = new System.Drawing.Size(79, 24);
             this.btnDashBoard.TabIndex = 116;
@@ -412,7 +418,7 @@
             // 
             this.dteStartDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dteStartDate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dteStartDate.Location = new System.Drawing.Point(8, 344);
+            this.dteStartDate.Location = new System.Drawing.Point(8, 295);
             this.dteStartDate.MaxLength = 50;
             this.dteStartDate.Name = "dteStartDate";
             this.dteStartDate.Size = new System.Drawing.Size(223, 23);
@@ -422,7 +428,7 @@
             // 
             this.dteEnddate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dteEnddate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dteEnddate.Location = new System.Drawing.Point(284, 344);
+            this.dteEnddate.Location = new System.Drawing.Point(284, 295);
             this.dteEnddate.MaxLength = 50;
             this.dteEnddate.Name = "dteEnddate";
             this.dteEnddate.Size = new System.Drawing.Size(251, 23);
@@ -432,7 +438,7 @@
             // 
             this.uctxtBatch1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtBatch1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtBatch1.Location = new System.Drawing.Point(8, 227);
+            this.uctxtBatch1.Location = new System.Drawing.Point(8, 178);
             this.uctxtBatch1.MaxLength = 50;
             this.uctxtBatch1.Name = "uctxtBatch1";
             this.uctxtBatch1.ReadOnly = true;
@@ -445,17 +451,36 @@
             this.btnSerach1.ForeColor = System.Drawing.Color.Teal;
             this.btnSerach1.ImageIndex = 0;
             this.btnSerach1.ImageList = this.imageList1;
-            this.btnSerach1.Location = new System.Drawing.Point(379, 226);
+            this.btnSerach1.Location = new System.Drawing.Point(379, 177);
             this.btnSerach1.Name = "btnSerach1";
             this.btnSerach1.Size = new System.Drawing.Size(30, 25);
             this.btnSerach1.TabIndex = 120;
             this.btnSerach1.UseVisualStyleBackColor = false;
             this.btnSerach1.Click += new System.EventHandler(this.btnSerach1_Click);
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Verdana", 9.75F);
+            this.label14.Location = new System.Drawing.Point(8, 324);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(105, 16);
+            this.label14.TabIndex = 122;
+            this.label14.Text = "Location Name";
+            // 
+            // txtFgLocation
+            // 
+            this.txtFgLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFgLocation.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFgLocation.Location = new System.Drawing.Point(8, 346);
+            this.txtFgLocation.Name = "txtFgLocation";
+            this.txtFgLocation.Size = new System.Drawing.Size(255, 23);
+            this.txtFgLocation.TabIndex = 121;
+            // 
             // frmBatchconfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(757, 385);
+            this.ClientSize = new System.Drawing.Size(757, 470);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
@@ -496,5 +521,7 @@
         private System.Windows.Forms.TextBox dteStartDate;
         private System.Windows.Forms.TextBox uctxtBatch1;
         private System.Windows.Forms.Button btnSerach1;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtFgLocation;
     }
 }

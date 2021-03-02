@@ -475,13 +475,14 @@ namespace JA.Modulecontrolar.UI.Forms
             lstUnder.Visible = false;
             if (inttype == 0)
             {
+                chkDuplicate.Visible = false;
                 lstUnder.DisplayMember = "value";
                 lstUnder.ValueMember = "Key";
                 lstUnder.DataSource = new BindingSource(accms.GetAccountsGroup(strComID), null);
             }
             else if (inttype==203)
             {
-
+                chkDuplicate.Visible = false ;
                 frmLabel.Text = "Supplier Group";
                 lstUnder.ValueMember = "GroupName";
                 lstUnder.DisplayMember = "GroupName";
@@ -489,7 +490,7 @@ namespace JA.Modulecontrolar.UI.Forms
             }
             else
             {
-
+                chkDuplicate.Visible = true;
                 frmLabel.Text = "MPO Group";
                 lblContactNo.Visible = true;
                 lblMobileNo.Visible = true;
@@ -509,7 +510,16 @@ namespace JA.Modulecontrolar.UI.Forms
         private void btnSave_Click(object sender, EventArgs e)
         {
             short i =0;
-            int intGrpPos = 9999;
+            int intGrpPos = 9999,intDuplicate=0;
+            
+            if (chkDuplicate.Checked)
+            {
+                intDuplicate = 1;
+            }
+            else
+            {
+                intDuplicate = 0;
+            }
             if (txtGroupName.Text =="")
             {
                 MessageBox.Show("Group Name Cannot be Empty");
@@ -565,7 +575,7 @@ namespace JA.Modulecontrolar.UI.Forms
                     try
                     {
                         i = accms.InsertGroup(strComID, txtGroupName.Text.ToString(), txtUnder.Text.ToString(), txtCashFlowType.Text.ToString(),
-                                                txtAccountsType.Text.ToString(),txtMobileNo.Text,txtConatctNo.Text,intGrpPos);
+                                                txtAccountsType.Text.ToString(), txtMobileNo.Text, txtConatctNo.Text, intGrpPos, intDuplicate);
 
                         if (i == 1)
                         {
@@ -619,7 +629,7 @@ namespace JA.Modulecontrolar.UI.Forms
                     try
                     {
                         i = accms.mUpdateGroup(strComID, Convert.ToUInt32(txtSlNo.Text.ToString()), txtGroupName.Text.ToString(), txtUnder.Text.ToString(),
-                                                txtCashFlowType.Text.ToString(), txtAccountsType.Text.ToString(), txtMobileNo.Text, txtConatctNo.Text,intGrpPos);
+                                                txtCashFlowType.Text.ToString(), txtAccountsType.Text.ToString(), txtMobileNo.Text, txtConatctNo.Text,intGrpPos,intDuplicate);
 
                         if (i == 1)
                         {
@@ -762,6 +772,14 @@ namespace JA.Modulecontrolar.UI.Forms
                     txtMobileNo.Text = ts.strMobileNo;
                     txtConatctNo.Text = ts.strContactNo;
                     txtSortingPos.Text = ts.intMode.ToString();
+                    if (ts.intduplicate==1)
+                    {
+                        chkDuplicate.Checked = true;
+                    }
+                    else
+                    {
+                        chkDuplicate.Checked = false;
+                    }
                     txtGroupName.Focus();
                 }
             }

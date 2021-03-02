@@ -351,7 +351,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
 
             string strBranchId = "", strMonthID="";
 
-            int intmode = 0,intSelection=0,intPrint=0,intSumm=0;
+            int intmode = 0,intSelection=0,intPrint=0,intSumm=0,intBaseTarget=0;
             string strValOption = "";
             double dblAmount = 0,dblBelowAmnt=0;
             if (chkOnlyPrint.Checked==true)
@@ -379,6 +379,14 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             else if (radInactive.Checked == true)
             {
                 intSelection = 1;
+            }
+            if(chkBaseTarget.Checked ==true)
+            {
+                intBaseTarget = 1;
+            }
+            else
+            {
+                intBaseTarget = 0;
             }
             
             if (strReportName == "Final Settlement")
@@ -433,6 +441,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                 frmviewer.dblClosingBalance1 = dblBelowAmnt;
                 frmviewer.strSelction = strValOption;
                 frmviewer.intSuppress = intPrint;
+                frmviewer.intTarget = intBaseTarget;
                 frmviewer.Show();
             }
             else
@@ -462,6 +471,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                 frmviewer.intNarration = intSelection;
                 frmviewer.intSummDetails = intSumm;
                 frmviewer.strString = strMonthID;
+                frmviewer.intTarget = intBaseTarget;
                 frmviewer.Show();
             }
 
@@ -513,7 +523,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             {
                 intStatus = 0;
             }
-            ooPartyName = invms.mfillPartyNameNew(strComID, "", true, Utility.gstrUserName, intStatus, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, "", true, Utility.gstrUserName, intStatus, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {

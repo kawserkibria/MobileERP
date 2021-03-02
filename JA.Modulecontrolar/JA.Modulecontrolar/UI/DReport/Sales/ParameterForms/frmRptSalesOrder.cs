@@ -135,12 +135,6 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
     
         private void lstLeft_DoubleClick(object sender, EventArgs e)
         {
-            if (lstLeft.SelectedItems.Count > 0)
-            {
-                lstRight.Items.Add(lstLeft.SelectedItem.ToString());
-                lstRight.SelectedValue = lstLeft.SelectedValue;
-                lstLeft.Items.Remove(lstLeft.SelectedItem.ToString());
-            }
 
         }
         private void btnRightSingle_Click(object sender, EventArgs e)
@@ -207,9 +201,9 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
             {
                 Intmode = 1;
             }
-  
 
-            List<Mprojection> orptt = objExtra.mGetLedgerGroupLoad(strComID, Intmode, Utility.gstrUserName).ToList();
+
+            List<Mprojection> orptt = objExtra.mGetLedgerGroupLoad(strComID, Intmode, Utility.gstrUserName, 0, "").ToList();
             if (orptt.Count > 0)
             {
 
@@ -515,9 +509,30 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
             }
 
             frmReportViewer frmviewer = new frmReportViewer();
-            frmviewer.selector = ViewerSelector.SalesOrder;
+            if (rbtnOrderPendingList.Checked == true)
+            {
+                frmviewer.selector = ViewerSelector.Pendingorder;
+                frmviewer.intStatusNew = 2;
+            }
+            else if (rbtnZMNotAprove.Checked == true)
+            {
+                frmviewer.selector = ViewerSelector.Pendingorder;
+                frmviewer.intStatusNew = 1;
+            }
+            else
+            {
+                frmviewer.selector = ViewerSelector.SalesOrder;
+            }
             frmviewer.intMode = intmode;
-            frmviewer.strSelction2 = strString2;
+            if ((rbtnOrderPendingList.Checked == true) || (rbtnZMNotAprove.Checked == true))
+            {
+                frmviewer.strFPreviousdate = strString2;
+            }
+            else
+            {
+                frmviewer.strSelction2 = strString2;
+            }
+          
             frmviewer.strFdate = dtpFDate.Text;
             frmviewer.strTdate = dtpTDate.Text;
             frmviewer.strBranchId = strBranchId;
@@ -536,5 +551,12 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
             groupSelection.Enabled = false;
 
         }
+
+        private void rbtnZMNotAprove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+  
     }
 }

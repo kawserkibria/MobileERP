@@ -285,7 +285,7 @@ namespace JA.Modulecontrolar.UI.Projection.Reports.RProjection.ParameterForms
 
             lstMonthID.ValueMember = "strMonthID";
             lstMonthID.DisplayMember = "strMonthID";
-            lstMonthID.DataSource = objExtra.mFillMonthConfig(strComID, 0).ToList();
+            lstMonthID.DataSource = objExtra.mFillMonthConfig(strComID, 1).ToList();
             
         }
         private void txtSearchProjection_GotFocus(object sender, System.EventArgs e)

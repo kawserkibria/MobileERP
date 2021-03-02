@@ -49,6 +49,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.uctxtItemName = new System.Windows.Forms.TextBox();
             this.txtOldName = new System.Windows.Forms.TextBox();
+            this.chkFG = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -64,6 +65,7 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.chkFG);
             this.pnlMain.Controls.Add(this.panel2);
             this.pnlMain.Controls.Add(this.label1);
             this.pnlMain.Controls.Add(this.txtClassName);
@@ -188,6 +190,7 @@
             this.uclstGrdItem.Size = new System.Drawing.Size(431, 28);
             this.uclstGrdItem.TabIndex = 96;
             this.uclstGrdItem.Visible = false;
+            this.uclstGrdItem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.uclstGrdItem_KeyPress_1);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -265,6 +268,7 @@
             this.uctxtQty.Name = "uctxtQty";
             this.uctxtQty.Size = new System.Drawing.Size(108, 23);
             this.uctxtQty.TabIndex = 59;
+            this.uctxtQty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.uctxtQty_KeyPress_1);
             // 
             // label12
             // 
@@ -297,6 +301,19 @@
             this.txtOldName.Size = new System.Drawing.Size(20, 20);
             this.txtOldName.TabIndex = 15;
             this.txtOldName.Visible = false;
+            // 
+            // chkFG
+            // 
+            this.chkFG.AutoSize = true;
+            this.chkFG.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFG.Location = new System.Drawing.Point(542, 12);
+            this.chkFG.Name = "chkFG";
+            this.chkFG.Size = new System.Drawing.Size(44, 18);
+            this.chkFG.TabIndex = 118;
+            this.chkFG.Text = "FG";
+            this.chkFG.UseVisualStyleBackColor = true;
+            this.chkFG.CheckedChanged += new System.EventHandler(this.chkFG_CheckedChanged);
+            this.chkFG.Click += new System.EventHandler(this.chkFG_Click);
             // 
             // frmSampleClass
             // 
@@ -337,5 +354,6 @@
         private MayhediControlLibrary.StandardDataGridView uclstGrdItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.CheckBox chkFG;
     }
 }

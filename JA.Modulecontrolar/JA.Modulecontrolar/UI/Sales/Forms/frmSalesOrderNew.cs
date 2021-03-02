@@ -24,6 +24,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         JACCMS.SWJAGClient accms = new SWJAGClient();
         JINVMS.IWSINVMS invms = new JINVMS.WSINVMSClient();
         SPWOIS objWIS = new SPWOIS();
+       
         private string strMysql { get; set; }
         private ListBox lstBranchName = new ListBox();
         private ListBox lstLocation = new ListBox();
@@ -41,6 +42,8 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         List<InvoiceConfig> oinv;
         List<StockItem> oogrp;
         private string strComID { get; set; }
+        public string strVoucherNo { get; set; }
+        public int intAppStatus { get; set; }
         private bool mblnNumbMethod { get; set; }
         public frmSalesOrderNew()
         {
@@ -570,6 +573,16 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
         private void uctxtRate_TextChanged(object sender, EventArgs e)
         {
+            if(Utility.gstrUserName.ToUpper()=="DEEPLAID")
+            {
+                uctxtRate.Enabled = true;
+                uctxtItemName.Focus();
+            }
+            else
+            {
+                uctxtRate.Enabled = false;
+                uctxtItemName.Focus();
+            }
             if (Utility.IsNumericNew(uctxtRate.Text) == false)
             {
                 uctxtRate.Text = "";
@@ -641,7 +654,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstLocation.Visible = false;
             lstGroup.DisplayMember = "strGroupName";
             lstGroup.ValueMember = "strGroupName";
-            lstGroup.DataSource = invms.mFillSample(strComID,"").ToList();
+            lstGroup.DataSource = invms.mFillSample(strComID, "", Utility.gstrUserName).ToList();
             lstGroup.SelectedIndex = lstGroup.FindString(uctxtGroupName.Text);
         }
         private void ucdgList_DoubleClick(object sender, EventArgs e)
@@ -942,27 +955,27 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
         private void uctxtRate_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string strPowerClass = "", strUOM = "", strPackSize = "";
+            //string strPowerClass = "", strUOM = "", strPackSize = "";
 
             if (e.KeyChar == (char)Keys.Return)
             {
                 if (uctxtItemName.Text != "")
                 {
-                    if (uctxtItemName.Text != "")
-                    {
-                        strUOM = Utility.gGetBaseUOM(strComID, uctxtItemName.Text);
-                        strPowerClass = Utility.mGetPowerClass(strComID, uctxtItemName.Text);
-                        strPackSize = Utility.mGetPackSize(strComID, uctxtItemName.Text);
-                        if (uctxtRate.Text != "" && uctxtRate.Text != "0")
-                        {
-                            mAddStockItem(uctxtGroupName.Text, uctxtItemName.Text, strPowerClass, strPackSize, Utility.Val(uctxtQty.Text), Utility.Val(uctxtRate.Text), strUOM, "", "");
-                            uctxtItemName.Focus();
-                        }
-                        else
-                        {
-                            uctxtRate.Focus();
-                        }
-                    }
+                    //if (uctxtItemName.Text != "")
+                    //{
+                    //    strUOM = Utility.gGetBaseUOM(strComID, uctxtItemName.Text);
+                    //    strPowerClass = Utility.mGetPowerClass(strComID, uctxtItemName.Text);
+                    //    strPackSize = Utility.mGetPackSize(strComID, uctxtItemName.Text);
+                    //    if (uctxtRate.Text != "" && uctxtRate.Text != "0")
+                    //    {
+                    //        mAddStockItem(uctxtGroupName.Text, uctxtItemName.Text, strPowerClass, strPackSize, Utility.Val(uctxtQty.Text), Utility.Val(uctxtRate.Text), strUOM, "", "");
+                    uctxtItemName.Focus();
+                    //    }
+                    //    else
+                    //    {
+                    //        uctxtRate.Focus();
+                    //    }
+                    //}
                 }
             }
             if (e.KeyChar == (char)Keys.Back)
@@ -975,7 +988,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
         private void uctxtQty_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            string strPowerClass = "", strUOM = "", strPackSize = "";
             double dblrate = 0;
             if (e.KeyChar == (char)Keys.Return)
             {
@@ -988,6 +1001,21 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 {
                     dblrate = Utility.gdblPurchasePrice(uctxtItemName.Text, dteDate.Text, uctxtLocation.Text);
                     uctxtRate.Text = dblrate.ToString();
+                }
+                if (uctxtItemName.Text != "")
+                {
+                    strUOM = Utility.gGetBaseUOM(strComID, uctxtItemName.Text);
+                    strPowerClass = Utility.mGetPowerClass(strComID, uctxtItemName.Text);
+                    strPackSize = Utility.mGetPackSize(strComID, uctxtItemName.Text);
+                    if (uctxtRate.Text != "" && uctxtRate.Text != "0")
+                    {
+                        mAddStockItem(uctxtGroupName.Text, uctxtItemName.Text, strPowerClass, strPackSize, Utility.Val(uctxtQty.Text), Utility.Val(uctxtRate.Text), strUOM, "", "");
+                        uctxtItemName.Focus();
+                    }
+                    else
+                    {
+                        uctxtRate.Focus();
+                    }
                 }
                 uctxtRate.Focus();
             }
@@ -1313,6 +1341,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             uctxtGroupName.Text = "";
             uctxtItemName.Text = "";
             uctxtQty.Text = "";
+         
             uctxtRate.Text = "";
             lblQuantityTotal.Text = "";
             lblTotalAmount.Text = "";
@@ -1343,7 +1372,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         {
             int introw = 0;
             DGMr.Rows.Clear();
-            ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "","").ToList();
             if (ooPartyName.Count > 0)
             {
 
@@ -1382,6 +1411,117 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         }
         #endregion
         #region "DisplayVoucher"
+        private void DisplayVoucherListNew(string strVoucherNo,int intAppststus)
+        {
+            try
+            {
+                int introw = 0;
+                mClear();
+                m_action = (int)Utility.ACTION_MODE_ENUM.EDIT_MODE;
+                DGSalesGrid.Rows.Clear();
+                //DGSalesGrid.Enabled = false ;
+                uctxtQty.ReadOnly = true;
+                uctxtRate.ReadOnly = true;
+                uctxtBranchName.Focus();
+                uctxtOldRefNo.Text = strVoucherNo;
+                txtApprovedStatus.Text = intAppststus.ToString();
+                List<AccountsVoucher> ooaccVou = accms.DisplayCompVoucherList(strComID, strVoucherNo, intVtype).ToList();
+                if (ooaccVou.Count > 0)
+                {
+                    foreach (AccountsVoucher oCom in ooaccVou)
+                    {
+                        uctxtOrderNo.Text = Utility.Mid(oCom.strVoucherNo, 6, oCom.strVoucherNo.Length - 6);
+                        if (oCom.strSalesRepresentive != "")
+                        {
+                            uctxtCustomer.Text = oCom.strSalesRepresentive;
+                            uctxtCustomerMarz.Text = Utility.gGetLedgerNameMerze(strComID, oCom.strSalesRepresentive);
+                        }
+                        else
+                        {
+                            uctxtCustomerMarz.Text = Utility.gcEND_OF_LIST;
+                        }
+                        uctxtBranchName.Text = Utility.gstrGetBranchName(strComID, oCom.strBranchID);
+                        strOldBranchName = uctxtBranchName.Text;
+                        uctxtNarration.Text = oCom.strNarration;
+                        txtCommAmnt.Text = oCom.dblLessAmount.ToString();
+                        txtNetTotal.Text = oCom.dblNetAmount.ToString();
+                        lblTotalAmount.Text = oCom.dblAmount.ToString();
+                        uctxtPreParedBy.Text = oCom.strPreparedby;
+                        dteDate.Text = oCom.strTranDate;
+                        uctxtLedgerName.Text = oCom.strLedgerName;
+                        uctxtLedegerNameMarze.Text = oCom.strMerzeName;
+
+                        lblTotalAmount.Text = oCom.dblAmount.ToString();
+                        if (oCom.strApprovedby != "")
+                        {
+                            txtApprovedby.Text = oCom.strApprovedby;
+                        }
+                        else
+                        {
+                            txtApprovedby.Text = "";
+                        }
+                        if (oCom.strApproveddate != "")
+                        {
+                            txtApprovedDate.Text = oCom.strApproveddate;
+                        }
+                        else
+                        {
+                            txtApprovedDate.Text = "";
+                        }
+                        if (oCom.intChangeType == 0)
+                        {
+                            chkChange.Checked = false;
+                        }
+                        else
+                        {
+                            chkChange.Checked = true;
+                        }
+
+                        List<AccBillwise> ooVouList = accms.DisplayCommonInvoice(strComID, strVoucherNo).ToList();
+                        if (ooVouList.Count > 0)
+                        {
+
+                            foreach (AccBillwise oacc in ooVouList)
+                            {
+                                uctxtLocation.Text = oacc.strGodownsName;
+                                DGSalesGrid.Rows.Add();
+                                DGSalesGrid[0, introw].Value = oacc.strStockGroupName;
+                                DGSalesGrid[1, introw].Value = oacc.strStockItemName;
+                                DGSalesGrid[2, introw].Value = Utility.mGetPowerClass(strComID, oacc.strStockItemName);
+                                DGSalesGrid[3, introw].Value = Utility.mGetPackSize(strComID, oacc.strStockItemName);
+                                DGSalesGrid[4, introw].Value = oacc.dblQnty;
+                                DGSalesGrid[5, introw].Value = oacc.dblRate;
+                                DGSalesGrid[6, introw].Value = oacc.strPer;
+                                DGSalesGrid[7, introw].Value = oacc.dblAmount;
+                                DGSalesGrid[8, introw].Value = oacc.strBillAddless;
+                                DGSalesGrid[9, introw].Value = oacc.dblBonusQnty;
+                                DGSalesGrid[10, introw].Value = oacc.dblBillNetAmount;
+
+                                DGSalesGrid[11, introw].Value = "Delete";
+                                DGSalesGrid[12, introw].Value = oacc.strSubgroup;
+                                DGSalesGrid[13, introw].Value = oacc.dblComm;
+                                introw += 1;
+                            }
+                            txtTotalItem.Text = "Total Item :" + introw;
+                            DGSalesGrid.AllowUserToAddRows = false;
+                        }
+
+
+                        //calculateTotal();
+
+
+                    }
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+        }
         private void DisplayVoucherList(List<AccountsVoucher> tests, object sender, EventArgs e)
         {
             try
@@ -1641,6 +1781,17 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 uctxtItemName.Focus();
                 return false;
             }
+            string strLockvoucher = Utility.gLockVocher(strComID, intVtype);
+            long lngDate = Convert.ToInt64(dteDate.Value.ToString("yyyyMMdd"));
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
+                {
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return false;
+                }
+            }
             return true;
         }
         private void btnSave_Click(object sender, EventArgs e)
@@ -1841,8 +1992,20 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         {
             if (e.ColumnIndex == 11)
             {
+
                 DGSalesGrid.Rows.RemoveAt(e.RowIndex);
                 calculateTotal();
+            }
+            else if (e.ColumnIndex == 1)
+            {
+                uctxtGroupName.Text = DGSalesGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+                uctxtItemName.Text = DGSalesGrid.Rows[e.RowIndex].Cells[1].Value.ToString();
+                uctxtQty.Text = DGSalesGrid.Rows[e.RowIndex].Cells[4].Value.ToString();
+                //uctxtGroupName.Text = DGSalesGrid.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+                DGSalesGrid.Rows.RemoveAt(e.RowIndex);
+                calculateTotal();
+                uctxtQty.Focus();
             }
         }
 
@@ -1855,8 +2018,8 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             objfrm.strFormName = "Sales Order";
             objfrm.strPreserveSQl = strMysql;
             objfrm.onAddAllButtonClicked = new frmSalesOrdeNewList.AddAllClick(DisplayVoucherList);
-            objfrm.Show();
             objfrm.MdiParent = MdiParent;
+            objfrm.Show();
             //uctxtRefNo.Focus();
         }
         #endregion
@@ -1877,6 +2040,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
             mGetConfig();
             mClear();
+            DisplayVoucherListNew(strVoucherNo, intAppStatus);
             uctxtBranchName.Select();
         }
         #endregion 
@@ -1924,6 +2088,12 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 uctxtQty.ReadOnly = true;
                 uctxtRate.ReadOnly = true;
             }
+        }
+
+        private void frmSalesOrderNew_Activated(object sender, EventArgs e)
+        {
+            uctxtQty.ReadOnly = false;
+           
         }
 
         

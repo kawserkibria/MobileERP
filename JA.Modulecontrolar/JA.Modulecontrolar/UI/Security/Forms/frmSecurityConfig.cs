@@ -8,7 +8,8 @@ using System.Drawing;
 using System.Text;
 using System.Linq;
 using System.Windows.Forms;
-
+using JA.Modulecontrolar.UI.Forms;
+using JA.Modulecontrolar.UI.Accms.Forms;
 using Microsoft.Win32;
 
 namespace JA.Modulecontrolar.UI.Security.Forms
@@ -124,7 +125,7 @@ namespace JA.Modulecontrolar.UI.Security.Forms
             SortedDictionary<string, int> userCache1 = new SortedDictionary<string, int>
             {
               {"Master", 1},
-              {"Transaaction", 2},
+              {"Transaction", 2},
               {"Reports", 3}
              
             };

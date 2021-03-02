@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using JA.Modulecontrolar.UI.Forms;
 using JA.Modulecontrolar.UI.Accms.Forms;
 using Microsoft.Win32;
+using JA.Modulecontrolar.UI.Sales;
 namespace JA.Modulecontrolar.UI.Accms.Forms
 {
     public partial class frmLedgerConfigurationList : JA.Shared.UI.frmSmartFormStandard
@@ -180,6 +181,8 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
         {
 
         }
+
+
     }
 
 }

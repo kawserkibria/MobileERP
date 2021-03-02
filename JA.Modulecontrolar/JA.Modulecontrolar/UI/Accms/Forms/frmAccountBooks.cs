@@ -193,6 +193,33 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             }
         }
 
+        private void btnRptMonthlyIncentive_Click(object sender, EventArgs e)
+        {
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 215))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmRptIncentive"] as frmRptIncentive == null)
+            {
+                frmRptIncentive objfrm = new frmRptIncentive();
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
+
+            }
+            else
+            {
+                frmRptIncentive objfrm = (frmRptIncentive)Application.OpenForms["frmRptIncentive"];
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
+        }
+
+       
+
      
     }
 }

@@ -22,18 +22,16 @@ namespace JA.Modulecontrolar.UI.Inventory
         JINVMS.IWSINVMS invms = new JINVMS.WSINVMSClient();
         public delegate void AddAllClick(List<AccBillwise> items, object sender, EventArgs e);
         public AddAllClick onAddAllButtonClicked;
-        private ListBox lstGroup = new ListBox();
+
         public delegate void AddAllClickFG(List<StockItem> items, object sender, EventArgs e);
         public AddAllClickFG onAddAllButtonClickedFG;
-        SPWOIS objWIS = new SPWOIS();
-        List<AccBillwise> oogrp;
 
+        List<AccBillwise> oogrp;
         List<StockItem> oostritem;
         public string strPartyname = "";
         public string strDate = "";
         public string strBranchID = "";
         public long lngVtype = 0;
-        public long lngbtn = 0;
         private string strComID { get; set; }
         public frmAllReferance()
         {
@@ -43,107 +41,26 @@ namespace JA.Modulecontrolar.UI.Inventory
             this.uctxtRefNo.KeyDown += new KeyEventHandler(uctxtRefNo_KeyDown);
             this.DG.KeyPress += new System.Windows.Forms.KeyPressEventHandler(DG_KeyPress);
             uctxtRefNo.KeyUp += uctxtRefNo_KeyUp;
-
-            this.uctxtGroupName.KeyDown += new KeyEventHandler(uctxtGroupName_KeyDown);
-            this.uctxtGroupName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtGroupName_KeyPress);
-            this.uctxtGroupName.TextChanged += new System.EventHandler(this.uctxtGroupName_TextChanged);
-            this.lstGroup.DoubleClick += new System.EventHandler(this.lstGroup_DoubleClick);
-            this.uctxtGroupName.GotFocus += new System.EventHandler(this.uctxtGroupName_GotFocus);
-            Utility.CreateListBox(lstGroup, pnlMain, uctxtGroupName);
-        }
-        private void uctxtGroupName_TextChanged(object sender, EventArgs e)
-        {
-            lstGroup.SelectedIndex = lstGroup.FindString(uctxtGroupName.Text);
-        }
-
-        private void lstGroup_DoubleClick(object sender, EventArgs e)
-        {
-            uctxtGroupName.Text = lstGroup.Text;
-            uctxtRefNo.Text = "";
-            mloadItem();
-            lstGroup.Visible = false;
-            uctxtRefNo.Focus();
-        }
-
-        private void uctxtGroupName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Return)
-            {
-
-                if (lstGroup.Items.Count > 0)
-                {
-                    uctxtGroupName.Text = lstGroup.Text;
-                }
-                uctxtRefNo.Text = "";
-                mloadItem();
-                uctxtRefNo.Focus();
-            }
-            lstGroup.Visible = false;
-        }
-        private void mloadItem()
-        {
-            int introw = 0;
-
-            string strDate = DateTime.Now.ToString("dd-MM-yyyy");
-            if (uctxtGroupName.Text == "")
-            {
-                MessageBox.Show("Cannot be Empty");
-                uctxtGroupName.FindForm();
-                return;
-            }
-
-            DG.Rows.Clear();
-            oostritem = objWIS.mGetProductStatementView(strComID, uctxtGroupName.Text, "0001", "", "").ToList();
-            if (oostritem.Count > 0)
-            {
-
-                foreach (StockItem ogrp in oostritem)
-                {
-                    DG.Rows.Add();
-                    DG[0, introw].Value = ogrp.strItemName;
-                    DG[1, introw].Value = ogrp.strItemcode;
-                    introw += 1;
-                }
-                DG.AllowUserToAddRows = false;
-            }
-
-        }
-        private void uctxtGroupName_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Up)
-            {
-                if (lstGroup.SelectedItem != null)
-                {
-                    lstGroup.SelectedIndex = lstGroup.SelectedIndex - 1;
-                }
-            }
-            if (e.KeyCode == Keys.Down)
-            {
-                if (lstGroup.Items.Count - 1 > lstGroup.SelectedIndex)
-                {
-                    lstGroup.SelectedIndex = lstGroup.SelectedIndex + 1;
-                }
-            }
-
-        }
-
-        private void uctxtGroupName_GotFocus(object sender, System.EventArgs e)
-        {
-            lstGroup.Visible = true;
         }
         private void uctxtRefNo_KeyUp(object sender, KeyEventArgs e)
         {
-          
+            //long result;
             int intCheck = 1;
-         
+            //if (long.TryParse(uctxtItemName.Text, out result))
+            //{
+            //    intCheck = 1;
+            //}
+            //else
+            //{
+            //    intCheck = 1;
+            //}
             if (lngVtype == 9999)
             {
                 SearchListViewnew(oostritem, intCheck, uctxtRefNo.Text.ToString());
             }
             else
             {
-             
-                SearchListViewnew(oostritem, intCheck, uctxtRefNo.Text.ToString());
+                SearchListView(oogrp, intCheck, uctxtRefNo.Text.ToString());
             }
         }
         private void SearchListViewnew(IEnumerable<StockItem> tests, int intcheck, string searchString = "")
@@ -168,7 +85,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 {
                     DG.Rows.Add();
                     DG[0, introw].Value = ogrp.strItemName;
-                    DG[1, introw].Value = ogrp.strItemcode;
+                    DG[1, introw].Value = ogrp.strItemName;
                     introw += 1;
                 }
                 DG.AllowUserToAddRows = false;
@@ -179,7 +96,50 @@ namespace JA.Modulecontrolar.UI.Inventory
             }
 
         }
-      
+        private void SearchListView(IEnumerable<AccBillwise> tests, int intcheck, string searchString = "")
+        {
+            int introw = 0;
+            IEnumerable<AccBillwise> query;
+
+            if (searchString != "")
+            {
+                query = (from test in tests
+                         where test.strRefNo.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
+                         select test);
+            }
+            else
+            {
+                query = tests;
+            }
+            DG.Rows.Clear();
+            foreach (AccBillwise ogrp in query)
+            {
+                DG.Rows.Add();
+                DG[0, introw].Value = ogrp.strBillKey;
+                if (lngVtype != (long)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS)
+                {
+                    DG[1, introw].Value = Utility.Mid(ogrp.strRefNo, 6, ogrp.strRefNo.Length - 6);
+                }
+                else
+                {
+                    DG[1, introw].Value = ogrp.strRefNo;
+                }
+                DG[2, introw].Value = ogrp.strDate;
+               
+                if (introw % 2 == 0)
+                {
+                    DG.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
+                }
+                else
+                {
+                    DG.Rows[introw].DefaultCellStyle.BackColor = Color.White;
+                }
+                introw += 1;
+            }
+            DG.AllowUserToAddRows = false;
+
+        }
+
         private void DG_KeyPress(object sender, KeyPressEventArgs e)
         {
             int i = Convert.ToInt16(DG.CurrentRow.Index);
@@ -194,9 +154,9 @@ namespace JA.Modulecontrolar.UI.Inventory
                 }
                 else
                 {
-                    uctxtRefNo.Text = DG.Rows[i].Cells[1].Value.ToString();
+                    uctxtRefNo.Text = DG.Rows[i].Cells[0].Value.ToString();
                     if (onAddAllButtonClicked != null)
-                        onAddAllButtonClickedFG(GetSelectedItemFG(i), sender, e);
+                        onAddAllButtonClicked(GetSelectedItem(i), sender, e);
                     this.Dispose();
                 }
                 //uctxtItemName.Focus();
@@ -206,18 +166,20 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             List<StockItem> items = new List<StockItem>();
             StockItem itm = new StockItem();
-            if (lngVtype == 9999)
-            {
-                itm.strItemName = DG.Rows[inrow].Cells[0].Value.ToString();
-            }
-            else
-            {
-                itm.strItemName = DG.Rows[inrow].Cells[1].Value.ToString();
-            }
+            itm.strItemName = DG.Rows[inrow].Cells[1].Value.ToString();
             items.Add(itm);
             return items;
         }
-
+        private List<AccBillwise> GetSelectedItem(int inrow)
+        {
+            List<AccBillwise> items = new List<AccBillwise>();
+            AccBillwise itm = new AccBillwise();
+            itm.strBillKey = DG.Rows[inrow].Cells[0].Value.ToString();
+            itm.strRefNo = DG.Rows[inrow].Cells[1].Value.ToString();
+            itm.strDate = DG.Rows[inrow].Cells[2].Value.ToString();
+            items.Add(itm);
+            return items;
+        }
 
         private void uctxtRefNo_KeyDown(object sender, KeyEventArgs e)
         {
@@ -243,14 +205,9 @@ namespace JA.Modulecontrolar.UI.Inventory
                 }
                 else
                 {
-                    uctxtRefNo.Text = DG.Rows[i].Cells[1].Value.ToString();
-                    if (uctxtRefNo.Text == "")
-                    {
-                        MessageBox.Show("Code Cannot be Found");
-                        return;
-                    }
-                    if (onAddAllButtonClickedFG != null)
-                        onAddAllButtonClickedFG(GetSelectedItemFG(i), sender, e);
+                    uctxtRefNo.Text = DG.Rows[i].Cells[0].Value.ToString();
+                    if (onAddAllButtonClicked != null)
+                        onAddAllButtonClicked(GetSelectedItem(i), sender, e);
                     this.Dispose();
                 }
             }
@@ -258,28 +215,143 @@ namespace JA.Modulecontrolar.UI.Inventory
         }
         private void frmAllReferance_Load(object sender, EventArgs e)
         {
-            uctxtGroupName.Focus();
-            uctxtGroupName.Select();
-            if (lngVtype == 9999)
+            DG.AllowUserToAddRows = false;
+          
+            this.DG.DefaultCellStyle.Font = new Font("verdana", 9);
+            if (lngVtype == (int)Utility.VOUCHER_TYPE.vtSTOCK_MFG_PRODUCTION)
+            {
+                lblName.Visible = false;
+                uctxtRefNo.Visible = false;
+                DG.Columns.Add(Utility.Create_Grid_Column("Bill Key", "Bill. Key", 350, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Ref. No", "Ref. No", 150, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Batch Size", "Batch Size", 150, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Batch Date", "Batch Date", 115, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 50, true, DataGridViewContentAlignment.TopCenter, true));
+                mLoadAllItemBatch();
+            }
+            else if (lngVtype == 9999)
+            {
+                
+                DG.Columns.Add(Utility.Create_Grid_Column("Bill Key", "Bill. Key", 350, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 450, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Batch Size", "Batch Size", 150, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Batch Date", "Batch Date", 115, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 50, false, DataGridViewContentAlignment.TopCenter, true));
+                mLoadAllItemFG();
+            }
+            else
+            {
+                if (lngVtype == (long)Utility.VOUCHER_TYPE.vtSALES_ORDER)
+                {
+                    frmLabel.Text = "Sales Order";
+                }
+                else if (lngVtype == (long)Utility.VOUCHER_TYPE.vtPURCHASE_ORDER)
+                {
+                    frmLabel.Text = "Purchase Order";
+                }
+                DG.Columns.Add(Utility.Create_Grid_Column("Bill Key", "Bill. Key", 350, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Ref. No", "Ref. No", 300, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 200, true, DataGridViewContentAlignment.TopLeft, true));
+                mLoadAllItem();
+            }
+            uctxtRefNo.Focus();
+            uctxtRefNo.Select();
+        }
+        private void mLoadAllItemBatch()
+        {
+            int introw = 0;
+            this.DG.DefaultCellStyle.Font = new Font("verdana", 9);
+            DG.Rows.Clear();
+
+            List<MFGvouhcer>  oogrp = invms.mGetProductionNoFBatch(strComID, strPartyname).ToList();
+           
+            if (oogrp.Count > 0)
             {
 
+                foreach (MFGvouhcer ogrp in oogrp)
+                {
+                    DG.Rows.Add();
+                    DG[0, introw].Value = ogrp.strVoucherNo;
+
+                    DG[1, introw].Value = Utility.Mid(ogrp.strVoucherNo, 6, ogrp.strVoucherNo.Length - 6);
+                   
+                    DG[2, introw].Value = ogrp.strBatchSize ;
+                    DG[3, introw].Value = ogrp.strDate;
+                    DG[4, introw].Value = "View";
+                    if (introw % 2 == 0)
+                    {
+                        DG.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
+                    }
+                    else
+                    {
+                        DG.Rows[introw].DefaultCellStyle.BackColor = Color.White;
+                    }
+                    introw += 1;
+                }
+                DG.AllowUserToAddRows = false;
             }
-            lstGroup.DisplayMember = "strGroupName";
-            lstGroup.ValueMember = "strGroupName";
-            lstGroup.DataSource = invms.mFillSample(strComID, "SI").ToList();
-            lstGroup.SelectedIndex = lstGroup.FindString(uctxtGroupName.Text);
+        }
+        private void mLoadAllItemFG()
+        {
+            int introw = 0;
+            //long lngLedgerGroup = 0, lngLedgerManufacFroup = 0;
+            //this.ucFGList.DefaultCellStyle.Font = new Font("verdana", 15.5F);
+            DG.Rows.Clear();
+            oostritem = invms.mloadAddStockItemFg(strComID, "").ToList();
+            if (oostritem.Count > 0)
+            {
 
-            DG.AllowUserToAddRows = false;
-
+                foreach (StockItem ogrp in oostritem)
+                {
+                    DG.Rows.Add();
+                    DG[0, introw].Value = ogrp.strItemName;
+                    DG[1, introw].Value = ogrp.strItemName;
+                    introw += 1;
+                }
+                DG.AllowUserToAddRows = false;
+            }
+        }
+        private void mLoadAllItem()
+        {
+            int introw = 0;
             this.DG.DefaultCellStyle.Font = new Font("verdana", 9);
+            DG.Rows.Clear();
+            if (lngVtype != (long)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS )
+            {
+                oogrp = accms.gFillPreRefNo(strComID, strPartyname, lngVtype, strDate, strBranchID, "","",0).ToList();
+            }
+            else
+            {
+                oogrp = accms.gFillPreSampleClass(strComID).ToList();
+            }
+            if (oogrp.Count > 0)
+            {
 
-            DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 330, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Item Code", "Item Code", 220, true, DataGridViewContentAlignment.TopLeft, true));
-
-            uctxtGroupName.Focus();
-            uctxtGroupName.Select();
-
-
+                foreach (AccBillwise ogrp in oogrp)
+                {
+                    DG.Rows.Add();
+                    DG[0, introw].Value = ogrp.strBillKey;
+                    if (lngVtype != (long)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS)
+                    {
+                        DG[1, introw].Value = Utility.Mid(ogrp.strRefNo, 6, ogrp.strRefNo.Length - 6);
+                    }
+                    else
+                    {
+                        DG[1, introw].Value = ogrp.strRefNo;
+                    }
+                    DG[2, introw].Value = ogrp.strDate;
+                    if (introw % 2 == 0)
+                    {
+                        DG.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
+                    }
+                    else
+                    {
+                        DG.Rows[introw].DefaultCellStyle.BackColor = Color.White;
+                    }
+                    introw += 1;
+                }
+                DG.AllowUserToAddRows = false;
+            }
         }
 
         private void DG_DoubleClick(object sender, EventArgs e)
@@ -297,23 +369,29 @@ namespace JA.Modulecontrolar.UI.Inventory
                 }
                 else
                 {
-                    uctxtRefNo.Text = DG.Rows[i].Cells[1].Value.ToString();
-                    if (uctxtRefNo.Text =="")
-                    {
-                        MessageBox.Show("Code Cannot be Found");
-                        return;
-                    }
-                    if (onAddAllButtonClickedFG != null)
-                        onAddAllButtonClickedFG(GetSelectedItemFG(i), sender, e);
+                    uctxtRefNo.Text = DG.Rows[i].Cells[0].Value.ToString();
+                    if (onAddAllButtonClicked != null)
+                        onAddAllButtonClicked(GetSelectedItem(i), sender, e);
                     this.Dispose();
                 }
-
+              
 
 
             }
         }
 
-
+        private void DG_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex==4)
+            {
+                frmReportViewer frmviewer = new frmReportViewer();
+                frmviewer.selector = ViewerSelector.Production;
+                frmviewer.strFdate = "";
+                frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
+                frmviewer.strSelction = "M";
+                frmviewer.Show();
+            }
+        }
 
 
 

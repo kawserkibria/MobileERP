@@ -60,6 +60,7 @@
             this.radActive = new System.Windows.Forms.RadioButton();
             this.radInactive1 = new System.Windows.Forms.RadioButton();
             this.radAcAll = new System.Windows.Forms.RadioButton();
+            this.rbtnRoute = new System.Windows.Forms.RadioButton();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -211,13 +212,14 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.rbtnRoute);
             this.groupBox2.Controls.Add(this.rbtnClass);
             this.groupBox2.Controls.Add(this.radLedgerW);
             this.groupBox2.Controls.Add(this.radGroupwise);
             this.groupBox2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(16, 166);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(404, 56);
+            this.groupBox2.Size = new System.Drawing.Size(454, 56);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Option";
@@ -226,7 +228,7 @@
             // 
             this.rbtnClass.AutoSize = true;
             this.rbtnClass.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtnClass.Location = new System.Drawing.Point(280, 21);
+            this.rbtnClass.Location = new System.Drawing.Point(224, 21);
             this.rbtnClass.Name = "rbtnClass";
             this.rbtnClass.Size = new System.Drawing.Size(94, 18);
             this.rbtnClass.TabIndex = 3;
@@ -237,7 +239,7 @@
             // 
             this.radLedgerW.AutoSize = true;
             this.radLedgerW.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radLedgerW.Location = new System.Drawing.Point(186, 21);
+            this.radLedgerW.Location = new System.Drawing.Point(130, 21);
             this.radLedgerW.Name = "radLedgerW";
             this.radLedgerW.Size = new System.Drawing.Size(88, 18);
             this.radLedgerW.TabIndex = 2;
@@ -250,7 +252,7 @@
             this.radGroupwise.AutoSize = true;
             this.radGroupwise.Checked = true;
             this.radGroupwise.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radGroupwise.Location = new System.Drawing.Point(82, 21);
+            this.radGroupwise.Location = new System.Drawing.Point(26, 21);
             this.radGroupwise.Name = "radGroupwise";
             this.radGroupwise.Size = new System.Drawing.Size(98, 18);
             this.radGroupwise.TabIndex = 1;
@@ -266,7 +268,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(16, 225);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(404, 61);
+            this.groupBox3.Size = new System.Drawing.Size(454, 61);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Selection";
@@ -413,7 +415,7 @@
             this.radActive.AutoSize = true;
             this.radActive.Checked = true;
             this.radActive.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radActive.Location = new System.Drawing.Point(441, 187);
+            this.radActive.Location = new System.Drawing.Point(476, 187);
             this.radActive.Name = "radActive";
             this.radActive.Size = new System.Drawing.Size(62, 18);
             this.radActive.TabIndex = 210;
@@ -425,7 +427,7 @@
             // 
             this.radInactive1.AutoSize = true;
             this.radInactive1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radInactive1.Location = new System.Drawing.Point(441, 225);
+            this.radInactive1.Location = new System.Drawing.Point(476, 225);
             this.radInactive1.Name = "radInactive1";
             this.radInactive1.Size = new System.Drawing.Size(75, 18);
             this.radInactive1.TabIndex = 211;
@@ -436,13 +438,24 @@
             // 
             this.radAcAll.AutoSize = true;
             this.radAcAll.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radAcAll.Location = new System.Drawing.Point(441, 259);
+            this.radAcAll.Location = new System.Drawing.Point(476, 259);
             this.radAcAll.Name = "radAcAll";
             this.radAcAll.Size = new System.Drawing.Size(39, 18);
             this.radAcAll.TabIndex = 212;
             this.radAcAll.Text = "All";
             this.radAcAll.UseVisualStyleBackColor = true;
             this.radAcAll.Click += new System.EventHandler(this.radAcAll_Click);
+            // 
+            // rbtnRoute
+            // 
+            this.rbtnRoute.AutoSize = true;
+            this.rbtnRoute.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnRoute.Location = new System.Drawing.Point(324, 21);
+            this.rbtnRoute.Name = "rbtnRoute";
+            this.rbtnRoute.Size = new System.Drawing.Size(97, 18);
+            this.rbtnRoute.TabIndex = 4;
+            this.rbtnRoute.Text = "Route Wise";
+            this.rbtnRoute.UseVisualStyleBackColor = true;
             // 
             // frmRptMpolist
             // 
@@ -496,5 +509,6 @@
         private System.Windows.Forms.RadioButton radInactive1;
         private System.Windows.Forms.RadioButton radActive;
         private System.Windows.Forms.RadioButton rbtnClass;
+        private System.Windows.Forms.RadioButton rbtnRoute;
     }
 }

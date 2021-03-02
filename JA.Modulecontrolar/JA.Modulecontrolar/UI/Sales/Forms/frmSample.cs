@@ -113,6 +113,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             this.ucdgList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ucdgList_CellFormatting);
             this.DGMr.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGMr_CellFormatting);
             this.DGcustomer.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGcustomer_CellFormatting);
+            //this.chkFG.Click += new System.EventHandler(this.chkFG_Click);
 
             Utility.CreateListBox(lstBranchName, pnlMain, uctxtBranchName);
             Utility.CreateListBox(lstLocation, pnlMain, uctxtLocation);
@@ -122,6 +123,13 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             Utility.CreateListBox(lstBatch, panel2, uctxtBatch);
             #endregion
         }
+        //private void chkFG_Click(object sender, EventArgs e)
+        //{
+        //    ucdgList.Rows.Clear();
+        //    mloadItem();
+        //    uctxtItemName.Focus();
+        //}
+
         private void DGcustomer_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             DGcustomer.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Yellow;
@@ -401,7 +409,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             //lstGroup.Visible = false;
             lstGroup.DisplayMember = "strGroupName";
             lstGroup.ValueMember = "strGroupName";
-            lstGroup.DataSource = invms.mFillSample(strComID,"").ToList();
+            lstGroup.DataSource = invms.mFillSample(strComID,"",Utility.gstrUserName).ToList();
             lstGroup.SelectedIndex = lstGroup.FindString(uctxtGroupName.Text);
         }
         private void uctxtItemName_GotFocus(object sender, System.EventArgs e)
@@ -1116,10 +1124,19 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         private void mloadItem()
         {
             int introw=0;
+            //string strYn = "";
+            //if (chkFG.Checked == true)
+            //{
+            //    strYn = "FG";
+            //}
+            //else
+            //{
+            //    strYn = "MC";
+            //}
             ucdgList.Rows.Clear();
             //oogrp = invms.mloadAddStockItem(uctxtGroupName.Text).ToList();
-            oogrp = objWIS.gFillStockItemNew(strComID, uctxtGroupName.Text, uctxtLocation.Text).ToList();
-
+            //oogrp = objWIS.gFillStockItemNew(strComID, uctxtGroupName.Text, uctxtLocation.Text).ToList();
+            oogrp = objWIS.mGetProductStatementView(strComID, uctxtGroupName.Text, lstBranchName.SelectedValue.ToString(), uctxtLocation.Text, "").ToList();
             if (oogrp.Count > 0)
             {
 
@@ -1131,14 +1148,6 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     //DG[2, introw].Value = ogrp.strUnit;
                     ucdgList[1, introw].Value = ogrp.dblClsBalance + " " + ogrp.strUnit;
 
-                    //if (introw % 2 == 0)
-                    //{
-                    //    ucdgList.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
-                    //}
-                    //else
-                    //{
-                    //    ucdgList.Rows[introw].DefaultCellStyle.BackColor = Color.White;
-                    //}
                     introw += 1;
                 }
 
@@ -1194,7 +1203,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             int introw = 0;
             DGMr.Rows.Clear();
 
-            ooPartyName = invms.mfillPartyNameNew(strComID, strBarnchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, strBarnchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {
@@ -1292,6 +1301,16 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     return false;
                 }
             }
+            string strLockvoucher = Utility.gLockVocher(strComID, (int)vtype);
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
+                {
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return false;
+                }
+            }
 
             if (DG.Rows.Count == 0)
             {
@@ -1301,26 +1320,6 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             }
 
 
-            //if (m_action == (int)Utility.ACTION_MODE_ENUM.ADD_MODE)
-            //{
-
-            //    for (int i = 0; i < DG.Rows.Count; i++)
-            //    {
-            //        if (DG[0, i].Value != null)
-            //        {
-            //            dblBillQty = Utility.Val(DG[0, i].Value.ToString());
-            //            dblCurrentQTY = Utility.Val(DG[2, i].Value.ToString());
-            //            if (dblCurrentQTY > dblBillQty)
-            //            {
-            //                MessageBox.Show("Current Qyy Cannot be Grater than Your Bill Qty");
-            //                DG.Focus();
-            //                return false;
-            //            }
-            //        }
-            //        dblCurrentQTY = 0;
-            //        dblBillQty = 0;
-            //    }
-            //}
             for (int i = 0; i < DG.Rows.Count; i++)
             {
                 if (DG[1, i].Value != null)
@@ -1334,10 +1333,18 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     {
                         strBillKey = "";
                     }
-                    dblClosingQTY = Utility.gdblClosingStock(strComID, DG[1, i].Value.ToString(), uctxtLocation.Text, uctxtDate.Text);
+                    //if (chkFG.Checked)
+                    //{
+                        dblClosingQTY = Utility.gdblClosingStockSales(strComID, DG[1, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
+                    //}
+                    //else
+                    //{
+                    //    dblClosingQTY = Utility.gdblClosingStock(strComID, DG[1, i].Value.ToString(), uctxtLocation.Text, uctxtDate.Text);
+                    //}
+                   
                     if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                     {
-                        dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+                        dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey, uctxtLocation.Text);
                     }
                     dblCurrentQTY = Utility.Val(DG[2, i].Value.ToString());
                     if ((dblClosingQTY) - dblCurrentQTY < 0)
@@ -1839,5 +1846,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 btnSave.Focus();
             }
         }
+
+     
     }
 }

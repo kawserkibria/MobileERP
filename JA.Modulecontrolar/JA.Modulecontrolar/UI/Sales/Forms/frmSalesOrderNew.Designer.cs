@@ -1000,10 +1000,12 @@
             // 
             // uctxtRate
             // 
+            this.uctxtRate.BackColor = System.Drawing.Color.White;
             this.uctxtRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtRate.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uctxtRate.Location = new System.Drawing.Point(942, 23);
             this.uctxtRate.Name = "uctxtRate";
+            this.uctxtRate.ReadOnly = true;
             this.uctxtRate.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.uctxtRate.Size = new System.Drawing.Size(79, 22);
             this.uctxtRate.TabIndex = 13;
@@ -1286,6 +1288,7 @@
             this.label40.Size = new System.Drawing.Size(102, 16);
             this.label40.TabIndex = 187;
             this.label40.Text = "Prepared By:";
+            this.label40.Visible = false;
             // 
             // uctxtPreParedBy
             // 
@@ -1299,6 +1302,7 @@
             this.uctxtPreParedBy.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.uctxtPreParedBy.Size = new System.Drawing.Size(257, 27);
             this.uctxtPreParedBy.TabIndex = 186;
+            this.uctxtPreParedBy.Visible = false;
             // 
             // DGMr
             // 
@@ -1615,6 +1619,7 @@
             this.KeyPreview = false;
             this.MinimizeBox = false;
             this.Name = "frmSalesOrderNew";
+            this.Activated += new System.EventHandler(this.frmSalesOrderNew_Activated);
             this.Load += new System.EventHandler(this.frmSalesOrderNew_Load);
             this.Controls.SetChildIndex(this.pnlCostCenter, 0);
             this.Controls.SetChildIndex(this.txtSQL, 0);

@@ -36,6 +36,8 @@
             this.uctxtBranchName = new System.Windows.Forms.TextBox();
             this.lblCategory = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.cboGroupName = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnLeftAll = new System.Windows.Forms.Button();
             this.btnLeftSingle = new System.Windows.Forms.Button();
@@ -50,8 +52,6 @@
             this.radPowerWise = new System.Windows.Forms.RadioButton();
             this.radPackSize = new System.Windows.Forms.RadioButton();
             this.radProductWise = new System.Windows.Forms.RadioButton();
-            this.cboGroupName = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -213,6 +213,29 @@
             this.groupBox7.TabIndex = 58;
             this.groupBox7.TabStop = false;
             // 
+            // cboGroupName
+            // 
+            this.cboGroupName.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboGroupName.ForeColor = System.Drawing.Color.Blue;
+            this.cboGroupName.FormattingEnabled = true;
+            this.cboGroupName.Location = new System.Drawing.Point(360, 15);
+            this.cboGroupName.Name = "cboGroupName";
+            this.cboGroupName.Size = new System.Drawing.Size(220, 22);
+            this.cboGroupName.TabIndex = 27;
+            this.cboGroupName.SelectedIndexChanged += new System.EventHandler(this.cboGroupName_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(362, -2);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(168, 16);
+            this.label6.TabIndex = 26;
+            this.label6.Text = "Selection Group Name";
+            this.label6.Visible = false;
+            // 
             // txtSearch
             // 
             this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -309,9 +332,9 @@
             this.radAlias.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radAlias.Location = new System.Drawing.Point(197, 19);
             this.radAlias.Name = "radAlias";
-            this.radAlias.Size = new System.Drawing.Size(54, 18);
+            this.radAlias.Size = new System.Drawing.Size(91, 18);
             this.radAlias.TabIndex = 1;
-            this.radAlias.Text = "Alias";
+            this.radAlias.Text = "Item Code";
             this.radAlias.UseVisualStyleBackColor = true;
             // 
             // radItem
@@ -373,29 +396,6 @@
             this.radProductWise.TabStop = true;
             this.radProductWise.Text = "Product Summ.";
             this.radProductWise.UseVisualStyleBackColor = true;
-            // 
-            // cboGroupName
-            // 
-            this.cboGroupName.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboGroupName.ForeColor = System.Drawing.Color.Blue;
-            this.cboGroupName.FormattingEnabled = true;
-            this.cboGroupName.Location = new System.Drawing.Point(360, 15);
-            this.cboGroupName.Name = "cboGroupName";
-            this.cboGroupName.Size = new System.Drawing.Size(220, 22);
-            this.cboGroupName.TabIndex = 27;
-            this.cboGroupName.SelectedIndexChanged += new System.EventHandler(this.cboGroupName_SelectedIndexChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(362, -2);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(168, 16);
-            this.label6.TabIndex = 26;
-            this.label6.Text = "Selection Group Name";
-            this.label6.Visible = false;
             // 
             // frmRptStockSummarry
             // 

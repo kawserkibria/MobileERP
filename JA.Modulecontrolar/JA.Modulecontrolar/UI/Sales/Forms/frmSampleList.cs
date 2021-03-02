@@ -472,6 +472,19 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
         {
             if (e.ColumnIndex ==8)
             {
+                string strVoucherDate = DG.CurrentRow.Cells[3].Value.ToString();
+                string strLockvoucher = Utility.gLockVocher(strComID, mintVType);
+                long lngDate = Convert.ToInt64(Convert.ToDateTime(strVoucherDate).ToString("yyyyMMdd"));
+                if (strLockvoucher != "")
+                {
+                    long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                    if (lngDate <= lngBackdate)
+                    {
+                        MessageBox.Show("Invalid Date, Back Date is locked");
+                        return;
+                    }
+                }
+
                 if (Utility.gblnAccessControl)
                 {
                     if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, lngFormPriv, 3))

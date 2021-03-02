@@ -129,7 +129,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             if (m_action == 1)
             {
 
-                List<AccountdGroup> oogrp = accms.mDisplayMonthsetupList(strComID, uctxtMonthID.Text).ToList();
+                List<AccountdGroup> oogrp = accms.mDisplayMonthsetupList(strComID, uctxtMonthID.Text, Utility.gdteFinancialYearFrom, Utility.gdteFinancialYearTo).ToList();
                 {
                     if (oogrp.Count>0)
                     {
@@ -199,7 +199,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                         }
                         if (mstrOlActive != cboStatus.Text)
                         {
-                            List<AccountdGroup> oogrp = accms.mDisplayMonthsetupList(strComID, uctxtMonthID.Text).ToList();
+                            List<AccountdGroup> oogrp = accms.mDisplayMonthsetupList(strComID, uctxtMonthID.Text, Utility.gdteFinancialYearFrom, Utility.gdteFinancialYearTo).ToList();
                             {
                                 if (oogrp.Count > 0)
                                 {

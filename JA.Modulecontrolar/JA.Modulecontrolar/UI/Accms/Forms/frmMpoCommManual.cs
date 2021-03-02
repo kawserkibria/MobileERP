@@ -43,6 +43,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             this.lstBranch.DoubleClick += new System.EventHandler(this.lstBranch_DoubleClick);
             this.uctxtBranch.GotFocus += new System.EventHandler(this.uctxtBranch_GotFocus);
             this.chkStatus.Click += new System.EventHandler(this.chkStatus_Click);
+            this.btnGen.Click += new System.EventHandler(this.btnGen_Click);
             Utility.CreateListBox(lstBranch, pnlMain, uctxtBranch);
             #endregion
         }
@@ -53,7 +54,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             int introw = 0;
             DG.Rows.Clear();
 
-            ooPartyName = invms.mfillPartyNameNew(strComID, lstBranch.SelectedValue.ToString(), Utility.gblnAccessControl, Utility.gstrUserName, intstatus, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, lstBranch.SelectedValue.ToString(), Utility.gblnAccessControl, Utility.gstrUserName, intstatus, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {
@@ -63,6 +64,8 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     DG.Rows.Add();
                     DG[1, introw].Value = ogrp.strLedgerName;
                     DG[0, introw].Value = ogrp.strMereString;
+                    DG[9, introw].Value = Utility.GetdblIncenAmnout(strComID, ogrp.strMereString, uctxtMonthID.Text);
+                    DG[9, introw].ReadOnly = true;
                     introw += 1;
                 }
 
@@ -162,13 +165,13 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
 
             DG.Columns[1].Frozen = true;
             DG.Columns[0].DefaultCellStyle.BackColor = Color.Beige;
-            //DG.Columns[1].DefaultCellStyle.BackColor = Color.Bisque;
+            DG.Columns[1].DefaultCellStyle.BackColor = Color.Bisque;
             List<AccountsLedger> oogrp = accms.mDisplayLedgerlistt(strComID, 1).ToList();
             if (oogrp.Count > 0)
             {
                 foreach (AccountsLedger ogrp in oogrp)
                 {
-                    DG.Rows.Add();
+                    //DG.Rows.Add();
                     DG.Columns.Add(Utility.Create_Grid_Column(ogrp.strLedgerName, ogrp.strLedgerName, 80, true, DataGridViewContentAlignment.TopLeft, false));
                 }
 
@@ -178,14 +181,14 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             lstBranch.DisplayMember = "BranchName";
             lstBranch.DataSource = accms.mFillBranch(strComID, Utility.gblnAccessControl, Utility.gstrUserName).ToList();
             uctxtBranch.Text = Utility.gstrBranchName;
-            List<AccountdGroup> ooMonth = accms.mDisplayMonthsetupList(strComID, "1").ToList();
-            if (oogrp.Count > 0)
+            List<AccountdGroup> ooMonth = accms.mDisplayMonthsetupList(strComID, "1", Utility.gdteFinancialYearFrom, Utility.gdteFinancialYearTo).ToList();
+            if (ooMonth.Count > 0)
             {
                 uctxtMonthID.Text = ooMonth[0].strMonthID;
                 strMonthID = ooMonth[0].strMonthID;
             }
 
-            mloadParty(0);
+            //mloadParty(0);
 
             DG.ClearSelection();
             DG[1, 0].Selected = true;
@@ -233,6 +236,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     foreach (AccountsLedger oCom in ooaccVou)
                     {
                         DG[oCom.intCol, oCom.intRow].Value = oCom.dblToAmt;
+                        DG[9, oCom.intRow].ReadOnly = true;
                     }
                 }
 
@@ -455,6 +459,27 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
 
 
         #endregion
+
+        private void chkStatus_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGen_Click(object sender, EventArgs e)
+        {
+            if (uctxtMonthID.Text == "")
+            {
+                MessageBox.Show("Month ID Cannot be Empty");
+                uctxtMonthID.Focus();
+                return;
+            }
+            mloadParty(0);
+        }
+
+        private void btnGen_Click_1(object sender, EventArgs e)
+        {
+
+        }
 
         
 

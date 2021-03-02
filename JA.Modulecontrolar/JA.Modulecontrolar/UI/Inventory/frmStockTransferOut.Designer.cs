@@ -31,11 +31,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.uctxtInvoiceNo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.dteDate = new System.Windows.Forms.DateTimePicker();
@@ -47,16 +47,18 @@
             this.lblQnty = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.uclstGrdItem = new MayhediControlLibrary.StandardDataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblAmount = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.uctxtRate = new System.Windows.Forms.TextBox();
             this.btnDown = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.uctxtQty = new System.Windows.Forms.TextBox();
             this.DG = new MayhediDataGridView();
             this.label12 = new System.Windows.Forms.Label();
             this.uctxtItemName = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.uctxtRate = new System.Windows.Forms.TextBox();
             this.uctxtFromLocation = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.uctxtProcessName = new System.Windows.Forms.TextBox();
@@ -67,8 +69,7 @@
             this.txtBranch = new System.Windows.Forms.TextBox();
             this.txtRequsiNo = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkwithRequisiton = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -78,10 +79,11 @@
             // 
             // frmLabel
             // 
-            this.frmLabel.Location = new System.Drawing.Point(349, 9);
+            this.frmLabel.Location = new System.Drawing.Point(338, 4);
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.chkwithRequisiton);
             this.pnlMain.Controls.Add(this.txtRequsiNo);
             this.pnlMain.Controls.Add(this.label17);
             this.pnlMain.Controls.Add(this.label16);
@@ -101,26 +103,26 @@
             this.pnlMain.Controls.Add(this.dteDate);
             this.pnlMain.Controls.Add(this.label9);
             this.pnlMain.Controls.Add(this.label1);
-            this.pnlMain.Size = new System.Drawing.Size(849, 656);
+            this.pnlMain.Size = new System.Drawing.Size(849, 570);
             // 
             // pnlTop
             // 
             this.pnlTop.Controls.Add(this.textBox1);
-            this.pnlTop.Size = new System.Drawing.Size(853, 58);
+            this.pnlTop.Size = new System.Drawing.Size(853, 45);
             this.pnlTop.Controls.SetChildIndex(this.textBox1, 0);
             this.pnlTop.Controls.SetChildIndex(this.frmLabel, 0);
             this.pnlTop.Controls.SetChildIndex(this.btnTopClose, 0);
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(6, 575);
+            this.btnEdit.Location = new System.Drawing.Point(6, 485);
             this.btnEdit.Size = new System.Drawing.Size(135, 39);
             this.btnEdit.Text = "List All";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(627, 575);
+            this.btnSave.Location = new System.Drawing.Point(627, 485);
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
@@ -137,7 +139,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(741, 575);
+            this.btnClose.Location = new System.Drawing.Point(741, 485);
             // 
             // btnPrint
             // 
@@ -147,14 +149,14 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 629);
+            this.groupBox1.Location = new System.Drawing.Point(0, 525);
             this.groupBox1.Size = new System.Drawing.Size(853, 25);
             // 
             // uctxtInvoiceNo
             // 
             this.uctxtInvoiceNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtInvoiceNo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtInvoiceNo.Location = new System.Drawing.Point(123, 181);
+            this.uctxtInvoiceNo.Location = new System.Drawing.Point(134, 160);
             this.uctxtInvoiceNo.Name = "uctxtInvoiceNo";
             this.uctxtInvoiceNo.Size = new System.Drawing.Size(180, 23);
             this.uctxtInvoiceNo.TabIndex = 105;
@@ -163,17 +165,18 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label5.Location = new System.Drawing.Point(52, 184);
+            this.label5.Location = new System.Drawing.Point(41, 163);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 16);
+            this.label5.Size = new System.Drawing.Size(89, 16);
             this.label5.TabIndex = 106;
-            this.label5.Text = "Req. No:";
+            this.label5.Text = "Voucher No:";
             // 
             // dteDate
             // 
+            this.dteDate.Enabled = false;
             this.dteDate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteDate.Location = new System.Drawing.Point(123, 206);
+            this.dteDate.Location = new System.Drawing.Point(134, 185);
             this.dteDate.Name = "dteDate";
             this.dteDate.Size = new System.Drawing.Size(180, 23);
             this.dteDate.TabIndex = 111;
@@ -182,7 +185,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(72, 209);
+            this.label9.Location = new System.Drawing.Point(83, 188);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(45, 16);
             this.label9.TabIndex = 112;
@@ -192,7 +195,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label1.Location = new System.Drawing.Point(10, 233);
+            this.label1.Location = new System.Drawing.Point(21, 212);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 16);
             this.label1.TabIndex = 108;
@@ -202,7 +205,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label4.Location = new System.Drawing.Point(211, 625);
+            this.label4.Location = new System.Drawing.Point(211, 544);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 16);
             this.label4.TabIndex = 115;
@@ -212,7 +215,7 @@
             // 
             this.uctxtNarration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtNarration.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtNarration.Location = new System.Drawing.Point(291, 622);
+            this.uctxtNarration.Location = new System.Drawing.Point(291, 541);
             this.uctxtNarration.Name = "uctxtNarration";
             this.uctxtNarration.Size = new System.Drawing.Size(422, 23);
             this.uctxtNarration.TabIndex = 114;
@@ -230,16 +233,16 @@
             this.panel2.Controls.Add(this.DG);
             this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.uctxtItemName);
-            this.panel2.Location = new System.Drawing.Point(5, 296);
+            this.panel2.Location = new System.Drawing.Point(5, 275);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(837, 318);
+            this.panel2.Size = new System.Drawing.Size(837, 262);
             this.panel2.TabIndex = 116;
             // 
             // lblQnty
             // 
             this.lblQnty.AutoSize = true;
             this.lblQnty.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQnty.Location = new System.Drawing.Point(432, 290);
+            this.lblQnty.Location = new System.Drawing.Point(373, 239);
             this.lblQnty.Name = "lblQnty";
             this.lblQnty.Size = new System.Drawing.Size(15, 14);
             this.lblQnty.TabIndex = 97;
@@ -249,7 +252,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(307, 290);
+            this.label15.Location = new System.Drawing.Point(248, 239);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(100, 14);
             this.label15.TabIndex = 96;
@@ -293,11 +296,29 @@
             this.uclstGrdItem.TabIndex = 95;
             this.uclstGrdItem.Visible = false;
             // 
+            // Column1
+            // 
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Column1.HeaderText = "Item Name";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 480;
+            // 
+            // Column2
+            // 
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Column2.HeaderText = "Clsosing Qty";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 150;
+            // 
             // lblAmount
             // 
             this.lblAmount.AutoSize = true;
             this.lblAmount.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAmount.Location = new System.Drawing.Point(761, 290);
+            this.lblAmount.Location = new System.Drawing.Point(670, 239);
             this.lblAmount.Name = "lblAmount";
             this.lblAmount.Size = new System.Drawing.Size(15, 14);
             this.lblAmount.TabIndex = 75;
@@ -307,32 +328,11 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(637, 290);
+            this.label8.Location = new System.Drawing.Point(546, 239);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(94, 14);
             this.label8.TabIndex = 74;
             this.label8.Text = "Total Amount:";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(692, 259);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(42, 18);
-            this.label10.TabIndex = 71;
-            this.label10.Text = "Rate";
-            this.label10.Visible = false;
-            // 
-            // uctxtRate
-            // 
-            this.uctxtRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.uctxtRate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtRate.Location = new System.Drawing.Point(769, 256);
-            this.uctxtRate.Name = "uctxtRate";
-            this.uctxtRate.Size = new System.Drawing.Size(32, 23);
-            this.uctxtRate.TabIndex = 70;
-            this.uctxtRate.Visible = false;
             // 
             // btnDown
             // 
@@ -394,7 +394,7 @@
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DG.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.DG.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.DG.Size = new System.Drawing.Size(828, 236);
+            this.DG.Size = new System.Drawing.Size(828, 185);
             this.DG.TabIndex = 58;
             this.DG.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DG_CellContentClick);
             this.DG.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DG_CellEndEdit);
@@ -420,11 +420,32 @@
             this.uctxtItemName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.uctxtItemName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.uctxtItemName_KeyUp);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(692, 238);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(42, 18);
+            this.label10.TabIndex = 71;
+            this.label10.Text = "Rate";
+            this.label10.Visible = false;
+            // 
+            // uctxtRate
+            // 
+            this.uctxtRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.uctxtRate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uctxtRate.Location = new System.Drawing.Point(769, 235);
+            this.uctxtRate.Name = "uctxtRate";
+            this.uctxtRate.Size = new System.Drawing.Size(10, 23);
+            this.uctxtRate.TabIndex = 70;
+            this.uctxtRate.Visible = false;
+            // 
             // uctxtFromLocation
             // 
             this.uctxtFromLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtFromLocation.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtFromLocation.Location = new System.Drawing.Point(123, 230);
+            this.uctxtFromLocation.Location = new System.Drawing.Point(134, 209);
             this.uctxtFromLocation.Name = "uctxtFromLocation";
             this.uctxtFromLocation.Size = new System.Drawing.Size(264, 23);
             this.uctxtFromLocation.TabIndex = 107;
@@ -433,7 +454,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(11, 256);
+            this.label13.Location = new System.Drawing.Point(22, 235);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(106, 16);
             this.label13.TabIndex = 118;
@@ -443,7 +464,7 @@
             // 
             this.uctxtProcessName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtProcessName.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtProcessName.Location = new System.Drawing.Point(123, 254);
+            this.uctxtProcessName.Location = new System.Drawing.Point(134, 233);
             this.uctxtProcessName.Name = "uctxtProcessName";
             this.uctxtProcessName.Size = new System.Drawing.Size(264, 23);
             this.uctxtProcessName.TabIndex = 117;
@@ -462,7 +483,7 @@
             // 
             this.uctxtRequiLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtRequiLocation.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtRequiLocation.Location = new System.Drawing.Point(576, 175);
+            this.uctxtRequiLocation.Location = new System.Drawing.Point(576, 138);
             this.uctxtRequiLocation.Name = "uctxtRequiLocation";
             this.uctxtRequiLocation.Size = new System.Drawing.Size(236, 23);
             this.uctxtRequiLocation.TabIndex = 120;
@@ -471,17 +492,17 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label14.Location = new System.Drawing.Point(425, 177);
+            this.label14.Location = new System.Drawing.Point(482, 140);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(145, 16);
+            this.label14.Size = new System.Drawing.Size(91, 16);
             this.label14.TabIndex = 121;
-            this.label14.Text = "Requisition Location:";
+            this.label14.Text = "To Location:";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(51, 158);
+            this.label16.Location = new System.Drawing.Point(62, 137);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(66, 18);
             this.label16.TabIndex = 123;
@@ -491,7 +512,7 @@
             // 
             this.txtBranch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBranch.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBranch.Location = new System.Drawing.Point(123, 157);
+            this.txtBranch.Location = new System.Drawing.Point(134, 136);
             this.txtBranch.Name = "txtBranch";
             this.txtBranch.Size = new System.Drawing.Size(264, 23);
             this.txtBranch.TabIndex = 122;
@@ -509,34 +530,31 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label17.Location = new System.Drawing.Point(464, 201);
+            this.label17.Location = new System.Drawing.Point(462, 201);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(106, 16);
             this.label17.TabIndex = 125;
             this.label17.Text = "Requisition No:";
             // 
-            // Column1
+            // chkwithRequisiton
             // 
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Column1.HeaderText = "Item Name";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 480;
-            // 
-            // Column2
-            // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Column2.HeaderText = "Clsosing Qty";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 150;
+            this.chkwithRequisiton.AutoSize = true;
+            this.chkwithRequisiton.Checked = true;
+            this.chkwithRequisiton.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkwithRequisiton.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkwithRequisiton.Location = new System.Drawing.Point(576, 173);
+            this.chkwithRequisiton.Name = "chkwithRequisiton";
+            this.chkwithRequisiton.Size = new System.Drawing.Size(128, 18);
+            this.chkwithRequisiton.TabIndex = 126;
+            this.chkwithRequisiton.Text = "With Requisition";
+            this.chkwithRequisiton.UseVisualStyleBackColor = true;
+            this.chkwithRequisiton.CheckedChanged += new System.EventHandler(this.chkwithRequisiton_CheckedChanged);
+            this.chkwithRequisiton.Click += new System.EventHandler(this.chkwithRequisiton_Click);
             // 
             // frmStockTransferOut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(853, 654);
+            this.ClientSize = new System.Drawing.Size(853, 550);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
@@ -589,5 +607,6 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.CheckBox chkwithRequisiton;
     }
 }

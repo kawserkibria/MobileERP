@@ -1008,6 +1008,14 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     dg[0, selRaw].Value = strBillKey;
                     dg[1, selRaw].Value = strRefNo;
                     dg[2, selRaw].Value = strDate;
+                    if (uctxtRefType.Text == "Sample Class")
+                    {
+                        uctxtNarration.Text = strRefNo;
+                    }
+                    else
+                    {
+                        uctxtNarration.Text = "";
+                    }
                     dg[3, selRaw].Value = "Delete";
                     dg.AllowUserToAddRows = false;
                     txtRefTypeNew.Text = "";
@@ -1313,7 +1321,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             DGMr.Rows.Clear();
             try
             {
-                ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "").ToList();
+                ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "","").ToList();
 
                 if (ooPartyName.Count > 0)
                 {
@@ -1348,18 +1356,10 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             lstCustomer.Visible = false;
             lstTransport.Visible = false;
             lstDesignation.Visible = false;
+
             mGetConfig();
-            if (mblnNumbMethod == true)
-            {
-                uctxtChallanNo.ReadOnly = true;
-                uctxtBranchName.Focus();
-                uctxtBranchName.Select();
-            }
-            else
-            {
-                uctxtBranchName.Focus();
-                uctxtBranchName.Select();
-            }
+
+            mClear();
             LoadDefaultValue();
             oinv = invms.mGetInvoiceConfig(strComID).ToList();
 
@@ -1432,62 +1432,211 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         }
         #endregion
         #region "Validation Field"
-        private bool ValidateFields(string strItemName)
+        //private bool ValidateFields(string strItemName, string strInvoiceNo, double dblCurrentQTY)
+        //{
+        //    double dblClosingQTY = 0;
+        //    string strNegetiveItem = "";
+        //    int intCheckNegetive = 0;
+        //    string strSQL = "", strRefNo = "", strBranchId = "", strBillKey = "", strUOm = "";
+        //    SqlCommand cmdInsert = new SqlCommand();
+        //    SqlDataReader dr;
+        //    double  dblDilutionRate = 0;
+        //    string strYesno = "Y";
+
+        //    if (uctxtPartyName.Text == "")
+        //    {
+        //        MessageBox.Show("Cannot Empty");
+        //        uctxtPartyName.Focus();
+        //        return false;
+        //    }
+        //    if (uctxtChallanNo.Text == "")
+        //    {
+        //        MessageBox.Show("Cannot Empty");
+        //        uctxtChallanNo.Focus();
+        //        return false;
+        //    }
+        //    if (uctxtBranchName.Text == "")
+        //    {
+        //        MessageBox.Show("Cannot Empty");
+        //        uctxtBranchName.Focus();
+        //        return false;
+        //    }
+
+
+        //    long lngDate = Convert.ToInt64(dteDate.Value.ToString("yyyyMMdd"));
+        //    long lngFiscalYearfrom = Convert.ToInt64(Convert.ToDateTime(Utility.gdteFinancialYearFrom).ToString("yyyyMMdd"));
+        //    long lngFiscalYearTo = Convert.ToInt64(Convert.ToDateTime(Utility.gdteFinancialYearTo).ToString("yyyyMMdd"));
+
+        //    if (lngDate < lngFiscalYearfrom)
+        //    {
+        //        MessageBox.Show("Invalid Date, Date Can't less then Financial Year");
+        //        return false;
+        //    }
+        //    if (lngDate > lngFiscalYearTo)
+        //    {
+        //        MessageBox.Show("Invalid Date, Date Can't less then Financial Year");
+        //        return false;
+        //    }
+
+
+
+        //    if (oinv[0].mlngBlockNegativeStock > 0)
+        //    {
+
+        //        if (uctxtRefType.Text == "Sample Class")
+        //        {
+        //            //dblClosingQTY = Utility.gdblClosingStockSales(strComID, strItemName, uctxtLocation.Text, dteDate.Text);
+        //            dblClosingQTY = Utility.gdblClosingStockSales(strComID, strItemName, lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
+        //        }
+        //        else
+        //        {
+        //            dblClosingQTY = Utility.gdblClosingStock(strComID, strItemName, uctxtLocation.Text, dteDate.Text);
+        //        }
+        //        //**********************
+        //        if ((dblClosingQTY) - dblCurrentQTY < 0)
+        //        {
+
+        //            strBranchId = lstBranchName.SelectedValue.ToString();
+        //            strUOm = Utility.gGetBaseUOM(strComID, strItemName);
+        //            string connstring = Utility.SQLConnstringComSwitch(strComID);
+        //            using (SqlConnection gcnMain = new SqlConnection(connstring))
+        //            {
+        //                if (gcnMain.State == ConnectionState.Open)
+        //                {
+        //                    gcnMain.Close();
+        //                }
+        //                gcnMain.Open();
+        //                cmdInsert.Connection = gcnMain;
+
+        //                strSQL = "SELECT ISNULL(INV_TRAN_RATE,0) AS BILL_RATE ";
+        //                strSQL = strSQL + "FROM INV_STOCKGROUP INNER JOIN ";
+        //                strSQL = strSQL + "INV_STOCKITEM ON INV_STOCKGROUP.STOCKGROUP_NAME = INV_STOCKITEM.STOCKGROUP_NAME INNER JOIN ";
+        //                strSQL = strSQL + "INV_TRAN ON INV_STOCKITEM.STOCKITEM_NAME = INV_TRAN.STOCKITEM_NAME ";
+        //                //AND INV_STOCKGROUP.FG_STATUS=1 ";
+        //                strSQL = strSQL + "AND INV_TRAN.INV_REF_NO='" + strInvoiceNo + "' ";
+        //                strSQL = strSQL + "AND INV_TRAN.STOCKITEM_NAME ='" + strItemName.Replace("'", "''") + "' ";
+        //                cmdInsert.CommandText = strSQL;
+        //                dr = cmdInsert.ExecuteReader();
+        //                if (dr.Read())
+        //                {
+        //                    dblDilutionRate = Math.Abs(Convert.ToDouble(dr["BILL_RATE"]));
+        //                }
+        //                dr.Close();
+        //                if (dblDilutionRate > 0)
+        //                {
+
+
+
+        //                    strRefNo = gobjVoucherName.VoucherName.GetVoucherString(25) + strBranchId + Utility.gstrLastNumber(strComID, 25);
+        //                    SqlTransaction myTrans;
+        //                    myTrans = gcnMain.BeginTransaction();
+        //                    cmdInsert.Transaction = myTrans;
+        //                    strSQL = "INSERT INTO INV_MASTER(INV_REF_NO,INV_VOUCHER_TYPE,INV_DATE,BRANCH_ID) ";
+        //                    strSQL = strSQL + "values(";
+        //                    strSQL = strSQL + "'" + strRefNo + "' ";
+        //                    strSQL = strSQL + "," + 25 + " ";
+        //                    strSQL = strSQL + "," + Utility.cvtSQLDateString(dteDate.Text) + " ";
+        //                    strSQL = strSQL + ",'" + strBranchId + "'";
+        //                    strSQL = strSQL + ")";
+        //                    cmdInsert.CommandText = strSQL;
+        //                    cmdInsert.ExecuteNonQuery();
+
+        //                    strBillKey = strRefNo + "0001";
+        //                    if (dblClosingQTY == 0)
+        //                    {
+        //                        strSQL = VoucherSW.mInsertTranInward(strBillKey, 1, strRefNo, strItemName, 25, dteDate.Text,
+        //                                                                Math.Abs(dblCurrentQTY), dblDilutionRate, uctxtLocation.Text, (Math.Abs(dblCurrentQTY) * dblDilutionRate), "I",
+        //                                                                strBranchId, "", "", strUOm, "", "", 0, 0, "Dilution Section");
+        //                        cmdInsert.CommandText = strSQL;
+        //                        cmdInsert.ExecuteNonQuery();
+        //                    }
+        //                    else
+        //                    {
+        //                        if (dblClosingQTY < 0)
+        //                        {
+        //                            strSQL = VoucherSW.mInsertTranInward(strBillKey, 1, strRefNo, strItemName, 25, dteDate.Text,
+        //                                                                    Math.Abs(dblClosingQTY), dblDilutionRate, uctxtLocation.Text, (Math.Abs(dblClosingQTY) * dblDilutionRate), "I",
+        //                                                                    strBranchId, "", "", strUOm, "", "", 0, 0, "Dilution Section");
+        //                            cmdInsert.CommandText = strSQL;
+        //                            cmdInsert.ExecuteNonQuery();
+        //                        }
+        //                    }
+
+        //                    strSQL = VoucherSW.gIncreaseVoucher(25);
+        //                    cmdInsert.CommandText = strSQL;
+        //                    cmdInsert.ExecuteNonQuery();
+        //                    cmdInsert.Transaction.Commit();
+        //                    dblClosingQTY = dblCurrentQTY;
+        //                    strYesno = "N";
+        //                }
+
+        //            }
+        //        }
+        //        //**********
+        //        if (strYesno == "Y")
+        //        {
+        //            if (uctxtRefType.Text == "Sample Class")
+        //            {
+        //                //dblClosingQTY = Utility.gdblClosingStockSales(strComID, strItemName, uctxtLocation.Text, dteDate.Text);
+        //                dblClosingQTY = Utility.gdblClosingStockSales(strComID, strItemName, lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
+        //            }
+        //            else
+        //            {
+        //                dblClosingQTY = Utility.gdblClosingStock(strComID, strItemName, uctxtLocation.Text, dteDate.Text);
+        //            }
+        //            //if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+        //            //{
+        //            //    dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+        //            //}
+        //            //dblCurrentQTY = Utility.Val(DGSalesGrid[2, i].Value.ToString());
+        //            if ((dblClosingQTY) - dblCurrentQTY < 0)
+        //            {
+        //                strNegetiveItem = strNegetiveItem + Environment.NewLine + strItemName + "Invoice No: " + strInvoiceNo + " (Voucher Qty: " + dblCurrentQTY + " Closing Qty : " + dblClosingQTY + ")";
+        //                intCheckNegetive = 1;
+        //                dblClosingQTY = 0;
+        //                //    }
+        //                //}
+        //                dblClosingQTY = 0;
+        //            }
+        //        }
+        //    }
+        //    if (intCheckNegetive > 0)
+        //    {
+        //        MessageBox.Show("You have no valid quantity for Item: " + strNegetiveItem);
+        //        return false;
+        //    }
+
+
+        //    return true;
+        //}
+
+        private bool ValidateFields(string strItemName, string strInvoiceNo, double dblCurrentQTY)
         {
-            double dblClosingQTY = 0, dblCurrentQTY = 0, dblBillQty = 0;
-            string strBillKey = "", strNegetiveItem = "";
+            double dblClosingQTY = 0;
+            string strNegetiveItem = "";
             int intCheckNegetive = 0;
 
+            SqlCommand cmdInsert = new SqlCommand();
+            SqlDataReader dr;
 
-            if (uctxtPartyName.Text == "")
-            {
-                MessageBox.Show("Cannot Empty");
-                uctxtPartyName.Focus();
-                return false;
-            }
-            if (uctxtChallanNo.Text == "")
-            {
-                MessageBox.Show("Cannot Empty");
-                uctxtChallanNo.Focus();
-                return false;
-            }
-            if (uctxtBranchName.Text == "")
-            {
-                MessageBox.Show("Cannot Empty");
-                uctxtBranchName.Focus();
-                return false;
-            }
-            //if (DGSalesGrid.Rows.Count == 0)
+
+            //if (uctxtPartyName.Text == "")
             //{
-            //    MessageBox.Show("Item Cannot be Empty");
-            //    uctxtItemName.Focus();
+            //    MessageBox.Show("Cannot Empty");
+            //    uctxtPartyName.Focus();
             //    return false;
             //}
-            //if (Utility.gblnAccessControl)
+            //if (uctxtChallanNo.Text == "")
             //{
-            //    if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, lngFormPriv, m_action))
-            //    {
-            //        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //        return false;
-            //    }
+            //    MessageBox.Show("Cannot Empty");
+            //    uctxtChallanNo.Focus();
+            //    return false;
             //}
-            //if (uctxtRefType.Text != "Sample Class")
+            //if (uctxtBranchName.Text == "")
             //{
-            //    if (Utility.Val(lblNetTotal.Text) == 0 || Utility.Val(lblNetTotal.Text) < 0)
-            //    {
-            //        MessageBox.Show("Net Amount Cannot be Empty");
-            //        uctxtItemName.Focus();
-            //        return false;
-            //    }
-
-            //}
-            //else
-            //{
-            //    if (uctxtNarration.Text == "")
-            //    {
-            //        uctxtNarration.Text = "Sample Class";
-            //    }
-
+            //    MessageBox.Show("Cannot Empty");
+            //    uctxtBranchName.Focus();
+            //    return false;
             //}
 
 
@@ -1506,85 +1655,35 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 return false;
             }
 
-            //string strBacklockDate = Utility.gCheckBackLock(strComID);
-            //if (strBacklockDate != "")
-            //{
-            //    long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strBacklockDate).ToString("yyyyMMdd"));
-            //    if (lngDate <= lngBackdate)
-            //    {
-            //        MessageBox.Show("Invalid Date, Back Date is locked");
-            //        return false;
-            //    }
-            //}
-            //if (m_action == (int)Utility.ACTION_MODE_ENUM.ADD_MODE)
-            //{
-            //    if (intVtype != (int)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS)
-            //    {
-
-            //        for (int i = 0; i < DGSalesGrid.Rows.Count; i++)
-            //        {
-            //            if (DGSalesGrid[0, i].Value != null)
-            //            {
-            //                dblBillQty = Utility.Val(DGSalesGrid[0, i].Value.ToString());
-            //                dblCurrentQTY = Utility.Val(DGSalesGrid[2, i].Value.ToString());
-            //                if (dblCurrentQTY > dblBillQty)
-            //                {
-            //                    MessageBox.Show("Current Qty Cannot be Grater than Your Bill Qty");
-            //                    DGSalesGrid.Focus();
-            //                    return false;
-            //                }
-            //            }
-            //            dblCurrentQTY = 0;
-            //            dblBillQty = 0;
-            //        }
-            //    }
-            //}
-
-
-
             if (oinv[0].mlngBlockNegativeStock > 0)
             {
-                //for (int i = 0; i < DGSalesGrid.Rows.Count; i++)
-                //{
-                //    if (DGSalesGrid[1, i].Value != null)
-                //    {
 
-                //        if (DGSalesGrid[8, i].Value != null)
-                //        {
-                //            strBillKey = DGSalesGrid[8, i].Value.ToString();
-                //        }
-                //        else
-                //        {
-                //            strBillKey = "";
-                //        }
                 if (uctxtRefType.Text == "Sample Class")
                 {
-                    dblClosingQTY = Utility.gdblClosingStockNew(strComID, strItemName, uctxtLocation.Text, dteDate.Text);
+                    //dblClosingQTY = Utility.gdblClosingStockSales(strComID, strItemName, uctxtLocation.Text, dteDate.Text);
+                    dblClosingQTY = Utility.gdblClosingStockSales(strComID, strItemName, lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
                 }
                 else
                 {
                     dblClosingQTY = Utility.gdblClosingStock(strComID, strItemName, uctxtLocation.Text, dteDate.Text);
                 }
-
-                //if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
-                //{
-                //    dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
-                //}
-                //dblCurrentQTY = Utility.Val(DGSalesGrid[2, i].Value.ToString());
+                //**********************
                 if ((dblClosingQTY) - dblCurrentQTY < 0)
                 {
-                    strNegetiveItem = strNegetiveItem + Environment.NewLine + strItemName + " (Voucher Qty: " + dblCurrentQTY + " Closing Qty : " + dblClosingQTY + ")";
-                    intCheckNegetive = 1;
-                    dblClosingQTY = 0;
-                    //    }
-                    //}
-                    dblClosingQTY = 0;
+                    if ((dblClosingQTY) - dblCurrentQTY < 0)
+                    {
+                        strNegetiveItem = strNegetiveItem + Environment.NewLine + strItemName + "Invoice No: " + strInvoiceNo + " (Voucher Qty: " + dblCurrentQTY + " Closing Qty : " + dblClosingQTY + ")";
+                        intCheckNegetive = 1;
+                        dblClosingQTY = 0;
+                        //    }
+                        //}
+                        dblClosingQTY = 0;
+                    }
                 }
             }
             if (intCheckNegetive > 0)
             {
                 MessageBox.Show("You have no valid quantity for Item: " + strNegetiveItem);
-                //DGSalesGrid.Focus();
                 return false;
             }
 
@@ -1603,8 +1702,38 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             uctxtTransport.Text = "";
             uctxtBoxQty.Text = "";
             uctxtCustomer.Text = "";
+            lblOrder.Text = "";
             DGSalesOrder.Rows.Clear();
-            uctxtPartyName.Focus();
+            m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+            if (mblnNumbMethod == true)
+            {
+                uctxtChallanNo.Text = Utility.gstrLastNumber(strComID, intVtype);
+                uctxtChallanNo.ReadOnly = true;
+                uctxtBranchName.Focus();
+                uctxtBranchName.Select();
+            }
+            else
+            {
+                RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\SmartAccounts");
+                if (intVtype == (int)Utility.VOUCHER_TYPE.vtSALES_CHALLAN)
+                {
+                    uctxtChallanNo.Text = "";
+                    //uctxtChallanNo.Text = Interaction.GetSetting(Application.ExecutablePath, "frmSalesChallan", "VoucherNoSC");
+                    uctxtChallanNo.AppendText((String)rk.GetValue("VoucherNoSC", ""));
+                    rk.Close();
+                }
+                else
+                {
+                    uctxtChallanNo.Text = "";
+                    uctxtChallanNo.AppendText((String)rk.GetValue("VoucherNoPR", ""));
+                    rk.Close();
+                }
+                uctxtChallanNo.Text = Utility.gobjNextNumber(uctxtChallanNo.Text);
+                uctxtChallanNo.ReadOnly = false;
+                uctxtBranchName.Focus();
+                uctxtBranchName.Select();
+            }
+            //uctxtPartyName.Focus();
         }
         #endregion
         #region "Click"
@@ -1819,18 +1948,23 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
         private void btnRightAll_Click(object sender, EventArgs e)
         {
-
+            int intloop = 0;
             string strBillKey = "", strRefNo, strDate;
             DGSalesOrder.Rows.Clear();
             for (int i = 0; i < lstRefTypeNew.Rows.Count; i++)
             {
-
+                //if (DGSalesOrder.Rows.Count >20)
+                //{
+                //    lblOrder.Text = "Total: " + DGSalesOrder.Rows.Count.ToString();
+                //    return;
+                //}
                 strBillKey = lstRefTypeNew.Rows[i].Cells[0].Value.ToString();
                 strRefNo = lstRefTypeNew.Rows[i].Cells[1].Value.ToString();
                 strDate = lstRefTypeNew.Rows[i].Cells[2].Value.ToString();
                 DisplayReferanceNew(strBillKey, strRefNo, strDate, DGSalesOrder);
-
+                intloop += 1;
             }
+            lblOrder.Text = "Total: " + DGSalesOrder.Rows.Count.ToString();
             lstRefTypeNew.Rows.Clear();
 
         }
@@ -1850,6 +1984,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             }
             lstRefTypeNew.AllowUserToAddRows = false;
             DGSalesOrder.Rows.Clear();
+            lblOrder.Text = "Total: " + 0;
         }
 
         private void btnRightSingle_Click(object sender, EventArgs e)
@@ -1862,12 +1997,18 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             {
                 i = Convert.ToInt16(row.Index);
             }
+            //if (DGSalesOrder.Rows.Count>20)
+            //{
+            //    lblOrder.Text = "Total: " + DGSalesOrder.Rows.Count;
+            //    return;
+            //}
             strBillKey = lstRefTypeNew.Rows[i].Cells[0].Value.ToString();
             strRefNo = lstRefTypeNew.Rows[i].Cells[1].Value.ToString();
             strDate = lstRefTypeNew.Rows[i].Cells[2].Value.ToString();
             DisplayReferanceNew(strBillKey, strRefNo, strDate, DGSalesOrder);
-
             lstRefTypeNew.Rows.RemoveAt(i);
+            lblOrder.Text = "Total: " + DGSalesOrder.Rows.Count;
+           
 
         }
 
@@ -1875,17 +2016,25 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         {
             string strBillKey = "", strRefNo, strDate;
             int i = 0;
-            foreach (DataGridViewRow row in DGSalesOrder.SelectedRows)
+            try
             {
-                i = Convert.ToInt16(row.Index);
-            }
-            strBillKey = DGSalesOrder.Rows[i].Cells[0].Value.ToString();
-            strRefNo = DGSalesOrder.Rows[i].Cells[1].Value.ToString();
-            strDate = DGSalesOrder.Rows[i].Cells[2].Value.ToString();
-            DisplayReferanceNew(strBillKey, strRefNo, strDate, lstRefTypeNew);
+                foreach (DataGridViewRow row in DGSalesOrder.SelectedRows)
+                {
+                    i = Convert.ToInt16(row.Index);
+                }
+                strBillKey = DGSalesOrder.Rows[i].Cells[0].Value.ToString();
+                strRefNo = DGSalesOrder.Rows[i].Cells[1].Value.ToString();
+                strDate = DGSalesOrder.Rows[i].Cells[2].Value.ToString();
+                DisplayReferanceNew(strBillKey, strRefNo, strDate, lstRefTypeNew);
 
-            DGSalesOrder.Rows.RemoveAt(i);
-            lstRefTypeNew.AllowUserToAddRows = false;
+                DGSalesOrder.Rows.RemoveAt(i);
+                lblOrder.Text = "Total: " + DGSalesOrder.Rows.Count;
+                lstRefTypeNew.AllowUserToAddRows = false;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1893,12 +2042,11 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
 
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string strSQL = "", strRefNumber = "", strBillKey = "", strAgnstRefNo = "", strRefNo = "", strUOM = "";
+            string strSQL = "", strRefNumber = "", strBillKey = "", strUOM = "", strMySQL = "";
             double dblCostPrice = 0, dblBonusQty = 0, dblTotalCost = 1, dblNetAmnout = 0, dbbILLAmnout = 0, dblProcessAmnt = 0;
-            long lngloop = 1, lngAgstRef = 0;
+            long lngloop = 1, lngAgstRef = 0,intInsertLoop=0;
             lngAgstRef = gobjVoucherName.VoucherName.GetVoucherType(uctxtRefType.Text);
             string strBarchID = Utility.gstrGetBranchID(strComID, uctxtBranchName.Text);
             SqlCommand cmdInsert = new SqlCommand();
@@ -1906,182 +2054,245 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             DataTable dt = new DataTable();
             DataSet ds = new DataSet();
             SqlTransaction myTrans;
-
-            string connstring = Utility.SQLConnstringComSwitch(strComID);
-            using (SqlConnection gcnMain = new SqlConnection(connstring))
+            int introw = 0;
+            if (uctxtChallanNo.Text == "")
             {
-                if (gcnMain.State == ConnectionState.Open)
+                MessageBox.Show("Cannot be empty");
+                uctxtChallanNo.Focus();
+                return;
+            }
+            if (uctxtBranchName.Text == "")
+            {
+                MessageBox.Show("Cannot be empty");
+                uctxtBranchName.Focus();
+                return;
+            }
+            if (uctxtLocation.Text == "")
+            {
+                MessageBox.Show("Cannot be empty");
+                uctxtLocation.Focus();
+                return;
+            }
+            if (DGSalesOrder.Rows.Count < 1)
+            {
+                MessageBox.Show("Cannot be empty");
+                DGSalesOrder.Focus();
+                return;
+            }
+            //if (DGSalesOrder.Rows.Count > 20)
+            //{
+            //    MessageBox.Show("Invoice Should be Less than 20 ");
+            //    DGSalesOrder.Focus();
+            //    return;
+            //}
+            string strLockvoucher = Utility.gLockVocher(strComID, intVtype);
+            long lngDate = Convert.ToInt64(dteDate.Value.ToString("yyyyMMdd"));
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
                 {
-                    gcnMain.Close();
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return;
                 }
-                gcnMain.Open();
-                lngloop = 1;
-                progressBar1.Refresh();
-                progressBar1.Value = 0;
-                progressBar1.Maximum = DGSalesOrder.Rows.Count;
-                try
+            }
+            var strResponseInsert = MessageBox.Show("Do You  want to Save?", "Save Button", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (strResponseInsert == DialogResult.Yes)
+            {
+                string connstring = Utility.SQLConnstringComSwitch(strComID);
+                using (SqlConnection gcnMain = new SqlConnection(connstring))
                 {
-                    for (int introw = 0; introw < DGSalesOrder.Rows.Count; introw++)
+                    if (gcnMain.State == ConnectionState.Open)
                     {
-                        if (DGSalesOrder[0, introw].Value != null)
+                        gcnMain.Close();
+                    }
+                    gcnMain.Open();
+                    cmdInsert.Connection = gcnMain;
+                    lngloop = 1;
+                    progressBar1.Refresh();
+                    progressBar1.Value = 0;
+                    progressBar1.Maximum = DGSalesOrder.Rows.Count;
+                    try
+                    {
+
+                        for (introw = 0; introw < DGSalesOrder.Rows.Count; introw++)
                         {
-                            if (uctxtRefType.Text == "Sample Class")
-                            {
-                                uctxtNarration.Text = DGSalesOrder[0, introw].Value.ToString();
-                            }
-                            else
-                            {
-                                uctxtNarration.Text = "";
-                            }
-                            lngAgstRef = gobjVoucherName.VoucherName.GetVoucherType(uctxtRefType.Text);
-                            strBarchID = Utility.gstrGetBranchID(strComID, uctxtBranchName.Text);
-
-                            cmdInsert.Connection = gcnMain;
-                            strSQL = "SELECT ISNULL(SUM(BILL_AMOUNT),0) AMNT,ISNULL(SUM(BILL_NET_AMOUNT ),0) NETAMNT,ISNULL(SUM(BILL_ADD_LESS_AMOUNT ),0) Addlessamnt ";
-                            strSQL = strSQL + "FROM ACC_BILL_TRAN_PENDING_QRY ";
-                            strSQL = strSQL + "WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
-                            cmdInsert.CommandText = strSQL;
-                            dr = cmdInsert.ExecuteReader();
-                            if (dr.Read())
-                            {
-                                dbbILLAmnout = Math.Round(Utility.Val(dr["AMNT"].ToString()), 0);
-                                dblNetAmnout = Math.Round(Utility.Val(dr["NETAMNT"].ToString()), 0);
-                                dblProcessAmnt = Math.Abs(Math.Round(Utility.Val(dr["Addlessamnt"].ToString()), 0));
-                            }
-
-                            dr.Close();
-
-
+                            //strSQL = "INSERT INTO INV_SALES_CHALLAN(STOCKITEM_NAME,CHALLAN_NO,CHALLAN_DATE,AGNST_REF_NO,BILL_QTY,BILL_AMOUNT,BILL_BONUS_QTY,BILL_NET_AMOUNT,NARRATION) ";
+                            //strSQL = strSQL + "SELECT STOCKITEM_NAME,'SC" + strBarchID + uctxtChallanNo.Text + "'  ,COMP_VOUCHER_DATE,COMP_REF_NO,BILL_QUANTITY,BILL_AMOUNT,BILL_QUANTITY_BONUS,BILL_NET_AMOUNT,'"+ uctxtNarration.Text.Replace("'","''") + "' ";
+                            //strSQL = strSQL + "FROM ACC_BILL_TRAN_PENDING_QRY WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
+                            //cmdInsert.CommandText = strSQL;
+                            //cmdInsert.ExecuteNonQuery();
+                            //    lngloop += 1;
+                            //}
+                            intInsertLoop += 1;
+                            List<AccBillwise> OBJbILL = new List<AccBillwise>();
                             if (lngAgstRef != (long)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS)
                             {
-                                strSQL = "SELECT BILL_TRAN_KEY,STOCKGROUP_NAME,STOCKITEM_NAME,GODOWNS_NAME,BILL_BALANCE_QTY,";
-                                strSQL = strSQL + "BILL_UOM,BILL_PER,BILL_RATE,BILL_NET_AMOUNT,BILL_AMOUNT,INV_LOG_NO,BILL_QUANTITY_BONUS,BILL_ADD_LESS_AMOUNT ";
+                                strSQL = "SELECT COMP_REF_NO,STOCKITEM_NAME,BILL_BALANCE_QTY,";
+                                strSQL = strSQL + "BILL_UOM,BILL_RATE,BILL_NET_AMOUNT,BILL_AMOUNT ";
                                 strSQL = strSQL + "FROM ACC_BILL_TRAN_PENDING_QRY ";
                                 strSQL = strSQL + "WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
                             }
                             else
                             {
-                                strSQL = "SELECT '' as BILL_TRAN_KEY,'' STOCKGROUP_NAME,STOCKITEM_NAME,'' AS GODOWNS_NAME,SAM_CLASS_QUANTITY AS BILL_BALANCE_QTY,";
-                                strSQL = strSQL + "SAM_CLASS_UOM AS BILL_UOM,SAM_CLASS_UOM AS BILL_PER,0 AS BILL_RATE,0 as BILL_NET_AMOUNT,0 BILL_AMOUNT,'' as INV_LOG_NO ";
-                                strSQL = strSQL + ",0 BILL_QUANTITY_BONUS,0 BILL_ADD_LESS_AMOUNT FROM ACC_SAMPLE_CLASS_TRAN ";
+                                strSQL = "SELECT SAMPLE_CLASS COMP_REF_NO,STOCKITEM_NAME,SAM_CLASS_QUANTITY AS BILL_BALANCE_QTY,";
+                                strSQL = strSQL + "SAM_CLASS_UOM AS BILL_UOM,0 AS BILL_RATE,0 as BILL_NET_AMOUNT,0 BILL_AMOUNT ";
+                                strSQL = strSQL + " FROM ACC_SAMPLE_CLASS_TRAN ";
                                 strSQL = strSQL + "WHERE SAMPLE_CLASS = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
                             }
-
-                            SqlDataAdapter da = new SqlDataAdapter(strSQL, gcnMain);
-                            da.Fill(ds);
-                            dt = ds.Tables[0];
-                            if (dt.Rows.Count > 0)
+                            cmdInsert.CommandText = strSQL;
+                            dr = cmdInsert.ExecuteReader();
+                            while (dr.Read())
                             {
-
-                                foreach (DataRow row in dt.Rows)
+                                AccBillwise ooBill = new AccBillwise();
+                                ooBill.strRefNo = dr["COMP_REF_NO"].ToString();
+                                ooBill.strStockItemName = dr["STOCKITEM_NAME"].ToString();
+                                ooBill.dblQnty = Utility.Val(dr["BILL_BALANCE_QTY"].ToString());
+                                ooBill.strPer = dr["BILL_UOM"].ToString();
+                                ooBill.dblRate = Utility.Val(dr["BILL_RATE"].ToString());
+                                ooBill.dblBillNetAmount = Utility.Val(dr["BILL_NET_AMOUNT"].ToString());
+                                ooBill.dblAmount = Utility.Val(dr["BILL_AMOUNT"].ToString());
+                                OBJbILL.Add(ooBill);
+                            }
+                            dr.Close();
+                            if (OBJbILL.Count > 0)
+                            {
+                                myTrans = gcnMain.BeginTransaction();
+                                cmdInsert.Transaction = myTrans;
+                                if (intInsertLoop == 1)
                                 {
-                                    if (ValidateFields(row["STOCKITEM_NAME"].ToString().Replace("'", "''")) == false)
+                                    if (mblnNumbMethod == false)
                                     {
-                                        progressBar1.Refresh();
-                                        progressBar1.Value = 0;
-                                        return;
-                                    }
-
-                                    //intVtype = 15;
-
-                                    strSQL = "SELECT ISNULL(SUM(INV_TRAN_QUANTITY),0) AS QTY,ISNULL(SUM(INV_TRAN_AMOUNT),0) AS AMT FROM INV_STOCKITEM_TRAN_QRY ";
-                                    strSQL = strSQL + "WHERE (INV_INOUT_FLAG IS NULL OR INV_INOUT_FLAG = 'I') ";
-                                    strSQL = strSQL + "AND STOCKITEM_NAME = '" + row["STOCKITEM_NAME"].ToString().Replace("'", "''") + "' ";
-                                    strSQL = strSQL + "AND INV_DATE <= " + Utility.cvtSQLDateString(dteDate.Text) + " ";
-                                    cmdInsert.CommandText = strSQL;
-                                    dr = cmdInsert.ExecuteReader();
-                                    if (dr.Read())
-                                    {
-                                        if (Utility.Val(dr["QTY"].ToString()) > 0)
-                                        {
-                                            dblCostPrice = Math.Round(Utility.Val(dr["AMT"].ToString()) / Utility.Val(dr["QTY"].ToString()), 2);
-                                        }
+                                        strRefNumber = gobjVoucherName.VoucherName.GetVoucherString(intVtype) + strBarchID + uctxtChallanNo.Text;
                                     }
                                     else
                                     {
-                                        dblCostPrice = 0;
+                                        strRefNumber = gobjVoucherName.VoucherName.GetVoucherString(intVtype) + strBarchID + Utility.gstrLastNumber(strComID, intVtype);
                                     }
-                                    dr.Close();
+                                    strSQL = VoucherSW.gInsertCompanyVoucherNew(strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, dteDate.Value.ToString("MMMyy"), dteDuedate.Text, uctxtTeritoryCode.Text,
+                                                                                    dbbILLAmnout, dblNetAmnout, 0, 0, lngAgstRef, Utility.gCheckNull(uctxtNarration.Text),
+                                                                                            strBarchID, 0, "", uctxtCustomer.Text, "", "", "", "", uctxtTrNo.Text, "", "", "", "", uctxtDesignation.Text,
+                                                                                            uctxtTransport.Text, Utility.Val(uctxtcrtQty.Text), Utility.Val(uctxtBoxQty.Text), dblProcessAmnt);
+                                    cmdInsert.CommandText = strSQL;
+                                    cmdInsert.ExecuteNonQuery();
 
+                                    strSQL = VoucherSW.gInteractInvInsertMaster(uctxtTeritoryCode.Text, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, strBarchID,
+                                                                                    Utility.gCheckNull(uctxtNarration.Text));
+                                    cmdInsert.CommandText = strSQL;
+                                    cmdInsert.ExecuteNonQuery();
 
-                                    strUOM = Utility.gGetBaseUOM(strComID, row["STOCKITEM_NAME"].ToString().Replace("'", "''"));
-                                    strSQL = "";
-
-
-                                    strAgnstRefNo = Utility.gstrGetBillKey(strComID, DGSalesOrder[1, introw].Value.ToString(), row["STOCKITEM_NAME"].ToString().Replace("'", "''"));
-                                    strRefNo = DGSalesOrder[0, introw].Value.ToString();
-                                    dblBonusQty = Utility.Val(row["BILL_QUANTITY_BONUS"].ToString());
-
-
-
-                                    myTrans = gcnMain.BeginTransaction();
-                                    cmdInsert.Connection = gcnMain;
-                                    cmdInsert.Transaction = myTrans;
-
-                                    if (lngloop == 1)
+                                    if (mblnNumbMethod == true)
                                     {
-                                        if (mblnNumbMethod == false)
+                                        strSQL = VoucherSW.gIncreaseVoucher((int)intVtype);
+                                        cmdInsert.CommandText = strSQL;
+                                        cmdInsert.ExecuteNonQuery();
+                                    }
+                                }
+
+
+
+                                foreach (AccBillwise row1 in OBJbILL)
+                                {
+                                    double dblClosingQTY = 0, dblCurrentQTY = 0;
+                                    //dblCurrentQTY = Utility.Val(row1["BILL_BALANCE_QTY"].ToString());
+                                    dblCurrentQTY = Utility.Val(row1.dblQnty.ToString());
+                                    if (uctxtRefType.Text == "Sample Class")
+                                    {
+                                        //dblClosingQTY = Utility.gdblClosingStockSales(strComID, strItemName, uctxtLocation.Text, dteDate.Text);
+                                        //dblClosingQTY = Utility.gdblClosingStockSales(strComID, row1.strStockItemName.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
+
+                                        strSQL = "SELECT ISNULL(sum(INV_TRAN_QUANTITY),0) AS CLOSING FROM INV_SALES_STAREMENTVIEW ";
+                                        strSQL = strSQL + "WHERE STOCKITEM_NAME = '" + row1.strStockItemName.ToString().Replace("'", "''") + "' ";
+                                        strSQL = strSQL + "AND BRANCH_ID = '" + lstBranchName.SelectedValue.ToString() + "' ";
+                                        strSQL = strSQL + "AND GODOWNS_NAME = '" + uctxtLocation.Text.Replace("'", "''") + "' ";
+                                        cmdInsert.CommandText = strSQL;
+                                        dr = cmdInsert.ExecuteReader();
+                                        if (dr.Read())
                                         {
-                                            strRefNumber = gobjVoucherName.VoucherName.GetVoucherString(intVtype) + strBarchID + uctxtChallanNo.Text;
+                                            dblClosingQTY = Convert.ToDouble(dr["CLOSING"]);
                                         }
                                         else
                                         {
-                                            strRefNumber = gobjVoucherName.VoucherName.GetVoucherString(intVtype) + strBarchID + Utility.gstrLastNumber(strComID, intVtype);
+                                            dblClosingQTY = 0;
                                         }
-                                        strSQL = VoucherSW.gInsertCompanyVoucherNew(strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, dteDate.Value.ToString("MMMyy"), dteDuedate.Text, uctxtTeritoryCode.Text,
-                                                                                        dbbILLAmnout, dblNetAmnout, 0, 0, lngAgstRef, Utility.gCheckNull(uctxtNarration.Text),
-                                                                                                strBarchID, 0, "", uctxtCustomer.Text, "", "", "", "", uctxtTrNo.Text, "", "", "", "", uctxtDesignation.Text,
-                                                                                                uctxtTransport.Text, Utility.Val(uctxtcrtQty.Text), Utility.Val(uctxtBoxQty.Text), dblProcessAmnt);
+                                        dr.Close();
 
-                                        cmdInsert.CommandText = strSQL;
-                                        cmdInsert.ExecuteNonQuery();
-
-                                        strSQL = VoucherSW.gInteractInvInsertMaster(uctxtTeritoryCode.Text, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, strBarchID,
-                                                                                        Utility.gCheckNull(uctxtNarration.Text));
-                                        cmdInsert.CommandText = strSQL;
-                                        cmdInsert.ExecuteNonQuery();
                                     }
-                                    strBillKey = strRefNumber + lngloop.ToString().PadLeft(4, '0');
-
-                                    strSQL = VoucherSW.gInsertBillTran(strBillKey, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, row["STOCKITEM_NAME"].ToString(), uctxtLocation.Text, Utility.Val(row["BILL_BALANCE_QTY"].ToString()),
-                                                            dblBonusQty, strUOM, Math.Round(Utility.Val(row["BILL_RATE"].ToString()), 2),
-                                                           Math.Round(Utility.Val(row["BILL_NET_AMOUNT"].ToString()), 2), "",
-                                                                    0, Utility.Val(row["BILL_AMOUNT"].ToString()), "Cr", lngloop, strBarchID, Utility.gstrBaseCurrency,
-                                                                    strUOM, "", "", "", "", "", "", "", 0, 0);
-                                    cmdInsert.CommandText = strSQL;
-                                    cmdInsert.ExecuteNonQuery();
-
-                                    strSQL = VoucherSW.gInsertBillTranProcess(strBillKey, strBarchID, lngloop, strRefNumber, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text,
-                                                                    row["STOCKITEM_NAME"].ToString(), uctxtLocation.Text, Utility.Val(row["BILL_BALANCE_QTY"].ToString()),
-                                                                    strUOM, strAgnstRefNo, 0, 0, strUOM);
-                                    cmdInsert.CommandText = strSQL;
-                                    cmdInsert.ExecuteNonQuery();
-
-                                    if (lngAgstRef == (long)Utility.VOUCHER_TYPE.vtSALES_INVOICE)
+                                    else
                                     {
-                                        strSQL = VoucherSW.gInsertBillTranProcess(strBillKey, strBarchID, lngloop, strRefNumber, strRefNo, lngAgstRef, dteDate.Text,
-                                                                                row["STOCKITEM_NAME"].ToString(), uctxtLocation.Text, Utility.Val(row["BILL_BALANCE_QTY"].ToString()) * -1,
-                                                                                strUOM, strAgnstRefNo, 0, 0, strUOM);
+                                        //dblClosingQTY = Utility.gdblClosingStock(strComID, row1.strStockItemName.ToString(), uctxtLocation.Text, dteDate.Text);
+
+                                        strSQL = "SELECT ISNULL((SUM(INWARD_QUANTITY)-abs(sum(OUTWARD_QUANTITY))),0) AS CLOSING FROM INV_TRAN ";
+                                        strSQL = strSQL + "WHERE STOCKITEM_NAME = '" + row1.strStockItemName.ToString().Replace("'", "''") + "' ";
+                                        strSQL = strSQL + "AND GODOWNS_NAME = '" + uctxtLocation.Text + "' ";
+                                        strSQL = strSQL + "AND INV_DATE <= " + Utility.cvtSQLDateString(dteDate.Text) + " ";
+                                        strSQL = strSQL + "Union All ";
+                                        strSQL = strSQL + "SELECT ISNULL(SUM(INV_TRAN_QUANTITY),0) AS CLOSING FROM INV_TRAN ";
+                                        strSQL = strSQL + "WHERE STOCKITEM_NAME = '" + row1.strStockItemName.ToString().Replace("'", "''") + "' ";
+                                        strSQL = strSQL + "AND GODOWNS_NAME = '" + uctxtLocation.Text + "' ";
+                                        strSQL = strSQL + "AND INV_DATE <= " + Utility.cvtSQLDateString(dteDate.Text) + " ";
+                                        strSQL = strSQL + "AND INV_VOUCHER_TYPE=0 ";
+                                        cmdInsert.CommandText = strSQL;
+                                        dr = cmdInsert.ExecuteReader();
+                                        while (dr.Read())
+                                        {
+                                            dblClosingQTY = dblClosingQTY + Convert.ToDouble(dr["CLOSING"]);
+
+                                        }
+                                        dr.Close();
+
+                                    }
+                                    dr.Close();
+
+                                    if ((dblClosingQTY) - dblCurrentQTY < 0)
+                                    {
+                                        lblNegetive.Text = "You have no valid quantity for Item: " + row1.strStockItemName.ToString();
+                                        lngloop += 1;
+                                        strBillKey = strRefNumber + lngloop.ToString().PadLeft(4, '0');
+                                        strSQL =  VoucherSW.gInsertBillTran(strBillKey, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, row1.strStockItemName.ToString(), uctxtLocation.Text, Utility.Val(row1.dblQnty.ToString()),
+                                                                dblBonusQty, strUOM, Math.Round(Utility.Val(row1.dblRate.ToString()), 2),
+                                                               Math.Round(Utility.Val(row1.dblBillNetAmount.ToString()), 2), "",
+                                                                        0, Utility.Val(row1.dblAmount.ToString()), "Cr", lngloop, strBarchID, Utility.gstrBaseCurrency,
+                                                                        strUOM, "", "", "", "", "", "", "", 0, 0) + ";";
+
                                         cmdInsert.CommandText = strSQL;
                                         cmdInsert.ExecuteNonQuery();
-                                        strSQL = VoucherSW.gInventoryInsertTranSalesChallan(strRefNumber, strBillKey, lngloop, Math.Round(Utility.Val(row["BILL_BALANCE_QTY"].ToString()), 2), -1, lngAgstRef,
-                                                                                            row["STOCKITEM_NAME"].ToString(), uctxtLocation.Text,
-                                                                                    "O", Utility.Val(row["BILL_BALANCE_QTY"].ToString()) * -1, dblBonusQty * -1, dblCostPrice, Convert.ToInt64(intVtype), dteDate.Text,
-                                                                                    strBarchID, "", 0, strUOM, strUOM);
+                                    }
+                                    else
+                                    {
+                                        lngloop += 1;
+                                        strBillKey = strRefNumber + lngloop.ToString().PadLeft(4, '0');
+                                        strSQL = VoucherSW.gInsertBillTran(strBillKey, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, row1.strStockItemName.ToString(), uctxtLocation.Text, Utility.Val(row1.dblQnty.ToString()),
+                                                                dblBonusQty, strUOM, Math.Round(Utility.Val(row1.dblRate.ToString()), 2),
+                                                               Math.Round(Utility.Val(row1.dblBillNetAmount.ToString()), 2), "",
+                                                                        0, Utility.Val(row1.dblAmount.ToString()), "Cr", lngloop, strBarchID, Utility.gstrBaseCurrency,
+                                                                        strUOM, "", "", "", "", "", "", "", 0, 0);
                                         cmdInsert.CommandText = strSQL;
                                         cmdInsert.ExecuteNonQuery();
+
+                                        if (lngAgstRef == (long)Utility.VOUCHER_TYPE.vtSALES_INVOICE)
+                                        {
+                                            strSQL = VoucherSW.gInventoryInsertTranSalesChallan(strRefNumber, strBillKey, lngloop, Math.Round(Utility.Val(row1.dblRate.ToString()), 2), -1, lngAgstRef,
+                                                                                                row1.strStockItemName, uctxtLocation.Text,
+                                                                                        "O", Utility.Val(row1.dblQnty.ToString()) * -1, dblBonusQty * -1, dblCostPrice, Convert.ToInt64(intVtype), dteDate.Text,
+                                                                                        strBarchID, "", 0, strUOM, strUOM);
+                                            cmdInsert.CommandText = strSQL;
+                                            cmdInsert.ExecuteNonQuery();
+                                        }
+
+                                        else if (lngAgstRef == (long)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS)
+                                        {
+                                            strSQL = VoucherSW.gInventoryInsertTranSalesChallanClass(strRefNumber, strBillKey, lngloop, Math.Round(Utility.Val(row1.dblRate.ToString()), 2), -1 * dblTotalCost,
+                                                                                                    lngAgstRef, row1.strStockItemName.ToString(), uctxtLocation.Text,
+                                                                                                    "O", Utility.Val(row1.dblQnty.ToString()) * -1, dblBonusQty * -1, dblCostPrice, Convert.ToInt64(intVtype),
+                                                                                                    dteDate.Text, strBarchID, "", 0,
+                                                                                                    strUOM, strUOM);
+                                            cmdInsert.CommandText = strSQL;
+                                            cmdInsert.ExecuteNonQuery();
+                                        }
+                                       
                                     }
 
-                                    else if (lngAgstRef == (long)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS)
-                                    {
-                                        strSQL = VoucherSW.gInventoryInsertTranSalesChallanClass(strRefNumber, strBillKey, lngloop, Math.Round(Utility.Val(row["BILL_RATE"].ToString()), 2), -1 * dblTotalCost,
-                                                                                                lngAgstRef, row["STOCKITEM_NAME"].ToString(), uctxtLocation.Text,
-                                                                                                "O", Utility.Val(row["BILL_BALANCE_QTY"].ToString()) * -1, dblBonusQty * -1, dblCostPrice, Convert.ToInt64(intVtype),
-                                                                                                dteDate.Text, strBarchID, "", 0,
-                                                                                                strUOM, strUOM);
-                                        cmdInsert.CommandText = strSQL;
-                                        cmdInsert.ExecuteNonQuery();
-                                    }
                                     if (uctxtRefType.Text != "Sample Class")
                                     {
                                         strSQL = "INSERT INTO ACC_VOUCHER_JOIN(VOUCHER_JOIN_PRIMARY_REF,VOUCHER_JOIN_FOREIGN_REF,BRANCH_ID) ";
@@ -2095,29 +2306,358 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                                     strSQL = strSQL + "WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "'";
                                     cmdInsert.CommandText = strSQL;
                                     cmdInsert.ExecuteNonQuery();
-                                    cmdInsert.Transaction.Commit();
-                                    lngloop += 1;
+
 
                                 }
-
+                                progressBar1.Value += 1;
+                                if (Utility.gblnAccessControl)
+                                {
+                                    string strAudit = Utility.gblnAuditTrail(Utility.gstrUserName, dteDate.Text, "Sales Challan", uctxtChallanNo.Text,
+                                                                            1, 0, (int)Utility.MODULE_TYPE.mtSALES, strBarchID);
+                                }
+                               
+                                cmdInsert.Transaction.Commit();
+                                cmdInsert.Dispose();
+                                strSQL = "";
+                                strMySQL = "";
+                                OBJbILL.Clear();
                             }
 
 
-
                         }
-                        progressBar1.Refresh();
-                        progressBar1.Value += 1;
+
+                        cmdInsert.Dispose();
+                        gcnMain.Close();
+                        strMySQL = "";
+                        strSQL = "";
+                        mClear();
+                        uctxtPartyName.Focus();
+                        MessageBox.Show("Process Generate Successfully..");
                     }
-                    mClear();
-                    MessageBox.Show("Process Generate Successfully..");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
+                    catch (Exception EX)
+                    {
+                        MessageBox.Show(EX.ToString());
+                    }
+
+
+
                 }
 
             }
         }
+        #region "Save Comment"
+        //private void btnSave_Click(object sender, EventArgs e)
+        //{
+        //    string strSQL = "", strRefNumber = "", strBillKey = "", strAgnstRefNo = "", strRefNo = "", strUOM = "";
+        //    double dblCostPrice = 0, dblBonusQty = 0, dblTotalCost = 1, dblNetAmnout = 0, dbbILLAmnout = 0, dblProcessAmnt = 0;
+        //    long lngloop = 1, lngAgstRef = 0;
+        //    lngAgstRef = gobjVoucherName.VoucherName.GetVoucherType(uctxtRefType.Text);
+        //    string strBarchID = Utility.gstrGetBranchID(strComID, uctxtBranchName.Text);
+        //    SqlCommand cmdInsert = new SqlCommand();
+        //    SqlDataReader dr;
+        //    DataTable dt = new DataTable();
+        //    DataSet ds = new DataSet();
+        //    SqlTransaction myTrans;
+        //    int introw = 0;
+        //    if (uctxtChallanNo.Text == "")
+        //    {
+        //        MessageBox.Show("Cannot be empty");
+        //        uctxtChallanNo.Focus();
+        //        return;
+        //    }
+        //    if (uctxtBranchName.Text == "")
+        //    {
+        //        MessageBox.Show("Cannot be empty");
+        //        uctxtBranchName.Focus();
+        //        return;
+        //    }
+        //    if (uctxtLocation.Text == "")
+        //    {
+        //        MessageBox.Show("Cannot be empty");
+        //        uctxtLocation.Focus();
+        //        return;
+        //    }
+        //    if (DGSalesOrder.Rows.Count < 1)
+        //    {
+        //        MessageBox.Show("Cannot be empty");
+        //        DGSalesOrder.Focus();
+        //        return;
+        //    }
+        //    string strLockvoucher = Utility.gLockVocher(strComID, intVtype);
+        //    long lngDate = Convert.ToInt64(dteDate.Value.ToString("yyyyMMdd"));
+        //    if (strLockvoucher != "")
+        //    {
+        //        long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+        //        if (lngDate <= lngBackdate)
+        //        {
+        //            MessageBox.Show("Invalid Date, Back Date is locked");
+        //            return;
+        //        }
+        //    }
+        //    var strResponseInsert = MessageBox.Show("Do You  want to Save?", "Save Button", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        //    if (strResponseInsert == DialogResult.Yes)
+        //    {
+        //        string connstring = Utility.SQLConnstringComSwitch(strComID);
+        //        using (SqlConnection gcnMain = new SqlConnection(connstring))
+        //        {
+        //            if (gcnMain.State == ConnectionState.Open)
+        //            {
+        //                gcnMain.Close();
+        //            }
+        //            gcnMain.Open();
+        //            cmdInsert.Connection = gcnMain;
+        //            lngloop = 1;
+        //            progressBar1.Refresh();
+        //            progressBar1.Value = 0;
+        //            progressBar1.Maximum = DGSalesOrder.Rows.Count;
+        //            try
+        //            {
+        //                for (introw = 0; introw < DGSalesOrder.Rows.Count; introw++)
+        //                {
+        //                    //strSQL = "INSERT INTO INV_SALES_CHALLAN(STOCKITEM_NAME,CHALLAN_NO,CHALLAN_DATE,AGNST_REF_NO,BILL_QTY,BILL_AMOUNT,BILL_BONUS_QTY,BILL_NET_AMOUNT,NARRATION) ";
+        //                    //strSQL = strSQL + "SELECT STOCKITEM_NAME,'SC" + strBarchID + uctxtChallanNo.Text + "'  ,COMP_VOUCHER_DATE,COMP_REF_NO,BILL_QUANTITY,BILL_AMOUNT,BILL_QUANTITY_BONUS,BILL_NET_AMOUNT,'"+ uctxtNarration.Text.Replace("'","''") + "' ";
+        //                    //strSQL = strSQL + "FROM ACC_BILL_TRAN_PENDING_QRY WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
+        //                    //cmdInsert.CommandText = strSQL;
+        //                    //cmdInsert.ExecuteNonQuery();
+
+
+        //                    if (lngAgstRef != (long)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS)
+        //                    {
+        //                        strSQL = "SELECT COMP_REF_NO,BILL_TRAN_KEY,STOCKGROUP_NAME,STOCKITEM_NAME,GODOWNS_NAME,BILL_BALANCE_QTY,";
+        //                        strSQL = strSQL + "BILL_UOM,BILL_PER,BILL_RATE,BILL_NET_AMOUNT,BILL_AMOUNT,INV_LOG_NO,BILL_QUANTITY_BONUS,BILL_ADD_LESS_AMOUNT ";
+        //                        strSQL = strSQL + "FROM ACC_BILL_TRAN_PENDING_QRY ";
+        //                        strSQL = strSQL + "WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
+        //                    }
+        //                    else
+        //                    {
+        //                        strSQL = "SELECT SAMPLE_CLASS COMP_REF_NO,'' as BILL_TRAN_KEY,'' STOCKGROUP_NAME,STOCKITEM_NAME,'' AS GODOWNS_NAME,SAM_CLASS_QUANTITY AS BILL_BALANCE_QTY,";
+        //                        strSQL = strSQL + "SAM_CLASS_UOM AS BILL_UOM,SAM_CLASS_UOM AS BILL_PER,0 AS BILL_RATE,0 as BILL_NET_AMOUNT,0 BILL_AMOUNT,'' as INV_LOG_NO ";
+        //                        strSQL = strSQL + ",0 BILL_QUANTITY_BONUS,0 BILL_ADD_LESS_AMOUNT FROM ACC_SAMPLE_CLASS_TRAN ";
+        //                        strSQL = strSQL + "WHERE SAMPLE_CLASS = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
+        //                    }
+
+        //                    SqlDataAdapter da = new SqlDataAdapter(strSQL, gcnMain);
+        //                    da.Fill(ds);
+        //                    dt = ds.Tables[0];
+        //                    foreach (DataRow row1 in dt.Rows)
+        //                    {
+        //                        double dblClosingQTY = 0, dblCurrentQTY = 0;
+        //                        dblCurrentQTY = Utility.Val(row1["BILL_BALANCE_QTY"].ToString());
+        //                        if (uctxtRefType.Text == "Sample Class")
+        //                        {
+        //                            //dblClosingQTY = Utility.gdblClosingStockSales(strComID, strItemName, uctxtLocation.Text, dteDate.Text);
+        //                            dblClosingQTY = Utility.gdblClosingStockSales(strComID, row1["STOCKITEM_NAME"].ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
+        //                        }
+        //                        else
+        //                        {
+        //                            dblClosingQTY = Utility.gdblClosingStock(strComID, row1["STOCKITEM_NAME"].ToString(), uctxtLocation.Text, dteDate.Text);
+        //                        }
+        //                        //**********************
+
+
+
+
+        //                        //if (ValidateFields(row1["STOCKITEM_NAME"].ToString().Replace("'", "''"), row1["COMP_REF_NO"].ToString(), Utility.Val(row1["BILL_BALANCE_QTY"].ToString())) == false)
+
+        //                        if ((dblClosingQTY) - dblCurrentQTY < 0)
+        //                        {
+        //                            lblNegetive.Text = "You have no valid quantity for Item: " + row1["STOCKITEM_NAME"].ToString();
+        //                            //progressBar1.Refresh();
+        //                            //progressBar1.Value = 0;
+        //                            //return;
+        //                            if (strBarchID == "0002")
+        //                            {
+        //                                strSQL = "UPDATE ACC_COMPANY_VOUCHER SET COMP_VOUCHER_STATUS = 1 ";
+        //                                strSQL = strSQL + "WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "'";
+        //                                cmdInsert.CommandText = strSQL;
+        //                                cmdInsert.ExecuteNonQuery();
+        //                            }
+        //                        }
+        //                        else
+        //                        {
+        //                            if (uctxtRefType.Text == "Sample Class")
+        //                            {
+        //                                uctxtNarration.Text = DGSalesOrder[0, introw].Value.ToString();
+        //                            }
+
+        //                            lngAgstRef = gobjVoucherName.VoucherName.GetVoucherType(uctxtRefType.Text);
+        //                            strBarchID = Utility.gstrGetBranchID(strComID, uctxtBranchName.Text);
+
+        //                            cmdInsert.Connection = gcnMain;
+        //                            strSQL = "SELECT ISNULL(SUM(BILL_AMOUNT),0) AMNT,ISNULL(SUM(BILL_NET_AMOUNT ),0) NETAMNT,ISNULL(SUM(BILL_ADD_LESS_AMOUNT ),0) Addlessamnt ";
+        //                            strSQL = strSQL + "FROM ACC_BILL_TRAN_PENDING_QRY ";
+        //                            strSQL = strSQL + "WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
+        //                            cmdInsert.CommandText = strSQL;
+        //                            dr = cmdInsert.ExecuteReader();
+        //                            if (dr.Read())
+        //                            {
+        //                                dbbILLAmnout = Math.Round(Utility.Val(dr["AMNT"].ToString()), 0);
+        //                                dblNetAmnout = Math.Round(Utility.Val(dr["NETAMNT"].ToString()), 0);
+        //                                dblProcessAmnt = Math.Abs(Math.Round(Utility.Val(dr["Addlessamnt"].ToString()), 0));
+        //                            }
+
+        //                            dr.Close();
+        //                            strSQL = "SELECT ISNULL(SUM(INV_TRAN_QUANTITY),0) AS QTY,ISNULL(SUM(INV_TRAN_AMOUNT),0) AS AMT FROM INV_STOCKITEM_TRAN_QRY ";
+        //                            strSQL = strSQL + "WHERE (INV_INOUT_FLAG IS NULL OR INV_INOUT_FLAG = 'I') ";
+        //                            strSQL = strSQL + "AND STOCKITEM_NAME = '" + row1["STOCKITEM_NAME"].ToString().Replace("'", "''") + "' ";
+        //                            strSQL = strSQL + "AND INV_DATE <= " + Utility.cvtSQLDateString(dteDate.Text) + " ";
+        //                            cmdInsert.CommandText = strSQL;
+        //                            dr = cmdInsert.ExecuteReader();
+        //                            if (dr.Read())
+        //                            {
+        //                                if (Utility.Val(dr["QTY"].ToString()) > 0)
+        //                                {
+        //                                    dblCostPrice = Math.Round(Utility.Val(dr["AMT"].ToString()) / Utility.Val(dr["QTY"].ToString()), 3);
+        //                                }
+        //                            }
+        //                            else
+        //                            {
+        //                                dblCostPrice = 0;
+        //                            }
+        //                            dr.Close();
+
+        //                            strUOM = Utility.gGetBaseUOM(strComID, row1["STOCKITEM_NAME"].ToString().Replace("'", "''"));
+        //                            strSQL = "";
+
+
+        //                            strAgnstRefNo = Utility.gstrGetBillKey(strComID, DGSalesOrder[1, introw].Value.ToString(), row1["STOCKITEM_NAME"].ToString().Replace("'", "''"));
+        //                            strRefNo = DGSalesOrder[0, introw].Value.ToString();
+        //                            dblBonusQty = Utility.Val(row1["BILL_QUANTITY_BONUS"].ToString());
+
+
+
+        //                            myTrans = gcnMain.BeginTransaction();
+        //                            cmdInsert.Connection = gcnMain;
+        //                            cmdInsert.Transaction = myTrans;
+
+        //                            if (lngloop == 1)
+        //                            {
+        //                                if (mblnNumbMethod == false)
+        //                                {
+        //                                    strRefNumber = gobjVoucherName.VoucherName.GetVoucherString(intVtype) + strBarchID + uctxtChallanNo.Text;
+        //                                }
+        //                                else
+        //                                {
+        //                                    strRefNumber = gobjVoucherName.VoucherName.GetVoucherString(intVtype) + strBarchID + Utility.gstrLastNumber(strComID, intVtype);
+        //                                }
+        //                                strSQL = VoucherSW.gInsertCompanyVoucherNew(strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, dteDate.Value.ToString("MMMyy"), dteDuedate.Text, uctxtTeritoryCode.Text,
+        //                                                                                dbbILLAmnout, dblNetAmnout, 0, 0, lngAgstRef, Utility.gCheckNull(uctxtNarration.Text),
+        //                                                                                        strBarchID, 0, "", uctxtCustomer.Text, "", "", "", "", uctxtTrNo.Text, "", "", "", "", uctxtDesignation.Text,
+        //                                                                                        uctxtTransport.Text, Utility.Val(uctxtcrtQty.Text), Utility.Val(uctxtBoxQty.Text), dblProcessAmnt);
+
+        //                                cmdInsert.CommandText = strSQL;
+        //                                cmdInsert.ExecuteNonQuery();
+
+        //                                strSQL = VoucherSW.gInteractInvInsertMaster(uctxtTeritoryCode.Text, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, strBarchID,
+        //                                                                                Utility.gCheckNull(uctxtNarration.Text));
+        //                                cmdInsert.CommandText = strSQL;
+        //                                cmdInsert.ExecuteNonQuery();
+        //                            }
+        //                            strBillKey = strRefNumber + lngloop.ToString().PadLeft(4, '0');
+
+        //                            strSQL = VoucherSW.gInsertBillTran(strBillKey, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, row1["STOCKITEM_NAME"].ToString(), uctxtLocation.Text, Utility.Val(row1["BILL_BALANCE_QTY"].ToString()),
+        //                                                    dblBonusQty, strUOM, Math.Round(Utility.Val(row1["BILL_RATE"].ToString()), 2),
+        //                                                   Math.Round(Utility.Val(row1["BILL_NET_AMOUNT"].ToString()), 2), "",
+        //                                                            0, Utility.Val(row1["BILL_AMOUNT"].ToString()), "Cr", lngloop, strBarchID, Utility.gstrBaseCurrency,
+        //                                                            strUOM, "", "", "", "", "", "", "", 0, 0);
+        //                            cmdInsert.CommandText = strSQL;
+        //                            cmdInsert.ExecuteNonQuery();
+
+        //                            strSQL = VoucherSW.gInsertBillTranProcess(strBillKey, strBarchID, lngloop, strRefNumber, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text,
+        //                                                            row1["STOCKITEM_NAME"].ToString(), uctxtLocation.Text, Utility.Val(row1["BILL_BALANCE_QTY"].ToString()),
+        //                                                            strUOM, strAgnstRefNo, 0, 0, strUOM);
+        //                            cmdInsert.CommandText = strSQL;
+        //                            cmdInsert.ExecuteNonQuery();
+
+        //                            if (lngAgstRef == (long)Utility.VOUCHER_TYPE.vtSALES_INVOICE)
+        //                            {
+        //                                strSQL = VoucherSW.gInsertBillTranProcess(strBillKey, strBarchID, lngloop, strRefNumber, strRefNo, lngAgstRef, dteDate.Text,
+        //                                                                        row1["STOCKITEM_NAME"].ToString(), uctxtLocation.Text, Utility.Val(row1["BILL_BALANCE_QTY"].ToString()) * -1,
+        //                                                                        strUOM, strAgnstRefNo, 0, 0, strUOM);
+        //                                cmdInsert.CommandText = strSQL;
+        //                                cmdInsert.ExecuteNonQuery();
+        //                                strSQL = VoucherSW.gInventoryInsertTranSalesChallan(strRefNumber, strBillKey, lngloop, Math.Round(Utility.Val(row1["BILL_BALANCE_QTY"].ToString()), 2), -1, lngAgstRef,
+        //                                                                                    row1["STOCKITEM_NAME"].ToString(), uctxtLocation.Text,
+        //                                                                            "O", Utility.Val(row1["BILL_BALANCE_QTY"].ToString()) * -1, dblBonusQty * -1, dblCostPrice, Convert.ToInt64(intVtype), dteDate.Text,
+        //                                                                            strBarchID, "", 0, strUOM, strUOM);
+        //                                cmdInsert.CommandText = strSQL;
+        //                                cmdInsert.ExecuteNonQuery();
+        //                            }
+
+        //                            else if (lngAgstRef == (long)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS)
+        //                            {
+        //                                strSQL = VoucherSW.gInventoryInsertTranSalesChallanClass(strRefNumber, strBillKey, lngloop, Math.Round(Utility.Val(row1["BILL_RATE"].ToString()), 2), -1 * dblTotalCost,
+        //                                                                                        lngAgstRef, row1["STOCKITEM_NAME"].ToString(), uctxtLocation.Text,
+        //                                                                                        "O", Utility.Val(row1["BILL_BALANCE_QTY"].ToString()) * -1, dblBonusQty * -1, dblCostPrice, Convert.ToInt64(intVtype),
+        //                                                                                        dteDate.Text, strBarchID, "", 0,
+        //                                                                                        strUOM, strUOM);
+        //                                cmdInsert.CommandText = strSQL;
+        //                                cmdInsert.ExecuteNonQuery();
+        //                            }
+        //                            if (uctxtRefType.Text != "Sample Class")
+        //                            {
+        //                                strSQL = "INSERT INTO ACC_VOUCHER_JOIN(VOUCHER_JOIN_PRIMARY_REF,VOUCHER_JOIN_FOREIGN_REF,BRANCH_ID) ";
+        //                                strSQL = strSQL + "VALUES(";
+        //                                strSQL = strSQL + "'" + strRefNumber + "','" + DGSalesOrder[0, introw].Value.ToString() + "','" + strBarchID + "'";
+        //                                strSQL = strSQL + ")";
+        //                                cmdInsert.CommandText = strSQL;
+        //                                cmdInsert.ExecuteNonQuery();
+        //                            }
+        //                            strSQL = "UPDATE ACC_COMPANY_VOUCHER SET COMP_VOUCHER_STATUS = 1 ";
+        //                            strSQL = strSQL + "WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "'";
+        //                            cmdInsert.CommandText = strSQL;
+        //                            cmdInsert.ExecuteNonQuery();
+
+        //                            strSQL = "update INV_TRAN set OUTWARD_SALES_AMOUNT=  INV_TRAN_QUANTITY * " + dblCostPrice + " ";
+        //                            strSQL = strSQL + ",OUTWARD_COST_AMOUNT=  INV_TRAN_QUANTITY * " + dblCostPrice + " ";
+        //                            strSQL = strSQL + ",INV_TRAN_AMOUNT=  INV_TRAN_QUANTITY * " + dblCostPrice + " ";
+        //                            strSQL = strSQL + "WHERE INV_TRAN_KEY=  '" + strBillKey + "' ";
+        //                            cmdInsert.CommandText = strSQL;
+        //                            cmdInsert.ExecuteNonQuery();
+
+        //                            if (Utility.gblnAccessControl)
+        //                            {
+        //                                string strAudit = Utility.gblnAuditTrail(Utility.gstrUserName, dteDate.Text, "Sales Challan", uctxtChallanNo.Text,
+        //                                                                        1, 0, (int)Utility.MODULE_TYPE.mtSALES, strBarchID);
+        //                            }
+
+                                 
+        //                            cmdInsert.Transaction.Commit();
+        //                            lngloop += 1;
+
+
+
+
+        //                        }
+        //                    }
+        //                    progressBar1.Value += 1;
+        //                }
+
+
+
+        //                if (mblnNumbMethod == true)
+        //                {
+        //                    strSQL = VoucherSW.gIncreaseVoucher((int)intVtype);
+        //                    cmdInsert.CommandText = strSQL;
+        //                    cmdInsert.ExecuteNonQuery();
+        //                }
+
+        //                mClear();
+        //                uctxtPartyName.Focus();
+        //                MessageBox.Show("Process Generate Successfully..");
+        //            }
+        //            catch (Exception EX)
+        //            {
+        //                MessageBox.Show(EX.ToString());
+        //            }
+
+
+
+        //        }
+
+        //    }
+        //}
+        #endregion
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
@@ -2140,6 +2680,338 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 DGSalesOrder.Rows.RemoveAt(e.RowIndex);
             }
         }
+
+        private void lstRefTypeNew_DoubleClick(object sender, EventArgs e)
+        {
+            btnRightSingle.PerformClick();
+        }
+
+        private void txtRefTypeNew_KeyDown(object sender, KeyEventArgs e)
+        {
+            lstRefTypeNew.Focus();
+        }
+
+        private void lstRefTypeNew_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnRightSingle.PerformClick();
+                txtRefTypeNew.Focus();
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+            
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string strSQL = "", strRefNumber = "", strBillKey = "", strAgnstRefNo = "", strRefNo = "", strUOM = "";
+            double dblCostPrice = 0, dblBonusQty = 0, dblTotalCost = 1, dblNetAmnout = 0, dbbILLAmnout = 0, dblProcessAmnt = 0;
+            long lngloop = 1, lngAgstRef = 0;
+            lngAgstRef = gobjVoucherName.VoucherName.GetVoucherType(uctxtRefType.Text);
+            string strBarchID = Utility.gstrGetBranchID(strComID, uctxtBranchName.Text);
+            SqlCommand cmdInsert = new SqlCommand();
+            SqlDataReader dr;
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            SqlTransaction myTrans;
+            int introw = 0;
+            if (uctxtChallanNo.Text == "")
+            {
+                MessageBox.Show("Cannot be empty");
+                uctxtChallanNo.Focus();
+                return;
+            }
+            if (uctxtBranchName.Text == "")
+            {
+                MessageBox.Show("Cannot be empty");
+                uctxtBranchName.Focus();
+                return;
+            }
+            if (uctxtLocation.Text == "")
+            {
+                MessageBox.Show("Cannot be empty");
+                uctxtLocation.Focus();
+                return;
+            }
+            if (DGSalesOrder.Rows.Count < 1)
+            {
+                MessageBox.Show("Cannot be empty");
+                DGSalesOrder.Focus();
+                return;
+            }
+            var strResponseInsert = MessageBox.Show("Do You  want to Save?", "Save Button", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (strResponseInsert == DialogResult.Yes)
+            {
+                string connstring = Utility.SQLConnstringComSwitch(strComID);
+                using (SqlConnection gcnMain = new SqlConnection(connstring))
+                {
+                    if (gcnMain.State == ConnectionState.Open)
+                    {
+                        gcnMain.Close();
+                    }
+                    gcnMain.Open();
+                    lngloop = 1;
+                    progressBar1.Refresh();
+                    progressBar1.Value = 0;
+                    progressBar1.Maximum = DGSalesOrder.Rows.Count;
+                    try
+                    {
+                        for (introw = 0; introw < DGSalesOrder.Rows.Count; introw++)
+                        {
+                            if (lngAgstRef != (long)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS)
+                            {
+                                strSQL = "SELECT COMP_REF_NO,BILL_TRAN_KEY,STOCKGROUP_NAME,STOCKITEM_NAME,GODOWNS_NAME,BILL_BALANCE_QTY,";
+                                strSQL = strSQL + "BILL_UOM,BILL_PER,BILL_RATE,BILL_NET_AMOUNT,BILL_AMOUNT,INV_LOG_NO,BILL_QUANTITY_BONUS,BILL_ADD_LESS_AMOUNT ";
+                                strSQL = strSQL + "FROM ACC_BILL_TRAN_PENDING_QRY ";
+                                strSQL = strSQL + "WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
+                            }
+                            else
+                            {
+                                strSQL = "SELECT SAMPLE_CLASS COMP_REF_NO,'' as BILL_TRAN_KEY,'' STOCKGROUP_NAME,STOCKITEM_NAME,'' AS GODOWNS_NAME,SAM_CLASS_QUANTITY AS BILL_BALANCE_QTY,";
+                                strSQL = strSQL + "SAM_CLASS_UOM AS BILL_UOM,SAM_CLASS_UOM AS BILL_PER,0 AS BILL_RATE,0 as BILL_NET_AMOUNT,0 BILL_AMOUNT,'' as INV_LOG_NO ";
+                                strSQL = strSQL + ",0 BILL_QUANTITY_BONUS,0 BILL_ADD_LESS_AMOUNT FROM ACC_SAMPLE_CLASS_TRAN ";
+                                strSQL = strSQL + "WHERE SAMPLE_CLASS = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
+                            }
+
+                            SqlDataAdapter da = new SqlDataAdapter(strSQL, gcnMain);
+                            da.Fill(ds);
+                            dt = ds.Tables[0];
+                            foreach (DataRow row1 in dt.Rows)
+                            {
+                                if (ValidateFields(row1["STOCKITEM_NAME"].ToString().Replace("'", "''"), row1["COMP_REF_NO"].ToString(), Utility.Val(row1["BILL_BALANCE_QTY"].ToString())) == false)
+                                {
+                                    progressBar1.Refresh();
+                                    progressBar1.Value = 0;
+                                    return;
+                                }
+
+                            }
+                            progressBar1.Value += 1;
+                        }
+                        introw = 0;
+                        progressBar1.Refresh();
+                        progressBar1.Value = 0;
+                        progressBar1.Maximum = DGSalesOrder.Rows.Count;
+                        for (introw = 0; introw < DGSalesOrder.Rows.Count; introw++)
+                        {
+                            if (DGSalesOrder[0, introw].Value != null)
+                            {
+
+                                if (uctxtRefType.Text == "Sample Class")
+                                {
+                                    uctxtNarration.Text = DGSalesOrder[0, introw].Value.ToString();
+                                }
+
+                                lngAgstRef = gobjVoucherName.VoucherName.GetVoucherType(uctxtRefType.Text);
+                                strBarchID = Utility.gstrGetBranchID(strComID, uctxtBranchName.Text);
+
+                                cmdInsert.Connection = gcnMain;
+                                strSQL = "SELECT ISNULL(SUM(BILL_AMOUNT),0) AMNT,ISNULL(SUM(BILL_NET_AMOUNT ),0) NETAMNT,ISNULL(SUM(BILL_ADD_LESS_AMOUNT ),0) Addlessamnt ";
+                                strSQL = strSQL + "FROM ACC_BILL_TRAN_PENDING_QRY ";
+                                strSQL = strSQL + "WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
+                                cmdInsert.CommandText = strSQL;
+                                dr = cmdInsert.ExecuteReader();
+                                if (dr.Read())
+                                {
+                                    dbbILLAmnout = Math.Round(Utility.Val(dr["AMNT"].ToString()), 0);
+                                    dblNetAmnout = Math.Round(Utility.Val(dr["NETAMNT"].ToString()), 0);
+                                    dblProcessAmnt = Math.Abs(Math.Round(Utility.Val(dr["Addlessamnt"].ToString()), 0));
+                                }
+
+                                dr.Close();
+
+                                dt.Rows.Clear();
+
+                                if (lngAgstRef != (long)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS)
+                                {
+                                    strSQL = "SELECT COMP_REF_NO,BILL_TRAN_KEY,STOCKGROUP_NAME,STOCKITEM_NAME,GODOWNS_NAME,BILL_BALANCE_QTY,";
+                                    strSQL = strSQL + "BILL_UOM,BILL_PER,BILL_RATE,BILL_NET_AMOUNT,BILL_AMOUNT,INV_LOG_NO,BILL_QUANTITY_BONUS,BILL_ADD_LESS_AMOUNT ";
+                                    strSQL = strSQL + "FROM ACC_BILL_TRAN_PENDING_QRY ";
+                                    strSQL = strSQL + "WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
+                                }
+                                else
+                                {
+                                    strSQL = "SELECT SAMPLE_CLASS COMP_REF_NO,'' as BILL_TRAN_KEY,'' STOCKGROUP_NAME,STOCKITEM_NAME,'' AS GODOWNS_NAME,SAM_CLASS_QUANTITY AS BILL_BALANCE_QTY,";
+                                    strSQL = strSQL + "SAM_CLASS_UOM AS BILL_UOM,SAM_CLASS_UOM AS BILL_PER,0 AS BILL_RATE,0 as BILL_NET_AMOUNT,0 BILL_AMOUNT,'' as INV_LOG_NO ";
+                                    strSQL = strSQL + ",0 BILL_QUANTITY_BONUS,0 BILL_ADD_LESS_AMOUNT FROM ACC_SAMPLE_CLASS_TRAN ";
+                                    strSQL = strSQL + "WHERE SAMPLE_CLASS = '" + DGSalesOrder[0, introw].Value.ToString() + "' ";
+                                }
+
+                                SqlDataAdapter da = new SqlDataAdapter(strSQL, gcnMain);
+                                da.Fill(ds);
+                                dt = ds.Tables[0];
+                                if (dt.Rows.Count > 0)
+                                {
+
+                                    foreach (DataRow row in dt.Rows)
+                                    {
+
+                                        strSQL = "SELECT ISNULL(SUM(INV_TRAN_QUANTITY),0) AS QTY,ISNULL(SUM(INV_TRAN_AMOUNT),0) AS AMT FROM INV_STOCKITEM_TRAN_QRY ";
+                                        strSQL = strSQL + "WHERE (INV_INOUT_FLAG IS NULL OR INV_INOUT_FLAG = 'I') ";
+                                        strSQL = strSQL + "AND STOCKITEM_NAME = '" + row["STOCKITEM_NAME"].ToString().Replace("'", "''") + "' ";
+                                        strSQL = strSQL + "AND INV_DATE <= " + Utility.cvtSQLDateString(dteDate.Text) + " ";
+                                        cmdInsert.CommandText = strSQL;
+                                        dr = cmdInsert.ExecuteReader();
+                                        if (dr.Read())
+                                        {
+                                            if (Utility.Val(dr["QTY"].ToString()) > 0)
+                                            {
+                                                dblCostPrice = Math.Round(Utility.Val(dr["AMT"].ToString()) / Utility.Val(dr["QTY"].ToString()), 3);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            dblCostPrice = 0;
+                                        }
+                                        dr.Close();
+
+
+                                        strUOM = Utility.gGetBaseUOM(strComID, row["STOCKITEM_NAME"].ToString().Replace("'", "''"));
+                                        strSQL = "";
+
+
+                                        strAgnstRefNo = Utility.gstrGetBillKey(strComID, DGSalesOrder[1, introw].Value.ToString(), row["STOCKITEM_NAME"].ToString().Replace("'", "''"));
+                                        strRefNo = DGSalesOrder[0, introw].Value.ToString();
+                                        dblBonusQty = Utility.Val(row["BILL_QUANTITY_BONUS"].ToString());
+
+
+
+                                        myTrans = gcnMain.BeginTransaction();
+                                        cmdInsert.Connection = gcnMain;
+                                        cmdInsert.Transaction = myTrans;
+
+                                        if (lngloop == 1)
+                                        {
+                                            if (mblnNumbMethod == false)
+                                            {
+                                                strRefNumber = gobjVoucherName.VoucherName.GetVoucherString(intVtype) + strBarchID + uctxtChallanNo.Text;
+                                            }
+                                            else
+                                            {
+                                                strRefNumber = gobjVoucherName.VoucherName.GetVoucherString(intVtype) + strBarchID + Utility.gstrLastNumber(strComID, intVtype);
+                                            }
+                                            strSQL = VoucherSW.gInsertCompanyVoucherNew(strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, dteDate.Value.ToString("MMMyy"), dteDuedate.Text, uctxtTeritoryCode.Text,
+                                                                                            dbbILLAmnout, dblNetAmnout, 0, 0, lngAgstRef, Utility.gCheckNull(uctxtNarration.Text),
+                                                                                                    strBarchID, 0, "", uctxtCustomer.Text, "", "", "", "", uctxtTrNo.Text, "", "", "", "", uctxtDesignation.Text,
+                                                                                                    uctxtTransport.Text, Utility.Val(uctxtcrtQty.Text), Utility.Val(uctxtBoxQty.Text), dblProcessAmnt);
+
+                                            cmdInsert.CommandText = strSQL;
+                                            cmdInsert.ExecuteNonQuery();
+
+                                            strSQL = VoucherSW.gInteractInvInsertMaster(uctxtTeritoryCode.Text, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, strBarchID,
+                                                                                            Utility.gCheckNull(uctxtNarration.Text));
+                                            cmdInsert.CommandText = strSQL;
+                                            cmdInsert.ExecuteNonQuery();
+                                        }
+                                        strBillKey = strRefNumber + lngloop.ToString().PadLeft(4, '0');
+
+                                        strSQL = VoucherSW.gInsertBillTran(strBillKey, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text, row["STOCKITEM_NAME"].ToString(), uctxtLocation.Text, Utility.Val(row["BILL_BALANCE_QTY"].ToString()),
+                                                                dblBonusQty, strUOM, Math.Round(Utility.Val(row["BILL_RATE"].ToString()), 2),
+                                                               Math.Round(Utility.Val(row["BILL_NET_AMOUNT"].ToString()), 2), "",
+                                                                        0, Utility.Val(row["BILL_AMOUNT"].ToString()), "Cr", lngloop, strBarchID, Utility.gstrBaseCurrency,
+                                                                        strUOM, "", "", "", "", "", "", "", 0, 0);
+                                        cmdInsert.CommandText = strSQL;
+                                        cmdInsert.ExecuteNonQuery();
+
+                                        strSQL = VoucherSW.gInsertBillTranProcess(strBillKey, strBarchID, lngloop, strRefNumber, strRefNumber, Convert.ToInt64(intVtype), dteDate.Text,
+                                                                        row["STOCKITEM_NAME"].ToString(), uctxtLocation.Text, Utility.Val(row["BILL_BALANCE_QTY"].ToString()),
+                                                                        strUOM, strAgnstRefNo, 0, 0, strUOM);
+                                        cmdInsert.CommandText = strSQL;
+                                        cmdInsert.ExecuteNonQuery();
+
+                                        if (lngAgstRef == (long)Utility.VOUCHER_TYPE.vtSALES_INVOICE)
+                                        {
+                                            strSQL = VoucherSW.gInsertBillTranProcess(strBillKey, strBarchID, lngloop, strRefNumber, strRefNo, lngAgstRef, dteDate.Text,
+                                                                                    row["STOCKITEM_NAME"].ToString(), uctxtLocation.Text, Utility.Val(row["BILL_BALANCE_QTY"].ToString()) * -1,
+                                                                                    strUOM, strAgnstRefNo, 0, 0, strUOM);
+                                            cmdInsert.CommandText = strSQL;
+                                            cmdInsert.ExecuteNonQuery();
+                                            strSQL = VoucherSW.gInventoryInsertTranSalesChallan(strRefNumber, strBillKey, lngloop, Math.Round(Utility.Val(row["BILL_BALANCE_QTY"].ToString()), 2), -1, lngAgstRef,
+                                                                                                row["STOCKITEM_NAME"].ToString(), uctxtLocation.Text,
+                                                                                        "O", Utility.Val(row["BILL_BALANCE_QTY"].ToString()) * -1, dblBonusQty * -1, dblCostPrice, Convert.ToInt64(intVtype), dteDate.Text,
+                                                                                        strBarchID, "", 0, strUOM, strUOM);
+                                            cmdInsert.CommandText = strSQL;
+                                            cmdInsert.ExecuteNonQuery();
+                                        }
+
+                                        else if (lngAgstRef == (long)Utility.VOUCHER_TYPE.vt_SAMPLE_CLASS)
+                                        {
+                                            strSQL = VoucherSW.gInventoryInsertTranSalesChallanClass(strRefNumber, strBillKey, lngloop, Math.Round(Utility.Val(row["BILL_RATE"].ToString()), 2), -1 * dblTotalCost,
+                                                                                                    lngAgstRef, row["STOCKITEM_NAME"].ToString(), uctxtLocation.Text,
+                                                                                                    "O", Utility.Val(row["BILL_BALANCE_QTY"].ToString()) * -1, dblBonusQty * -1, dblCostPrice, Convert.ToInt64(intVtype),
+                                                                                                    dteDate.Text, strBarchID, "", 0,
+                                                                                                    strUOM, strUOM);
+                                            cmdInsert.CommandText = strSQL;
+                                            cmdInsert.ExecuteNonQuery();
+                                        }
+                                        if (uctxtRefType.Text != "Sample Class")
+                                        {
+                                            strSQL = "INSERT INTO ACC_VOUCHER_JOIN(VOUCHER_JOIN_PRIMARY_REF,VOUCHER_JOIN_FOREIGN_REF,BRANCH_ID) ";
+                                            strSQL = strSQL + "VALUES(";
+                                            strSQL = strSQL + "'" + strRefNumber + "','" + DGSalesOrder[0, introw].Value.ToString() + "','" + strBarchID + "'";
+                                            strSQL = strSQL + ")";
+                                            cmdInsert.CommandText = strSQL;
+                                            cmdInsert.ExecuteNonQuery();
+                                        }
+                                        strSQL = "UPDATE ACC_COMPANY_VOUCHER SET COMP_VOUCHER_STATUS = 1 ";
+                                        strSQL = strSQL + "WHERE COMP_REF_NO = '" + DGSalesOrder[0, introw].Value.ToString() + "'";
+                                        cmdInsert.CommandText = strSQL;
+                                        cmdInsert.ExecuteNonQuery();
+
+                                        strSQL = "update INV_TRAN set OUTWARD_SALES_AMOUNT=  INV_TRAN_QUANTITY * " + dblCostPrice + " ";
+                                        strSQL = strSQL + ",OUTWARD_COST_AMOUNT=  INV_TRAN_QUANTITY * " + dblCostPrice + " ";
+                                        strSQL = strSQL + ",INV_TRAN_AMOUNT=  INV_TRAN_QUANTITY * " + dblCostPrice + " ";
+                                        strSQL = strSQL + "WHERE INV_TRAN_KEY=  '" + strBillKey + "' ";
+                                        cmdInsert.CommandText = strSQL;
+                                        cmdInsert.ExecuteNonQuery();
+
+                                        if (Utility.gblnAccessControl)
+                                        {
+                                            string strAudit = Utility.gblnAuditTrail(Utility.gstrUserName, dteDate.Text, "Sales Challan", uctxtChallanNo.Text,
+                                                                                    1, 0, (int)Utility.MODULE_TYPE.mtSALES, strBarchID);
+                                        }
+                                        cmdInsert.Transaction.Commit();
+                                        lngloop += 1;
+
+                                    }
+
+                                }
+
+
+
+                            }
+                            progressBar1.Refresh();
+                            progressBar1.Value += 1;
+                        }
+                        if (mblnNumbMethod == true)
+                        {
+                            strSQL = VoucherSW.gIncreaseVoucher((int)intVtype);
+                            cmdInsert.CommandText = strSQL;
+                            cmdInsert.ExecuteNonQuery();
+                        }
+                        mClear();
+                        uctxtPartyName.Focus();
+                        MessageBox.Show("Process Generate Successfully..");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
 
 

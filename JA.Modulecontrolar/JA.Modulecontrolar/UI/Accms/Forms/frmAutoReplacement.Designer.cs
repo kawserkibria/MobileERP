@@ -32,6 +32,7 @@
             this.lblUnder = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.uctxtXMpoLedger = new System.Windows.Forms.TextBox();
+            this.btnUndo = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
@@ -64,7 +65,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(170, 329);
+            this.btnSave.Location = new System.Drawing.Point(170, 328);
             this.btnSave.Size = new System.Drawing.Size(132, 42);
             this.btnSave.Text = "Update";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -77,16 +78,16 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(31, 344);
+            this.btnNew.Location = new System.Drawing.Point(47, 328);
             this.btnNew.Size = new System.Drawing.Size(10, 10);
-            this.btnNew.Text = "Update";
+            this.btnNew.Text = "Undo";
             this.btnNew.Visible = false;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(306, 329);
-            this.btnClose.Size = new System.Drawing.Size(147, 40);
+            this.btnClose.Location = new System.Drawing.Point(306, 328);
+            this.btnClose.Size = new System.Drawing.Size(147, 42);
             // 
             // btnPrint
             // 
@@ -139,15 +140,38 @@
             this.uctxtXMpoLedger.Size = new System.Drawing.Size(354, 22);
             this.uctxtXMpoLedger.TabIndex = 56;
             // 
+            // btnUndo
+            // 
+            this.btnUndo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnUndo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUndo.Location = new System.Drawing.Point(69, 326);
+            this.btnUndo.Name = "btnUndo";
+            this.btnUndo.Size = new System.Drawing.Size(100, 46);
+            this.btnUndo.TabIndex = 57;
+            this.btnUndo.Text = "Undo";
+            this.btnUndo.UseVisualStyleBackColor = false;
+            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
+            // 
             // frmAutoReplacement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(460, 398);
+            this.Controls.Add(this.btnUndo);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
             this.Name = "frmAutoReplacement";
             this.Load += new System.EventHandler(this.frmAutoReplacemenr_Load);
+            this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.Controls.SetChildIndex(this.pnlMain, 0);
+            this.Controls.SetChildIndex(this.pnlTop, 0);
+            this.Controls.SetChildIndex(this.btnSave, 0);
+            this.Controls.SetChildIndex(this.btnEdit, 0);
+            this.Controls.SetChildIndex(this.btnDelete, 0);
+            this.Controls.SetChildIndex(this.btnNew, 0);
+            this.Controls.SetChildIndex(this.btnClose, 0);
+            this.Controls.SetChildIndex(this.btnPrint, 0);
+            this.Controls.SetChildIndex(this.btnUndo, 0);
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
             this.pnlTop.ResumeLayout(false);
@@ -162,6 +186,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox uctxtLedgerName;
         private System.Windows.Forms.Label lblUnder;
+        private System.Windows.Forms.Button btnUndo;
 
 
     }

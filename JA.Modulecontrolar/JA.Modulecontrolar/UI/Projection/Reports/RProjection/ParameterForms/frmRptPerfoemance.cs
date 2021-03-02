@@ -27,8 +27,8 @@ namespace JA.Modulecontrolar.UI.Projection.Reports.RProjection.ParameterForms
         EXTRA.SWPRJClient objExtra = new EXTRA.SWPRJClient();
         private ListBox lstLedger = new ListBox();
         private ListBox lstLedgerType = new ListBox();
-      
 
+        private int intReportOption = 0;
         private string strComID { get; set; }
         public frmRptPerfoemance()
         {
@@ -191,18 +191,49 @@ namespace JA.Modulecontrolar.UI.Projection.Reports.RProjection.ParameterForms
             MpoLoad();
         }
 
+        private void ReportOption()
+        {
+
+            if (radAllStatus.Checked == true)
+            {
+                intReportOption = 3;
+            }
+            else if (radActive.Checked == true)
+            {
+                intReportOption = 0;
+            }
+            else if (radInactive.Checked == true)
+            {
+                intReportOption = 1;
+            }
+        }
         private void btnPrint_Click(object sender, EventArgs e)
         {
 
             string strmsg = "", strName = "All", strString = "";
-            int intMode = 0, intSelection = 0;
+            int intMode = 0, intSelection = 0,intBaseTarget=0;
             double dblcls = 0;
             DateTime dteLedgerFdate;
             string strLedgerTDate = "";
             progressBar1.Value = 0;
+            ReportOption();
+            if (cboCompanyID.Text == "")
+            {
+                MessageBox.Show("Company ID Cannot be Empty");
+                cboCompanyID.Focus();
+                return;
+            }
             if (txtLedgerType.Text != "All")
             {
                 strName = txtLedgerType.Text.Substring(0, 1);
+            }
+            if (chkBaseTarget.Checked==true)
+            {
+                intBaseTarget = 1;
+            }
+            else
+            {
+                intBaseTarget = 0;
             }
             if (lstRight.Items.Count > 0)
             {
@@ -231,10 +262,14 @@ namespace JA.Modulecontrolar.UI.Projection.Reports.RProjection.ParameterForms
             {
                 intSelection = 0;
             }
+
+
+
+
             progressBar2.Value = 0;
             string gg = objExtra.mDeletePerformanve(strComID);
-           
-            List<AccountsLedger> objLedger = accms.mFillLedgerSelectionProjection(strComID, 202, strName, strString,Utility.gstrUserName).ToList();
+
+            List<AccountsLedger> objLedger = accms.mFillLedgerSelectionProjection(strComID, 202, strName, strString, Utility.gstrUserName, intReportOption).ToList();
             if (objLedger.Count > 0)
             {
                 progressBar1.Maximum = objLedger.Count;
@@ -262,7 +297,7 @@ namespace JA.Modulecontrolar.UI.Projection.Reports.RProjection.ParameterForms
                     else if (intSelection == 1)
                     {
                         progressBar2.Value = 0;
-                        List<AccountsLedger> objArea = accms.mFillLedgerSelectionProjection(strComID, 202, "K", strString, Utility.gstrUserName).ToList();
+                        List<AccountsLedger> objArea = accms.mFillLedgerSelectionProjection(strComID, 202, "K", strString, Utility.gstrUserName, intReportOption).ToList();
                         progressBar2.Maximum = objArea.Count;
                         foreach (AccountsLedger ooArea in objArea)
                         {
@@ -280,7 +315,7 @@ namespace JA.Modulecontrolar.UI.Projection.Reports.RProjection.ParameterForms
                     else if (intSelection == 2)
                     {
                         progressBar2.Value = 0;
-                        List<AccountsLedger> objArea = accms.mFillLedgerSelectionProjection(strComID, 202, "K", strString, Utility.gstrUserName).ToList();
+                        List<AccountsLedger> objArea = accms.mFillLedgerSelectionProjection(strComID, 202, "K", strString, Utility.gstrUserName, intReportOption).ToList();
                         progressBar2.Maximum = objArea.Count;
                         foreach (AccountsLedger ooArea in objArea)
                         {
@@ -299,8 +334,8 @@ namespace JA.Modulecontrolar.UI.Projection.Reports.RProjection.ParameterForms
                     {
                         progressBar2.Value = 0;
                         dblcls = 0;
-                       
-                        List<AccountsLedger> objArea = accms.mFillLedgerSelectionProjection(strComID, 202, "K", strString, Utility.gstrUserName).ToList();
+
+                        List<AccountsLedger> objArea = accms.mFillLedgerSelectionProjection(strComID, 202, "K", strString, Utility.gstrUserName, intReportOption).ToList();
                         progressBar2.Maximum = objArea.Count;
                         foreach (AccountsLedger ooArea in objArea)
                         {
@@ -317,7 +352,7 @@ namespace JA.Modulecontrolar.UI.Projection.Reports.RProjection.ParameterForms
                         }
                     }
 
-                    strmsg = objExtra.mInsertMpoPerformance(strComID, ooLedger.strLedgerName, dteFromDate.Text, dteToDate.Text, intMode, intSelection);
+                    strmsg = objExtra.mInsertMpoPerformance(strComID, ooLedger.strLedgerName, dteFromDate.Text, dteToDate.Text, intMode, intSelection, intBaseTarget, cboCompanyID.Text, intReportOption);
                     int percent = (int)(((double)(progressBar1.Value - progressBar1.Minimum) / (double)(progressBar1.Maximum - progressBar1.Minimum)) * 100);
                     progressBar1.Refresh();
                     using (Graphics gr = progressBar1.CreateGraphics())
@@ -385,9 +420,12 @@ namespace JA.Modulecontrolar.UI.Projection.Reports.RProjection.ParameterForms
 
                 intType = 1;
             }
+
+            ReportOption();
+
             if (intType > 0)
             {
-                List<Mprojection> orptt = objExtra.mGetLedgerGroupLoad(strComID, intType,Utility.gstrUserName).ToList();
+                List<Mprojection> orptt = objExtra.mGetLedgerGroupLoad(strComID, intType, Utility.gstrUserName, intReportOption, "").ToList();
                 if (orptt.Count > 0)
                 {
                     foreach (Mprojection ostk in orptt)
@@ -467,6 +505,21 @@ namespace JA.Modulecontrolar.UI.Projection.Reports.RProjection.ParameterForms
                 lstLeft.SelectedValue = lstRight.SelectedValue;
                 lstRight.Items.Remove(lstRight.SelectedItem.ToString());
             }
+        }
+
+        private void radAllStatus_Click(object sender, EventArgs e)
+        {
+            mLoadLedgerName();
+        }
+
+        private void radActive_Click(object sender, EventArgs e)
+        {
+            mLoadLedgerName();
+        }
+
+        private void radInactive_Click(object sender, EventArgs e)
+        {
+            mLoadLedgerName();
         }
 
 

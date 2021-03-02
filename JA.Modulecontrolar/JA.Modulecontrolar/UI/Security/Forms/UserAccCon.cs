@@ -7,14 +7,15 @@ using System.Drawing;
 using System.Text;
 using System.Linq;
 using System.Windows.Forms;
-
+using JA.Modulecontrolar.UI.Inventory;
 using JA.Modulecontrolar.JACCMS;
-
+using JA.Modulecontrolar.UI.Accms.Forms;
 
 using Dutility;
 using JA.Modulecontrolar.JINVMS;
 using Microsoft.Win32;
-
+using JA.Modulecontrolar.UI.DReport.Accms.Viewer;
+using JA.Modulecontrolar.UI.DReport.Accms;
 
 namespace JA.Modulecontrolar.UI.Security.Forms
 {
@@ -1888,10 +1889,10 @@ namespace JA.Modulecontrolar.UI.Security.Forms
                 MessageBox.Show("Please Select User Name");
                 return;
             }
-            //frmReportViewer frmviewer = new frmReportViewer();
-            //frmviewer.selector = ViewerSelector.userPrevilegs;
-            //frmviewer.strSelction = txtUserName.Text;
-            //frmviewer.Show();
+            frmReportViewer frmviewer = new frmReportViewer();
+            frmviewer.selector = ViewerSelector.userPrevilegs;
+            frmviewer.strSelction = txtUserName.Text;
+            frmviewer.Show();
         }
 
         private void AccountRB_CheckedChanged(object sender, EventArgs e)
@@ -1976,10 +1977,10 @@ namespace JA.Modulecontrolar.UI.Security.Forms
                 MessageBox.Show("Please Select User Name");
                 return;
             }
-            //frmReportViewer frmviewer = new frmReportViewer();
-            //frmviewer.selector = ViewerSelector.userPrevilegsMenu;
-            //frmviewer.strSelction = txtUserName.Text;
-            //frmviewer.Show();
+            frmReportViewer frmviewer = new frmReportViewer();
+            frmviewer.selector = ViewerSelector.userPrevilegsMenu;
+            frmviewer.strSelction = txtUserName.Text;
+            frmviewer.Show();
         }
 
        

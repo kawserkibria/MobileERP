@@ -494,7 +494,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             }
             else
             {
-                if (mstrOldLocation != txtLocationName.Text)
+                if (mstrOldLocation.ToUpper() != txtLocationName.Text.ToUpper())
                 {
                     string strDuplicate = Utility.mCheckDuplicateItem(strComID, "INV_GODOWNS", "GODOWNS_NAME", txtLocationName.Text);
                     if (strDuplicate != "")

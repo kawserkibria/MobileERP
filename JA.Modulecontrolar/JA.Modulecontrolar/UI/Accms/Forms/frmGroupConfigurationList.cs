@@ -64,6 +64,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             DG.Columns.Add(Utility.Create_Grid_Column("Mobile No", "Mobile No", 300, false, DataGridViewContentAlignment.TopLeft, true));
             DG.Columns.Add(Utility.Create_Grid_Column("Contact No", "Contact No", 300, false, DataGridViewContentAlignment.TopLeft, true));
             DG.Columns.Add(Utility.Create_Grid_Column("Pos", "Pos", 300, false, DataGridViewContentAlignment.TopLeft, true));
+            DG.Columns.Add(Utility.Create_Grid_Column("Dup", "Dup", 300, false, DataGridViewContentAlignment.TopLeft, true));
             mLoadGroupList();
         }
         #region "Group"
@@ -93,6 +94,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     DG[11, introw].Value = ogrp.strMobileNo;
                     DG[12, introw].Value = ogrp.strContactNo;
                     DG[13, introw].Value = ogrp.intMode;
+                    DG[14, introw].Value = ogrp.intduplicate;
                     //DG[10, introw].Style.BackColor = Color.Beige;
                     //if (introw % 2 == 0)
                     //{
@@ -179,6 +181,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             itm.strMobileNo = DG.CurrentRow.Cells[11].Value.ToString();
             itm.strContactNo = DG.CurrentRow.Cells[12].Value.ToString();
             itm.intMode = Convert.ToInt32(DG.CurrentRow.Cells[13].Value.ToString());
+            itm.intduplicate = Convert.ToInt32(DG.CurrentRow.Cells[14].Value.ToString());
             items.Add(itm);
             return items;
         }
@@ -234,6 +237,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     DG[11, introw].Value = ogrp.strMobileNo;
                     DG[12, introw].Value = ogrp.strContactNo;
                     DG[13, introw].Value = ogrp.intMode;
+                    DG[14, introw].Value = ogrp.intduplicate;
                     DG.Rows[introw].Cells[9].Style.BackColor = Color.Beige;
                     DG.Rows[introw].Cells[10].Style.BackColor = Color.Beige;
                     //DG.Rows[introw].Cells[9].Style.ForeColor = Color.LightGreen;

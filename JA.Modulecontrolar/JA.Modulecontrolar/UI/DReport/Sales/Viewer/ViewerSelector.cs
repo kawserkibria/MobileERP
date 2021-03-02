@@ -17,6 +17,6 @@ namespace JA.Modulecontrolar.UI.DReport.Sales
         ProductSalesAllMPOSummary, MpoProductWiseSalesStatementQty, BKash, ProductSales12MonthQty,
         SalesCollectonperformance, SalesOrder, CPSPSalescollPer, CollectionStatementZone,
         CollectionStatementRSM, CollectionStatementMPO, CollectionStatementFM, allMpoCollectionStatement,
-        CollectionStatementIndividualF, TCSalesCollection, rptDailyCollectionRV
+        CollectionStatementIndividualF, TCSalesCollection, rptDailyCollectionRV, Pendingorder
     }
 }

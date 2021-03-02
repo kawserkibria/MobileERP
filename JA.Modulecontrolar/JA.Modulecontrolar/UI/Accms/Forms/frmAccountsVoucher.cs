@@ -2645,6 +2645,14 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             if (mblnNumbMethod)
             {
                 uctxtVoucherNo.ReadOnly = true;
+                if ((intvtype == (int)Utility.VOUCHER_TYPE.vtRECEIPT_VOUCHER))
+                {
+                    btnAutoRV.Visible = true;
+                }
+                else
+                {
+                    btnAutoRV.Visible = false;
+                }
                 if ((intvtype == (int)Utility.VOUCHER_TYPE.vtRECEIPT_VOUCHER) || (intvtype == (int)Utility.VOUCHER_TYPE.vtJOURNAL_VOUCHER))
                 {
                     cboGeneral.Focus();
@@ -2782,13 +2790,13 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     MessageBox.Show("Total Amount mismatch", "Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
-                if ((intvtype == (int)Utility.VOUCHER_TYPE.vtRECEIPT_VOUCHER) || (intvtype==(int)Utility.VOUCHER_TYPE.vtJOURNAL_VOUCHER))
+                if ((intvtype == (int)Utility.VOUCHER_TYPE.vtRECEIPT_VOUCHER) || (intvtype == (int)Utility.VOUCHER_TYPE.vtJOURNAL_VOUCHER))
                 {
-                    if (cboGeneral.Text =="")
+                    if (cboGeneral.Text == "")
                     {
                         MessageBox.Show("Selction Type Cannot be Delete");
                         cboGeneral.Focus();
-                        return false ;
+                        return false;
                     }
                 }
 
@@ -2817,9 +2825,22 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                         return false;
                     }
                 }
+
+                string strLockvoucher = Utility.gLockVocher(strComID, intvtype);
+                if (strLockvoucher != "")
+                {
+                    long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                    if (lngDate <= lngBackdate)
+                    {
+                        MessageBox.Show("Invalid Date, Back Date is locked");
+                        return false;
+                    }
+                }
+
+
                 for (int i = 0; i < DGinvms.Rows.Count; i++)
                 {
-                 
+
                     if (DGinvms[0, i].Value != "" && DGinvms[0, i].Value != null)
                     {
                         if (DGinvms[7, i].Value != null)
@@ -2827,7 +2848,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                         dblClosingQTY = Utility.gdblClosingStockNew(strComID, DGinvms[1, i].Value.ToString(), uctxtLocation.Text, dteVoucherDate.Text);
                         if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                         {
-                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey, uctxtLocation.Text);
                         }
                         dblCurrentQTY = Utility.Val(DGinvms[2, i].Value.ToString());
                         if ((dblClosingQTY) - dblCurrentQTY < 0)
@@ -2869,7 +2890,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             {
                 MessageBox.Show(ex.ToString());
                 return false;
-                
+
             }
         }
         
@@ -4219,6 +4240,29 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
         private void btnNew_Click(object sender, EventArgs e)
         {
             m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+            ////if (Utility.gblnAccessControl)
+            ////{
+            ////    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 108))
+            ////    {
+            ////        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            ////        return;
+            ////    }
+            ////}
+            //if (System.Windows.Forms.Application.OpenForms["frmAutoBkash"] as frmAutoBkash == null)
+            //{
+            //    frmAutoBkash objfrm = new frmAutoBkash();
+            //    //objfrm.lngFormPriv = 108;
+            //    objfrm.MdiParent = this.MdiParent;
+            //    objfrm.Show();
+
+            //}
+            //else
+            //{
+            //    frmAutoBkash objfrm = (frmAutoBkash)Application.OpenForms["frmAutoBkash"];
+            //    //objfrm.lngFormPriv = 108;
+            //    objfrm.MdiParent = this.MdiParent;
+            //    objfrm.Focus();
+            //}
         }
 
         private void btnBillapply_Click(object sender, EventArgs e)
@@ -4903,6 +4947,38 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
         private void chkLoanTransfer_Click(object sender, EventArgs e)
         {
             txtBranchName.Focus();
+        }
+
+        private void btnAutoRV_Click(object sender, EventArgs e)
+        {
+            //if (Utility.gblnAccessControl)
+            //{
+            //    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 108))
+            //    {
+            //        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        return;
+            //    }
+            //}
+            if (System.Windows.Forms.Application.OpenForms["frmAutoBkash"] as frmAutoBkash == null)
+            {
+                frmAutoBkash objfrm = new frmAutoBkash();
+                objfrm.intvtype = intvtype;
+                objfrm.MdiParent = this.MdiParent;
+                objfrm.Show();
+
+            }
+            else
+            {
+                frmAutoBkash objfrm = (frmAutoBkash)Application.OpenForms["frmAutoBkash"];
+                //objfrm.lngFormPriv = 108;
+                objfrm.MdiParent = this.MdiParent;
+                objfrm.Focus();
+            }
+        }
+
+        private void txtCreditAmount_TextChanged_1(object sender, EventArgs e)
+        {
+
         }
 
        

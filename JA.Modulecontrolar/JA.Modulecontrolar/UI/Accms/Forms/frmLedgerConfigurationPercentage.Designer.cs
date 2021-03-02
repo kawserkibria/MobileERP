@@ -134,6 +134,7 @@
             this.DG.Name = "DG";
             this.DG.Size = new System.Drawing.Size(735, 467);
             this.DG.TabIndex = 0;
+            this.DG.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DG_CellEndEdit_1);
             // 
             // progressBar1
             // 

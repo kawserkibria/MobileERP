@@ -102,16 +102,20 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupSelection = new System.Windows.Forms.GroupBox();
             this.DGSalesOrder = new MayhediDataGridView();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.lstRefTypeNew = new MayhediControlLibrary.StandardDataGridView();
             this.btnLeftAll = new System.Windows.Forms.Button();
             this.btnLeftSingle = new System.Windows.Forms.Button();
             this.btnRightAll = new System.Windows.Forms.Button();
             this.btnRightSingle = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.button2 = new System.Windows.Forms.Button();
+            this.lblNegetive = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.lblOrder = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGcustomer)).BeginInit();
@@ -130,6 +134,8 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.lblOrder);
+            this.pnlMain.Controls.Add(this.lblNegetive);
             this.pnlMain.Controls.Add(this.progressBar1);
             this.pnlMain.Controls.Add(this.groupSelection);
             this.pnlMain.Controls.Add(this.groupBox2);
@@ -165,7 +171,6 @@
             this.pnlMain.Controls.Add(this.lblLedgerName);
             this.pnlMain.Location = new System.Drawing.Point(0, -102);
             this.pnlMain.Size = new System.Drawing.Size(1201, 549);
-          
             // 
             // pnlTop
             // 
@@ -187,16 +192,16 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(420, 451);
+            this.btnEdit.Location = new System.Drawing.Point(428, 451);
             this.btnEdit.Size = new System.Drawing.Size(134, 39);
             this.btnEdit.Text = "List All";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(557, 451);
-            this.btnSave.Size = new System.Drawing.Size(130, 39);
-            this.btnSave.Text = "&Generate";
+            this.btnSave.Location = new System.Drawing.Point(565, 451);
+            this.btnSave.Size = new System.Drawing.Size(118, 39);
+            this.btnSave.Text = "&Save";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
@@ -315,6 +320,7 @@
             this.txtRefTypeNew.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtRefTypeNew.Size = new System.Drawing.Size(269, 22);
             this.txtRefTypeNew.TabIndex = 12;
+            this.txtRefTypeNew.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRefTypeNew_KeyDown);
             this.txtRefTypeNew.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtRefTypeNew_KeyUp);
             // 
             // label12
@@ -519,7 +525,6 @@
             this.uctxtTrNo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.uctxtTrNo.Size = new System.Drawing.Size(310, 22);
             this.uctxtTrNo.TabIndex = 11;
-            
             // 
             // uctxtTeritoryCode
             // 
@@ -752,6 +757,7 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox2
             // 
@@ -891,6 +897,31 @@
             this.DGSalesOrder.Size = new System.Drawing.Size(360, 228);
             this.DGSalesOrder.TabIndex = 189;
             // 
+            // Column15
+            // 
+            this.Column15.HeaderText = "BillKey";
+            this.Column15.Name = "Column15";
+            this.Column15.Visible = false;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "Ref. No";
+            this.Column12.Name = "Column12";
+            this.Column12.Width = 190;
+            // 
+            // Column13
+            // 
+            this.Column13.HeaderText = "Date";
+            this.Column13.Name = "Column13";
+            this.Column13.Width = 120;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Del.";
+            this.Column1.Name = "Column1";
+            this.Column1.Visible = false;
+            this.Column1.Width = 60;
+            // 
             // lstRefTypeNew
             // 
             this.lstRefTypeNew.AllowUserToAddRows = false;
@@ -924,6 +955,8 @@
             this.lstRefTypeNew.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.lstRefTypeNew.Size = new System.Drawing.Size(269, 227);
             this.lstRefTypeNew.TabIndex = 188;
+            this.lstRefTypeNew.DoubleClick += new System.EventHandler(this.lstRefTypeNew_DoubleClick);
+            this.lstRefTypeNew.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstRefTypeNew_KeyPress);
             // 
             // btnLeftAll
             // 
@@ -981,35 +1014,54 @@
             this.progressBar1.Size = new System.Drawing.Size(773, 23);
             this.progressBar1.TabIndex = 222;
             // 
-            // Column15
+            // button2
             // 
-            this.Column15.HeaderText = "BillKey";
-            this.Column15.Name = "Column15";
-            this.Column15.Visible = false;
+            this.button2.Location = new System.Drawing.Point(895, 454);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
-            // Column12
+            // lblNegetive
             // 
-            this.Column12.HeaderText = "Ref. No";
-            this.Column12.Name = "Column12";
-            this.Column12.Width = 190;
+            this.lblNegetive.AutoSize = true;
+            this.lblNegetive.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNegetive.Location = new System.Drawing.Point(11, 466);
+            this.lblNegetive.Name = "lblNegetive";
+            this.lblNegetive.Size = new System.Drawing.Size(15, 14);
+            this.lblNegetive.TabIndex = 223;
+            this.lblNegetive.Text = "0";
             // 
-            // Column13
+            // button3
             // 
-            this.Column13.HeaderText = "Date";
-            this.Column13.Name = "Column13";
-            this.Column13.Width = 120;
+            this.button3.Location = new System.Drawing.Point(102, 454);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // Column1
+            // lblOrder
             // 
-            this.Column1.HeaderText = "Del.";
-            this.Column1.Name = "Column1";
-            this.Column1.Visible = false;
-            this.Column1.Width = 60;
+            this.lblOrder.AutoSize = true;
+            this.lblOrder.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOrder.Location = new System.Drawing.Point(1034, 509);
+            this.lblOrder.Name = "lblOrder";
+            this.lblOrder.Size = new System.Drawing.Size(15, 14);
+            this.lblOrder.TabIndex = 224;
+            this.lblOrder.Text = "0";
             // 
             // frmSalesChallanAutoProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(1204, 515);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
@@ -1026,6 +1078,8 @@
             this.Controls.SetChildIndex(this.btnNew, 0);
             this.Controls.SetChildIndex(this.btnClose, 0);
             this.Controls.SetChildIndex(this.btnPrint, 0);
+            this.Controls.SetChildIndex(this.button2, 0);
+            this.Controls.SetChildIndex(this.button3, 0);
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
             this.pnlTop.ResumeLayout(false);
@@ -1111,5 +1165,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
         private System.Windows.Forms.DataGridViewButtonColumn Column1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label lblNegetive;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label lblOrder;
     }
 }

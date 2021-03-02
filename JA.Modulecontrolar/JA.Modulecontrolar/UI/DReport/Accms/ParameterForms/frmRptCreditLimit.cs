@@ -358,6 +358,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
         private void btnPrint_Click(object sender, EventArgs e)
         {
             string strBranchId = "";
+            int intRtst = 0;
             if (uctxtBranch.Text == "")
             {
                 MessageBox.Show("Please Select Branch Name.");
@@ -380,6 +381,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                 dteToDate.Value = dtpLastDate.Value.AddDays(-1);
                 if (radAll.Checked == true)
                 {
+
+                  
                     JA.Modulecontrolar.UI.DReport.Accms.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Accms.Viewer.frmReportViewer();
                     frmviewer.selector = JA.Modulecontrolar.UI.DReport.Accms.ViewerSelector.CreditLimit;
                     frmviewer.strFdate = dteFromDate.Value.ToString("dd-MM-yyyy");
@@ -392,6 +395,22 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                     frmviewer.strBranchID = strBranchId;
                     frmviewer.strSelction = "";
                     frmviewer.intVtype = 0;
+                    frmviewer.intSP = 0;
+                    if (chkboxPendingS.Checked == true)
+                    {
+                        if (rbtnasc.Checked== true)
+                        {
+                            frmviewer.intSP = 1;
+                          
+                        }
+
+                        else  
+                        {
+                            frmviewer.intSP = 2;
+                        }
+                    
+                   
+                    }
                     frmviewer.Show();
                     return;
                 }
@@ -427,11 +446,16 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
         {
             PnlMPOGroup.Visible = true;
             rbtMPOGroup.PerformClick();
+            chkboxPendingS.Checked = false;
+            chkboxPendingS.Visible = false;
+            panel3.Visible = false;
 
        
         }
         private void radAll_Click(object sender, EventArgs e)
         {
+            chkboxPendingS.Visible = true;
+            panel3.Visible = false;
             labCatname.Visible = false;
             DGMr.Visible = false;
             uctxtMrName.Visible = false;
@@ -469,6 +493,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             uctxtMrName.Focus();
         }
 
+
         private void frmRptCreditLimit_Load(object sender, EventArgs e)
         {
             frmLabel.Text = strReportName;
@@ -481,6 +506,9 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             //    groupBox2.Visible = false;
             //}
 
+       
+            panel3.Visible = false;
+        
             lstBranch.Visible = false;
             lstMrName.Visible = false;
             lstBranch.ValueMember = "BranchID";
@@ -517,7 +545,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             int introw = 0;
             DGMr.Rows.Clear();
 
-            ooPartyName = invms.mfillPartyNameNew(strComID, lstBranch.SelectedValue.ToString(), Utility.gblnAccessControl, Utility.gstrUserName, 0, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, lstBranch.SelectedValue.ToString(), Utility.gblnAccessControl, Utility.gstrUserName, 0, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {
@@ -548,6 +576,18 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                 }
 
                 DGMr.AllowUserToAddRows = false;
+            }
+        }
+
+        private void chkboxPendingS_Click(object sender, EventArgs e)
+        {
+            if (chkboxPendingS.Checked== true)
+            {
+                panel3.Visible = true;
+            }
+            else
+            {
+                panel3.Visible = false;
             }
         }
       

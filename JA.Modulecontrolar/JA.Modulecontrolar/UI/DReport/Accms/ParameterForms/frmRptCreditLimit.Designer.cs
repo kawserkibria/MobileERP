@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelBranch = new System.Windows.Forms.Panel();
             this.uctxtBranch = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -67,6 +67,10 @@
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.rbtndsc = new System.Windows.Forms.RadioButton();
+            this.rbtnasc = new System.Windows.Forms.RadioButton();
+            this.chkboxPendingS = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panelBranch.SuspendLayout();
@@ -75,6 +79,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGMr)).BeginInit();
             this.PnlMPOGroup.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // frmLabel
@@ -85,6 +90,8 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.chkboxPendingS);
+            this.pnlMain.Controls.Add(this.panel3);
             this.pnlMain.Controls.Add(this.groupBox2);
             this.pnlMain.Controls.Add(this.PnlMPOGroup);
             this.pnlMain.Controls.Add(this.dtpLastDate);
@@ -235,16 +242,16 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.radIndividual);
             this.panel2.Controls.Add(this.radAll);
-            this.panel2.Location = new System.Drawing.Point(34, 196);
+            this.panel2.Location = new System.Drawing.Point(34, 198);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(454, 34);
+            this.panel2.Size = new System.Drawing.Size(316, 34);
             this.panel2.TabIndex = 16;
             // 
             // radIndividual
             // 
             this.radIndividual.AutoSize = true;
             this.radIndividual.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radIndividual.Location = new System.Drawing.Point(230, 3);
+            this.radIndividual.Location = new System.Drawing.Point(187, 3);
             this.radIndividual.Name = "radIndividual";
             this.radIndividual.Size = new System.Drawing.Size(85, 21);
             this.radIndividual.TabIndex = 2;
@@ -258,7 +265,7 @@
             this.radAll.AutoSize = true;
             this.radAll.Checked = true;
             this.radAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radAll.Location = new System.Drawing.Point(111, 3);
+            this.radAll.Location = new System.Drawing.Point(68, 3);
             this.radAll.Name = "radAll";
             this.radAll.Size = new System.Drawing.Size(41, 21);
             this.radAll.TabIndex = 1;
@@ -277,32 +284,32 @@
             this.DGMr.AllowUserToResizeRows = false;
             this.DGMr.BackgroundColor = System.Drawing.Color.White;
             this.DGMr.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGreen;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.DGMr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.LightGreen;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.DGMr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.DGMr.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGMr.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn13,
             this.dataGridViewTextBoxColumn14,
             this.dataGridViewTextBoxColumn15});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DGMr.DefaultCellStyle = dataGridViewCellStyle5;
-            this.DGMr.Location = new System.Drawing.Point(34, 327);
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Lavender;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGMr.DefaultCellStyle = dataGridViewCellStyle11;
+            this.DGMr.Location = new System.Drawing.Point(34, 318);
             this.DGMr.MultiSelect = false;
             this.DGMr.Name = "DGMr";
             this.DGMr.RowHeadersVisible = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            this.DGMr.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            this.DGMr.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.DGMr.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGMr.Size = new System.Drawing.Size(454, 23);
             this.DGMr.TabIndex = 218;
@@ -310,16 +317,16 @@
             // 
             // dataGridViewTextBoxColumn6
             // 
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewTextBoxColumn6.HeaderText = "Teritorry Code";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn13
             // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewTextBoxColumn13.HeaderText = "Teritorry name";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
@@ -327,8 +334,8 @@
             // 
             // dataGridViewTextBoxColumn14
             // 
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewTextBoxColumn14.HeaderText = "MPO Group";
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.ReadOnly = true;
@@ -344,7 +351,7 @@
             // uctxtMrName
             // 
             this.uctxtMrName.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtMrName.Location = new System.Drawing.Point(34, 299);
+            this.uctxtMrName.Location = new System.Drawing.Point(34, 290);
             this.uctxtMrName.Name = "uctxtMrName";
             this.uctxtMrName.Size = new System.Drawing.Size(454, 22);
             this.uctxtMrName.TabIndex = 217;
@@ -355,7 +362,7 @@
             this.labCatname.BackColor = System.Drawing.Color.Beige;
             this.labCatname.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.labCatname.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labCatname.Location = new System.Drawing.Point(35, 282);
+            this.labCatname.Location = new System.Drawing.Point(34, 271);
             this.labCatname.Name = "labCatname";
             this.labCatname.Size = new System.Drawing.Size(0, 14);
             this.labCatname.TabIndex = 216;
@@ -442,16 +449,16 @@
             this.PnlMPOGroup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PnlMPOGroup.Controls.Add(this.rbtMPO);
             this.PnlMPOGroup.Controls.Add(this.rbtMPOGroup);
-            this.PnlMPOGroup.Location = new System.Drawing.Point(34, 236);
+            this.PnlMPOGroup.Location = new System.Drawing.Point(34, 238);
             this.PnlMPOGroup.Name = "PnlMPOGroup";
-            this.PnlMPOGroup.Size = new System.Drawing.Size(454, 34);
+            this.PnlMPOGroup.Size = new System.Drawing.Size(316, 31);
             this.PnlMPOGroup.TabIndex = 17;
             // 
             // rbtMPO
             // 
             this.rbtMPO.AutoSize = true;
             this.rbtMPO.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtMPO.Location = new System.Drawing.Point(230, 3);
+            this.rbtMPO.Location = new System.Drawing.Point(187, 3);
             this.rbtMPO.Name = "rbtMPO";
             this.rbtMPO.Size = new System.Drawing.Size(57, 21);
             this.rbtMPO.TabIndex = 2;
@@ -465,7 +472,7 @@
             this.rbtMPOGroup.AutoSize = true;
             this.rbtMPOGroup.Checked = true;
             this.rbtMPOGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtMPOGroup.Location = new System.Drawing.Point(111, 3);
+            this.rbtMPOGroup.Location = new System.Drawing.Point(68, 3);
             this.rbtMPOGroup.Name = "rbtMPOGroup";
             this.rbtMPOGroup.Size = new System.Drawing.Size(101, 21);
             this.rbtMPOGroup.TabIndex = 1;
@@ -520,6 +527,53 @@
             this.radioButton1.Text = "All";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.rbtndsc);
+            this.panel3.Controls.Add(this.rbtnasc);
+            this.panel3.Location = new System.Drawing.Point(356, 216);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(132, 57);
+            this.panel3.TabIndex = 225;
+            // 
+            // rbtndsc
+            // 
+            this.rbtndsc.AutoSize = true;
+            this.rbtndsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtndsc.Location = new System.Drawing.Point(34, 31);
+            this.rbtndsc.Name = "rbtndsc";
+            this.rbtndsc.Size = new System.Drawing.Size(74, 21);
+            this.rbtndsc.TabIndex = 2;
+            this.rbtndsc.TabStop = true;
+            this.rbtndsc.Text = "Highest";
+            this.rbtndsc.UseVisualStyleBackColor = true;
+            // 
+            // rbtnasc
+            // 
+            this.rbtnasc.AutoSize = true;
+            this.rbtnasc.Checked = true;
+            this.rbtnasc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnasc.Location = new System.Drawing.Point(34, 4);
+            this.rbtnasc.Name = "rbtnasc";
+            this.rbtnasc.Size = new System.Drawing.Size(70, 21);
+            this.rbtnasc.TabIndex = 1;
+            this.rbtnasc.TabStop = true;
+            this.rbtnasc.Text = "Lowest";
+            this.rbtnasc.UseVisualStyleBackColor = true;
+            // 
+            // chkboxPendingS
+            // 
+            this.chkboxPendingS.AutoSize = true;
+            this.chkboxPendingS.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.chkboxPendingS.Location = new System.Drawing.Point(366, 193);
+            this.chkboxPendingS.Name = "chkboxPendingS";
+            this.chkboxPendingS.Size = new System.Drawing.Size(131, 21);
+            this.chkboxPendingS.TabIndex = 230;
+            this.chkboxPendingS.Text = "Pending Amount";
+            this.chkboxPendingS.UseVisualStyleBackColor = true;
+            this.chkboxPendingS.Click += new System.EventHandler(this.chkboxPendingS_Click);
+            // 
             // frmRptCreditLimit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -559,6 +613,8 @@
             this.PnlMPOGroup.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -599,5 +655,9 @@
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.CheckBox chkboxPendingS;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.RadioButton rbtndsc;
+        private System.Windows.Forms.RadioButton rbtnasc;
     }
 }

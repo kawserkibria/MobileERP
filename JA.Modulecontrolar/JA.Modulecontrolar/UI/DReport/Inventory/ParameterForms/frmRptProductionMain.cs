@@ -63,5 +63,31 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                 objfrm.MdiParent = this.MdiParent;
             }
         }
+
+        private void btnLocationWiseConsumtion_Click(object sender, EventArgs e)
+        {
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 80))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmRptLocationConsumtion"] as frmRptLocationConsumtion == null)
+            {
+                frmRptLocationConsumtion objfrm = new frmRptLocationConsumtion();
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
+
+            }
+            else
+            {
+                frmRptLocationConsumtion objfrm = (frmRptLocationConsumtion)Application.OpenForms["frmRptLocationConsumtion"];
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
+
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Dutility;
+using JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms;
 using JA.Modulecontrolar.UI.DReport.Sales.ParameterForms;
 using Microsoft.Win32;
 using System;
@@ -105,6 +106,60 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             else
             {
                 frmRptTCSales_Collection objfrm = (frmRptTCSales_Collection)Application.OpenForms["frmRptTCSales_Collection"];
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
+        }
+
+        private void btnSalesRegister_Click(object sender, EventArgs e)
+        {
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 37))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmRptPurchaseRegister"] as frmRptPurchaseRegister == null)
+            {
+                frmRptPurchaseRegister objfrm = new frmRptPurchaseRegister();
+                objfrm.strReportName = "Manufacturing";
+                objfrm.strSelection = "SalesReg";
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
+
+            }
+            else
+            {
+                frmRptPurchaseRegister objfrm = (frmRptPurchaseRegister)Application.OpenForms["frmRptPurchaseRegister"];
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
+        }
+
+        private void btnReturnRegister_Click(object sender, EventArgs e)
+        {
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 38))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmRptPurchaseRegister"] as frmRptPurchaseRegister == null)
+            {
+                frmRptPurchaseRegister objfrm = new frmRptPurchaseRegister();
+                //objfrm.strReportName = "Manufacturing";
+                objfrm.strSelection = "ReturnReg";
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
+
+            }
+            else
+            {
+                frmRptPurchaseRegister objfrm = (frmRptPurchaseRegister)Application.OpenForms["frmRptPurchaseRegister"];
                 objfrm.Focus();
                 objfrm.MdiParent = this.MdiParent;
             }

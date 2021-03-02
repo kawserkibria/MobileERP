@@ -22,6 +22,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         public AddAllClick onAddAllButtonClicked;
         private ListBox lstFindWhat = new ListBox();
         private ListBox lstExpression = new ListBox();
+        public int intType { get; set; }
         public long lngFormPriv { get; set; }
         public string strFormName { get; set; }
         public int intvType { get; set; }
@@ -348,7 +349,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstFindWhat.Items.Clear();
             lstFindWhat.Items.Add("Voucher Number");
             lstFindWhat.Items.Add("Voucher Date");
-            lstFindWhat.Items.Add("Stock Item");
+            //lstFindWhat.Items.Add("Stock Item");
         
 
         }
@@ -361,21 +362,41 @@ namespace JA.Modulecontrolar.UI.Inventory
             }
             else if (intvType == (int)Utility.VOUCHER_TYPE.vtSTOCK_MFG_CONSUMPTION)
             {
-                frmLabel.Text = "Manufacturing Voucher List";
+                //frmLabel.Text = "Dilution Consumption List";  
+                frmLabel.Text = strFormName;
             }
             else
             {
-                frmLabel.Text = "Stock Consumption List";
+                frmLabel.Text = "Manufacturing Voucher List";
             }
-            this.DGMFGVoucherList.DefaultCellStyle.Font = new Font("verdana", 9);
-            DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 200, false, DataGridViewContentAlignment.TopLeft, true));
-            DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 200, true, DataGridViewContentAlignment.TopLeft, true));
-            DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Batch No", "Batch No", 220, true, DataGridViewContentAlignment.TopLeft, true));
-            DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 100, true, DataGridViewContentAlignment.TopLeft, true));
-            DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 200, true, DataGridViewContentAlignment.TopLeft, true));
-            DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, true, DataGridViewContentAlignment.TopCenter, true));
-            DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 80, true, DataGridViewContentAlignment.TopCenter, true));
-            DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 50, true, DataGridViewContentAlignment.TopCenter, true));
+            if (intType == 4)
+            {
+                this.DGMFGVoucherList.DefaultCellStyle.Font = new Font("verdana", 9);
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 200, false, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 150, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Consumption Location", "Consumption Location", 170, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Batch No", "Batch No", 130, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 130, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 80, true, DataGridViewContentAlignment.TopCenter, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 50, true, DataGridViewContentAlignment.TopCenter, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("", " ", 40, true, DataGridViewContentAlignment.TopLeft, true));
+            }
+            else
+            {
+                this.DGMFGVoucherList.DefaultCellStyle.Font = new Font("verdana", 9);
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 200, false, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 150, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Consumption Location", "Consumption Location", 200, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Batch No", "Batch No", 140, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 130, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 80, true, DataGridViewContentAlignment.TopCenter, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 50, true, DataGridViewContentAlignment.TopCenter, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("", " ", 40, false, DataGridViewContentAlignment.TopLeft, true));
+            }
             mLoadFind();
             mfgVoucherList();
         }
@@ -390,20 +411,20 @@ namespace JA.Modulecontrolar.UI.Inventory
             {
                 if (uctxtFindWhat.Text == "Voucher Number")
                 {
-                    oogrp = invms.mDisplayInOutMaster(strComID, uctxtExpression.Text, intvType, uctxtFindWhat.Text, "", "", "", "").ToList();
+                    oogrp = invms.mDisplayInOutMaster(strComID, uctxtExpression.Text, intvType, uctxtFindWhat.Text, "", "", "", "", intType,Utility.gstrUserName ).ToList();
                 }
                 else if (uctxtFindWhat.Text == "Voucher Date")
                 {
-                    oogrp = invms.mDisplayInOutMaster(strComID, "", intvType, uctxtFindWhat.Text, "", uctxtFromDate.Text, uctxtToDate.Text, "").ToList();
+                    oogrp = invms.mDisplayInOutMaster(strComID, "", intvType, uctxtFindWhat.Text, "", uctxtFromDate.Text, uctxtToDate.Text, "", intType, Utility.gstrUserName).ToList();
                 }
                 else
                 {
-                    oogrp = invms.mDisplayInOutMaster(strComID, "", intvType, uctxtFindWhat.Text, uctxtExpression.Text, "", "", "").ToList();
+                    oogrp = invms.mDisplayInOutMaster(strComID, "", intvType, uctxtFindWhat.Text, uctxtExpression.Text, "", "", "", intType, Utility.gstrUserName).ToList();
                 }
             }
             else
             {
-                oogrp = invms.mDisplayInOutMaster(strComID, "", intvType, "", "", DateTime.Now.ToString("dd/MM/yyyy"), DateTime.Now.Date.ToString("dd/MM/yyyy"), "").ToList();
+                oogrp = invms.mDisplayInOutMaster(strComID, "", intvType, "", "", DateTime.Now.ToString("dd/MM/yyyy"), DateTime.Now.Date.ToString("dd/MM/yyyy"), "", intType, Utility.gstrUserName).ToList();
             }
             
             if (oogrp.Count > 0)
@@ -413,23 +434,22 @@ namespace JA.Modulecontrolar.UI.Inventory
                     DGMFGVoucherList.Rows.Add();
                     DGMFGVoucherList[0, introw].Value = ogrp.strVoucherNo;
                     DGMFGVoucherList[1, introw].Value = Utility.Mid(ogrp.strVoucherNo,6,ogrp.strVoucherNo.Length-6);
-                    DGMFGVoucherList[2, introw].Value = ogrp.strBatch;
-                    DGMFGVoucherList[3, introw].Value = ogrp.strDate;
-                    DGMFGVoucherList[4, introw].Value = ogrp.dblAmount;
+                    DGMFGVoucherList[2, introw].Value = ogrp.strLocation;
+                    DGMFGVoucherList[3, introw].Value = ogrp.strBatch;
+                    DGMFGVoucherList[4, introw].Value = ogrp.strDate;
+                    DGMFGVoucherList[5, introw].Value = ogrp.dblAmount;
 
-                    DGMFGVoucherList[5, introw].Value = "Edit";
-                    //DGMFGVoucherList[5, introw].Value = "Print";
-                    DGMFGVoucherList[6, introw].Value = "Delete";
-                    DGMFGVoucherList[7, introw].Value = "View";
-                   
-                    //if (introw % 2 == 0)
-                    //{
-                    //    DGMFGVoucherList.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
-                    //}
-                    //else
-                    //{
-                    //    DGMFGVoucherList.Rows[introw].DefaultCellStyle.BackColor = Color.White;
-                    //}
+                    DGMFGVoucherList[6, introw].Value = "Edit";
+                    DGMFGVoucherList[7, introw].Value = "Delete";
+                    DGMFGVoucherList[8, introw].Value = "View";
+                    if(ogrp.intAppStatus ==0)
+                    {
+                        DGMFGVoucherList[9, introw].Value = "No";
+                    }
+                    else
+                    {
+                        DGMFGVoucherList[9, introw].Value = "Yes";
+                    }
                     introw += 1;
                 }
                 DGMFGVoucherList.AllowUserToAddRows = false;
@@ -440,9 +460,9 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             try
             {
+                string strmsg = "";
 
-
-                if (e.ColumnIndex == 5)
+                if (e.ColumnIndex == 6)
                 {
                     if (Utility.gblnAccessControl)
                     {
@@ -452,11 +472,21 @@ namespace JA.Modulecontrolar.UI.Inventory
                             return;
                         }
                     }
+                    if (Utility.gstrUserName.ToUpper() != "DEEPLAID")
+                    {
+                        strmsg = Utility.mGetCheckProductIonApproved(strComID, DGMFGVoucherList.CurrentRow.Cells[0].Value.ToString());
+
+                        if (strmsg != "")
+                        {
+                            MessageBox.Show(strmsg);
+                            return;
+                        }
+                    }
                     if (onAddAllButtonClicked != null)
                         onAddAllButtonClicked(GetSelectedItem(), sender, e);
                     this.Dispose();
                 }
-                if (e.ColumnIndex == 6)
+                if (e.ColumnIndex == 7)
                 {
                     if (Utility.gblnAccessControl)
                     {
@@ -466,11 +496,29 @@ namespace JA.Modulecontrolar.UI.Inventory
                             return;
                         }
                     }
+                     strmsg = Utility.mGetCheckProductIonApproved(strComID, DGMFGVoucherList.CurrentRow.Cells[0].Value.ToString());
+
+                     if (strmsg != "")
+                     {
+                         MessageBox.Show("Approved Voucher Cannot be Delete..");
+                         return;
+                     }
+                     string strLockvoucher = Utility.gLockVocher(strComID, intvType);
+                     long lngDate = Convert.ToInt64(Convert.ToDateTime(DGMFGVoucherList.CurrentRow.Cells[4].Value.ToString()).ToString("yyyyMMdd"));
+                     if (strLockvoucher != "")
+                     {
+                         long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                         if (lngDate <= lngBackdate)
+                         {
+                             MessageBox.Show("Invalid Date, Back Date is locked");
+                             return;
+                         }
+                     }
                     var strResponse = MessageBox.Show("Do You  want to Delete?", "Delete Button", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (strResponse == DialogResult.Yes)
                     {
-                        double dblAmnt = Convert.ToDouble(DGMFGVoucherList.CurrentRow.Cells[4].Value.ToString());
-                        string strVoucherDate = DGMFGVoucherList.CurrentRow.Cells[3].Value.ToString();
+                        double dblAmnt = Convert.ToDouble(DGMFGVoucherList.CurrentRow.Cells[5].Value.ToString());
+                        string strVoucherDate = DGMFGVoucherList.CurrentRow.Cells[4].Value.ToString();
                         //string strBranchID = Utility.gstrGetBranchID(strComID, DGMFGVoucherList.CurrentRow.Cells[10].Value.ToString());
 
                         string i = invms.mDeleteStockConum(strComID, DGMFGVoucherList.CurrentRow.Cells[0].Value.ToString());
@@ -488,17 +536,34 @@ namespace JA.Modulecontrolar.UI.Inventory
                         
                     }
                 }
-                if (e.ColumnIndex == 7)
+                if (e.ColumnIndex == 8)
                 {
                     if (intvType == (int)Utility.VOUCHER_TYPE.vtSTOCK_MFG_CONSUMPTION)
                     {
-                        JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer();
-                        frmviewer.selector = JA.Modulecontrolar.UI.DReport.Inventory.ViewerSelector.intventoryVoucher;
-                        frmviewer.strFdate = "";
-                        frmviewer.strSummDetails = "Details";
-                        frmviewer.strString = DGMFGVoucherList.CurrentRow.Cells[0].Value.ToString();
-                        frmviewer.strSelction = "C";
-                        frmviewer.Show();
+                        String strRefNo = "";
+                        strRefNo = DGMFGVoucherList.CurrentRow.Cells[0].Value.ToString();
+
+                        if (Utility.mGetRepakingCheck(strComID, strRefNo) == true)
+                        {
+                            JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer();
+                            frmviewer.selector = JA.Modulecontrolar.UI.DReport.Inventory.ViewerSelector.Repaking;
+                            frmviewer.strFdate = "";
+                            frmviewer.strSummDetails = "Details";
+                            frmviewer.strString = DGMFGVoucherList.CurrentRow.Cells[0].Value.ToString();
+                            frmviewer.strSelction = "C";
+                            frmviewer.Show();
+                        }
+                        else
+                        {
+                            JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer();
+                            frmviewer.selector = JA.Modulecontrolar.UI.DReport.Inventory.ViewerSelector.intventoryVoucher;
+                            frmviewer.strFdate = "";
+                            frmviewer.strSummDetails = "Details";
+                            frmviewer.strString = DGMFGVoucherList.CurrentRow.Cells[0].Value.ToString();
+                            frmviewer.strSelction = "C";
+                            frmviewer.Show();
+
+                        }
                     }
                     else if (intvType == (int)Utility.VOUCHER_TYPE.vtSTOCK_MFG_FINISHED_GOODS)
                     {

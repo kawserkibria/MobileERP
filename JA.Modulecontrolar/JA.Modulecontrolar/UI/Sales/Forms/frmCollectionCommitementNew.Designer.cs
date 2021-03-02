@@ -318,7 +318,7 @@
             this.dateTimePicker1.TabIndex = 24;
             this.dateTimePicker1.Visible = false;
             // 
-            // frmCollectionCommitement
+            // frmCollectionCommitementNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(1199, 534);
@@ -328,7 +328,7 @@
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
-            this.Name = "frmCollectionCommitement";
+            this.Name = "frmCollectionCommitementNew";
             this.Load += new System.EventHandler(this.frmCollectionCommitementNew_Load);
             this.Controls.SetChildIndex(this.groupBox1, 0);
             this.Controls.SetChildIndex(this.pnlMain, 0);

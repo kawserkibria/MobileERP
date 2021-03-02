@@ -34,6 +34,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
         private String reportTitle = "";
         private String reportHeading = "";
         private String secondParameter = "";
+       
         public long lngFormPriv { get; set; }
         public int intModuleType { get; set; }
         public string strFormName { get; set; }
@@ -748,14 +749,16 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                 }
                 if (mintVType == 3)
                 {
-                   
-                    string strCheck = Utility.mCheckAutoJV(strComID, DG.CurrentRow.Cells[1].Value.ToString());
-                    if (strCheck != "")
+                    if (Utility.gstrUserName.ToUpper() != "DEEPLAID")
                     {
+                        string strCheck = Utility.mCheckAutoJV(strComID, DG.CurrentRow.Cells[1].Value.ToString());
+                        if (strCheck != "")
+                        {
 
-                        MessageBox.Show(strCheck);
-                        DG.Focus();
-                        return;
+                            MessageBox.Show(strCheck);
+                            DG.Focus();
+                            return;
+                        }
                     }
                 }
                 if (mintVType == 15)
@@ -769,6 +772,19 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             }
             if (e.ColumnIndex == 13)
             {
+                string strVoucherDate = DG.CurrentRow.Cells[3].Value.ToString();
+                string strLockvoucher = Utility.gLockVocher(strComID,mintVType);
+                long lngDate = Convert.ToInt64(Convert.ToDateTime(strVoucherDate).ToString("yyyyMMdd"));
+                if (strLockvoucher != "")
+                {
+                    long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                    if (lngDate <= lngBackdate)
+                    {
+                        MessageBox.Show("Invalid Date, Back Date is locked");
+                        return;
+                    }
+                }
+
                 if (Utility.gblnAccessControl)
                 {
                     if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, lngFormPriv, 3))
@@ -777,11 +793,12 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                         return;
                     }
                 }
+
                 var strResponse = MessageBox.Show("Do You  want to Delete?", "Delete Button", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (strResponse == DialogResult.Yes)
                 {
                     double dblAmnt = Convert.ToDouble(DG.CurrentRow.Cells[11].Value.ToString());
-                    string strVoucherDate = DG.CurrentRow.Cells[3].Value.ToString();
+                   
                     string strBranchID = Utility.gstrGetBranchID(strComID, DG.CurrentRow.Cells[10].Value.ToString());
                     string i = Delete.gDeleteRecord(strComID, DG.CurrentRow.Cells[1].Value.ToString(), mintVType, mblnNumbMethod);
                     if (i == "Delete Successfull..")
@@ -822,6 +839,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     JA.Modulecontrolar.UI.DReport.Purchase.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Purchase.Viewer.frmReportViewer();
                     frmviewer.selector = JA.Modulecontrolar.UI.DReport.Purchase.ViewerSelector.VouchearVouNoListReport;
                     frmviewer.strString = "'" + DG.CurrentRow.Cells[1].Value.ToString() + "'";
+                    frmviewer.strLedgerName = "'" + DG.CurrentRow.Cells[9].Value.ToString() + "'";
                     frmviewer.strString2 = "Sales Invoice List";
                     frmviewer.intSuppress = 1;
                     frmviewer.intMode = mintVType;
@@ -1028,7 +1046,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                 string strPMonthID= Utility.LastDayOfMonth(Convert.ToDateTime(DG.CurrentRow.Cells[3].Value.ToString()).AddMonths(-1)).ToString("MMMyy");
                 if (mintVType == (int)Utility.VOUCHER_TYPE.vtSALES_INVOICE)
                 {
-                    mDirectPrintSI("", "", "'" + DG.CurrentRow.Cells[1].Value.ToString() + "'", "Sales Invoice List");
+                    mDirectPrintSI("", "", "'" + DG.CurrentRow.Cells[1].Value.ToString() + "'", "Sales Invoice List", " " + DG.CurrentRow.Cells[9].Value.ToString() + "");
                 }
                 else if (mintVType == (int)Utility.VOUCHER_TYPE.vtSALES_CHALLAN)
                 {
@@ -1165,7 +1183,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             rpt1.PrintToPrinter(1, true, 0, 0);
             Thread.Sleep(milliseconds);
         }
-        private void mDirectPrintSI(string strFdate, string strTdate, string strString, string strString2)
+        private void mDirectPrintSI(string strFdate, string strTdate, string strString, string strString2,string strLedgername)
         {
             ReportDocument rpt1;
             int milliseconds = 4000;
@@ -1182,7 +1200,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                 this.secondParameter = "";
             }
             this.reportTitle = strString2;
-            rpt1.SetDataSource(orpt.mGetSalesInvoiceReportPriview(strComID, strString).ToList());
+            rpt1.SetDataSource(orpt.mGetSalesInvoiceReportPriview(strComID, strString, strLedgername).ToList());
             //rpt1.Subreports[0].SetDataSource(orpt.mGetVoucherAddless(strComID, strLedgerName, strSelction).ToList());
             //crystalReportViewer1.ReportSource = rpt1;
             InitialiseLabels(rpt1);
@@ -1355,9 +1373,16 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             {
 
                 AccountsVoucher itm = new AccountsVoucher();
+
+
                 itm.strVoucherNo = DG.CurrentRow.Cells[1].Value.ToString();
                 itm.strPreserveSQL = DG.CurrentRow.Cells[15].Value.ToString();
                 if (i == 0)
+                {
+                    itm.strVoucherNo = DG.CurrentRow.Cells[1].Value.ToString();
+                    itm.strPreserveSQL = DG.CurrentRow.Cells[15].Value.ToString();
+                }
+                else if (DG.SelectedCells[0].RowIndex==(DG.Rows.Count-1))
                 {
                     itm.strVoucherNo = DG.CurrentRow.Cells[1].Value.ToString();
                     itm.strPreserveSQL = DG.CurrentRow.Cells[15].Value.ToString();
@@ -1383,6 +1408,8 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             }
         }
 
+
+    
         private void btnCancel_Click(object sender, EventArgs e)
         {
             uctxtFindWhat.Text = "";
@@ -1412,6 +1439,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                 JA.Modulecontrolar.UI.DReport.Purchase.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Purchase.Viewer.frmReportViewer();
                 frmviewer.selector = JA.Modulecontrolar.UI.DReport.Purchase.ViewerSelector.VouchearVouNoListReport;
                 frmviewer.strString = "'" + DG.CurrentRow.Cells[1].Value.ToString() + "' ";
+                frmviewer.strLedgerName = "'" + DG.CurrentRow.Cells[9].Value.ToString() + "' ";
                 frmviewer.strString2 = "Sales Invoice List";
                 frmviewer.intSuppress = 1;
                 frmviewer.intMode = mintVType;
@@ -1578,8 +1606,8 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
         #region "Direct Print"
         private void btnDPrint_Click(object sender, EventArgs e)
         {
-            string strString = "";
-            int intRow = 0;
+            //string strString = "";
+            //int intRow = 0;
             try
             {
 
@@ -1591,7 +1619,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                         {
                             //MessageBox.Show("Index " + row.Index.ToString());
                             int selectedCount = row.Index;
-                            mDirectPrintSI("", "", "'" + DG.Rows[selectedCount].Cells[1].Value.ToString() + "'", "Sales Invoice List");
+                            mDirectPrintSI("", "", "'" + DG.Rows[selectedCount].Cells[1].Value.ToString() + "'", "Sales Invoice List", "" + DG.CurrentRow.Cells[9].Value.ToString() + "");
                             DG.Rows[selectedCount].Cells[1].Selected = false;
                         }
                         DG.CurrentRow.Cells[0].Selected = true;
@@ -1927,11 +1955,16 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     }
                 }
 
+
                 if (onAddAllButtonClicked != null)
-                    onAddAllButtonClicked(GetSelectedItem(1), sender, e);
+                    onAddAllButtonClicked(GetSelectedItem(), sender, e);
                 this.Dispose();
             }
         }
+
+       
+
+     
 
        
 

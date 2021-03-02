@@ -51,6 +51,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dteFromDate = new System.Windows.Forms.DateTimePicker();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnLeftAll = new System.Windows.Forms.Button();
             this.btnLeftSingle = new System.Windows.Forms.Button();
@@ -59,6 +61,7 @@
             this.lstRight = new System.Windows.Forms.ListBox();
             this.lstLeft = new System.Windows.Forms.ListBox();
             this.grpGroup = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtSerchGroup = new System.Windows.Forms.TextBox();
             this.btnLeftAllNew = new System.Windows.Forms.Button();
@@ -122,14 +125,14 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(578, 481);
+            this.btnClose.Location = new System.Drawing.Point(666, 480);
             this.btnClose.Visible = true;
             // 
             // btnPrint
             // 
             this.btnPrint.ImageIndex = -1;
             this.btnPrint.ImageKey = "print.png";
-            this.btnPrint.Location = new System.Drawing.Point(453, 481);
+            this.btnPrint.Location = new System.Drawing.Point(541, 480);
             this.btnPrint.Size = new System.Drawing.Size(124, 39);
             this.btnPrint.Text = "Preview";
             this.btnPrint.Visible = true;
@@ -158,9 +161,9 @@
             this.radItem.AutoSize = true;
             this.radItem.Location = new System.Drawing.Point(18, 47);
             this.radItem.Name = "radItem";
-            this.radItem.Size = new System.Drawing.Size(150, 18);
+            this.radItem.Size = new System.Drawing.Size(89, 18);
             this.radItem.TabIndex = 3;
-            this.radItem.Text = " Item Wise Location";
+            this.radItem.Text = "Item Wise";
             this.radItem.UseVisualStyleBackColor = true;
             this.radItem.Click += new System.EventHandler(this.radItem_Click);
             // 
@@ -410,6 +413,8 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.label3);
+            this.groupBox7.Controls.Add(this.label6);
             this.groupBox7.Controls.Add(this.txtSearch);
             this.groupBox7.Controls.Add(this.btnLeftAll);
             this.groupBox7.Controls.Add(this.btnLeftSingle);
@@ -423,16 +428,37 @@
             this.groupBox7.TabIndex = 5;
             this.groupBox7.TabStop = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(194, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 16);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Search";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Blue;
+            this.label6.Location = new System.Drawing.Point(6, 12);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 16);
+            this.label6.TabIndex = 30;
+            this.label6.Text = "Location";
+            // 
             // txtSearch
             // 
             this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearch.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.Location = new System.Drawing.Point(7, 18);
+            this.txtSearch.Location = new System.Drawing.Point(6, 31);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(246, 22);
             this.txtSearch.TabIndex = 6;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            
             // 
             // btnLeftAll
             // 
@@ -488,7 +514,7 @@
             this.lstRight.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstRight.FormattingEnabled = true;
             this.lstRight.ItemHeight = 14;
-            this.lstRight.Location = new System.Drawing.Point(299, 39);
+            this.lstRight.Location = new System.Drawing.Point(299, 52);
             this.lstRight.Name = "lstRight";
             this.lstRight.Size = new System.Drawing.Size(258, 156);
             this.lstRight.TabIndex = 1;
@@ -499,13 +525,14 @@
             this.lstLeft.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstLeft.FormattingEnabled = true;
             this.lstLeft.ItemHeight = 14;
-            this.lstLeft.Location = new System.Drawing.Point(6, 41);
+            this.lstLeft.Location = new System.Drawing.Point(6, 54);
             this.lstLeft.Name = "lstLeft";
             this.lstLeft.Size = new System.Drawing.Size(248, 156);
             this.lstLeft.TabIndex = 0;
             // 
             // grpGroup
             // 
+            this.grpGroup.Controls.Add(this.label8);
             this.grpGroup.Controls.Add(this.label4);
             this.grpGroup.Controls.Add(this.txtSerchGroup);
             this.grpGroup.Controls.Add(this.btnLeftAllNew);
@@ -520,12 +547,23 @@
             this.grpGroup.TabIndex = 7;
             this.grpGroup.TabStop = false;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Blue;
+            this.label8.Location = new System.Drawing.Point(7, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(95, 16);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Stock Group";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(6, 12);
+            this.label4.Location = new System.Drawing.Point(200, 11);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 16);
             this.label4.TabIndex = 22;
@@ -681,5 +719,8 @@
         private System.Windows.Forms.Button btnRightNew;
         private System.Windows.Forms.ListBox lstRightNew;
         private System.Windows.Forms.ListBox lstLeftNew;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label6;
     }
 }

@@ -31,6 +31,8 @@
             this.btnRptSalesStatement = new ColorButton.ColorButton();
             this.btnCollectionStatement = new ColorButton.ColorButton();
             this.btnrptCollectionStat = new ColorButton.ColorButton();
+            this.btnReturnRegister = new ColorButton.ColorButton();
+            this.btnSalesRegister = new ColorButton.ColorButton();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
@@ -38,20 +40,22 @@
             // frmLabel
             // 
             this.frmLabel.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.frmLabel.Location = new System.Drawing.Point(166, 7);
+            this.frmLabel.Location = new System.Drawing.Point(172, 6);
             this.frmLabel.Size = new System.Drawing.Size(107, 23);
             this.frmLabel.Text = "Statement";
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.btnReturnRegister);
+            this.pnlMain.Controls.Add(this.btnSalesRegister);
             this.pnlMain.Controls.Add(this.btnrptCollectionStat);
             this.pnlMain.Controls.Add(this.btnCollectionStatement);
             this.pnlMain.Controls.Add(this.btnRptSalesStatement);
-            this.pnlMain.Size = new System.Drawing.Size(451, 282);
+            this.pnlMain.Size = new System.Drawing.Size(442, 345);
             // 
             // pnlTop
             // 
-            this.pnlTop.Size = new System.Drawing.Size(454, 42);
+            this.pnlTop.Size = new System.Drawing.Size(450, 42);
             // 
             // btnEdit
             // 
@@ -91,8 +95,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 195);
-            this.groupBox1.Size = new System.Drawing.Size(454, 25);
+            this.groupBox1.Location = new System.Drawing.Point(0, 259);
+            this.groupBox1.Size = new System.Drawing.Size(450, 25);
             // 
             // btnRptSalesStatement
             // 
@@ -108,7 +112,7 @@
             this.btnRptSalesStatement.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnRptSalesStatement.NormalColorA = System.Drawing.Color.White;
             this.btnRptSalesStatement.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnRptSalesStatement.Size = new System.Drawing.Size(375, 40);
+            this.btnRptSalesStatement.Size = new System.Drawing.Size(400, 40);
             this.btnRptSalesStatement.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnRptSalesStatement.TabIndex = 5;
             this.btnRptSalesStatement.Text = "Sales Statement";
@@ -128,7 +132,7 @@
             this.btnCollectionStatement.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnCollectionStatement.NormalColorA = System.Drawing.Color.White;
             this.btnCollectionStatement.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnCollectionStatement.Size = new System.Drawing.Size(375, 40);
+            this.btnCollectionStatement.Size = new System.Drawing.Size(400, 40);
             this.btnCollectionStatement.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnCollectionStatement.TabIndex = 6;
             this.btnCollectionStatement.Text = "Collection Statement";
@@ -143,21 +147,61 @@
             this.btnrptCollectionStat.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnrptCollectionStat.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnrptCollectionStat.HoverColorB = System.Drawing.Color.White;
-            this.btnrptCollectionStat.Location = new System.Drawing.Point(29, 225);
+            this.btnrptCollectionStat.Location = new System.Drawing.Point(29, 224);
             this.btnrptCollectionStat.Name = "btnrptCollectionStat";
             this.btnrptCollectionStat.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnrptCollectionStat.NormalColorA = System.Drawing.Color.White;
             this.btnrptCollectionStat.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnrptCollectionStat.Size = new System.Drawing.Size(375, 40);
+            this.btnrptCollectionStat.Size = new System.Drawing.Size(400, 40);
             this.btnrptCollectionStat.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnrptCollectionStat.TabIndex = 7;
             this.btnrptCollectionStat.Text = "TC Wise Sales/Collection Statement";
             this.btnrptCollectionStat.Click += new System.EventHandler(this.btnrptCollectionStat_Click);
             // 
+            // btnReturnRegister
+            // 
+            this.btnReturnRegister.Active = true;
+            this.btnReturnRegister.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
+            this.btnReturnRegister.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReturnRegister.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
+            this.btnReturnRegister.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
+            this.btnReturnRegister.HoverColorA = System.Drawing.Color.LemonChiffon;
+            this.btnReturnRegister.HoverColorB = System.Drawing.Color.White;
+            this.btnReturnRegister.Location = new System.Drawing.Point(29, 299);
+            this.btnReturnRegister.Name = "btnReturnRegister";
+            this.btnReturnRegister.NormalBorderColor = System.Drawing.Color.Aqua;
+            this.btnReturnRegister.NormalColorA = System.Drawing.Color.White;
+            this.btnReturnRegister.NormalColorB = System.Drawing.Color.Honeydew;
+            this.btnReturnRegister.Size = new System.Drawing.Size(400, 34);
+            this.btnReturnRegister.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
+            this.btnReturnRegister.TabIndex = 27;
+            this.btnReturnRegister.Text = "Return Register";
+            this.btnReturnRegister.Click += new System.EventHandler(this.btnReturnRegister_Click);
+            // 
+            // btnSalesRegister
+            // 
+            this.btnSalesRegister.Active = true;
+            this.btnSalesRegister.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
+            this.btnSalesRegister.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalesRegister.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
+            this.btnSalesRegister.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
+            this.btnSalesRegister.HoverColorA = System.Drawing.Color.LemonChiffon;
+            this.btnSalesRegister.HoverColorB = System.Drawing.Color.White;
+            this.btnSalesRegister.Location = new System.Drawing.Point(29, 265);
+            this.btnSalesRegister.Name = "btnSalesRegister";
+            this.btnSalesRegister.NormalBorderColor = System.Drawing.Color.Aqua;
+            this.btnSalesRegister.NormalColorA = System.Drawing.Color.White;
+            this.btnSalesRegister.NormalColorB = System.Drawing.Color.Honeydew;
+            this.btnSalesRegister.Size = new System.Drawing.Size(400, 34);
+            this.btnSalesRegister.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
+            this.btnSalesRegister.TabIndex = 26;
+            this.btnSalesRegister.Text = "Sales Register";
+            this.btnSalesRegister.Click += new System.EventHandler(this.btnSalesRegister_Click);
+            // 
             // frmStatement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(454, 220);
+            this.ClientSize = new System.Drawing.Size(450, 284);
             this.isEnterTabAllow = true;
             this.MinimizeBox = false;
             this.Name = "frmStatement";
@@ -173,5 +217,7 @@
         private ColorButton.ColorButton btnCollectionStatement;
         private ColorButton.ColorButton btnRptSalesStatement;
         private ColorButton.ColorButton btnrptCollectionStat;
+        private ColorButton.ColorButton btnReturnRegister;
+        private ColorButton.ColorButton btnSalesRegister;
     }
 }

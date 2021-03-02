@@ -78,7 +78,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         {
             lstLeft.Items.Clear();
             lstRight.Items.Clear();
-            List<StockItem> oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName,"N","").ToList();
+            List<StockItem> oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName,"N","","").ToList();
             if (oogrp.Count > 0)
             {
                 foreach (StockItem ostk in oogrp)

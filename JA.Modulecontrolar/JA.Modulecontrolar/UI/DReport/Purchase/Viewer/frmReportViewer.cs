@@ -146,7 +146,7 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.Viewer
                             this.secondParameter = "";
                         }
                         this.reportTitle = strString2;
-                        rpt1.SetDataSource(orpt.mGetSalesInvoiceReportPriview(strComID, strString).ToList());
+                        rpt1.SetDataSource(orpt.mGetSalesInvoiceReportPriview(strComID, strString,strLedgerName).ToList());
                         //rpt1.Subreports[0].SetDataSource(orpt.mGetVoucherAddless(strComID, strLedgerName, strSelction).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         InitialiseLabels(rpt1);
@@ -425,11 +425,11 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.Viewer
                         InitialiseLabels(rpt1);
                         if (strLedgerName != "")
                         {
-                            rpt1.SetDataSource(orpt.mGetPurchaseRegisterReport(strComID, strFdate, strTdate, strLedgerName, strString2).ToList());
+                            rpt1.SetDataSource(objWoIS.mGetPurchaseRegisterReport(strComID, strFdate, strTdate, strLedgerName, strString2,strBranchID).ToList());
                         }
                         else
                         {
-                            rpt1.SetDataSource(objWoIS.mGetPurchaseRegisterReport(strComID, strFdate, strTdate, strLedgerName, strString2).ToList());
+                            rpt1.SetDataSource(objWoIS.mGetPurchaseRegisterReport(strComID, strFdate, strTdate, strLedgerName, strString2, strBranchID).ToList());
                         }
                         rpt1.Subreports[0].SetDataSource(obilladdless1.ToList());
                         crystalReportViewer1.ReportSource = rpt1;
@@ -483,7 +483,7 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.Viewer
                         }
                         this.secondParameter = strFdate + " to " + strTdate;
 
-                        rpt1.SetDataSource(orpt.mGetPurchaseRegisterReport(strComID, strFdate, strTdate, strLedgerName, strString2).ToList());
+                        rpt1.SetDataSource(objWoIS.mGetPurchaseRegisterReport(strComID, strFdate, strTdate, strLedgerName, strString2, strBranchID).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         rpt1.SetParameterValue("InSupress", intSuppress);
                         rpt1.SetParameterValue("Add", dblAdd);

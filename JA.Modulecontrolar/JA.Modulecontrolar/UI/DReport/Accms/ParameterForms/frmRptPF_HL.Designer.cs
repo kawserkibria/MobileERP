@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dteToDate = new System.Windows.Forms.DateTimePicker();
@@ -58,6 +58,7 @@
             this.optAll = new System.Windows.Forms.RadioButton();
             this.radInactive = new System.Windows.Forms.RadioButton();
             this.radActive = new System.Windows.Forms.RadioButton();
+            this.chkboxDetails = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -74,6 +75,7 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.chkboxDetails);
             this.pnlMain.Controls.Add(this.groupBox2);
             this.pnlMain.Controls.Add(this.chkboxClosing);
             this.pnlMain.Controls.Add(this.label4);
@@ -279,48 +281,48 @@
             this.DGMr.AllowUserToResizeRows = false;
             this.DGMr.BackgroundColor = System.Drawing.Color.White;
             this.DGMr.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle25.BackColor = System.Drawing.Color.LightGreen;
-            dataGridViewCellStyle25.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.DGMr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGreen;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.DGMr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DGMr.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGMr.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn13,
             this.dataGridViewTextBoxColumn14,
             this.dataGridViewTextBoxColumn15});
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle29.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle29.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle29.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DGMr.DefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Lavender;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGMr.DefaultCellStyle = dataGridViewCellStyle5;
             this.DGMr.Location = new System.Drawing.Point(16, 305);
             this.DGMr.MultiSelect = false;
             this.DGMr.Name = "DGMr";
             this.DGMr.RowHeadersVisible = false;
-            dataGridViewCellStyle30.BackColor = System.Drawing.Color.White;
-            this.DGMr.RowsDefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            this.DGMr.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.DGMr.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGMr.Size = new System.Drawing.Size(522, 23);
             this.DGMr.TabIndex = 209;
             // 
             // dataGridViewTextBoxColumn6
             // 
-            dataGridViewCellStyle26.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn6.HeaderText = "Teritorry Code";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn13
             // 
-            dataGridViewCellStyle27.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn13.HeaderText = "Teritorry name";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
@@ -328,8 +330,8 @@
             // 
             // dataGridViewTextBoxColumn14
             // 
-            dataGridViewCellStyle28.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewTextBoxColumn14.HeaderText = "MPO Name";
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.ReadOnly = true;
@@ -356,7 +358,7 @@
             // 
             this.chkboxClosing.AutoSize = true;
             this.chkboxClosing.Font = new System.Drawing.Font("Verdana", 9F);
-            this.chkboxClosing.Location = new System.Drawing.Point(382, 180);
+            this.chkboxClosing.Location = new System.Drawing.Point(382, 170);
             this.chkboxClosing.Name = "chkboxClosing";
             this.chkboxClosing.Size = new System.Drawing.Size(160, 18);
             this.chkboxClosing.TabIndex = 211;
@@ -414,6 +416,17 @@
             this.radActive.UseVisualStyleBackColor = true;
             this.radActive.Click += new System.EventHandler(this.radActive_Click);
             // 
+            // chkboxDetails
+            // 
+            this.chkboxDetails.AutoSize = true;
+            this.chkboxDetails.Font = new System.Drawing.Font("Verdana", 9F);
+            this.chkboxDetails.Location = new System.Drawing.Point(382, 194);
+            this.chkboxDetails.Name = "chkboxDetails";
+            this.chkboxDetails.Size = new System.Drawing.Size(69, 18);
+            this.chkboxDetails.TabIndex = 216;
+            this.chkboxDetails.Text = "Details";
+            this.chkboxDetails.UseVisualStyleBackColor = true;
+            // 
             // frmRptPF_HL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -464,5 +477,6 @@
         private System.Windows.Forms.RadioButton optAll;
         private System.Windows.Forms.RadioButton radInactive;
         private System.Windows.Forms.RadioButton radActive;
+        private System.Windows.Forms.CheckBox chkboxDetails;
     }
 }

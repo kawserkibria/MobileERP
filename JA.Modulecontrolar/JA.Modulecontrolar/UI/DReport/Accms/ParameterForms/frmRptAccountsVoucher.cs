@@ -217,6 +217,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
         {
             int intVtype = 0, intDetails = 0, intnaration = 0,intSP=0;
             string strRefNo = "",strMpoComm = "", strbranchID = "",strHeading="";
+            string strPFdate = "", strPTdate = "", strPMonthID = "";
             if (radSp.Checked==true)
             {
                 intSP = 1;
@@ -293,6 +294,10 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             }
             if (strHeading != "MPO Commission")
             {
+                strPFdate = Utility.FirstDayOfMonth(dteFromDate.Value.AddMonths(-1)).ToString("dd-MM-yyyy");
+                strPTdate = Utility.LastDayOfMonth(dteFromDate.Value.AddMonths(-1)).ToString("dd-MM-yyyy");
+                strPMonthID = Utility.FirstDayOfMonth(dteFromDate.Value.AddMonths(-1)).ToString("MMMyy");
+
                 frmReportViewer frmviewer = new frmReportViewer();
                 frmviewer.selector = ViewerSelector.AccountsVoucher;
                 frmviewer.strFdate = dteFromDate.Value.ToString("dd-MM-yyyy");
@@ -303,12 +308,14 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                 frmviewer.strString = strRefNo;
                 frmviewer.strBranchID = strbranchID;
                 frmviewer.strHeading = strHeading;
+                frmviewer.strPreviousFDate = strPFdate;
+                frmviewer.strPreviousTDate = strPTdate;
                 frmviewer.intSP = intSP;
                 frmviewer.Show();
             }
             else
             {
-                string strPFdate = "", strPTdate = "",strPMonthID="";
+                
                 frmReportViewer frmviewer = new frmReportViewer();
                 if (strMpoComm == "MCInduvidual")
                 {
@@ -351,6 +358,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                     frmviewer.strString = strRefNo;
                     frmviewer.strBranchID = strbranchID;
                     frmviewer.strHeading = strHeading;
+                    frmviewer.strPreviousFDate = strPFdate;
+                    frmviewer.strPreviousTDate = strPTdate;
                     frmviewer.ReportSecondParameter = "A";
                     frmviewer.strSelf = "MC";
                     frmviewer.intSP = intSP;

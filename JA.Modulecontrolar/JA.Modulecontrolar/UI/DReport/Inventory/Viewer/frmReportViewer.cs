@@ -25,6 +25,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
         private String secondParameter = "";
         public string strGroup { get; set; }
         public string strString5 = "", strString6 = "", strString7 = "";
+        
         public DateTime  dtetdate { get; set; }
         public string strFdate { get; set; }
         public string strTdate { get; set; }
@@ -33,14 +34,17 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
         public string strString2 { get; set; }
         public string strString3 { get; set; }
         public string strUserSecurity { get; set; }
-     
+        public string strbranchid { get; set; }
         public string strSummDetails { get; set; }
         public string strFromLocation { get; set; }
         public string strToLocation { get; set; }
+        public string strFinYearFdate { get; set; }
+        public string strFinYearTdate { get; set; }
         public string strSelction { get; set; }
         public string str_S_F_Z { get; set; }
         public string strBranchID { get; set; }
         public int intSuppress { get; set; }
+        public int intLocation { get; set; }
         public int intype { get; set; }
         public int intSorting { get; set; }
         public double dblQty { get; set; }
@@ -102,28 +106,39 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
         private void frmReportViewer_Load(object sender, EventArgs e)
         {
             ReportDocument rpt1;
+            string strYesNo = "Y";
             try
             {
-
+    
                 switch (selector)
                 {
+
                     #region "StockSummIPrice"
                     case ViewerSelector.StockIPrice:
                         List<RStockInformation> oStockI;
                         if (strSelction == "I")
                         {
-                            //oStockI = objWIS.GetrptIpriceNew(strComID, strFdate, strTdate, strString, "I", intSuppress, strBranchID, strGroup).ToList();
                             oStockI = objWIS.GetrptIpriceNew(strComID, strFdate, strTdate, strString, strBranchID, strString).ToList();
                             rptStockInformation_Opn__Inw_Ootw_Cls_N StockSummI = new rptStockInformation_Opn__Inw_Ootw_Cls_N();
+                            //rptStockInformation_FG StockSummI = new rptStockInformation_FG();
                             rpt1 = (ReportDocument)StockSummI;
-                            this.reportTitle = "Stock Summarry Invoice Price";
+                            this.reportTitle = "Stock Information Finished Goods (Invoice Rate)";
                         }
                         else
                         {
-                            oStockI = objWIS.mItemMasterForvalueN(strComID, strFdate, strTdate, strString, "O", intSuppress, strBranchID, strGroup).ToList();
-                            rptStockInformation_Opn__Inw_Ootw_Cls StockSummI = new rptStockInformation_Opn__Inw_Ootw_Cls();
-                            rpt1 = (ReportDocument)StockSummI;
-                            this.reportTitle = "Stock Summarry Production Value";
+                            oStockI = objWIS.mItemMasterForvalueN(strComID, strFdate, strTdate, strString, "O", intSuppress, strBranchID, strGroup, intLocation).ToList();
+
+                            if (intLocation == 1)
+                            {
+                                rptStockInformation_Opn_Inw_Ootw_Cls_Purchase_Rate StockSummI = new rptStockInformation_Opn_Inw_Ootw_Cls_Purchase_Rate();
+                                rpt1 = (ReportDocument)StockSummI;
+                            }
+                            else
+                            {
+                                rptStockInformation_Opn_Inw_Ootw_Cls_Purchase StockSummI = new rptStockInformation_Opn_Inw_Ootw_Cls_Purchase();
+                                rpt1 = (ReportDocument)StockSummI;
+                            }
+                            this.reportTitle = "Stock Information Raw Materials ";
                         }
 
                         this.secondParameter = strFdate + " to " + strTdate;
@@ -136,7 +151,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                     #region "Commisssion"
                     case ViewerSelector.GroupCommissionWithSalesValue:
 
-                        List<RStockInformation> oProductGroupCommWithS = orptCnn.mGetGroupCommissionWithSales(strComID, strFdate, strTdate, strString).ToList();
+                        List<RStockInformation> oProductGroupCommWithS = orptCnn.mGetGroupCommissionWithSales(strComID, strFdate, strTdate, strString, strBranchID).ToList();
                         rptGroupCommissionWithValue rptGroupCommissionWithValue = new rptGroupCommissionWithValue();
                         rpt1 = (ReportDocument)rptGroupCommissionWithValue;
                         this.reportTitle = "Group Wise Commission";
@@ -164,7 +179,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                     #region "LocationQty"
                     case ViewerSelector.LocationWiseQty:
                         //rpt1.SetDataSource(orptCnn.mItemMaster(strFdate, strTdate, strString, strSelction, intSuppress).ToList());
-                        List<RStockInformation> oLocation = objWIS.mGetLocationQty(strComID, strFdate, strTdate, strString, strSelction, intSuppress,strStringNew).ToList();
+                        List<RStockInformation> oLocation = objWIS.mGetLocationQty(strComID, strFdate, strTdate, strString, strSelction, intSuppress, strStringNew,Utility.gstrUserName).ToList();
                         if (intSuppress == 2)
                         {
                             rptLocationWiseQty rptLocationWiseQty = new rptLocationWiseQty();
@@ -178,7 +193,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                             this.reportTitle = "Stock Summary (Item Wise)";
                         }
 
-                        this.secondParameter = strFdate + " to " + strTdate ;
+                        this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
                         rpt1.SetDataSource(oLocation.ToList());
                         crystalReportViewer1.ReportSource = rpt1;
@@ -200,7 +215,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                     #endregion
                     #region "BOM LIST"
                     case ViewerSelector.BOMList:
-                        List<RStockInformation> oBomList = orptCnn.mGetBOMList(strComID, strString,strSelction).ToList();
+                        List<RStockInformation> oBomList = orptCnn.mGetBOMList(strComID, strString, strSelction).ToList();
                         if (strSelction == "W")
                         {
                             rptBOMListWithAlias rptBomList = new rptBOMListWithAlias();
@@ -295,23 +310,49 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                     #endregion
                     #region "ProductTopSheetSalesPrice"
                     case ViewerSelector.ProductTopSheetSalesPrice:
-                        //List<RStockInformation> oProductTopSheetSP = orptCnn.mGetProductTopSheetSalesPrice(strComID, strFdate, strTdate).ToList();
-                        List<RStockInformation> oProductTopSheetSP = objWIS.mGetProductTopSheetSalesPrice(strComID, strFdate, strTdate).ToList();
-                        rptProductTopSheetSalesPrice rptProductTopSheetSP = new rptProductTopSheetSalesPrice();
-                        rpt1 = (ReportDocument)rptProductTopSheetSP;
-                        this.reportTitle = "Finished Product Summary Statement Top Sheet(Sales Price)";
+
+                        List<RStockInformation> oProductTopSheetSP = objWIS.mGetProductTopSheetSalesPrice(strComID, strFdate, strTdate, strBranchID).ToList();
+                        if (intype == 1)
+                        {
+                            rptProductTopSheetSalesPrice_Details rptProductTopSheetSP = new rptProductTopSheetSalesPrice_Details();
+                            rpt1 = (ReportDocument)rptProductTopSheetSP;
+                        }
+                        else
+                        {
+                            rptProductTopSheetSalesPrice rptProductTopSheetSP = new rptProductTopSheetSalesPrice();
+                            rpt1 = (ReportDocument)rptProductTopSheetSP;
+                        }
+                        this.reportTitle = "Stock Information FG Top Sheet Avg. Rate(Invoice Value)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
                         rpt1.SetDataSource(oProductTopSheetSP.ToList());
+                        //rpt1.SetParameterValue("BranchName", "Branch Name : " + strToLocation);
+                        //rpt1.SetParameterValue("reportsupress", intype);
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
                     #endregion
                     #region "StockRegister"
                     case ViewerSelector.StockRegister:
-                        List<RStockInformation> oStockRegister = orptCnn.mGetStockRegister(strComID, strFdate, strTdate, strFromLocation, strToLocation).ToList();
-                        rptStockRegister rptStockRegister = new rptStockRegister();
-                        rpt1 = (ReportDocument)rptStockRegister;
+                        if (Utility.gblnAccessControl)
+                        {
+                            if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 202, 1))
+                            {
+                                strYesNo = "N";
+                            }
+                        }
+                        List<RStockInformation> oStockRegister = orptCnn.mGetStockRegister(strComID, strFdate, strTdate, strFromLocation, strToLocation, intSorting, intSuppress, intype).ToList();
+                        if (strYesNo == "Y")
+                        {
+                            rptStockRegister rptStockRegister = new rptStockRegister();
+                            rpt1 = (ReportDocument)rptStockRegister;
+                        }
+                        else
+                        {
+                            rptStockRegisterSuppAmnt rptStockRegister = new rptStockRegisterSuppAmnt();
+                            rpt1 = (ReportDocument)rptStockRegister;
+                        }
+                       
                         if (strFromLocation == "" && strToLocation == "")
                         {
                             this.reportTitle = "Stock Transfer Report (All)";
@@ -374,7 +415,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         List<RStockInformation> oProductTopSheet = orptCnn.mGetProductTopSheet(strComID, strFdate, strTdate).ToList();
                         rptProductTopSheet rptProductTopSheet = new rptProductTopSheet();
                         rpt1 = (ReportDocument)rptProductTopSheet;
-                        this.reportTitle = "Finished Product Summary Statement Top Sheet";
+                        this.reportTitle = "Finished Goods Top Sheet (Invoice Rate)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
                         rpt1.SetDataSource(oProductTopSheet.ToList());
@@ -393,45 +434,55 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         {
                             intPhy = 0;
                         }
-                        List<RStockInformation> oStocStatmenet = orptCnn.mGetProductStatement(strComID, strFdate, strTdate, strString, strBranchID, intype, intPhy,intSorting).ToList();
+                        List<RStockInformation> oStocStatmenet = orptCnn.mGetProductStatement(strComID, strFdate, strTdate, strString, strBranchID, intype, intPhy, intSorting).ToList();
                         if (intype == 1)
                         {
                             if (strSelction == "S")
                             {
                                 rptProductSummStockStatement rptStockStatment = new rptProductSummStockStatement();
                                 rpt1 = (ReportDocument)rptStockStatment;
-                                this.reportTitle = "Product Summarized Stock Statement for Factory";
+                                this.reportTitle = "Product Wise Stock Statement For Main Location (Details)";
                             }
                             else
                             {
                                 rptProductSummStockStatementSumm rptStockStatment = new rptProductSummStockStatementSumm();
                                 rpt1 = (ReportDocument)rptStockStatment;
-                                this.reportTitle = "Product Summarized Stock Statement for Factory";
+                                this.reportTitle = "Product Wise Stock Statement For Main Location (Summary)";
+                            }
+                        }
+                        else if (intype == 2)
+                        {
+                            if (strSelction == "S")
+                            {
+
+                                rptPackSizeWiseSumm rptPackSizeWiseSumm = new rptPackSizeWiseSumm();
+                                rpt1 = (ReportDocument)rptPackSizeWiseSumm;
+                                this.reportTitle = "Pack Size Wise Stock Statement For Main Location (Details)";
+                            }
+                            else
+                            {
+                                rptPackSizeWiseSumm2 rptPackSizeWiseSumm = new rptPackSizeWiseSumm2();
+                                rpt1 = (ReportDocument)rptPackSizeWiseSumm;
+                                this.reportTitle = "Pack Size Wise Stock Statement For Main Location (Summary)";
+
                             }
                         }
                         else
                         {
-                            if (strSelction == "Su")
+                            if (strSelction == "S")
                             {
 
-                                rptPackSizeWiseSumm2 rptPackSizeWiseSumm = new rptPackSizeWiseSumm2();
+                                rptPackSizeWiseSumm rptPackSizeWiseSumm = new rptPackSizeWiseSumm();
                                 rpt1 = (ReportDocument)rptPackSizeWiseSumm;
-                                if (intype==3)
-                                {
-                                    this.reportTitle = "Power Class Wise Summarized Stock Statement";
-                                }
-                                else
-                                {
-                                    this.reportTitle = "Pack Size Wise Summarized Stock Statement";
-                                }
+                                this.reportTitle = "Power Class Wise Stock Statement For Main Location (Details)";
                             }
                             else
                             {
-                                rptPackSizeWiseSumm rptPackSizeWiseSumm = new rptPackSizeWiseSumm();
+                                rptPackSizeWiseSumm2 rptPackSizeWiseSumm = new rptPackSizeWiseSumm2();
                                 rpt1 = (ReportDocument)rptPackSizeWiseSumm;
-                                this.reportTitle = "Pack Size Wise Summarized Stock Statement";
-                            }
+                                this.reportTitle = "Pack Size Wise Stock Statement For Main Location (Summary)";
 
+                            }
                         }
 
                         this.secondParameter = strFdate + " to " + strTdate;
@@ -502,31 +553,27 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         ShowReport(rpt1, false, "");
                         break;
                     #endregion
-                    //#region "StockSummIPrice"
-                    //case ViewerSelector.StockIPrice:
-                    //    List<RStockInformation> oStockI;
-                    //    if (strSelction == "I")
-                    //    {
-                    //        oStockI = objWIS.mItemMasterForvalue(strComID, strFdate, strTdate, strString, "I", intSuppress, strBranchID, strGroup).ToList();
-                    //        rptStockInformation_Opn__Inw_Ootw_Cls StockSummI = new rptStockInformation_Opn__Inw_Ootw_Cls();
-                    //        rpt1 = (ReportDocument)StockSummI;
-                    //        this.reportTitle = "Stock Summarry Sales Price";
-                    //    }
-                    //    else
-                    //    {
-                    //        oStockI = objWIS.mItemMasterForvalue(strComID, strFdate, strTdate, strString, "O", intSuppress, strBranchID, strGroup).ToList();
-                    //        rptStockInformation_Opn__Inw_Ootw_Cls StockSummI = new rptStockInformation_Opn__Inw_Ootw_Cls();
-                    //        rpt1 = (ReportDocument)StockSummI;
-                    //        this.reportTitle = "Stock Summarry Production Value";
-                    //    }
+                    #region "withoverhead"
+                    case ViewerSelector.withoverhead:
+                        List<RStockInformation> owhitoverHead = objWIS.mItemWithOverHead(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
 
-                    //    this.secondParameter = strFdate + " to " + strTdate;
-                    //    InitialiseLabels(rpt1);
-                    //    rpt1.SetDataSource(oStockI.ToList());
-                    //    crystalReportViewer1.ReportSource = rpt1;
-                    //    ShowReport(rpt1, false, "");
-                    //    break;
-                    //#endregion
+                        if (owhitoverHead.Count > 0)
+                        {
+                            rptStockInfo_OverHead_Opn_Inw_Ootw_Cls StockInformationOverHead = new rptStockInfo_OverHead_Opn_Inw_Ootw_Cls();
+                            rpt1 = (ReportDocument)StockInformationOverHead;
+                            this.reportTitle = "Stock Summary (With OverHead)";
+                            this.secondParameter = strFdate + " to " + strTdate;
+                            InitialiseLabels(rpt1);
+                            rpt1.SetDataSource(owhitoverHead.ToList());
+                            crystalReportViewer1.ReportSource = rpt1;
+                            ShowReport(rpt1, false, ""); ;
+                        }
+                        else
+                        {
+                            lblName.Text = "Sorry!No Data Found...";
+                        }
+                        break;
+                    #endregion
                     #region "StockSummSalesPrice"
                     case ViewerSelector.StockLevel:
                         List<RStockInformation> oostock = orptCnn.mGetStockSummSalesPrice(strComID, strString, strSelction, intype).ToList();
@@ -545,7 +592,8 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                     case ViewerSelector.GroupoptionWiseOpnInwOutwCls:
                         if (intype == 1)
                         {
-                            List<RStockInformation> oGroupvs = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3,"").ToList();
+                            List<RStockInformation> oGroupvs = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, 
+                                                                    Utility.gblnAccessControl, Utility.gstrUserName, strString3, "",strBranchID,strString7 ).ToList();
 
                             if (oGroupvs.Count > 0)
                             {
@@ -566,7 +614,8 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         }
                         else
                         {
-                            List<RStockInformation> oGroup = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3,"").ToList();
+                            List<RStockInformation> oGroup = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, 
+                                                                    Utility.gblnAccessControl, Utility.gstrUserName, strString3, "",strBranchID,strString7).ToList();
 
                             if (oGroup.Count > 0)
                             {
@@ -588,7 +637,8 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         }
 
                     case ViewerSelector.GroupoptionWiseOpn:
-                        List<RStockInformation> oGrpOpn = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> oGrpOpn = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl,
+                                                                Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (oGrpOpn.Count > 0)
                         {
                             rptStockInformation_Opn rptStockInformationOPN = new rptStockInformation_Opn();
@@ -607,7 +657,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         break;
 
                     case ViewerSelector.GroupoptionWiseINW:
-                        List<RStockInformation> oGrpIW = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> oGrpIW = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (oGrpIW.Count > 0)
                         {
                             rptStockInformation_Inward rptStockInformationINW = new rptStockInformation_Inward();
@@ -626,7 +676,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         break;
 
                     case ViewerSelector.GroupoptionWiseOUTW:
-                        List<RStockInformation> oGrpO = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> oGrpO = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (oGrpO.Count > 0)
                         {
                             rptStockInformation_Outw rptStockInformationOUTW = new rptStockInformation_Outw();
@@ -645,7 +695,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         break;
 
                     case ViewerSelector.GroupoptionWiseClos:
-                        List<RStockInformation> oCls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> oCls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (oCls.Count > 0)
                         {
                             rptStockInformation_Clos rptStockInformationClos = new rptStockInformation_Clos();
@@ -664,7 +714,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         break;
 
                     case ViewerSelector.GroupoptionWiseOpnInw:
-                        List<RStockInformation> opnClos = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> opnClos = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (opnClos.Count > 0)
                         {
                             rptStockInformation_Opn__Inw rptstockinformationOpnInw = new rptStockInformation_Opn__Inw();
@@ -683,7 +733,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         break;
 
                     case ViewerSelector.GroupoptionWiseOpnOutw:
-                        List<RStockInformation> opnOut = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> opnOut = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (opnOut.Count > 0)
                         {
                             rptStockInformation_Opn__Outw rptstockinformationOpnOutw = new rptStockInformation_Opn__Outw();
@@ -701,7 +751,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         }
                         break;
                     case ViewerSelector.GroupoptionWiseOpnCls:
-                        List<RStockInformation> opnCls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> opnCls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (opnCls.Count > 0)
                         {
                             rptStockInformation_Opn__Cls rptstockinformationOpnCls = new rptStockInformation_Opn__Cls();
@@ -720,7 +770,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         break;
 
                     case ViewerSelector.GroupoptionWiseInwOotw:
-                        List<RStockInformation> opnInwOut = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> opnInwOut = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (opnInwOut.Count > 0)
                         {
                             rptStockInformation_Inw_Outw rptstockinformationInwOutw = new rptStockInformation_Inw_Outw();
@@ -739,7 +789,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         break;
 
                     case ViewerSelector.GroupoptionWiseInwCls:
-                        List<RStockInformation> opnInwCls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> opnInwCls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (opnInwCls.Count > 0)
                         {
                             rptStockInformation_Inw_Cls rptstockinformationInwCls = new rptStockInformation_Inw_Cls();
@@ -757,7 +807,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         }
                         break;
                     case ViewerSelector.GroupoptionWiseOutwCls:
-                        List<RStockInformation> opnoutcls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> opnoutcls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (opnoutcls.Count > 0)
                         {
                             rptStockInformation_Outw_Cls rptstockinformationOutwCls = new rptStockInformation_Outw_Cls();
@@ -776,7 +826,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         break;
 
                     case ViewerSelector.GroupoptionWiseOpnInwOutw:
-                        List<RStockInformation> opnInout = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> opnInout = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (opnInout.Count > 0)
                         {
                             rptStockInformation_Opn__Inw_Ootw rptstockinformationOpnImwOutw = new rptStockInformation_Opn__Inw_Ootw();
@@ -795,7 +845,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         }
                         break;
                     case ViewerSelector.GroupoptionWiseOpnInwCls:
-                        List<RStockInformation> opnIncls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> opnIncls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (opnIncls.Count > 0)
                         {
                             rptStockInformation_Opn__Inw_Cls rptstockinformationOpnImwCls = new rptStockInformation_Opn__Inw_Cls();
@@ -813,7 +863,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         }
                         break;
                     case ViewerSelector.GroupoptionWiseOpnOutwCls:
-                        List<RStockInformation> opnoutCls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> opnoutCls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (opnoutCls.Count > 0)
                         {
                             rptStockInformation_Opn__Outw_Cls rptstockinformationOpnOutwCls = new rptStockInformation_Opn__Outw_Cls();
@@ -832,7 +882,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         break;
 
                     case ViewerSelector.GroupoptionWiseInwOutwCls:
-                        List<RStockInformation> opnInoutcls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList();
+                        List<RStockInformation> opnInoutcls = objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList();
                         if (opnInoutcls.Count > 0)
                         {
                             rptStockInformation_Inw_Outw_Cls rptstockinformationInwOutwCls = new rptStockInformation_Inw_Outw_Cls();
@@ -868,7 +918,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -887,7 +937,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -906,7 +956,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -924,7 +974,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -943,7 +993,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -962,7 +1012,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -981,7 +1031,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1000,7 +1050,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1019,7 +1069,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1031,7 +1081,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                             this.reportTitle = "Stock Summary (ItemWise)";
                             this.secondParameter = strFdate + " to " + strTdate;
                             InitialiseLabels(rpt1);
-                            rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                            rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                             crystalReportViewer1.ReportSource = rpt1;
                             ShowReport(rpt1, false, "");
                             break;
@@ -1053,7 +1103,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                             this.reportTitle = "Stock Summary (ItemWise)";
                             this.secondParameter = strFdate + " to " + strTdate;
                             InitialiseLabels(rpt1);
-                            rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                            rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                             crystalReportViewer1.ReportSource = rpt1;
                             ShowReport(rpt1, false, "");
                             break;
@@ -1074,7 +1124,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1093,7 +1143,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1112,7 +1162,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1131,7 +1181,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1150,7 +1200,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1163,7 +1213,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1174,7 +1224,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1184,7 +1234,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1194,7 +1244,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1204,7 +1254,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1214,7 +1264,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1225,7 +1275,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1236,7 +1286,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1246,7 +1296,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1258,7 +1308,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                             this.reportTitle = "Stock Summary (Pack Size Wise)";
                             this.secondParameter = strFdate + " to " + strTdate;
                             InitialiseLabels(rpt1);
-                            rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                            rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                             crystalReportViewer1.ReportSource = rpt1;
                             ShowReport(rpt1, false, "");
                             break;
@@ -1270,7 +1320,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                             this.reportTitle = "Stock Summary (Pack Size Wise)";
                             this.secondParameter = strFdate + " to " + strTdate;
                             InitialiseLabels(rpt1);
-                            rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                            rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                             crystalReportViewer1.ReportSource = rpt1;
                             ShowReport(rpt1, false, "");
                             break;
@@ -1281,7 +1331,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1291,7 +1341,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1301,7 +1351,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1311,7 +1361,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1321,7 +1371,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (Pack Size Wise)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "").ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, Utility.gstrUserName, strString3, "", strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1342,7 +1392,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3,strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1361,7 +1411,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1379,7 +1429,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1397,7 +1447,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1415,7 +1465,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate; ;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1433,7 +1483,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1452,7 +1502,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1471,7 +1521,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1489,10 +1539,42 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
+                    //case ViewerSelector.StockinfoLctWiseOpnInwOutwCls:
+                    //    if (intype == 1)
+                    //    {
+                    //        rptStockInformationLctW_Val_Supp rptstockinformationLctWOpnInwOutwCls = new rptStockInformationLctW_Val_Supp();
+                    //        rpt1 = (ReportDocument)rptstockinformationLctWOpnInwOutwCls;
+                    //        this.reportTitle = "Stock Summary (ItemWise Location)";
+                    //        this.secondParameter = strFdate + " to " + strTdate;
+                    //        InitialiseLabels(rpt1);
+                    //        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, 1, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
+                    //        crystalReportViewer1.ReportSource = rpt1;
+                    //        ShowReport(rpt1, false, "");
+                    //        break;
+                    //    }
+                    //    else if (intype == 2)
+                    //    {
+                    //        rptStockInformationLocSumm_Opn_Inw_Ootw_Cls rptstockinformationLctWOpnInwOutwCls = new rptStockInformationLocSumm_Opn_Inw_Ootw_Cls();
+                    //        rpt1 = (ReportDocument)rptstockinformationLctWOpnInwOutwCls;
+
+                    //    }
+                    //    else
+                    //    {
+                    //        rptStockInformationLctW_Opn_Inw_Ootw_Cls rptstockinformationLctWOpnInwOutwCls = new rptStockInformationLctW_Opn_Inw_Ootw_Cls();
+                    //        rpt1 = (ReportDocument)rptstockinformationLctWOpnInwOutwCls;
+                    //    }
+                    //    this.reportTitle = "Stock Summary (ItemWise Location)";
+                    //    this.secondParameter = strFdate + " to " + strTdate;
+                    //    InitialiseLabels(rpt1);
+                    //    rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
+                    //    crystalReportViewer1.ReportSource = rpt1;
+                    //    ShowReport(rpt1, false, "");
+                    //    break;
+
                     case ViewerSelector.StockinfoLctWiseOpnInwOutwCls:
                         if (intype == 1)
                         {
@@ -1501,15 +1583,23 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                             this.reportTitle = "Stock Summary (ItemWise Location)";
                             this.secondParameter = strFdate + " to " + strTdate;
                             InitialiseLabels(rpt1);
-                            rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, 1, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                            rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, 1, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                             crystalReportViewer1.ReportSource = rpt1;
                             ShowReport(rpt1, false, "");
                             break;
                         }
                         else if (intype == 2)
                         {
-                            rptStockInformationLocSumm_Opn_Inw_Ootw_Cls rptstockinformationLctWOpnInwOutwCls = new rptStockInformationLocSumm_Opn_Inw_Ootw_Cls();
-                            rpt1 = (ReportDocument)rptstockinformationLctWOpnInwOutwCls;
+                            if (intSorting == 1)
+                            {
+                                rptStockInformationLocSumm_Opn_Inw_Ootw_Cls_Group rptstockinformationLctWOpnInwOutwCls = new rptStockInformationLocSumm_Opn_Inw_Ootw_Cls_Group();
+                                rpt1 = (ReportDocument)rptstockinformationLctWOpnInwOutwCls;
+                            }
+                            else
+                            {
+                                rptStockInformationLocSumm_Opn_Inw_Ootw_Cls rptstockinformationLctWOpnInwOutwCls = new rptStockInformationLocSumm_Opn_Inw_Ootw_Cls();
+                                rpt1 = (ReportDocument)rptstockinformationLctWOpnInwOutwCls;
+                            }
 
                         }
                         else
@@ -1520,11 +1610,10 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
-
 
                     case ViewerSelector.StockinfoLctWiseOpnOutw:
                         if (intype == 2)
@@ -1540,7 +1629,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1560,7 +1649,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1579,7 +1668,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1598,7 +1687,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1616,7 +1705,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         this.reportTitle = "Stock Summary (ItemWise Location)";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
-                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew).ToList());
+                        rpt1.SetDataSource(objWIS.mItemMaster(strComID, strFdate, strTdate, strString, strSelction, intSuppress, Utility.gblnAccessControl, strUserSecurity, strString3, strStringNew, strBranchID, strString7).ToList());
                         crystalReportViewer1.ReportSource = rpt1;
                         ShowReport(rpt1, false, "");
                         break;
@@ -1666,23 +1755,55 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         {
                             ogrp = orptCnn.mGetInventortyVoucher(strComID, strFdate, strTdate, strSelction, "", strString, strSummDetails).ToList();
                         }
+                        if (Utility.gblnAccessControl)
+                        {
+                            if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 202, 1))
+                            {
+                                strYesNo = "N";
+                            }
+                        }
                         if (strSummDetails == "Details")
                         {
                             if (strFdate == "")
                             {
-                                rptInventoryVoucher rptInventoryVoucher = new rptInventoryVoucher();
-                                rpt1 = (ReportDocument)rptInventoryVoucher;
+
+                                if (strYesNo == "N")
+                                {
+                                    rptInventoryVoucher rptInventoryVoucher = new rptInventoryVoucher();
+                                    rpt1 = (ReportDocument)rptInventoryVoucher;
+                                }
+                                else
+                                {
+                                    rptInventoryVoucher_MIS_VIEW rptInventoryVoucher = new rptInventoryVoucher_MIS_VIEW();
+                                    rpt1 = (ReportDocument)rptInventoryVoucher;
+                                }
                             }
                             else
                             {
-                                rptInventoryVoucherAll rptInventoryVoucherAll = new rptInventoryVoucherAll();
-                                rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                if (strYesNo == "N")
+                                {
+                                    rptInventoryVoucherAll rptInventoryVoucherAll = new rptInventoryVoucherAll();
+                                    rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                }
+                                else
+                                {
+                                    rptInventoryVoucherAll_MIS_VIEW rptInventoryVoucherAll = new rptInventoryVoucherAll_MIS_VIEW();
+                                    rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                }
                             }
                         }
                         else
                         {
-                            rptInventoryVoucherAllSumm rptInventoryVoucherAll = new rptInventoryVoucherAllSumm();
-                            rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                            if (strYesNo == "N")
+                            {
+                                rptInventoryVoucherAllSumm rptInventoryVoucherAll = new rptInventoryVoucherAllSumm();
+                                rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                            }
+                            else
+                            {
+                                rptInventoryVoucherAllSumm_MIS_VIEW rptInventoryVoucherAll = new rptInventoryVoucherAllSumm_MIS_VIEW();
+                                rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                            }
                         }
 
                         if (strSelction == "D")
@@ -1699,8 +1820,16 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                             }
                             else
                             {
-                                rptInventoryVoucherAll rptInventoryVoucherAll = new rptInventoryVoucherAll();
-                                rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                if (strYesNo == "N")
+                                {
+                                    rptInventoryVoucherAll rptInventoryVoucherAll = new rptInventoryVoucherAll();
+                                    rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                }
+                                else
+                                {
+                                    rptInventoryVoucherAll_MIS_VIEW rptInventoryVoucherAll = new rptInventoryVoucherAll_MIS_VIEW();
+                                    rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                }
                                 this.reportTitle = "Stock Transfer All";
                             }
                         }
@@ -1708,16 +1837,32 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         {
                             if (strFdate == "")
                             {
-                                rptInventoryVoucher_Phy_stock rptInventoryVoucherPS = new rptInventoryVoucher_Phy_stock();
-                                rpt1 = (ReportDocument)rptInventoryVoucherPS;
+                                if (strYesNo == "N")
+                                {
+                                    rptInventoryVoucher_Phy_stock rptInventoryVoucherPS = new rptInventoryVoucher_Phy_stock();
+                                    rpt1 = (ReportDocument)rptInventoryVoucherPS;
+                                }
+                                else
+                                {
+                                    rptInventoryVoucher_Phy_stock_MIS_VIEW rptInventoryVoucherPS = new rptInventoryVoucher_Phy_stock_MIS_VIEW();
+                                    rpt1 = (ReportDocument)rptInventoryVoucherPS;
+                                }
                                 this.reportTitle = "Physical Stock Individual";
                             }
                             else
                             {
                                 if (strSummDetails == "Details")
                                 {
-                                    rptInventoryVoucherAll rptInventoryVoucherAll = new rptInventoryVoucherAll();
-                                    rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                    if (strYesNo == "N")
+                                    {
+                                        rptInventoryVoucherAll rptInventoryVoucherAll = new rptInventoryVoucherAll();
+                                        rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                    }
+                                    else
+                                    {
+                                        rptInventoryVoucherAll_MIS_VIEW rptInventoryVoucherAll = new rptInventoryVoucherAll_MIS_VIEW();
+                                        rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                    }
                                     this.reportTitle = "Physical Stock All";
                                 }
                                 else
@@ -1749,17 +1894,32 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                                         strToLocation = ogp.strLocationName;
                                     }
                                 }
-
-                                rptInventoryVoucher_MV rptInventoryVoucherM = new rptInventoryVoucher_MV();
-                                rpt1 = (ReportDocument)rptInventoryVoucherM;
-                                this.reportTitle = "Manufacturing Report (Individual)";
+                                if (strYesNo == "N")
+                                {
+                                    rptInventoryVoucher_MV rptInventoryVoucherM = new rptInventoryVoucher_MV();
+                                    rpt1 = (ReportDocument)rptInventoryVoucherM;
+                                }
+                                else
+                                {
+                                    rptInventoryVoucher_MV_MIS_VIEW rptInventoryVoucherM = new rptInventoryVoucher_MV_MIS_VIEW();
+                                    rpt1 = (ReportDocument)rptInventoryVoucherM;
+                                }
+                                this.reportTitle = "Conversion FG";
                             }
                             else
                             {
                                 if (strSummDetails == "Details")
                                 {
-                                    rptInventoryVoucherAll rptInventoryVoucherAll = new rptInventoryVoucherAll();
-                                    rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                    if (strYesNo == "N")
+                                    {
+                                        rptInventoryVoucherAll rptInventoryVoucherAll = new rptInventoryVoucherAll();
+                                        rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                    }
+                                    else
+                                    {
+                                        rptInventoryVoucherAll_MIS_VIEW rptInventoryVoucherAll = new rptInventoryVoucherAll_MIS_VIEW();
+                                        rpt1 = (ReportDocument)rptInventoryVoucherAll;
+                                    }
                                     this.reportTitle = "Manufacturing Report (All)";
                                 }
                                 else
@@ -1850,9 +2010,18 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                     #endregion
                     #region "Production"
                     case ViewerSelector.Production:
-                        List<RoProduction> obgProBatch= orptCnn.GetBatchWiseProductionInd(strComID, strString).ToList();
-                        rptBatchWiseProductionInd rptBatchWiseProductionInd = new rptBatchWiseProductionInd();
-                        rpt1 = (ReportDocument)rptBatchWiseProductionInd;
+                        List<RoProduction> obgProBatch = orptCnn.GetBatchWiseProductionInd(strComID, strString, strString5).ToList();
+                        if (strString5 != null)
+                        {
+                            rptBatchWiseProductionInd rptBatchWiseProductionInd = new rptBatchWiseProductionInd();
+                            rpt1 = (ReportDocument)rptBatchWiseProductionInd;
+                        }
+                        else
+                        {
+                            rptBatchWiseProductionView rptBatchWiseProductionInd = new rptBatchWiseProductionView();
+                            rpt1 = (ReportDocument)rptBatchWiseProductionInd;
+                        }
+
                         this.reportTitle = "Batch Wise Production";
                         InitialiseLabels(rpt1);
                         rpt1.SetDataSource(obgProBatch.ToList());
@@ -1867,7 +2036,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         List<RoPackingRawMaterialsStockinfo> objrptPackingRawMaterialsConjumption_ = orptCnn.mGetLocationQty2(strComID, strFdate, strTdate, strString5, strString6, 0, "").ToList();
                         rptPacking_RawMaterials_Conjumption_ rptPacking_RawMaterials_Conjumption_ = new rptPacking_RawMaterials_Conjumption_();
                         rpt1 = (ReportDocument)rptPacking_RawMaterials_Conjumption_;
-                        this.reportTitle = "Monthly Production";
+                        this.reportTitle = "Raw/Packing Consumption";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
                         rpt1.SetDataSource(objrptPackingRawMaterialsConjumption_.ToList());
@@ -1882,7 +2051,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         List<RoConsumption> objProduction_Convertion = orptCnn.mGetConversion(strComID, strFdate, strTdate, strString5, strString6, strString7, 0).ToList();
                         rptProduction_Convertion rptProduction_Convertion = new rptProduction_Convertion();
                         rpt1 = (ReportDocument)rptProduction_Convertion;
-                        this.reportTitle = "Product Conversion";
+                        this.reportTitle = "Conversion Finished Goods";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
                         rpt1.SetDataSource(objProduction_Convertion.ToList());
@@ -1894,10 +2063,10 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
 
                     case ViewerSelector.MonthlyProduction_Class_Power:
 
-                        List<RoMonthlyProduction> oMonthlyProduction_Class_Power = orptCnn.mGetMonthlyProductionClassPower(strComID, strFdate, strTdate, strString5, strString6, strString7, intype).ToList();
+                        List<RoMonthlyProduction> oMonthlyProduction_Class_Power = orptCnn.mGetMonthlyProductionClassPower(strComID, strFdate, strTdate, strString5, strString6, strString7, strString3, intype).ToList();
                         rptPMonthly_Production_Class_Power rptPMonthly_Production_Class_Power = new rptPMonthly_Production_Class_Power();
                         rpt1 = (ReportDocument)rptPMonthly_Production_Class_Power;
-                        this.reportTitle = "Monthly Production";
+                        this.reportTitle = "Power/Class Production";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
                         rpt1.SetDataSource(oMonthlyProduction_Class_Power.ToList());
@@ -1910,7 +2079,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         List<RoMonthlyProduction> oMonthlyProduction = orptCnn.mGetMonthlyProduction(strComID, strFdate, strTdate, strString5, strString6, 0).ToList();
                         rptPMonthly_Production rptPMonthly_Production = new rptPMonthly_Production();
                         rpt1 = (ReportDocument)rptPMonthly_Production;
-                        this.reportTitle = "Monthly Production";
+                        this.reportTitle = "Finished Goods Production";
                         this.secondParameter = strFdate + " to " + strTdate;
                         InitialiseLabels(rpt1);
                         rpt1.SetDataSource(oMonthlyProduction.ToList());
@@ -1924,8 +2093,25 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                     case ViewerSelector.StockIn:
 
                         List<RoStockRequisition> oLStockIn = orptCnn.mGetStockIn(strComID, strString).ToList();
-                        rptStockIN rptoLStockIn = new rptStockIN();
-                        rpt1 = (ReportDocument)rptoLStockIn;
+
+                        if (Utility.gblnAccessControl)
+                        {
+                            if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 202, 1))
+                            {
+                                strYesNo = "N";
+                            }
+                        }
+                        if (strYesNo == "Y")
+                        {
+                            rptStockIN_MIS_VIEW rptoLStockIn = new rptStockIN_MIS_VIEW();
+                            rpt1 = (ReportDocument)rptoLStockIn;
+                        }
+                        else
+                        {
+                            rptStockIN rptoLStockIn = new rptStockIN();
+                            rpt1 = (ReportDocument)rptoLStockIn;
+                        }
+
                         this.reportTitle = "Stock In";
                         this.secondParameter = "";
                         InitialiseLabels(rpt1);
@@ -1937,10 +2123,33 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                     #region "Stock Out"
                     case ViewerSelector.StockOut:
 
-                        List<RoStockRequisition> oLStockOut = orptCnn.mGetStockOut(strComID, strString).ToList();
-                        rptStockOut rptoLStockOut = new rptStockOut();
-                        rpt1 = (ReportDocument)rptoLStockOut;
-                        this.reportTitle = "Stock Out";
+                        List<RoStockRequisition> oLStockOut = orptCnn.mGetStockOut(strComID, strString, intype).ToList();
+                        if (Utility.gblnAccessControl)
+                        {
+                            if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 202, 1))
+                            {
+                                strYesNo = "N";
+                            }
+                        }
+                        if (strYesNo == "Y")
+                        {
+                            rptStockOut_MIS_VIEW rptoLStockOut = new rptStockOut_MIS_VIEW();
+                            rpt1 = (ReportDocument)rptoLStockOut;
+                        }
+                        else
+                        {
+                            rptStockOut rptoLStockOut = new rptStockOut();
+                            rpt1 = (ReportDocument)rptoLStockOut;
+                        }
+                        if (intype==(int)Utility.VOUCHER_TYPE.vtSTATIONARY)
+                        {
+                            this.reportTitle = "Stationary Use";
+                        }
+                        else
+                        {
+                            this.reportTitle = "Stock Out";
+                        }
+                        
                         this.secondParameter = "";
                         InitialiseLabels(rpt1);
                         rpt1.SetDataSource(oLStockOut.ToList());
@@ -1952,8 +2161,24 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                     case ViewerSelector.StockRequisition:
 
                         List<RoStockRequisition> oLStockRequisition = orptCnn.mGetStockRequisition(strComID, strString).ToList();
-                        rptStockReqisition rptoLStockRequisition = new rptStockReqisition();
-                        rpt1 = (ReportDocument)rptoLStockRequisition;
+                        if (Utility.gblnAccessControl)
+                        {
+                            if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 202, 1))
+                            {
+                                strYesNo = "N";
+                            }
+                        }
+                        if (strYesNo == "Y")
+                        {
+                            rptStockReqisitionViewMIS rptoLStockRequisition = new rptStockReqisitionViewMIS();
+                            rpt1 = (ReportDocument)rptoLStockRequisition;
+                        }
+                        else
+                        {
+                            rptStockReqisition rptoLStockRequisition = new rptStockReqisition();
+                            rpt1 = (ReportDocument)rptoLStockRequisition;
+                        }
+
                         this.reportTitle = "Stock Requisition";
                         this.secondParameter = "";
                         InitialiseLabels(rpt1);
@@ -1962,7 +2187,350 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.Viewer
                         ShowReport(rpt1, false, "");
                         break;
                     #endregion
+                    #region "Dilution"
+                    case ViewerSelector.DilutionStore:
+                        List<RStockInformation> ogrp2;
+                        ogrp2 = objWIS.mGetInventortyVoucher2(strComID, strFdate, strTdate, strSelction, "", strString, strSummDetails).ToList();
+                        rptDilutionStore rptDilutionStore = new rptDilutionStore();
+                        rpt1 = (ReportDocument)rptDilutionStore;
+                        this.reportTitle = "Dilution Store";
+                        this.secondParameter = "";
+                        InitialiseLabels(rpt1);
+                        rpt1.SetDataSource(ogrp2.ToList());
+                        crystalReportViewer1.ReportSource = rpt1;
+                        ShowReport(rpt1, false, "");
+                        break;
+                    #endregion
+                    #region "Repaking"
+                    case ViewerSelector.Repaking:
+                        List<RStockInformation> ogrprep;
+                        ogrprep = objWIS.mGetRepaking(strComID, strFdate, strTdate, strSelction, "", strString, strSummDetails).ToList();
+                        rptRepaking rptRepaking = new rptRepaking();
+                        rpt1 = (ReportDocument)rptRepaking;
+                        this.reportTitle = "Repaking";
+                        this.secondParameter = "";
+                        InitialiseLabels(rpt1);
+                        rpt1.SetDataSource(ogrprep.ToList());
+                        crystalReportViewer1.ReportSource = rpt1;
+                        ShowReport(rpt1, false, "");
+                        break;
+                    #endregion
+                    #region "All Voucher"
+                    case ViewerSelector.intventoryVoucherNew:
+                        List<RStockInformation> ogrpp;
 
+                        ogrpp = objWIS.mGetInventortyVoucherNewDal(strComID, strFdate, strTdate, strSelction, strString, "", strSummDetails,strGroup).ToList();
+
+                        if (strSummDetails == "Details")
+                        {
+                            rptInventoryVoucherDetails rptInventoryVoucherDetails = new rptInventoryVoucherDetails();
+                            rpt1 = (ReportDocument)rptInventoryVoucherDetails;
+                            if (strSelction == "StockRequisition")
+                            {
+                                this.reportTitle = "Stock Requisition (Details)";
+                            }
+                            if (strSelction == "StockTransferOut")
+                            {
+                                this.reportTitle = "Stock Transfer Out (Details)";
+                            }
+                            if (strSelction == "StockTransferIN")
+                            {
+                                this.reportTitle = "Stock Transfer IN (Details)";
+                            }
+                            if (strSelction == "StockConsumption")
+                            {
+                                this.reportTitle = "Stock Consumption (Details)";
+                            }
+                            if (strSelction == "P")
+                            {
+                                this.reportTitle = "Physical Stock (Details)";
+                            }
+                            else if (strSelction == "S")
+                            {
+                                this.reportTitle = "Sales Sample (Details)";
+                            }
+                            else if (strSelction == "C")
+                            {
+                                this.reportTitle = "Stock Consumption (Details)";
+                            }
+                            else if (strSelction == "F")
+                            {
+                                this.reportTitle = "Finished Goods (Details)";
+                            }
+                            else if (strSelction == "D")
+                            {
+                                this.reportTitle = "Stock Damage (Details)";
+                            }
+                            else if (strSelction == "Con")
+                            {
+                                this.reportTitle = "Conversion FG (Details)";
+                            }
+                            else if (strSelction == "Stationary")
+                            {
+                                this.reportTitle = "Stationary (Details)";
+                            }
+                            else if (strSelction == "Production")
+                            {
+                                this.reportTitle = "Production (Details)";
+                            }
+                            else if (strSelction == "MFG")
+                            {
+                                this.reportTitle = "MFG Voucher (Details)";
+                            }
+                            else if (strSelction == "MFGB")
+                            {
+                                this.reportTitle = "MFG Voucher Batch Wise (Details)";
+                            }
+                        }
+                        else
+                        {
+                            rptInventoryVoucherSummarry rptInventoryVoucherSummarry = new rptInventoryVoucherSummarry();
+                            rpt1 = (ReportDocument)rptInventoryVoucherSummarry;
+                            if (strSelction == "StockRequisition")
+                            {
+                                this.reportTitle = "Stock Requisition (Summary) ";
+                            }
+                            if (strSelction == "StockTransferOut")
+                            {
+                                this.reportTitle = "Stock Transfer Out  (Summary)";
+                            }
+                            if (strSelction == "StockTransferIN")
+                            {
+                                this.reportTitle = "Stock Transfer IN  (Summary)";
+                            }
+                            if (strSelction == "StockConsumption")
+                            {
+                                this.reportTitle = "Stock Consumption (Summary)";
+                            }
+                            if (strSelction == "P")
+                            {
+                                this.reportTitle = "Physical Stock (Summary)";
+                            }
+                            else if (strSelction == "S")
+                            {
+                                this.reportTitle = "Sales Sample (Summary)";
+                            }
+                            else if (strSelction == "C")
+                            {
+                                this.reportTitle = "Stock Consumption (Summary)";
+                            }
+                            else if (strSelction == "F")
+                            {
+                                this.reportTitle = "Finished Goods (Summary)";
+                            }
+                            else if (strSelction == "D")
+                            {
+                                this.reportTitle = "Stock Damage (Summary)";
+                            }
+                            else if (strSelction == "Con")
+                            {
+                                this.reportTitle = "Conversion FG (Summary)";
+                            }
+                            else if (strSelction == "Stationary")
+                            {
+                                this.reportTitle = "Stationary (Summary)";
+                            }
+                            else if (strSelction == "Production")
+                            {
+                                this.reportTitle = "Production (Summary)";
+                            }
+                            else if (strSelction == "MFG")
+                            {
+                                this.reportTitle = "MFG Voucher (Summary)";
+                            }
+                            else if (strSelction == "MFGB")
+                            {
+                                this.reportTitle = "MFG Voucher Batch Wise (Summary)";
+                            }
+                        }
+
+
+                        if (strFdate != "")
+                        {
+                            if (strString != "")
+                            {
+                                this.secondParameter = strString + " (" + strFdate + " to " + strTdate + ")";
+                            }
+                            else
+                            {
+                                this.secondParameter = strFdate + " to " + strTdate;
+                            }
+                        }
+                        else
+                        {
+                            this.secondParameter = "";
+                        }
+                        InitialiseLabels(rpt1);
+                        rpt1.SetDataSource(ogrpp.ToList());
+                        crystalReportViewer1.ReportSource = rpt1;
+                        ShowReport(rpt1, false, "");
+                        break;
+                    #endregion
+                    #region "Dilution pro_Pending"
+                    case ViewerSelector.DilutionProPen:
+                        List<RoStockItem> ogrpDilupp;
+                        ogrpDilupp = orptCnn.gFillDilutionRPT(strComID, strBranchID, strFdate, strTdate).ToList();
+                        rptDilution_Process_pending rptDilution_Process_pending = new rptDilution_Process_pending();
+                        rpt1 = (ReportDocument)rptDilution_Process_pending;
+                        this.reportTitle = "Dilution Process Pending";
+                        this.secondParameter = strFdate + " to " + strTdate;
+                        InitialiseLabels(rpt1);
+                        rpt1.SetDataSource(ogrpDilupp.ToList());
+                        crystalReportViewer1.ReportSource = rpt1;
+                        ShowReport(rpt1, false, "");
+                        break;
+                    #endregion
+                    #region "Chemical Conjumption"
+                    case ViewerSelector.ChemicalConjuption:
+
+                        double dbltotalamt = objWIS.mFgValue(strComID, strString3, strFdate, strTdate);
+
+                        List<RStockInformation> oChemicalConsuption = objWIS.mGetChemicalConsumptionRPT(strComID, strString3, strFdate, strTdate).ToList();
+                        rptChemicalConsumption rptChemicalCon = new rptChemicalConsumption();
+                        rpt1 = (ReportDocument)rptChemicalCon;
+                        this.reportTitle = "Consumption Information";
+                        this.secondParameter = strFdate + " to " + strTdate;
+                        InitialiseLabels(rpt1);
+                        rpt1.SetDataSource(oChemicalConsuption.ToList());
+                        rpt1.SetParameterValue("dblFGQty", dbltotalamt);
+                        crystalReportViewer1.ReportSource = rpt1;
+                        ShowReport(rpt1, false, "");
+                        break;
+                    #endregion
+                    #region "conjumption Costing Percentance(%)"
+                    case ViewerSelector.conjumptionsummarypercentage:
+
+                        List<RoConsumptionMonth> oconjumptionsummaryPercent = objWIS.mGetCostingPercentRPT(strComID, strBranchID, strFdate, strTdate).ToList();
+                        rptConjumptionCosting_Percent_Cros rptoconjumptionsummarypercent = new rptConjumptionCosting_Percent_Cros();
+                        rpt1 = (ReportDocument)rptoconjumptionsummarypercent;
+                        this.reportTitle = "Chemical Consumption Information";
+                        this.secondParameter = strFdate + " to " + strTdate;
+                        InitialiseLabels(rpt1);
+                        rpt1.SetDataSource(oconjumptionsummaryPercent.ToList());
+                        crystalReportViewer1.ReportSource = rpt1;
+                        ShowReport(rpt1, false, "");
+                        break;
+                    #endregion
+                    #region "conjumption summary Costing"
+                    case ViewerSelector.conjumptionsummary:
+
+                        List<RoConsumptionMonth> oconjumptionsummary = orptCnn.mGetConjumptionSummary(strComID, strBranchID, strFdate, strTdate, strString, strStringNew, strString6, strString3, strFinYearFdate, strFinYearTdate).ToList();
+
+
+                        rptConjumptionCosting_Cross_Summ rptoconjumptionsummary = new rptConjumptionCosting_Cross_Summ();
+                        rpt1 = (ReportDocument)rptoconjumptionsummary;
+
+
+                        this.reportTitle = "Cost Percentage";
+                        this.secondParameter = strFdate + " to " + strTdate;
+                        InitialiseLabels(rpt1);
+                        rpt1.SetDataSource(oconjumptionsummary.ToList());
+                        crystalReportViewer1.ReportSource = rpt1;
+                        ShowReport(rpt1, false, "");
+                        break;
+                    #endregion
+                    #region "Production Costing"
+                    case ViewerSelector.conProduction_jumptionDetails:
+                        if (strString6 == "Conjumption")
+                        {
+                            List<RoConsumptionMonth> oconjumptionsummaryCosting = orptCnn.mGetRMPMCosting(strComID, strBranchID, strFdate, strTdate, strString, strStringNew, strString6, strString3).ToList();
+                            rptConjumptionCosting_Cros rptconjumptionsummaryCosting = new rptConjumptionCosting_Cros();
+                            rpt1 = (ReportDocument)rptconjumptionsummaryCosting;
+                            this.reportTitle = "RM/PM Consumption Value (With Wastage/Damage)";
+                            this.secondParameter = strFdate + " to " + strTdate;
+                            InitialiseLabels(rpt1);
+                            rpt1.SetDataSource(oconjumptionsummaryCosting.ToList());
+                            crystalReportViewer1.ReportSource = rpt1;
+                            ShowReport(rpt1, false, "");
+                        }
+                        else
+                        {
+                            List<RoConsumptionMonth> oconjumptionsummaryCosting = orptCnn.mGetProductionCosting(strComID, strBranchID, strFdate, strTdate, strString, strStringNew, strString6, strString3).ToList();
+                            rptProductionCosting_Cros rptconjumptionsummaryCosting = new rptProductionCosting_Cros();
+                            rpt1 = (ReportDocument)rptconjumptionsummaryCosting;
+                            this.reportTitle = "RM/PM Cost Value";
+                            this.secondParameter = strFdate + " to " + strTdate;
+                            InitialiseLabels(rpt1);
+                            rpt1.SetDataSource(oconjumptionsummaryCosting.ToList());
+                            crystalReportViewer1.ReportSource = rpt1;
+                            ShowReport(rpt1, false, "");
+                        }
+
+
+                        break;
+                    #endregion
+                    #region "Production Costing"
+                    case ViewerSelector.mGetProductionCosting:
+
+                        List<RoConsumptionMonth> oProductionCosting = orptCnn.mGetProductionCosting(strComID, strBranchID, strFdate, strTdate, strString, strStringNew, strString6, "").ToList();
+                        rptProductionCosting_Cros rptProductionCosting = new rptProductionCosting_Cros();
+                        rpt1 = (ReportDocument)rptProductionCosting;
+                        this.reportTitle = "FG Group Wise Production Value (Invoice Value Avg. Rate)";
+                        this.secondParameter = strFdate + " to " + strTdate;
+                        InitialiseLabels(rpt1);
+                        rpt1.SetDataSource(oProductionCosting.ToList());
+                        crystalReportViewer1.ReportSource = rpt1;
+                        ShowReport(rpt1, false, "");
+                        break;
+                    #endregion
+                    #region "conjumption Month"
+                    case ViewerSelector.ConjumptionRMPM:
+
+                        List<RoConsumptionMonth> oLConjumptionMonth = orptCnn.mGetConjumptionMonth(strComID, strBranchID, strFdate, strTdate, strString, strStringNew, strString7, strString5, strFinYearFdate, strFinYearTdate).ToList();
+                        if (strString5 == "FG")
+                        {
+                            rptConjumptionMonthFG rptConjumptionMonth = new rptConjumptionMonthFG();
+                            rpt1 = (ReportDocument)rptConjumptionMonth;
+                            this.reportTitle = "Item Wise Production Qty.";
+                        }
+                        else
+                        {
+                            rptConjumptionMonth rptConjumptionMonth = new rptConjumptionMonth();
+                            rpt1 = (ReportDocument)rptConjumptionMonth;
+                            this.reportTitle = "Consumption Qty. (With Wastage/Damage)";
+                        }
+
+                       
+                        this.secondParameter = strFdate + " to " + strTdate;
+                        //this.secondParameter = "";
+                        InitialiseLabels(rpt1);
+                        rpt1.SetDataSource(oLConjumptionMonth.ToList());
+                        crystalReportViewer1.ReportSource = rpt1;
+                        rpt1.SetParameterValue("rptotion", strString7);
+                        rpt1.SetParameterValue("strBranch", strFromLocation);
+                        ShowReport(rpt1, false, "");
+                        break;
+
+                    #endregion
+                    #region "Conjumption Power Class"
+                    case ViewerSelector.ConjumptionFGPower:
+                        List<RoConsumptionMonth> oLConjumptionMonthPower = orptCnn.mGetConjumptionMonth(strComID, strBranchID, strFdate, strTdate, strString, strStringNew, strString7, strString5, strFinYearFdate, strFinYearTdate).ToList();
+                        rptConsumptionMonth_Power rptConjumptionMonthPower = new rptConsumptionMonth_Power();
+                        rpt1 = (ReportDocument)rptConjumptionMonthPower;
+                        this.reportTitle = "Pack Size/Power Class Wise Production Qty.";
+                        this.secondParameter = strFdate + " to " + strTdate;
+                        InitialiseLabels(rpt1);
+                        rpt1.SetDataSource(oLConjumptionMonthPower.ToList());
+                        crystalReportViewer1.ReportSource = rpt1;
+                        ShowReport(rpt1, false, "");
+                        break;
+                    #endregion
+                    #region "Stationry"
+                    case ViewerSelector.Stationary:
+                        List<RStockInformation> oStationary;
+
+                        oStationary = orptCnn.mGetStationay(strComID, strBranchID, strString, strFdate, strTdate, strString).ToList();
+                        rptStationaryCrosstabe rptStationary = new rptStationaryCrosstabe();
+                        rpt1 = (ReportDocument)rptStationary;
+                        this.reportTitle = "Stationary Information";
+                        this.secondParameter = strFdate + " to " + strTdate;
+                        InitialiseLabels(rpt1);
+                        rpt1.SetDataSource(oStationary.ToList());
+                        rpt1.SetParameterValue("BranchName", "Branch Name : " + strbranchid);
+                        crystalReportViewer1.ReportSource = rpt1;
+                        ShowReport(rpt1, false, "");
+                        break;
+                    #endregion
 
                 }
 

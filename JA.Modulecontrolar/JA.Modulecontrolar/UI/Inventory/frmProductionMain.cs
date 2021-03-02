@@ -36,7 +36,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             if (Utility.gblnAccessControl)
             {
-                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 68))
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 199))
                 {
                     MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -47,7 +47,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 frmMFGVoucher objfrm = new frmMFGVoucher();
                 objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
                 objfrm.intvType = (int)Utility.VOUCHER_TYPE.vtSTOCK_MFG_VOUCHER;
-                objfrm.lngFormPriv = 68;
+                objfrm.lngFormPriv = 199;
                 objfrm.strFormName = "MFG Voucher";
                 objfrm.intconvert = 0;
                 objfrm.Show();
@@ -58,7 +58,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             {
                 frmMFGVoucher objfrm = (frmMFGVoucher)Application.OpenForms["frmMFGVoucher"];
                 objfrm.strFormName = "MFG Voucher";
-                objfrm.lngFormPriv = 68;
+                objfrm.lngFormPriv = 199;
                 objfrm.Focus();
                 objfrm.MdiParent = this.MdiParent;
             }
@@ -100,23 +100,24 @@ namespace JA.Modulecontrolar.UI.Inventory
             }
         }
 
-        private void btnConsumption_Click(object sender, EventArgs e)
+        private void btnMFGVoucher_Click(object sender, EventArgs e)
         {
-            //if (Utility.gblnAccessControl)
-            //{
-            //    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 69))
-            //    {
-            //        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //        return;
-            //    }
-            //}
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 198))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
             if (System.Windows.Forms.Application.OpenForms["frmMFGVoucherManual"] as frmMFGVoucherManual == null)
             {
                 frmMFGVoucherManual objfrm = new frmMFGVoucherManual();
                 objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
                 objfrm.intvType = (int)Utility.VOUCHER_TYPE.vtSTOCK_MFG_CONSUMPTION;
-                objfrm.lngFormPriv = 69;
-                objfrm.strFormName = "Conversion FG";
+                objfrm.lngFormPriv = 198;
+                objfrm.intType = 4;
+                objfrm.strFormName = "MFG Voucher";
                 objfrm.Show();
                 objfrm.MdiParent = this.MdiParent;
 
@@ -124,8 +125,9 @@ namespace JA.Modulecontrolar.UI.Inventory
             else
             {
                 frmMFGVoucherManual objfrm = (frmMFGVoucherManual)Application.OpenForms["frmMFGVoucherManual"];
-                objfrm.strFormName = "Conversion FG";
-                objfrm.lngFormPriv = 69;
+                objfrm.strFormName = "MFG Voucher";
+                objfrm.lngFormPriv = 198;
+                objfrm.intType = 4;
                 objfrm.Focus();
                 objfrm.MdiParent = this.MdiParent;
             }
@@ -147,6 +149,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
                 objfrm.intvType = (int)Utility.VOUCHER_TYPE.vtSTOCK_MFG_CONSUMPTION;
                 objfrm.lngFormPriv = 66;
+                objfrm.intType = 0;
                 objfrm.strFormName = "Consumption";
                 objfrm.Show();
                 objfrm.MdiParent = this.MdiParent;
@@ -157,6 +160,40 @@ namespace JA.Modulecontrolar.UI.Inventory
                 frmMFGStockConsumDilution objfrm = (frmMFGStockConsumDilution)Application.OpenForms["frmMFGStockConsumDilution"];
                 objfrm.strFormName = "Consumption";
                 objfrm.lngFormPriv = 66;
+                objfrm.intType = 3;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
+        }
+
+        private void btnRndConsumption_Click(object sender, EventArgs e)
+        {
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 205))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmMFGStockConsumDilution"] as frmMFGStockConsumDilution == null)
+            {
+                frmMFGStockConsumDilution objfrm = new frmMFGStockConsumDilution();
+                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                objfrm.intvType = (int)Utility.VOUCHER_TYPE.vtSTOCK_MFG_CONSUMPTION;
+                objfrm.lngFormPriv = 205;
+                objfrm.intType = 7;
+                objfrm.strFormName = "R && D Consumption";
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
+
+            }
+            else
+            {
+                frmMFGStockConsumDilution objfrm = (frmMFGStockConsumDilution)Application.OpenForms["frmMFGStockConsumDilution"];
+                objfrm.strFormName = "R & D Consumption";
+                objfrm.lngFormPriv = 66;
+                objfrm.intType = 3;
                 objfrm.Focus();
                 objfrm.MdiParent = this.MdiParent;
             }

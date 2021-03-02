@@ -60,11 +60,16 @@
             this.txtCommition = new MayhediControlLibrary.StandardNumericTextBox();
             this.chkbDailyCollection = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.grpDailyCollection = new System.Windows.Forms.GroupBox();
+            this.optRadall = new System.Windows.Forms.RadioButton();
+            this.radActive = new System.Windows.Forms.RadioButton();
+            this.radinactive = new System.Windows.Forms.RadioButton();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.frmSelection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGMr)).BeginInit();
+            this.grpDailyCollection.SuspendLayout();
             this.SuspendLayout();
             // 
             // frmLabel
@@ -75,6 +80,7 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.grpDailyCollection);
             this.pnlMain.Controls.Add(this.progressBar1);
             this.pnlMain.Controls.Add(this.chkbDailyCollection);
             this.pnlMain.Controls.Add(this.txtCommition);
@@ -364,7 +370,7 @@
             // uctxtTeritorryName
             // 
             this.uctxtTeritorryName.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtTeritorryName.Location = new System.Drawing.Point(282, 293);
+            this.uctxtTeritorryName.Location = new System.Drawing.Point(282, 289);
             this.uctxtTeritorryName.Name = "uctxtTeritorryName";
             this.uctxtTeritorryName.Size = new System.Drawing.Size(94, 22);
             this.uctxtTeritorryName.TabIndex = 212;
@@ -373,7 +379,7 @@
             // uctxtTerritoryCode
             // 
             this.uctxtTerritoryCode.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtTerritoryCode.Location = new System.Drawing.Point(163, 293);
+            this.uctxtTerritoryCode.Location = new System.Drawing.Point(163, 289);
             this.uctxtTerritoryCode.Name = "uctxtTerritoryCode";
             this.uctxtTerritoryCode.Size = new System.Drawing.Size(110, 22);
             this.uctxtTerritoryCode.TabIndex = 211;
@@ -442,6 +448,55 @@
             this.progressBar1.TabIndex = 220;
             this.progressBar1.Visible = false;
             // 
+            // grpDailyCollection
+            // 
+            this.grpDailyCollection.Controls.Add(this.radinactive);
+            this.grpDailyCollection.Controls.Add(this.radActive);
+            this.grpDailyCollection.Controls.Add(this.optRadall);
+            this.grpDailyCollection.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpDailyCollection.Location = new System.Drawing.Point(16, 298);
+            this.grpDailyCollection.Name = "grpDailyCollection";
+            this.grpDailyCollection.Size = new System.Drawing.Size(134, 97);
+            this.grpDailyCollection.TabIndex = 15;
+            this.grpDailyCollection.TabStop = false;
+            this.grpDailyCollection.Text = "Selection";
+            this.grpDailyCollection.Visible = false;
+            // 
+            // optRadall
+            // 
+            this.optRadall.AutoSize = true;
+            this.optRadall.Checked = true;
+            this.optRadall.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optRadall.Location = new System.Drawing.Point(6, 33);
+            this.optRadall.Name = "optRadall";
+            this.optRadall.Size = new System.Drawing.Size(39, 18);
+            this.optRadall.TabIndex = 4;
+            this.optRadall.TabStop = true;
+            this.optRadall.Text = "All";
+            this.optRadall.UseVisualStyleBackColor = true;
+            // 
+            // radActive
+            // 
+            this.radActive.AutoSize = true;
+            this.radActive.Location = new System.Drawing.Point(6, 56);
+            this.radActive.Name = "radActive";
+            this.radActive.Size = new System.Drawing.Size(62, 18);
+            this.radActive.TabIndex = 5;
+            this.radActive.TabStop = true;
+            this.radActive.Text = "Active";
+            this.radActive.UseVisualStyleBackColor = true;
+            // 
+            // radinactive
+            // 
+            this.radinactive.AutoSize = true;
+            this.radinactive.Location = new System.Drawing.Point(6, 79);
+            this.radinactive.Name = "radinactive";
+            this.radinactive.Size = new System.Drawing.Size(75, 18);
+            this.radinactive.TabIndex = 6;
+            this.radinactive.TabStop = true;
+            this.radinactive.Text = "Inactive";
+            this.radinactive.UseVisualStyleBackColor = true;
+            // 
             // frmRptDailyCollection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -460,6 +515,8 @@
             this.frmSelection.ResumeLayout(false);
             this.frmSelection.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGMr)).EndInit();
+            this.grpDailyCollection.ResumeLayout(false);
+            this.grpDailyCollection.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -492,5 +549,9 @@
         private MayhediControlLibrary.StandardNumericTextBox txtCommition;
         private System.Windows.Forms.CheckBox chkbDailyCollection;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.GroupBox grpDailyCollection;
+        private System.Windows.Forms.RadioButton radinactive;
+        private System.Windows.Forms.RadioButton radActive;
+        private System.Windows.Forms.RadioButton optRadall;
     }
 }

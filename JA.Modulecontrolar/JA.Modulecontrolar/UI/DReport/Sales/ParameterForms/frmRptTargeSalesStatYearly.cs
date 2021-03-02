@@ -218,7 +218,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
                 return;
             }
             string strBranchID = Utility.gstrGetBranchID(strComID, uctxtBranch.Text);
-            ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, 0, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {

@@ -38,7 +38,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
         private ListBox lstLedgerType = new ListBox();
         private ListBox lstMonthID = new ListBox();
         private string strComID { get; set; }
-       
+        string strBranchId = "";
       
         public string strReportName { get; set; }
         JINVMS.IWSINVMS invms = new JINVMS.WSINVMSClient();
@@ -186,11 +186,30 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
 
         private void mLoadLedgerName()
         {
-            int Intmode = 0;
+            BranchId();
+            int Intmode = 0, intSelection=0;
             lstLeft.Items.Clear();
             lstRight.Items.Clear();
             groupSelection.Enabled = true;
-   
+
+            if (radAllStatus.Checked == true)
+            {
+                intSelection = 3;
+            }
+            else if (radActive.Checked == true)
+            {
+                intSelection = 0;
+            }
+            else if (radInactive.Checked == true)
+            {
+                intSelection = 1;
+            }
+
+
+            if (rbtnAll.Checked == true)
+            {
+                Intmode = 5;
+            }
             if (rbtnMPO.Checked == true)
             {
                 Intmode = 4;
@@ -207,20 +226,26 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
             {
                 Intmode = 1;
             }
-  
 
-            List<Mprojection> orptt = objExtra.mGetLedgerGroupLoad(strComID, Intmode, Utility.gstrUserName).ToList();
-            if (orptt.Count > 0)
+            if (Intmode < 5)
             {
-
-
-                foreach (Mprojection ostk in orptt)
+                List<Mprojection> orptt = objExtra.mGetLedgerGroupLoad(strComID, Intmode, Utility.gstrUserName, intSelection,strBranchId).ToList();
+                if (orptt.Count > 0)
                 {
-                    lstLeft.Items.Add(ostk.strGRName);
-                }
-            }
 
-            txtSearch.Focus();
+
+                    foreach (Mprojection ostk in orptt)
+                    {
+                        lstLeft.Items.Add(ostk.strGRName);
+                    }
+                }
+
+                txtSearch.Focus();
+            }
+            else
+            {
+                dtpFDate.Focus();
+            }
         }
         private void txtMonthID_TextChanged(object sender, EventArgs e)
         {
@@ -469,8 +494,24 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            string strBranchId = "", strString2 = "", strString3 = "", strString4 = "";
-            int intmode = 0, intSalesCollAch = 0;
+            BranchId();
+
+            string  strString2 = "", strString3 = "", strString4 = "";
+            int intmode = 0, intSalesCollAch = 0, intSelection = 0, intBaseTarget = 0, intSpecialMonitor = 0;
+
+            if (radAllStatus.Checked == true)
+            {
+                intSelection = 2;
+            }
+            else if (radActive.Checked == true)
+            {
+                intSelection = 0;
+            }
+            else if (radInactive.Checked == true)
+            {
+                intSelection = 1;
+            }
+
             if (chkboxSalesPer.Checked == true)
             {
                 intSalesCollAch = 1;
@@ -500,18 +541,16 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
             {
                 intmode = 1;
             }
-
-
-            if (uctxtBranch.Text == "")
+            if (chkBaseTarget.Checked==true)
             {
-                MessageBox.Show("Please Select Branch Name.");
-                return;
+                intBaseTarget = 1;
             }
             else
             {
-                strBranchId = Utility.gstrGetBranchID(strComID, uctxtBranch.Text);
+                intBaseTarget = 0;
             }
 
+         
             if (rbtnAll.Checked != true)
             {
 
@@ -520,6 +559,16 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
                     MessageBox.Show("Data Not Found.");
                     return;
                 }
+            }
+
+
+            if (chkbSpecialMonitor.Checked== true)
+            {
+                intSpecialMonitor = 1;
+            }
+            else
+            {
+                intSpecialMonitor = 0;
             }
 
             for (int i = 0; i < lstRight.Items.Count; i++)
@@ -533,16 +582,32 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
 
             frmReportViewer frmviewer = new frmReportViewer();
             frmviewer.selector = ViewerSelector.SalesCollectonperformance;
-            frmviewer.intMode = intmode;
             frmviewer.strString2 = strString2;
             frmviewer.strFdate = dtpFDate.Text;
             frmviewer.strTdate = dtpTDate.Text;
             frmviewer.strBranchId = strBranchId;
             frmviewer.intMode = intmode;
+            frmviewer.intStatusNew = intSelection;
+            frmviewer.intSuppress2 = intSpecialMonitor;
             frmviewer.intStatus = intSalesCollAch;
             frmviewer.secondParameter1 = uctxtBranch.Text;
             frmviewer.reportTitle2 = "A";
+            frmviewer.intCheckStatus = intBaseTarget;
             frmviewer.Show();
+
+        }
+
+        private void BranchId()
+        {
+            if (uctxtBranch.Text == "")
+            {
+                MessageBox.Show("Please Select Branch Name.");
+                return;
+            }
+            else
+            {
+                strBranchId = Utility.gstrGetBranchID(strComID, uctxtBranch.Text);
+            }
 
         }
 
@@ -585,6 +650,21 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
            
             }
 
+        }
+
+        private void radAllStatus_Click(object sender, EventArgs e)
+        {
+            mLoadLedgerName();
+        }
+
+        private void radActive_Click(object sender, EventArgs e)
+        {
+            mLoadLedgerName();
+        }
+
+        private void radInactive_Click(object sender, EventArgs e)
+        {
+            mLoadLedgerName();
         }
 
      

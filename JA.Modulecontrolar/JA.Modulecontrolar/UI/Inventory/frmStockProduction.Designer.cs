@@ -55,16 +55,17 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.uctxtBatch = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.uctxtRate = new System.Windows.Forms.TextBox();
             this.btnDown = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.uctxtQty = new System.Windows.Forms.TextBox();
             this.DG = new MayhediDataGridView();
             this.label12 = new System.Windows.Forms.Label();
             this.uctxtItemName = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.uctxtRate = new System.Windows.Forms.TextBox();
             this.uctxtBranchName = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.chkFG = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -78,19 +79,22 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.chkFG);
             this.pnlMain.Controls.Add(this.textBox1);
             this.pnlMain.Controls.Add(this.panel2);
             this.pnlMain.Controls.Add(this.label4);
             this.pnlMain.Controls.Add(this.uctxtNarration);
             this.pnlMain.Controls.Add(this.uctxtBranchName);
             this.pnlMain.Controls.Add(this.uctxtInvoiceNo);
+            this.pnlMain.Controls.Add(this.label10);
             this.pnlMain.Controls.Add(this.label5);
+            this.pnlMain.Controls.Add(this.uctxtRate);
             this.pnlMain.Controls.Add(this.dteDate);
             this.pnlMain.Controls.Add(this.label9);
             this.pnlMain.Controls.Add(this.label1);
             this.pnlMain.Controls.Add(this.label3);
             this.pnlMain.Controls.Add(this.uctxtLocation);
-            this.pnlMain.Size = new System.Drawing.Size(973, 549);
+            this.pnlMain.Size = new System.Drawing.Size(973, 537);
             this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
             // 
             // pnlTop
@@ -100,14 +104,14 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(6, 464);
+            this.btnEdit.Location = new System.Drawing.Point(6, 453);
             this.btnEdit.Size = new System.Drawing.Size(135, 39);
             this.btnEdit.Text = "List All";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(751, 464);
+            this.btnSave.Location = new System.Drawing.Point(751, 453);
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelete
@@ -124,7 +128,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(865, 464);
+            this.btnClose.Location = new System.Drawing.Point(865, 453);
             // 
             // btnPrint
             // 
@@ -134,7 +138,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 503);
+            this.groupBox1.Location = new System.Drawing.Point(0, 492);
             this.groupBox1.Size = new System.Drawing.Size(975, 25);
             // 
             // uctxtInvoiceNo
@@ -158,6 +162,7 @@
             // 
             // dteDate
             // 
+            this.dteDate.Enabled = false;
             this.dteDate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dteDate.Location = new System.Drawing.Point(325, 166);
@@ -208,7 +213,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Verdana", 9.75F);
-            this.label4.Location = new System.Drawing.Point(246, 517);
+            this.label4.Location = new System.Drawing.Point(246, 509);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 16);
             this.label4.TabIndex = 115;
@@ -218,7 +223,7 @@
             // 
             this.uctxtNarration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtNarration.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtNarration.Location = new System.Drawing.Point(325, 514);
+            this.uctxtNarration.Location = new System.Drawing.Point(325, 506);
             this.uctxtNarration.Name = "uctxtNarration";
             this.uctxtNarration.Size = new System.Drawing.Size(422, 23);
             this.uctxtNarration.TabIndex = 114;
@@ -232,8 +237,6 @@
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.uctxtBatch);
-            this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.uctxtRate);
             this.panel2.Controls.Add(this.btnDown);
             this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.uctxtQty);
@@ -242,14 +245,14 @@
             this.panel2.Controls.Add(this.uctxtItemName);
             this.panel2.Location = new System.Drawing.Point(5, 243);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(959, 266);
+            this.panel2.Size = new System.Drawing.Size(959, 258);
             this.panel2.TabIndex = 116;
             // 
             // lblQnty
             // 
             this.lblQnty.AutoSize = true;
             this.lblQnty.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQnty.Location = new System.Drawing.Point(442, 243);
+            this.lblQnty.Location = new System.Drawing.Point(442, 238);
             this.lblQnty.Name = "lblQnty";
             this.lblQnty.Size = new System.Drawing.Size(15, 13);
             this.lblQnty.TabIndex = 96;
@@ -259,7 +262,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(308, 243);
+            this.label14.Location = new System.Drawing.Point(308, 238);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(103, 13);
             this.label14.TabIndex = 95;
@@ -325,7 +328,7 @@
             // 
             this.lblAmount.AutoSize = true;
             this.lblAmount.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAmount.Location = new System.Drawing.Point(726, 243);
+            this.lblAmount.Location = new System.Drawing.Point(726, 238);
             this.lblAmount.Name = "lblAmount";
             this.lblAmount.Size = new System.Drawing.Size(15, 13);
             this.lblAmount.TabIndex = 75;
@@ -335,7 +338,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(592, 243);
+            this.label8.Location = new System.Drawing.Point(592, 238);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(98, 13);
             this.label8.TabIndex = 74;
@@ -360,25 +363,6 @@
             this.uctxtBatch.Size = new System.Drawing.Size(196, 23);
             this.uctxtBatch.TabIndex = 72;
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(585, 2);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(42, 18);
-            this.label10.TabIndex = 71;
-            this.label10.Text = "Rate";
-            // 
-            // uctxtRate
-            // 
-            this.uctxtRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.uctxtRate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtRate.Location = new System.Drawing.Point(572, 23);
-            this.uctxtRate.Name = "uctxtRate";
-            this.uctxtRate.Size = new System.Drawing.Size(135, 23);
-            this.uctxtRate.TabIndex = 70;
-            // 
             // btnDown
             // 
             this.btnDown.Location = new System.Drawing.Point(906, 23);
@@ -393,7 +377,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(479, 2);
+            this.label11.Location = new System.Drawing.Point(614, 2);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 18);
             this.label11.TabIndex = 60;
@@ -403,7 +387,7 @@
             // 
             this.uctxtQty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtQty.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtQty.Location = new System.Drawing.Point(437, 23);
+            this.uctxtQty.Location = new System.Drawing.Point(572, 23);
             this.uctxtQty.Name = "uctxtQty";
             this.uctxtQty.Size = new System.Drawing.Size(135, 23);
             this.uctxtQty.TabIndex = 59;
@@ -437,7 +421,7 @@
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DG.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.DG.Size = new System.Drawing.Size(943, 189);
+            this.DG.Size = new System.Drawing.Size(943, 182);
             this.DG.TabIndex = 58;
             this.DG.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DG_CellContentClick);
             this.DG.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DG_CellEndEdit);
@@ -460,10 +444,33 @@
             this.uctxtItemName.ForeColor = System.Drawing.Color.Black;
             this.uctxtItemName.Location = new System.Drawing.Point(2, 23);
             this.uctxtItemName.Name = "uctxtItemName";
-            this.uctxtItemName.Size = new System.Drawing.Size(435, 23);
+            this.uctxtItemName.Size = new System.Drawing.Size(570, 23);
             this.uctxtItemName.TabIndex = 56;
             this.uctxtItemName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.uctxtItemName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.uctxtItemName_KeyUp);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(816, 167);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(42, 18);
+            this.label10.TabIndex = 71;
+            this.label10.Text = "Rate";
+            this.label10.Visible = false;
+            // 
+            // uctxtRate
+            // 
+            this.uctxtRate.BackColor = System.Drawing.Color.White;
+            this.uctxtRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.uctxtRate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uctxtRate.Location = new System.Drawing.Point(806, 143);
+            this.uctxtRate.Name = "uctxtRate";
+            this.uctxtRate.ReadOnly = true;
+            this.uctxtRate.Size = new System.Drawing.Size(10, 23);
+            this.uctxtRate.TabIndex = 70;
+            this.uctxtRate.Visible = false;
             // 
             // uctxtBranchName
             // 
@@ -478,16 +485,28 @@
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(871, 179);
+            this.textBox1.Location = new System.Drawing.Point(871, 141);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(37, 23);
+            this.textBox1.Size = new System.Drawing.Size(11, 23);
             this.textBox1.TabIndex = 117;
             this.textBox1.Visible = false;
+            // 
+            // chkFG
+            // 
+            this.chkFG.AutoSize = true;
+            this.chkFG.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFG.Location = new System.Drawing.Point(893, 217);
+            this.chkFG.Name = "chkFG";
+            this.chkFG.Size = new System.Drawing.Size(69, 19);
+            this.chkFG.TabIndex = 118;
+            this.chkFG.Text = "FG Item";
+            this.chkFG.UseVisualStyleBackColor = true;
+            this.chkFG.Click += new System.EventHandler(this.chkFG_Click);
             // 
             // frmStockProduction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(975, 528);
+            this.ClientSize = new System.Drawing.Size(975, 517);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
@@ -536,5 +555,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.Label lblQnty;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.CheckBox chkFG;
     }
 }

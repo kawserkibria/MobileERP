@@ -43,6 +43,7 @@
             this.lblContactNo = new System.Windows.Forms.Label();
             this.lblSorting = new System.Windows.Forms.Label();
             this.txtSortingPos = new System.Windows.Forms.TextBox();
+            this.chkDuplicate = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +56,7 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.chkDuplicate);
             this.pnlMain.Controls.Add(this.lblSorting);
             this.pnlMain.Controls.Add(this.lblContactNo);
             this.pnlMain.Controls.Add(this.lblMobileNo);
@@ -272,6 +274,16 @@
             this.txtSortingPos.TabIndex = 46;
             this.txtSortingPos.Visible = false;
             // 
+            // chkDuplicate
+            // 
+            this.chkDuplicate.AutoSize = true;
+            this.chkDuplicate.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkDuplicate.Location = new System.Drawing.Point(477, 178);
+            this.chkDuplicate.Name = "chkDuplicate";
+            this.chkDuplicate.Size = new System.Drawing.Size(15, 14);
+            this.chkDuplicate.TabIndex = 48;
+            this.chkDuplicate.UseVisualStyleBackColor = true;
+            // 
             // frmGroupConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -306,5 +318,6 @@
         private System.Windows.Forms.TextBox txtMobileNo;
         private System.Windows.Forms.Label lblSorting;
         private System.Windows.Forms.TextBox txtSortingPos;
+        private System.Windows.Forms.CheckBox chkDuplicate;
     }
 }

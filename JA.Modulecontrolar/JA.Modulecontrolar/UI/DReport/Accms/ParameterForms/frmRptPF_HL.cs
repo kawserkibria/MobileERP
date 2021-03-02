@@ -332,24 +332,24 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                 strBranchId = Utility.gstrGetBranchID(strComID, uctxtBranch.Text);
             }
 
-
-            if (chkboxClosing.Checked == true)
+            if (chkboxDetails.Checked == true)
             {
 
                 if (radIndividual.Checked == true)
                 {
                     if (uctxtLedgerConfig.Text == "")
                     {
-                        MessageBox.Show("Please Select Ledger Name.");
+                        MessageBox.Show("Please Select Leger Name.");
                         return;
                     }
                 }
 
-                dteToDate.Value=DateTime.Now.Date;
+
                 frmReportViewer frmviewer = new frmReportViewer();
-                frmviewer.selector = ViewerSelector.PFHLClosing;
-                frmviewer.strFdate =Convert.ToString(dteToDate.Value).ToString();
-                frmviewer.strHeading = "MPO Final Settlement";
+                frmviewer.selector = ViewerSelector.PFHLDetails;
+                frmviewer.strFdate = dteFromDate.Value.ToString("dd-MM-yyyy");
+                frmviewer.strTdate = dteToDate.Value.ToString("dd-MM-yyyy");
+                frmviewer.strHeading = "HL/PF Information (Details)";
                 frmviewer.strBranchID = strBranchId;
                 frmviewer.strString = uctxtLedgerConfig.Text;
                 frmviewer.intSP = intchkstatus;
@@ -364,41 +364,78 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                 }
                 frmviewer.ReportTitle = "A";
                 frmviewer.Show();
+            
             }
             else
             {
-                //1=Group,3=gropParent,2=primary
 
-            
-                if (radIndividual.Checked == true)
+                if (chkboxClosing.Checked == true)
                 {
-                    if (uctxtLedgerConfig.Text == "")
+
+                    if (radIndividual.Checked == true)
                     {
-                        MessageBox.Show("Please Select Leger Group.");
-                        return;
+                        if (uctxtLedgerConfig.Text == "")
+                        {
+                            MessageBox.Show("Please Select Ledger Name.");
+                            return;
+                        }
                     }
-                }
 
-
-                frmReportViewer frmviewer = new frmReportViewer();
-                frmviewer.selector = ViewerSelector.PFHL;
-                frmviewer.strFdate = dteFromDate.Value.ToString("dd-MM-yyyy");
-                frmviewer.strTdate = dteToDate.Value.ToString("dd-MM-yyyy");
-                frmviewer.strHeading = "HL/PF Information ";
-                frmviewer.strBranchID = strBranchId;
-                frmviewer.strString = uctxtLedgerConfig.Text;
-                frmviewer.intSP = intchkstatus;
-                frmviewer.strString2 = "Branch :" + uctxtBranch.Text;
-                if (radIndividual.Checked == true)
-                {
-                    frmviewer.intHor_ver = 1;
+                    dteToDate.Value = DateTime.Now.Date;
+                    frmReportViewer frmviewer = new frmReportViewer();
+                    frmviewer.selector = ViewerSelector.PFHLClosing;
+                    frmviewer.strFdate = Convert.ToString(dteToDate.Value).ToString();
+                    frmviewer.strHeading = "MPO Final Settlement";
+                    frmviewer.strBranchID = strBranchId;
+                    frmviewer.strString = uctxtLedgerConfig.Text;
+                    frmviewer.intSP = intchkstatus;
+                    frmviewer.strString2 = "Branch :" + uctxtBranch.Text;
+                    if (radIndividual.Checked == true)
+                    {
+                        frmviewer.intHor_ver = 1;
+                    }
+                    else
+                    {
+                        frmviewer.intHor_ver = 2;
+                    }
+                    frmviewer.ReportTitle = "A";
+                    frmviewer.Show();
                 }
                 else
                 {
-                    frmviewer.intHor_ver = 2;
+                    //1=Group,3=gropParent,2=primary
+
+
+                    if (radIndividual.Checked == true)
+                    {
+                        if (uctxtLedgerConfig.Text == "")
+                        {
+                            MessageBox.Show("Please Select Leger Group.");
+                            return;
+                        }
+                    }
+
+
+                    frmReportViewer frmviewer = new frmReportViewer();
+                    frmviewer.selector = ViewerSelector.PFHL;
+                    frmviewer.strFdate = dteFromDate.Value.ToString("dd-MM-yyyy");
+                    frmviewer.strTdate = dteToDate.Value.ToString("dd-MM-yyyy");
+                    frmviewer.strHeading = "HL/PF Information ";
+                    frmviewer.strBranchID = strBranchId;
+                    frmviewer.strString = uctxtLedgerConfig.Text;
+                    frmviewer.intSP = intchkstatus;
+                    frmviewer.strString2 = "Branch :" + uctxtBranch.Text;
+                    if (radIndividual.Checked == true)
+                    {
+                        frmviewer.intHor_ver = 1;
+                    }
+                    else
+                    {
+                        frmviewer.intHor_ver = 2;
+                    }
+                    frmviewer.ReportTitle = "A";
+                    frmviewer.Show();
                 }
-                frmviewer.ReportTitle = "A";
-                frmviewer.Show();
             }
         }
         private void mloadGroup()
@@ -629,7 +666,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             {
                 intstatus = 1;
             }
-            ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, intstatus, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, intstatus, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {

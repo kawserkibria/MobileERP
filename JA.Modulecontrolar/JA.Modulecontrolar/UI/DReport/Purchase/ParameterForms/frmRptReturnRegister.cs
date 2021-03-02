@@ -324,7 +324,7 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
             int introw = 0;
             DGMr.Rows.Clear();
 
-            ooPartyName = invms.mfillPartyNameNew(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName,0,"").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName,0,"","").ToList();
 
             if (ooPartyName.Count > 0)
             {

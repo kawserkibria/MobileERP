@@ -38,27 +38,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             this.lstLeft.DoubleClick += new System.EventHandler(this.lstLeft_DoubleClick);
             this.lstLeft.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstLeft_KeyPress);
 
-            //this.txtSerchGroup.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerchGroup_KeyPress);
-            //this.txtSerchGroup.TextChanged += new System.EventHandler(this.txtSerchGroup_TextChanged);
-            //this.lstLeftNew.DoubleClick += new System.EventHandler(this.lstLeftNew_DoubleClick);
-            //this.lstLeftNew.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstLeftNew_KeyPress);
             this.cboGroupName.SelectedIndexChanged += new System.EventHandler(this.cboGroupName_SelectedIndexChanged);
-
-
-            ///sales Price
-            ///
-            //this.uctxtName.KeyDown += new KeyEventHandler(uctxtName_KeyDown);
-            //this.uctxtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtName_KeyPress);
-            //this.uctxtName.TextChanged += new System.EventHandler(this.uctxtName_TextChanged);
-            //this.lstCategoryGroup.DoubleClick += new System.EventHandler(this.lstCategoryGroup_DoubleClick);
-            //this.uctxtName.GotFocus += new System.EventHandler(this.uctxtName_GotFocus);
-
-
-            //this.uctxtLevelName.KeyDown += new KeyEventHandler(uctxtLevelName_KeyDown);
-            //this.uctxtLevelName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtLevelName_KeyPress);
-            //this.uctxtLevelName.TextChanged += new System.EventHandler(this.uctxtLevelName_TextChanged);
-            //this.lstLevelname.DoubleClick += new System.EventHandler(this.lstLevelname_DoubleClick);
-            //this.uctxtLevelName.GotFocus += new System.EventHandler(this.uctxtLevelName_GotFocus);
 
             ///Invoice Price
             this.uctxtBranchName.KeyDown += new KeyEventHandler(uctxtBranchName_KeyDown);
@@ -234,9 +214,14 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
 
         private void mLoadStockGroup()
         {
+            string strStationay = "";
+            if (chkStationary.Checked)
+            {
+                strStationay = "STATIONAY";
+            }
             lstLeft.Items.Clear();
             lstRight.Items.Clear();
-            List<StockItem> oogrp = invms.gLoadStockGroup(strComID,Utility.gblnAccessControl, Utility.gstrUserName,"N",cboGroupName.Text).ToList();
+            List<StockItem> oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "N", cboGroupName.Text, strStationay).ToList();
             if (oogrp.Count > 0)
             {
                 foreach (StockItem ostk in oogrp)
@@ -307,23 +292,57 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         private void btnPrint_Click(object sender, EventArgs e)
         {
            
-            string strString = "",struserString="",strString1="";
-            int intSuppress;
-            
+
+            string strString = "",  strBranchId="";
+            int intReportDetail=0,intLocation=0,intRate=0;
+            if (chkMainLocation.Checked==true)
+            {
+                intLocation = 1;
+            }
+            else
+            {
+                intLocation = 0;
+            }
+            if (chkStationary.Checked)
+            {
+                intReportDetail = 1;
+            }
+            else
+            {
+                intReportDetail = 2;
+            }
+            if (uctxtBranchName.Text == "")
+            {
+                MessageBox.Show("Please Select Branch Name.");
+                return;
+            }
+            else
+            {
+                strBranchId = Utility.gstrGetBranchID(strComID, uctxtBranchName.Text);
+            }
+
+            if (chkboxRate.Checked== true)
+            {
+                intRate = 1;
+            }
             if (rbtntopSheet.Checked == true)
             {
                 frmReportViewer frmviewer = new frmReportViewer();
                 frmviewer.selector = ViewerSelector.ProductTopSheetSalesPrice;
                 frmviewer.strFdate = dteFromDate.Text;
                 frmviewer.strTdate = dteToDate.Text;
-                //frmviewer.strString = strGroupName;
+                frmviewer.strBranchID = strBranchId;
+                frmviewer.strToLocation = uctxtBranchName.Text;
                 frmviewer.strSelction = "";
+              
+                frmviewer.intype = intReportDetail;
+                frmviewer.intLocation = intLocation;
                 frmviewer.Show();
             }
             else if (rbtnInvoiceP.Checked == true)
             {
                 #region"Sales price"
-                string strBranchId = "";
+               
                 int inttype = 1, intAlias = 0;
                 if (radItem.Checked == true)
                 {
@@ -372,7 +391,9 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                     frmviewer.strTdate = dteToDate.Text;
                     frmviewer.strSelction = "I";
                     frmviewer.strGroup = cboGroupName.Text;
+                    frmviewer.strToLocation = uctxtBranchName.Text;
                     frmviewer.intSorting = intAlias;
+                    frmviewer.intLocation = intLocation;
                     frmviewer.Show();
                 }
                 else if (strName == "S" || strName == "Su")
@@ -389,6 +410,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                     frmviewer.strBranchID = strBranchId;
                     frmviewer.strFdate = dteFromDate.Text;
                     frmviewer.strTdate = dteToDate.Text;
+                    frmviewer.strToLocation = uctxtBranchName.Text;
                     frmviewer.intype = inttype;
                     frmviewer.strSelction = strName;
                     frmviewer.intSorting = intAlias;
@@ -402,6 +424,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                     frmviewer.strString = strString;
                     frmviewer.strBranchID = strBranchId;
                     frmviewer.strFdate = dteFromDate.Text;
+                    frmviewer.strToLocation = uctxtBranchName.Text;
                     frmviewer.strTdate = dteToDate.Text;
                     frmviewer.strSelction = "O";
                     frmviewer.intSorting = intAlias;
@@ -413,7 +436,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             else
             {
                 #region"Purchase price"
-                string strBranchId = "";
+            
                 int inttype = 1, intAlias = 0;
                 if (radItem.Checked == true)
                 {
@@ -494,6 +517,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                     frmviewer.strFdate = dteFromDate.Text;
                     frmviewer.strTdate = dteToDate.Text;
                     frmviewer.strSelction = "O";
+                    frmviewer.intLocation = intRate;
                     frmviewer.intSorting = intAlias;
                     frmviewer.Show();
                 }
@@ -631,25 +655,31 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
 
         private void mLoad()
         {
+            string strStationay = "";
+            if (chkStationary.Checked==true)
+            {
+                strStationay = "STATIONAY";
+            }
             groupBox7.Enabled = true;
             lstLeft.Items.Clear();
             lstRight.Items.Clear();
  
             if (strName == "S")
             {
-                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "Y", cboGroupName.Text).ToList();
+                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "Y", cboGroupName.Text,"").ToList();
             }
             else if (strName == "Su")
             {
-                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "Y", "").ToList();
+                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "Y", "","").ToList();
             }
             else if (strName == "I")
             {
-                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "K", "Finished Goods").ToList();
+                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "K", "Finished Goods","").ToList();
             }
+            
             else
             {
-                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "K", cboGroupName.Text).ToList();
+                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "K", cboGroupName.Text, strStationay).ToList();
             }
             if (oogrp.Count > 0)
             {
@@ -679,7 +709,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             lblCategory.Visible = true;
             uctxtBranchName.Visible = true;
             lstBranch.Visible = true;
-         
+            chkStationary.Visible = true;
           
             lstLevelname.Visible = false;
             lstCategoryGroup.Visible = false;
@@ -693,9 +723,10 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             cboGroupName.Visible = true;
             StockGroupLoad();
             mLoad();
-
-            frmLabel.Text = "Stock Summary Purchase Price";
-
+            txtSearch.Focus();
+             lstBranch.Visible = false;
+            frmLabel.Text = "Stock Information Actual Rate";
+            groupBox7.Visible = true;
 
         }
 
@@ -734,26 +765,29 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             groupBox7.Visible = true;
             lblCategory.Visible = true;
             uctxtBranchName.Visible = true;
-            lstBranch.Visible = true;
+            lstBranch.Visible = false;
 
             lstLevelname.Visible = false;
             lstCategoryGroup.Visible = false;
-            strName = "I";
+           
             label6.Visible = false;
             cboGroupName.Visible = false;
           
             lstBranch.ValueMember = "BranchID";
             lstBranch.DisplayMember = "BranchName";
             lstBranch.DataSource = accms.mFillBranch(strComID, Utility.gblnAccessControl, Utility.gstrUserName).ToList();
-
+            strName = "I";
             mLoad();
-            frmLabel.Text = "Stock Summary Invoice Price";
+            txtSearch.Focus();
             
         }
         private void rbtnInvoiceP_MouseClick(object sender, MouseEventArgs e)
         {
 
+
             btninvoice();
+            frmLabel.Text = "Stock Information " + "FG (Avg. Rate Wise)";
+            groupBox7.Visible = true;
         }
 
        
@@ -775,7 +809,9 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             cboGroupName.Visible = true;
             //StockGroupLoad();
             btninvoice();
-            frmLabel.Text = "Stock Summary Top Sheet";
+            frmLabel.Text = "Stock Information " + "FG Top Sheet (Avg. Rate Wise)";
+            lstRight.Items.Clear();
+            groupBox7.Visible= false;
         }
 
         private void groupBox9_Enter(object sender, EventArgs e)
@@ -836,53 +872,19 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
 
         private void radSelection_Click(object sender, EventArgs e)
         {
-   
-        
+
+
             groupBox7.Enabled = true;
-            
             txtSearch.Focus();
-         
-        
-           
-           
-      
-                groupBox7.Enabled = true;
-             
-            
-               
-               
-              
-                lstRight.Items.Clear();
-             
-         
+            groupBox7.Enabled = true;
+            lstRight.Items.Clear();
+
+
         }
 
         private void radAllItem_Click(object sender, EventArgs e)
         {
-            //if (radValueSupp.Checked == true)
-            //{
-            //    groupBox7.Enabled = false;
-               
-             
-             
-                
-               
-
-            //    lstRight.Items.Clear();
-             
-            //}
-            //else
-            //{
-            //    groupBox7.Enabled = false;
-             
-            
-               
-               
-              
-
-            //    lstRight.Items.Clear();
-             
-            //}
+         
             
         }
 
@@ -907,9 +909,9 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         private void radItemWise_Click(object sender, EventArgs e)
         {
             strType = "C";
-           label6.Visible = false;
+            label6.Visible = false;
             cboGroupName.Visible = false;
-          
+
             mLaodItem();
         }
 
@@ -974,44 +976,110 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
 
         private void frmRptProductN_Load(object sender, EventArgs e)
         {
-         
+            chkboxRate.Visible = false;
             gboxInwardPurchase.Enabled = false;
             lblCategory.Visible = false;
             uctxtBranchName.Visible = false;
-            lstBranch.Visible = false;
+           
             lstLevelname.Visible = false;
             lstCategoryGroup.Visible = false;
             
             label6.Visible = true;
             cboGroupName.Visible = true;
-            StockGroupLoad();
+            chkStationary.Visible = false;
+            //StockGroupLoad();
 
-            frmLabel.Text = "Top Sheet Sales Price";
-            mLoadStockGroup();
+            frmLabel.Text =  "Stock Information " + "FG (Invoice Rate Wise)";
+       
 
             dteToDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
             dteFromDate.Text = Utility.FirstDayOfMonth(dteToDate.Value).ToString("dd-MM-yyyy");
            
             groupBox7.Enabled = false;
             btninvoice();
+            uctxtBranchName.Text = lstBranch.Text;
+            lstBranch.Visible = false;
+            //strName = "I";
+            //mLoadStockGroup();
+            strName = "I";
+            mLoad();
+            txtSearch.Focus();
+
       
         }
         private void StockGroupLoad()
         {
             if (rbtnPurchase.Checked == true)
             {
-                cboGroupName.ValueMember = "strItemGroup";
-                cboGroupName.DisplayMember = "strItemGroup";
-                cboGroupName.DataSource = invms.mGetStockGroup(strComID, 2).ToList();
+                cboGroupName.ValueMember = "Key";
+                cboGroupName.DisplayMember = "value";
+                cboGroupName.DataSource = invms.mGetStockGroupNew(strComID, 2).ToList();
             }
             else
             {
-                cboGroupName.ValueMember = "strItemGroup";
-                cboGroupName.DisplayMember = "strItemGroup";
-                cboGroupName.DataSource = invms.mGetStockGroup(strComID, 1).ToList();
+                //cboGroupName.ValueMember = "strItemGroup";
+                //cboGroupName.DisplayMember = "strItemGroup";
+                //cboGroupName.DataSource = invms.mGetStockGroup(strComID, 1).ToList();
+                mLoad();
             }
         }
 
+        private void chkStationary_Click(object sender, EventArgs e)
+        {
+            //chkStationary.Checked = true;
+            mLoad();
+        }
+
+        private void cboGroupName_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbtnPurchase_Click(object sender, EventArgs e)
+        {
+            chkMainLocation.Text = "All Location ";
+            lblnameshow();
+        }
+        private void lblnameshow()
+        {
+            chkStationary.Visible = false;
+            chkStationary.Checked = false;
+            chkboxRate.Visible = false;
+            if (rbtnPurchase.Checked)
+            {
+                chkStationary.Visible = true;
+                chkboxRate.Visible = true;
+                chkStationary.Text = "Without Stationary && Lab Chemical";
+            }
+            else if (rbtntopSheet.Checked)
+            {
+                chkStationary.Visible = true;
+                chkStationary.Text = "Details";
+            }
+            else
+            {
+                rbtnPurchase.Checked = false;
+                chkStationary.Visible = false;
+            }
+        }
+
+        private void rbtntopSheet_Click(object sender, EventArgs e)
+        {
+            chkMainLocation.Text = "Main Location ";
+            lblnameshow();
+            chkStationary.Visible = false;
+        }
+
+        private void rbtnInvoiceP_Click(object sender, EventArgs e)
+        {
+            chkMainLocation.Text = "Main Location ";
+            lblnameshow();
+        }
+
+        private void chkboxRate_Click(object sender, EventArgs e)
+        {
+
+        }
 
     }
 }

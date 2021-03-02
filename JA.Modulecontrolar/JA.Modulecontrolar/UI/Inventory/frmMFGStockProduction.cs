@@ -1512,7 +1512,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             DG.Columns.Add(Utility.Create_Grid_Column("Bill Key", "Bill Key", 100, false, DataGridViewContentAlignment.TopLeft, false));
             lstProcess.ValueMember = "strProcessName";
             lstProcess.DisplayMember = "strProcessName";
-            lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", intconvert,0).ToList();
+            lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", intconvert,0,"").ToList();
 
             //lstSection.ValueMember = "Key";
             //lstSection.DisplayMember = "value";

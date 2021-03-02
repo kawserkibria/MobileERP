@@ -59,12 +59,19 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chkboxCollAch = new System.Windows.Forms.CheckBox();
             this.chkboxSalesPer = new System.Windows.Forms.CheckBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.radAllStatus = new System.Windows.Forms.RadioButton();
+            this.radInactive = new System.Windows.Forms.RadioButton();
+            this.radActive = new System.Windows.Forms.RadioButton();
+            this.chkBaseTarget = new System.Windows.Forms.CheckBox();
+            this.chkbSpecialMonitor = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupSelection.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // frmLabel
@@ -75,6 +82,9 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.chkbSpecialMonitor);
+            this.pnlMain.Controls.Add(this.chkBaseTarget);
+            this.pnlMain.Controls.Add(this.panel2);
             this.pnlMain.Controls.Add(this.groupBox2);
             this.pnlMain.Controls.Add(this.groupBox6);
             this.pnlMain.Controls.Add(this.panel3);
@@ -87,7 +97,7 @@
             this.pnlMain.Controls.Add(this.label3);
             this.pnlMain.Controls.Add(this.uctxtBranch);
             this.pnlMain.Location = new System.Drawing.Point(0, 2);
-            this.pnlMain.Size = new System.Drawing.Size(579, 455);
+            this.pnlMain.Size = new System.Drawing.Size(579, 491);
             // 
             // pnlTop
             // 
@@ -119,25 +129,25 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(451, 463);
+            this.btnClose.Location = new System.Drawing.Point(451, 499);
             this.btnClose.Size = new System.Drawing.Size(128, 39);
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(317, 463);
+            this.btnPrint.Location = new System.Drawing.Point(317, 499);
             this.btnPrint.Size = new System.Drawing.Size(128, 39);
             this.btnPrint.Text = "Preview";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 503);
+            this.groupBox1.Location = new System.Drawing.Point(0, 540);
             this.groupBox1.Size = new System.Drawing.Size(584, 25);
             // 
             // uctxtBranch
             // 
             this.uctxtBranch.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtBranch.Location = new System.Drawing.Point(132, 65);
+            this.uctxtBranch.Location = new System.Drawing.Point(132, 57);
             this.uctxtBranch.Name = "uctxtBranch";
             this.uctxtBranch.Size = new System.Drawing.Size(375, 22);
             this.uctxtBranch.TabIndex = 0;
@@ -146,7 +156,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(34, 68);
+            this.label3.Location = new System.Drawing.Point(34, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 14);
             this.label3.TabIndex = 7;
@@ -164,7 +174,7 @@
             // uctxtTeritorryName
             // 
             this.uctxtTeritorryName.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtTeritorryName.Location = new System.Drawing.Point(140, 288);
+            this.uctxtTeritorryName.Location = new System.Drawing.Point(140, 302);
             this.uctxtTeritorryName.Name = "uctxtTeritorryName";
             this.uctxtTeritorryName.Size = new System.Drawing.Size(94, 22);
             this.uctxtTeritorryName.TabIndex = 208;
@@ -195,7 +205,7 @@
             this.dteToDate.Enabled = false;
             this.dteToDate.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteToDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteToDate.Location = new System.Drawing.Point(37, 302);
+            this.dteToDate.Location = new System.Drawing.Point(37, 316);
             this.dteToDate.Name = "dteToDate";
             this.dteToDate.Size = new System.Drawing.Size(161, 22);
             this.dteToDate.TabIndex = 221;
@@ -213,7 +223,7 @@
             this.groupSelection.Controls.Add(this.lstRight);
             this.groupSelection.Controls.Add(this.lstLeft);
             this.groupSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupSelection.Location = new System.Drawing.Point(18, 132);
+            this.groupSelection.Location = new System.Drawing.Point(18, 178);
             this.groupSelection.Name = "groupSelection";
             this.groupSelection.Size = new System.Drawing.Size(545, 224);
             this.groupSelection.TabIndex = 222;
@@ -323,7 +333,7 @@
             this.panel3.Controls.Add(this.rbtnDSMRSM);
             this.panel3.Controls.Add(this.rbtnAMFM);
             this.panel3.Controls.Add(this.rbtnMPO);
-            this.panel3.Location = new System.Drawing.Point(53, 93);
+            this.panel3.Location = new System.Drawing.Point(53, 134);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(461, 41);
             this.panel3.TabIndex = 225;
@@ -398,9 +408,9 @@
             this.groupBox6.Controls.Add(this.dtpFDate);
             this.groupBox6.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(319, 356);
+            this.groupBox6.Location = new System.Drawing.Point(357, 402);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(244, 83);
+            this.groupBox6.Size = new System.Drawing.Size(202, 83);
             this.groupBox6.TabIndex = 226;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Period Seletion";
@@ -410,7 +420,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(38, 49);
+            this.label1.Location = new System.Drawing.Point(27, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 16);
             this.label1.TabIndex = 23;
@@ -420,7 +430,7 @@
             // 
             this.dtpTDate.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpTDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpTDate.Location = new System.Drawing.Point(100, 49);
+            this.dtpTDate.Location = new System.Drawing.Point(58, 49);
             this.dtpTDate.Name = "dtpTDate";
             this.dtpTDate.Size = new System.Drawing.Size(129, 22);
             this.dtpTDate.TabIndex = 22;
@@ -430,7 +440,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(22, 21);
+            this.label5.Location = new System.Drawing.Point(10, 21);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 16);
             this.label5.TabIndex = 21;
@@ -440,7 +450,7 @@
             // 
             this.dtpFDate.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFDate.Location = new System.Drawing.Point(100, 21);
+            this.dtpFDate.Location = new System.Drawing.Point(58, 21);
             this.dtpFDate.Name = "dtpFDate";
             this.dtpFDate.Size = new System.Drawing.Size(129, 22);
             this.dtpFDate.TabIndex = 20;
@@ -449,9 +459,9 @@
             // 
             this.groupBox2.Controls.Add(this.chkboxCollAch);
             this.groupBox2.Controls.Add(this.chkboxSalesPer);
-            this.groupBox2.Location = new System.Drawing.Point(18, 362);
+            this.groupBox2.Location = new System.Drawing.Point(18, 407);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(206, 77);
+            this.groupBox2.Size = new System.Drawing.Size(155, 77);
             this.groupBox2.TabIndex = 229;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Order by ";
@@ -460,7 +470,7 @@
             // 
             this.chkboxCollAch.AutoSize = true;
             this.chkboxCollAch.Font = new System.Drawing.Font("Verdana", 9F);
-            this.chkboxCollAch.Location = new System.Drawing.Point(31, 44);
+            this.chkboxCollAch.Location = new System.Drawing.Point(13, 44);
             this.chkboxCollAch.Name = "chkboxCollAch";
             this.chkboxCollAch.Size = new System.Drawing.Size(136, 18);
             this.chkboxCollAch.TabIndex = 230;
@@ -472,7 +482,7 @@
             // 
             this.chkboxSalesPer.AutoSize = true;
             this.chkboxSalesPer.Font = new System.Drawing.Font("Verdana", 9F);
-            this.chkboxSalesPer.Location = new System.Drawing.Point(31, 19);
+            this.chkboxSalesPer.Location = new System.Drawing.Point(13, 19);
             this.chkboxSalesPer.Name = "chkboxSalesPer";
             this.chkboxSalesPer.Size = new System.Drawing.Size(109, 18);
             this.chkboxSalesPer.TabIndex = 229;
@@ -480,10 +490,81 @@
             this.chkboxSalesPer.UseVisualStyleBackColor = true;
             this.chkboxSalesPer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkboxSalesPer_MouseClick);
             // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.radAllStatus);
+            this.panel2.Controls.Add(this.radInactive);
+            this.panel2.Controls.Add(this.radActive);
+            this.panel2.Location = new System.Drawing.Point(53, 87);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(461, 41);
+            this.panel2.TabIndex = 233;
+            // 
+            // radAllStatus
+            // 
+            this.radAllStatus.AutoSize = true;
+            this.radAllStatus.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radAllStatus.Location = new System.Drawing.Point(92, 11);
+            this.radAllStatus.Name = "radAllStatus";
+            this.radAllStatus.Size = new System.Drawing.Size(39, 17);
+            this.radAllStatus.TabIndex = 234;
+            this.radAllStatus.Text = "All";
+            this.radAllStatus.UseVisualStyleBackColor = true;
+            this.radAllStatus.Click += new System.EventHandler(this.radAllStatus_Click);
+            // 
+            // radInactive
+            // 
+            this.radInactive.AutoSize = true;
+            this.radInactive.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radInactive.Location = new System.Drawing.Point(341, 11);
+            this.radInactive.Name = "radInactive";
+            this.radInactive.Size = new System.Drawing.Size(71, 17);
+            this.radInactive.TabIndex = 233;
+            this.radInactive.Text = "Inactive";
+            this.radInactive.UseVisualStyleBackColor = true;
+            this.radInactive.Click += new System.EventHandler(this.radInactive_Click);
+            // 
+            // radActive
+            // 
+            this.radActive.AutoSize = true;
+            this.radActive.Checked = true;
+            this.radActive.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radActive.Location = new System.Drawing.Point(196, 11);
+            this.radActive.Name = "radActive";
+            this.radActive.Size = new System.Drawing.Size(60, 17);
+            this.radActive.TabIndex = 232;
+            this.radActive.TabStop = true;
+            this.radActive.Text = "Active";
+            this.radActive.UseVisualStyleBackColor = true;
+            this.radActive.Click += new System.EventHandler(this.radActive_Click);
+            // 
+            // chkBaseTarget
+            // 
+            this.chkBaseTarget.AutoSize = true;
+            this.chkBaseTarget.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkBaseTarget.Location = new System.Drawing.Point(184, 426);
+            this.chkBaseTarget.Name = "chkBaseTarget";
+            this.chkBaseTarget.Size = new System.Drawing.Size(105, 18);
+            this.chkBaseTarget.TabIndex = 234;
+            this.chkBaseTarget.Text = "Base Target";
+            this.chkBaseTarget.UseVisualStyleBackColor = true;
+            // 
+            // chkbSpecialMonitor
+            // 
+            this.chkbSpecialMonitor.AutoSize = true;
+            this.chkbSpecialMonitor.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkbSpecialMonitor.Location = new System.Drawing.Point(184, 455);
+            this.chkbSpecialMonitor.Name = "chkbSpecialMonitor";
+            this.chkbSpecialMonitor.Size = new System.Drawing.Size(170, 18);
+            this.chkbSpecialMonitor.TabIndex = 235;
+            this.chkbSpecialMonitor.Text = "National Performance";
+            this.chkbSpecialMonitor.UseVisualStyleBackColor = true;
+            // 
             // frmRptSalesCollectionPerformance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(584, 528);
+            this.ClientSize = new System.Drawing.Size(584, 565);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;
@@ -501,6 +582,8 @@
             this.groupBox6.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -538,5 +621,11 @@
         private System.Windows.Forms.CheckBox chkboxCollAch;
         private System.Windows.Forms.CheckBox chkboxSalesPer;
         private System.Windows.Forms.RadioButton rbtnAll;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton radAllStatus;
+        private System.Windows.Forms.RadioButton radInactive;
+        private System.Windows.Forms.RadioButton radActive;
+        private System.Windows.Forms.CheckBox chkBaseTarget;
+        private System.Windows.Forms.CheckBox chkbSpecialMonitor;
     }
 }

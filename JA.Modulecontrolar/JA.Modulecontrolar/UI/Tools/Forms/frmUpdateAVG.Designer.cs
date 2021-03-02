@@ -48,8 +48,7 @@ namespace JA.Modulecontrolar.UI.Tools.Forms
             this.lblNo = new System.Windows.Forms.Label();
             this.lblNetTotal = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.chkAmount = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,7 +111,8 @@ namespace JA.Modulecontrolar.UI.Tools.Forms
             this.chkDilution.TabIndex = 8;
             this.chkDilution.Text = "FG Item(Dilution)";
             this.chkDilution.UseVisualStyleBackColor = true;
-            this.chkDilution.CheckedChanged += new System.EventHandler(this.chkDilution_CheckedChanged);
+            this.chkDilution.Visible = false;
+            this.chkDilution.Click += new System.EventHandler(this.chkDilution_Click);
             // 
             // chkFGItem
             // 
@@ -134,7 +134,6 @@ namespace JA.Modulecontrolar.UI.Tools.Forms
             this.txtSearch.Size = new System.Drawing.Size(299, 22);
             this.txtSearch.TabIndex = 6;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
             // btnLeftAll
             // 
@@ -236,27 +235,16 @@ namespace JA.Modulecontrolar.UI.Tools.Forms
             this.progressBar2.Size = new System.Drawing.Size(636, 18);
             this.progressBar2.TabIndex = 11;
             // 
-            // chkAmount
+            // button1
             // 
-            this.chkAmount.AutoSize = true;
-            this.chkAmount.Location = new System.Drawing.Point(551, 439);
-            this.chkAmount.Name = "chkAmount";
-            this.chkAmount.Size = new System.Drawing.Size(106, 20);
-            this.chkAmount.TabIndex = 9;
-            this.chkAmount.Text = "Out Amount";
-            this.chkAmount.UseVisualStyleBackColor = true;
-            this.chkAmount.CheckedChanged += new System.EventHandler(this.chkAmount_CheckedChanged);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(443, 439);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(96, 20);
-            this.checkBox1.TabIndex = 12;
-            this.checkBox1.Text = "IN Amount";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.button1.Location = new System.Drawing.Point(330, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(26, 13);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmUpdateAVG
             // 
@@ -264,8 +252,7 @@ namespace JA.Modulecontrolar.UI.Tools.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(678, 520);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.chkAmount);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.lblNetTotal);
             this.Controls.Add(this.lblNo);
@@ -312,8 +299,7 @@ namespace JA.Modulecontrolar.UI.Tools.Forms
         private System.Windows.Forms.ProgressBar progressBar2;
         private System.Windows.Forms.CheckBox chkFGItem;
         private System.Windows.Forms.CheckBox chkDilution;
-        private System.Windows.Forms.CheckBox chkAmount;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button1;
 
     }
 }

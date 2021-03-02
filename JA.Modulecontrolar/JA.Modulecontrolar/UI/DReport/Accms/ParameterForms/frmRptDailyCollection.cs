@@ -237,7 +237,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                 intstatus = 0;
             }
 
-            ooPartyName = invms.mfillPartyNameNew(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName, intstatus, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName, intstatus, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {
@@ -381,6 +381,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
              else if (strReportName =="Daily Collection")
              {
                  chkbDailyCollection.Visible = true;
+                 grpDailyCollection.Visible = true;
                  chkBkash.Visible = true;
                  frmLabel.Text = "Daily Collection";
              }
@@ -413,7 +414,8 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
         {
             DateTime dteLedgerFdate, dtpfrom;
             string strBrachID = "", strBkash = "";
-            int intInactive = 0, intReportStatus = 0;
+            int intInactive = 0, intReportStatus = 0,intStatus=0;
+
             if (chkBkash.Checked == true)
             {
                 strBkash = "B";
@@ -438,6 +440,22 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             {
                 intInactive = 0;
             }
+            if (grpDailyCollection.Visible)
+            {
+                if (optRadall.Checked)
+                {
+                    intStatus = 3;
+                }
+                else if (radActive.Checked)
+                {
+                    intStatus = 0;
+                }
+                else if (radinactive.Checked)
+                {
+                    intStatus = 1;
+                }
+            }
+
             if (chkboxcommition.Checked == true)
             {
                 if (txtCommition.Text == "")
@@ -498,6 +516,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                     frmviewer.strTdate = dteToDate.Text;
                     frmviewer.strBranchID = strBrachID;
                     frmviewer.intSP = intReportStatus;
+                    frmviewer.intSummDetails = intStatus;
                     frmviewer.strHeading = "Daily Collection(Summary) ";
                     frmviewer.Show();
                 }
@@ -510,6 +529,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                     frmviewer.strTdate = dteToDate.Text;
                     frmviewer.strBranchID = strBrachID;
                     frmviewer.intSP = intReportStatus;
+                    frmviewer.intSummDetails = intStatus;
                     if (strBkash == "B")
                     {
                         frmviewer.strHeading = "Daily Collection(As Per Bkash Statement) ";

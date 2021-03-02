@@ -8,14 +8,13 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
-
-
+using JA.Modulecontrolar.UI.Accms.Forms;
+using JA.Modulecontrolar.UI.Forms;
 using JA.Modulecontrolar.JACCMS;
 using JA.Modulecontrolar.UI.Inventory;
 using Microsoft.VisualBasic;
-
+using JA.Modulecontrolar.UI.Accms;
 using Microsoft.Win32;
-using JA.Modulecontrolar.UI.Master.Sales;
 
 namespace JA.Modulecontrolar.UI.Sales.Forms
 {
@@ -1267,25 +1266,25 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                         return;
                     }
                 }
-                //if (System.Windows.Forms.Application.OpenForms["frmAccountsLedger"] as frmAccountsLedger == null)
-                //{
-                //    frmAccountsLedger objfrm = new frmAccountsLedger();
-                //    objfrm.m_acction = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-                //    objfrm.lngFormPriv = 96;
-                //    objfrm.mSingleEntry = 1;
-                //    objfrm.Show();
-                //    objfrm.BringToFront();
-                //    objfrm.MdiParent = this.MdiParent;
+                if (System.Windows.Forms.Application.OpenForms["frmAccountsLedger"] as frmAccountsLedger == null)
+                {
+                    frmAccountsLedger objfrm = new frmAccountsLedger();
+                    objfrm.m_acction = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                    objfrm.lngFormPriv = 96;
+                    objfrm.mSingleEntry = 1;
+                    objfrm.Show();
+                    objfrm.BringToFront();
+                    objfrm.MdiParent = this.MdiParent;
 
-                //}
-                //else
-                //{
-                //    frmAccountsLedger objfrm = (frmAccountsLedger)Application.OpenForms["frmAccountsLedger"];
-                //    objfrm.lngFormPriv = 96;
-                //    objfrm.mSingleEntry = 1;
-                //    objfrm.Focus();
-                //    objfrm.MdiParent = this.MdiParent;
-                //}
+                }
+                else
+                {
+                    frmAccountsLedger objfrm = (frmAccountsLedger)Application.OpenForms["frmAccountsLedger"];
+                    objfrm.lngFormPriv = 96;
+                    objfrm.mSingleEntry = 1;
+                    objfrm.Focus();
+                    objfrm.MdiParent = this.MdiParent;
+                }
 
 
             }
@@ -1697,23 +1696,16 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         private void mLoadAllItem()
         {
             int introw = 0;
-            //var data = bbSc.GetBBTestFeeMaps(feecat).ToList();
-            //oogrp = invms.gFillStockItemAll(strComID, "").ToList();
-            oogrp = invms.mloadAddStockItemRMPack(strComID, uctxtLocation.Text,uctxtLedgerName.Text,"N").ToList();
-            //var bil = (from tsfee in oogrp
-            //           select new
-            //           {
-            //               tsfee.strItemName,
-            //               tsfee.dblClsBalance
-            //           }).ToList();
-
-
-
-            ////ucdgList.value
-            //ucdgList.DataSource = bil;
-            //ucdgList.Columns[1].Name = "Stock Item";
-            //ucdgList.Columns[2].Name = "Cls. Qty";
-
+            
+            ucdgList.Rows.Clear();
+            if (chkStationary.Checked == false)
+            {
+                oogrp = invms.mloadAddStockItemRMPack(strComID, uctxtLocation.Text, uctxtLedgerName.Text, "N").ToList();
+            }
+            else
+            {
+                oogrp = invms.mloadAddStockItemRMPack(strComID, uctxtLocation.Text, uctxtLedgerName.Text, "STA").ToList();
+            }
             if (oogrp.Count > 0)
             {
 
@@ -1723,7 +1715,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     ucdgList[0, introw].Value = ogrp.strItemName;
                     //DG[1, introw].Value = ogrp.strItemcode;
                     //DG[2, introw].Value = ogrp.strUnit;
-                    ucdgList[1, introw].Value = ogrp.dblClsBalance  + ogrp.strUnit ;
+                    ucdgList[1, introw].Value = ogrp.dblClsBalance + ogrp.strUnit;
 
                     //if (introw % 2 == 0)
                     //{
@@ -2539,24 +2531,24 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                         return;
                     }
                 }
-                //if (System.Windows.Forms.Application.OpenForms["frmAccountsLedger"] as frmAccountsLedger == null)
-                //{
-                //    frmAccountsLedger objfrm = new frmAccountsLedger();
-                //    objfrm.m_acction = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-                //    objfrm.lngFormPriv = 96;
-                //    objfrm.mSingleEntry = 1;
-                //    objfrm.Show();
-                //    objfrm.BringToFront();
-                //    objfrm.MdiParent = this.MdiParent;
+                if (System.Windows.Forms.Application.OpenForms["frmAccountsLedger"] as frmAccountsLedger == null)
+                {
+                    frmAccountsLedger objfrm = new frmAccountsLedger();
+                    objfrm.m_acction = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                    objfrm.lngFormPriv = 96;
+                    objfrm.mSingleEntry = 1;
+                    objfrm.Show();
+                    objfrm.BringToFront();
+                    objfrm.MdiParent = this.MdiParent;
 
-                //}
-                //else
-                //{
-                //    frmAccountsLedger objfrm = (frmAccountsLedger)Application.OpenForms["frmAccountsLedger"];
-                //    objfrm.lngFormPriv = 96;
-                //    objfrm.Focus();
-                //    objfrm.MdiParent = this.MdiParent;
-                //}
+                }
+                else
+                {
+                    frmAccountsLedger objfrm = (frmAccountsLedger)Application.OpenForms["frmAccountsLedger"];
+                    objfrm.lngFormPriv = 96;
+                    objfrm.Focus();
+                    objfrm.MdiParent = this.MdiParent;
+                }
           
 
             }
@@ -2885,7 +2877,16 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 MessageBox.Show("Invalid Date, Date Can't less then Financial Year");
                 return false;
             }
-
+            string strLockvoucher = Utility.gLockVocher(strComID, intVtype);
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
+                {
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return false;
+                }
+            }
             string strBacklockDate = Utility.gCheckBackLock(strComID);
             if (strBacklockDate != "")
             {
@@ -2895,6 +2896,21 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                      MessageBox.Show("Invalid Date, Back Date is locked");
                      return false;
                  }
+            }
+
+            double dblNetAmnt = 0;
+            for (int i = 0; i < DGSalesGrid.Rows.Count; i++)
+            {
+                if (DGSalesGrid[1, i].Value.ToString() != "")
+                {
+                    dblNetAmnt = Utility.Val(DGSalesGrid[6, i].Value.ToString());
+                    if (dblNetAmnt <=0 )
+                    {
+                        MessageBox.Show("Sorry Aamount cannot be empty of " + DGSalesGrid[1, i].Value.ToString());
+                        return false;
+                    }
+                }
+              
             }
             //strBranchId = Utility.gstrGetBranchID(uctxtBranchName.Text.Replace("'", "''"));
             if (intVtype == (int)Utility.VOUCHER_TYPE.vtSALES_INVOICE)
@@ -2956,7 +2972,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                             dblClosingQTY = Utility.gdblClosingStock(DGSalesGrid[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
                             if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                             {
-                                dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+                                dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey, uctxtLocation.Text);
                             }
                             dblCurrentQTY = Utility.Val(DGSalesGrid[2, i].ToString());
                             if ((dblClosingQTY) - dblCurrentQTY < 0)
@@ -3157,7 +3173,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                                                 uctxtLedgerName.Text, Utility.Val(lblNetTotal.Text),Utility.Val(lblNetAmount.Text),
                                                 Utility.Val(uctxtAdd.Text), Utility.Val(uctxtLess.Text), uctxtRefType.Text, lngAgstRef, oinv[0].mlngIsInvEffinDirSalesInv, 1,
                                                 uctxtNarration.Text, strBarchID, uctxtLocation.Text, 0, uctxtSalesRep.Text, strDGSales, strDgvector, strDGBillWise,
-                                                strDGSalesOrder,strDGAddless, false, 0, "", "", "", "", "",0,0);
+                                                strDGSalesOrder,strDGAddless, false, 0, "", "", "", "", "",0,0,0);
 
 
             return k;
@@ -3396,7 +3412,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                         if (Utility.gblnAccessControl)
                         {
                             string strAudit = Utility.gblnAuditTrail(Utility.gstrUserName, dteDate.Text, strFormName, uctxtRefNo.Text,
-                                                                    1, 0, (int)Utility.MODULE_TYPE.mtPURCHASE, strBranchID);
+                                                                    1, Utility.Val(lblNetAmount.Text), (int)Utility.MODULE_TYPE.mtPURCHASE, strBranchID);
                         }
                         mClear();
                     }
@@ -3413,18 +3429,18 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                         if (Utility.gblnAccessControl)
                         {
                             string strAudit = Utility.gblnAuditTrail(Utility.gstrUserName, dteDate.Text, strFormName, uctxtRefNo.Text,
-                                                                    2, 0, (int)Utility.MODULE_TYPE.mtPURCHASE, strBranchID);
+                                                                    2, Utility.Val(lblNetAmount.Text) , (int)Utility.MODULE_TYPE.mtPURCHASE, strBranchID);
                         }
                         mClear();
-                        //frmAccountsVoucherList objfrm = new frmAccountsVoucherList();
-                        //objfrm.mintVType = intVtype;
-                        //objfrm.lngFormPriv = lngFormPriv;
-                        //objfrm.strFormName = strFormName;
-                        //objfrm.intModuleType = intModuleType;
-                        //objfrm.strPreserveSQl = strPreserveSQl;
-                        //objfrm.onAddAllButtonClicked = new frmAccountsVoucherList.AddAllClick(DisplayVoucherList);
-                        //objfrm.Show();
-                        //objfrm.MdiParent = MdiParent;
+                        frmAccountsVoucherList objfrm = new frmAccountsVoucherList();
+                        objfrm.mintVType = intVtype;
+                        objfrm.lngFormPriv = lngFormPriv;
+                        objfrm.strFormName = strFormName;
+                        objfrm.intModuleType = intModuleType;
+                        objfrm.strPreserveSQl = strPreserveSQl;
+                        objfrm.onAddAllButtonClicked = new frmAccountsVoucherList.AddAllClick(DisplayVoucherList);
+                        objfrm.Show();
+                        objfrm.MdiParent = MdiParent;
                       
                     }
                     else
@@ -3507,17 +3523,17 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            //mClear();
-            //frmAccountsVoucherList objfrm = new frmAccountsVoucherList();
-            //objfrm.mintVType = intVtype;
-            //objfrm.lngFormPriv = lngFormPriv;
-            //objfrm.strFormName = strFormName;
-            //objfrm.strPreserveSQl = strPreserveSQl;
-            //objfrm.intModuleType = intModuleType;
-            //objfrm.onAddAllButtonClicked = new frmAccountsVoucherList.AddAllClick(DisplayVoucherList);
-            //objfrm.Show();
-            //objfrm.MdiParent = MdiParent;
-            //uctxtRefNo.Focus();
+            mClear();
+            frmAccountsVoucherList objfrm = new frmAccountsVoucherList();
+            objfrm.mintVType = intVtype;
+            objfrm.lngFormPriv = lngFormPriv;
+            objfrm.strFormName = strFormName;
+            objfrm.strPreserveSQl = strPreserveSQl;
+            objfrm.intModuleType = intModuleType;
+            objfrm.onAddAllButtonClicked = new frmAccountsVoucherList.AddAllClick(DisplayVoucherList);
+            objfrm.Show();
+            objfrm.MdiParent = MdiParent;
+            uctxtRefNo.Focus();
         }
         #endregion
         #region"Display"
@@ -3793,6 +3809,23 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
         {
 
         }
+
+        private void chkStationary_Click(object sender, EventArgs e)
+        {
+            if (chkStationary.Checked)
+            {
+                mLoadAllItem();
+                uctxtItemName.Focus();
+                uctxtItemName.Text = "";
+            }
+            else
+            {
+                uctxtItemName.Focus();
+                uctxtItemName.Text = "";
+            }
+        }
+
+       
 
        
       

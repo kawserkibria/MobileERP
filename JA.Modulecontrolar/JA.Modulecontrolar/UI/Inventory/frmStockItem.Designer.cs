@@ -110,6 +110,9 @@
             this.chkSpItem = new System.Windows.Forms.CheckBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.btnFind = new System.Windows.Forms.Button();
+            this.btnCodeGenerate = new System.Windows.Forms.Button();
+            this.label29 = new System.Windows.Forms.Label();
+            this.txtOldCode = new System.Windows.Forms.TextBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -126,6 +129,9 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.txtOldCode);
+            this.pnlMain.Controls.Add(this.label29);
+            this.pnlMain.Controls.Add(this.btnCodeGenerate);
             this.pnlMain.Controls.Add(this.pnlBillWise);
             this.pnlMain.Controls.Add(this.chkSpItem);
             this.pnlMain.Controls.Add(this.lstBatch);
@@ -239,12 +245,14 @@
             // 
             // uctxtItemCode
             // 
+            this.uctxtItemCode.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.uctxtItemCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uctxtItemCode.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uctxtItemCode.Location = new System.Drawing.Point(283, 173);
             this.uctxtItemCode.MaxLength = 50;
             this.uctxtItemCode.Name = "uctxtItemCode";
-            this.uctxtItemCode.Size = new System.Drawing.Size(377, 23);
+            this.uctxtItemCode.ReadOnly = true;
+            this.uctxtItemCode.Size = new System.Drawing.Size(175, 23);
             this.uctxtItemCode.TabIndex = 51;
             // 
             // label3
@@ -404,6 +412,7 @@
             this.uctxtStatus.Name = "uctxtStatus";
             this.uctxtStatus.Size = new System.Drawing.Size(123, 23);
             this.uctxtStatus.TabIndex = 67;
+            this.uctxtStatus.TextChanged += new System.EventHandler(this.uctxtStatus_TextChanged_1);
             // 
             // panel2
             // 
@@ -606,7 +615,7 @@
             this.pnlBillWise.Controls.Add(this.dgBillBranch);
             this.pnlBillWise.Location = new System.Drawing.Point(222, 148);
             this.pnlBillWise.Name = "pnlBillWise";
-            this.pnlBillWise.Size = new System.Drawing.Size(619, 232);
+            this.pnlBillWise.Size = new System.Drawing.Size(619, 10);
             this.pnlBillWise.TabIndex = 114;
             this.pnlBillWise.Visible = false;
             // 
@@ -1044,6 +1053,38 @@
             this.btnFind.UseVisualStyleBackColor = false;
             this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
             // 
+            // btnCodeGenerate
+            // 
+            this.btnCodeGenerate.BackColor = System.Drawing.Color.White;
+            this.btnCodeGenerate.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCodeGenerate.Location = new System.Drawing.Point(457, 172);
+            this.btnCodeGenerate.Name = "btnCodeGenerate";
+            this.btnCodeGenerate.Size = new System.Drawing.Size(25, 25);
+            this.btnCodeGenerate.TabIndex = 125;
+            this.btnCodeGenerate.Text = "..";
+            this.btnCodeGenerate.UseVisualStyleBackColor = false;
+            this.btnCodeGenerate.Click += new System.EventHandler(this.btnCodeGenerate_Click);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(495, 178);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(70, 14);
+            this.label29.TabIndex = 126;
+            this.label29.Text = "Old Code:";
+            // 
+            // txtOldCode
+            // 
+            this.txtOldCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtOldCode.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOldCode.Location = new System.Drawing.Point(565, 173);
+            this.txtOldCode.MaxLength = 50;
+            this.txtOldCode.Name = "txtOldCode";
+            this.txtOldCode.Size = new System.Drawing.Size(95, 23);
+            this.txtOldCode.TabIndex = 127;
+            // 
             // frmStockItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1162,5 +1203,8 @@
         private System.Windows.Forms.CheckBox chkSpItem;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button btnFind;
+        private System.Windows.Forms.TextBox txtOldCode;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Button btnCodeGenerate;
     }
 }

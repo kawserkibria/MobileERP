@@ -86,14 +86,14 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
 
         private void btnYearlyProductSales_Click(object sender, EventArgs e)
         {
-            //if (Utility.gblnAccessControl)
-            //{
-            //    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 170))
-            //    {
-            //        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //        return;
-            //    }
-            //}
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 167))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
             if (System.Windows.Forms.Application.OpenForms["frmRptProductWiseSalesSatQty12month"] as frmRptProductWiseSalesSatQty12month == null)
             {
                 frmRptProductWiseSalesSatQty12month objfrm = new frmRptProductWiseSalesSatQty12month();

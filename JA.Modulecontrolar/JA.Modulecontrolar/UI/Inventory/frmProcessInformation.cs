@@ -247,7 +247,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             ucFGList.Visible = false;
             ucRmList.Visible = false;
             ucWastageList.Visible = false;
-
+            lstLocation.Visible = false;
         }
 
         private void uctxtWastage_GotFocus(object sender, System.EventArgs e)
@@ -381,6 +381,19 @@ namespace JA.Modulecontrolar.UI.Inventory
             ucWastageList.Visible = false;
             lstBranchName.Visible = false;
             lstLocation.Visible = false;
+            //if (intConvert == 1)
+            //{
+            //    chkconversionFg.Checked = true;
+            //    chkTransfer.Visible = false;
+            //    mLoadAllItemConversion();
+
+            //}
+            //else
+            //{
+            //    mLoadAllItemRMWAS();
+            //    chkconversionFg.Checked = false;
+            //    chkTransfer.Visible = true;
+            //}
         }
 
         private void txtRmQty_KeyPress(object sender, KeyPressEventArgs e)
@@ -530,6 +543,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             ucWastageList.Visible = false;
             lstBranchName.Visible = false;
             lstLocation.Visible = false;
+            //mLoadAllItemFG();
         }
 
         private void uctxtFgQty_KeyPress(object sender, KeyPressEventArgs e)
@@ -614,28 +628,35 @@ namespace JA.Modulecontrolar.UI.Inventory
         }
         private void uctxtFgItem_KeyDown(object sender, KeyEventArgs e)
         {
-            ucFGList.Visible = true;
-            //txtFoodCode.Text = "";
-            //txtFoodName.Text = "";
-            if (e.KeyCode == Keys.Up)
+            try
             {
-                ucFGList.Focus();
-            }
-            if (e.KeyCode == Keys.Down)
-            {
-                ucFGList.Focus();
-            }
+                ucFGList.Visible = true;
+                //txtFoodCode.Text = "";
+                //txtFoodName.Text = "";
+                if (e.KeyCode == Keys.Up)
+                {
+                    ucFGList.Focus();
+                }
+                if (e.KeyCode == Keys.Down)
+                {
+                    ucFGList.Focus();
+                }
 
-            ucFGList.Top = uctxtFgItem.Top + 25;
-            ucFGList.Left = uctxtFgItem.Left;
-            ucFGList.Width = uctxtFgItem.Width;
-            ucFGList.Height = 200;
-            //ucdgList.Size = new Size(546, 222);
-            ucFGList.BringToFront();
-            ucFGList.AllowUserToAddRows = false;
-            //uctxtItemName.Text = Utility.GetDgValue(ucdgList, uctxtItemName, 0);
-            //ucdgList.Focus();
-            return;
+                ucFGList.Top = uctxtFgItem.Top + 25;
+                ucFGList.Left = uctxtFgItem.Left;
+                ucFGList.Width = uctxtFgItem.Width;
+                ucFGList.Height = 200;
+                //ucdgList.Size = new Size(546, 222);
+                ucFGList.BringToFront();
+                ucFGList.AllowUserToAddRows = false;
+                //uctxtItemName.Text = Utility.GetDgValue(ucdgList, uctxtItemName, 0);
+                //ucdgList.Focus();
+                return;
+            }
+            catch (Exception ex)
+            {
+
+            }
 
         }
        
@@ -711,6 +732,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             DgRm.Columns.Add(Utility.Create_Grid_Column("Cost(%)", "Cost(%)", 200, false, DataGridViewContentAlignment.TopLeft, false));
             //DgRm.Columns.Add(Utility.Create_Grid_Column_button("Show", "Show", "Show", 60, true, DataGridViewContentAlignment.TopCenter, true));
             DgRm.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
+          
 
             DgWastage.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 500, true, DataGridViewContentAlignment.TopLeft, true));
             DgWastage.Columns.Add(Utility.Create_Grid_Column("Qnt.", "Qnt.", 110, true, DataGridViewContentAlignment.TopLeft, false));
@@ -734,20 +756,20 @@ namespace JA.Modulecontrolar.UI.Inventory
                 frmLabel.Text = "FG to FG Process Entry";
             }
 
-            mLoadAllItemFG();
-            if (intConvert==1)
-            {
-                chkconversionFg.Checked = true;
-                chkTransfer.Visible = false;
-                mLoadAllItemConversion();
-                
-            }
-            else
-            {
-                mLoadAllItemRMWAS();
-                chkconversionFg.Checked = false;
-                chkTransfer.Visible = true;
-            }
+            //mLoadAllItemFG();
+            //if (intConvert == 1)
+            //{
+            //    chkconversionFg.Checked = true;
+            //    chkTransfer.Visible = false;
+            //    mLoadAllItemConversion();
+
+            //}
+            //else
+            //{
+            //    mLoadAllItemRMWAS();
+            //    chkconversionFg.Checked = false;
+            //    chkTransfer.Visible = true;
+            //}
 
         }
         private void mLoadAllItemRMWAS()
@@ -763,8 +785,15 @@ namespace JA.Modulecontrolar.UI.Inventory
             try
             {
 
-
-                ooRm_WAS = invms.mloadAddStockItemRMPack(strComID, "","","N").ToList();
+                if (chkFG.Checked)
+                {
+                    ooRm_WAS = invms.mloadAddStockItemRMPack(strComID, "", "", "FGU").ToList();
+                }
+                else
+                {
+                    ooRm_WAS = invms.mloadAddStockItemRMPack(strComID, "", "", "N").ToList();
+                }
+                
                 if (ooRm_WAS.Count > 0)
                 {
 
@@ -803,32 +832,27 @@ namespace JA.Modulecontrolar.UI.Inventory
         private void mLoadAllItemFG()
         {
             int introw = 0;
-            //long lngLedgerGroup = 0, lngLedgerManufacFroup = 0;
-            //this.ucFGList.DefaultCellStyle.Font = new Font("verdana", 15.5F);
-            ucFGList.Rows.Clear();
-            oogrp = invms.mloadAddStockItemFg(strComID, "").ToList();
-            if (oogrp.Count > 0)
+                
+            try
+            {
+                ucFGList.Rows.Clear();
+                oogrp = invms.mloadAddStockItemFg(strComID, "F").ToList();
+                if (oogrp.Count > 0)
+                {
+
+                    foreach (StockItem ogrp in oogrp)
+                    {
+                        ucFGList.Rows.Add();
+                        ucFGList[0, introw].Value = ogrp.strItemName;
+                        ucFGList[1, introw].Value = ogrp.dblClsBalance + " " + ogrp.strUnit;
+                        introw += 1;
+                    }
+                    ucFGList.AllowUserToAddRows = false;
+                }
+            }
+            catch (Exception ex)
             {
 
-                foreach (StockItem ogrp in oogrp)
-                {
-                    ucFGList.Rows.Add();
-                    ucFGList[0, introw].Value = ogrp.strItemName;
-                   // ucFGList[1, introw].Value = ogrp.strItemcode;
-                    //ucFGList[2, introw].Value = ogrp.strUnit;
-                    ucFGList[1, introw].Value = ogrp.dblClsBalance + " "+ ogrp.strUnit;
-
-                    //if (introw % 2 == 0)
-                    //{
-                    //    ucFGList.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
-                    //}
-                    //else
-                    //{
-                    //    ucFGList.Rows[introw].DefaultCellStyle.BackColor = Color.White;
-                    //}
-                    introw += 1;
-                }
-                ucFGList.AllowUserToAddRows = false;
             }
         }
 
@@ -1107,7 +1131,14 @@ namespace JA.Modulecontrolar.UI.Inventory
         private void uctxtFgItem_KeyUp(object sender, KeyEventArgs e)
         {
             //this.ucFGList.DefaultCellStyle.Font = new Font("verdana", 15.5F);
-            SearchListViewFG(oogrp, uctxtFgItem.Text);
+            try
+            {
+                SearchListViewFG(oogrp, uctxtFgItem.Text);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void SearchListViewFG(IEnumerable<StockItem> tests, string searchString = "")
@@ -1138,10 +1169,14 @@ namespace JA.Modulecontrolar.UI.Inventory
             //             where test.dblNetDebitAmount.ToString().StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
             //             select test);
             //}
-            ucFGList.Rows.Clear();
+           
             int i = 0;
             try
             {
+                if (ucFGList.Rows.Count > 0)
+                {
+                    ucFGList.Rows.Clear();
+                }
                 foreach (StockItem tran in query)
                 {
                     ucFGList.Rows.Add();
@@ -1160,12 +1195,26 @@ namespace JA.Modulecontrolar.UI.Inventory
 
         private void uctxtConsumption_KeyUp(object sender, KeyEventArgs e)
         {
-            SearchListViewRm(ooRm_WAS, uctxtConsumption.Text);
+            try
+            {
+                SearchListViewRm(ooRm_WAS, uctxtConsumption.Text);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void uctxtWastage_KeyUp(object sender, KeyEventArgs e)
         {
-            SearchListVieWWm(ooRm_WAS, uctxtWastage.Text);
+            try
+            {
+                SearchListVieWWm(ooRm_WAS, uctxtWastage.Text);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void SearchListViewRm(IEnumerable<StockItem> tests, string searchString = "")
@@ -1196,10 +1245,14 @@ namespace JA.Modulecontrolar.UI.Inventory
             //             where test.dblNetDebitAmount.ToString().StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
             //             select test);
             //}
-            ucRmList.Rows.Clear();
+          
             int i = 0;
             try
             {
+                if (ucRmList.Rows.Count > 0)
+                {
+                    ucRmList.Rows.Clear();
+                }
                 foreach (StockItem tran in query)
                 {
                     ucRmList.Rows.Add();
@@ -1244,10 +1297,14 @@ namespace JA.Modulecontrolar.UI.Inventory
             //             where test.dblNetDebitAmount.ToString().StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
             //             select test);
             //}
-            ucWastageList.Rows.Clear();
+            
             int i = 0;
             try
             {
+                if (ucWastageList.Rows.Count > 0)
+                {
+                    ucWastageList.Rows.Clear();
+                }
                 foreach (StockItem tran in query)
                 {
                     ucWastageList.Rows.Add();
@@ -1266,16 +1323,7 @@ namespace JA.Modulecontrolar.UI.Inventory
 
         private void chkconversionFg_Click(object sender, EventArgs e)
         {
-            //if (chkconversionFg.Checked==true)
-            //{
-            //    uctxtProcessName.Focus();
-            //    mLoadAllItemConversion();
-            //}
-            //else
-            //{
-            //    uctxtProcessName.Focus();
-            //    mLoadAllItemRMWAS();
-            //}
+           
         }
 
         private void mLoadAllItemConversion()
@@ -1290,7 +1338,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             {
 
 
-                ooRm_WAS = invms.mloadAddStockItemFg(strComID, "").ToList();
+                ooRm_WAS = invms.mloadAddStockItemFg(strComID, "F").ToList();
                 if (oogrp.Count > 0)
                 {
 
@@ -1302,16 +1350,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         ucWastageList[0, introw].Value = ogrp.strItemName;
                         ucRmList[1, introw].Value = ogrp.dblClsBalance+ " "+ ogrp.strUnit;
                         ucWastageList[1, introw].Value = ogrp.dblClsBalance +" " + ogrp.strUnit;
-                        //if (introw % 2 == 0)
-                        //{
-                        //    ucRmList.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
-                        //    ucWastageList.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
-                        //}
-                        //else
-                        //{
-                        //    ucRmList.Rows[introw].DefaultCellStyle.BackColor = Color.White;
-                        //    ucWastageList.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
-                        //}
+                      
                         introw += 1;
                     }
                     ucRmList.AllowUserToAddRows = false;
@@ -1351,8 +1390,99 @@ namespace JA.Modulecontrolar.UI.Inventory
             }
         }
 
-      
+        private void chkFG_Click(object sender, EventArgs e)
+        {
+            if (chkFG.Checked)
+            {
+                mLoadAllItemRMWAS();
+            }
+        }
 
+        private void btnSeach_Click(object sender, EventArgs e)
+        {
+           
+            if (intConvert == 1)
+            {
+                chkconversionFg.Checked = true;
+                chkTransfer.Visible = false;
+                mLoadAllItemFG();
+                mLoadAllItemConversion();
+
+            }
+            else
+            {
+                mLoadAllItemFG();
+                mLoadAllItemRMWAS();
+                chkconversionFg.Checked = false;
+                chkTransfer.Visible = true;
+            }
+        }
+
+        private void DgRm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Up))
+            {
+                moveUp();
+            }
+            if (e.KeyCode.Equals(Keys.Down))
+            {
+                moveDown();
+            }
+            e.Handled = true;
+        }
+
+
+        private void moveUp()
+        {
+            if (DgRm.RowCount > 0)
+            {
+                if (DgRm.SelectedRows.Count > 0)
+                {
+                    int rowCount = DgRm.Rows.Count;
+                    int index = DgRm.SelectedCells[0].OwningRow.Index;
+
+                    if (index == 0)
+                    {
+                        return;
+                    }
+                    DataGridViewRowCollection rows = DgRm.Rows;
+
+                    // remove the previous row and add it behind the selected row.
+                    DataGridViewRow prevRow = rows[index - 1];
+                    rows.Remove(prevRow);
+                    prevRow.Frozen = false;
+                    rows.Insert(index, prevRow);
+                    DgRm.ClearSelection();
+                    DgRm.Rows[index - 1].Selected = true;
+                }
+            }
+        }
+
+        private void moveDown()
+        {
+            if (DgRm.RowCount > 0)
+            {
+                if (DgRm.SelectedRows.Count > 0)
+                {
+                    int rowCount = DgRm.Rows.Count;
+                    int index = DgRm.SelectedCells[0].OwningRow.Index;
+
+                    if (index == (rowCount - 2)) // include the header row
+                    {
+                        return;
+                    }
+                    DataGridViewRowCollection rows = DgRm.Rows;
+
+                    // remove the next row and add it in front of the selected row.
+                    DataGridViewRow nextRow = rows[index + 1];
+                    rows.Remove(nextRow);
+                    nextRow.Frozen = false;
+                    rows.Insert(index, nextRow);
+                    DgRm.ClearSelection();
+                    DgRm.Rows[index + 1].Selected = true;
+                }
+            }
+        }
      
 
       

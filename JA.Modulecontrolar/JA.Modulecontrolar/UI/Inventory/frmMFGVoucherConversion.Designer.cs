@@ -151,6 +151,7 @@
             this.pnlMain.Controls.Add(this.label4);
             this.pnlMain.Controls.Add(this.uctxtProcessName);
             this.pnlMain.Size = new System.Drawing.Size(1139, 577);
+            this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
             // 
             // pnlTop
             // 
@@ -658,6 +659,7 @@
             // 
             // dteDate
             // 
+            this.dteDate.Enabled = false;
             this.dteDate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dteDate.Location = new System.Drawing.Point(12, 242);

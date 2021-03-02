@@ -27,6 +27,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         public int m_action { get; set; }
         private bool mblnNumbMethod { get; set; }
         private int mintIsPrin { get; set; }
+        private string mstrPrserveSql { get; set; }
         public long lngFormPriv { get; set; }
         public string strFormName { get; set; }
         private string strComID { get; set; }
@@ -42,7 +43,6 @@ namespace JA.Modulecontrolar.UI.Inventory
             InitializeComponent();
             RegistryKey regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\SmartAccounts");
             strComID = (String)regKey.GetValue("CompanyID", "0001");
-            // this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             #region "User In"
             this.uctxtInvoiceNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtInvoiceNo_KeyPress);
             this.uctxtInvoiceNo.GotFocus += new System.EventHandler(this.uctxtInvoiceNo_GotFocus);
@@ -109,6 +109,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             #endregion
 
         }
+        #region "Format"
         private void uclstGrdItem_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             uclstGrdItem.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Yellow;
@@ -129,13 +130,17 @@ namespace JA.Modulecontrolar.UI.Inventory
 
             return false;
         }
-
+        #endregion
+        #region "Load"
         private void Refload()
         {
+            
             lstreqoiNo.ValueMember = "strBillKey";
             lstreqoiNo.DisplayMember = "strRefNo";
             lstreqoiNo.DataSource = invms.mGetStockRequiNo(strComID, uctxtRequiLocation.Text, "").ToList();
         }
+        #endregion
+        #region "DisplayRequisition"
         private void DisplayRequisition(string vstrProcess)
         {
             double dblrate = 0;
@@ -154,7 +159,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                             DG[0, intfg].Value = ts.stritemName;
                             DG[2, intfg].Value = ts.dblqnty;
                             DG[3, intfg].Value = ts.strUnit;
-                            dblrate = Utility.gdblGetCostPriceNew(strComID, ts.stritemName, dteDate.Text);
+                            dblrate = Math.Abs(Utility.gdblGetCostPriceNew(strComID, ts.stritemName, dteDate.Text));
                             DG[4, intfg].Value = dblrate;
                             DG[5, intfg].Value = Math.Round(ts.dblqnty * dblrate, 2);
                             DG[7, intfg].Value = "Delete";
@@ -174,7 +179,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 return;
             }
         }
-
+        #endregion
         #region "PriorSetFocus"
         private void PriorSetFocusText(TextBox txtbox, object sender, KeyPressEventArgs e)
         {
@@ -208,8 +213,24 @@ namespace JA.Modulecontrolar.UI.Inventory
 
         private void lstreqoiLocation_DoubleClick(object sender, EventArgs e)
         {
+
             uctxtRequiLocation.Text = lstreqoiLocation.Text;
-            txtRequsiNo.Focus();
+            if (chkwithRequisiton.Checked)
+            {
+                Refload();
+                if (uctxtRequiLocation.Text != "")
+                {
+                    txtRequsiNo.Focus();
+                }
+                else
+                {
+                    uctxtNarration.Focus();
+                }
+            }
+            else
+            {
+                uctxtNarration.Focus();
+            }
         }
 
         private void uctxtRequiLocation_KeyPress(object sender, KeyPressEventArgs e)
@@ -218,18 +239,24 @@ namespace JA.Modulecontrolar.UI.Inventory
             {
                 if (lstreqoiLocation.Items.Count > 0)
                 {
+
+                    uctxtRequiLocation.Text = lstreqoiLocation.Text;
+
+                }
+                if (chkwithRequisiton.Checked)
+                {
                     if (uctxtRequiLocation.Text != "")
                     {
-                        uctxtRequiLocation.Text = lstreqoiLocation.Text;
+                        txtRequsiNo.Focus();
                     }
-                }
-                if (uctxtRequiLocation.Text != "")
-                {
-                    txtRequsiNo.Focus();
+                    else
+                    {
+                        uctxtNarration.Focus();
+                    }
                 }
                 else
                 {
-                    uctxtItemName.Focus();
+                    uctxtNarration.Focus();
                 }
 
             }
@@ -282,7 +309,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             txtRequsiNo.Text = lstreqoiNo.Text;
 
-            DisplayRequisition(txtRequsiNo.Text);
+            DisplayRequisition(lstreqoiNo.SelectedValue.ToString());
             uctxtNarration.Focus();
         }
 
@@ -293,9 +320,12 @@ namespace JA.Modulecontrolar.UI.Inventory
                 if (lstreqoiNo.Items.Count > 0)
                 {
                     txtRequsiNo.Text = lstreqoiNo.Text;
-                    DisplayRequisition(lstreqoiNo.SelectedValue.ToString());
+                    if (lstreqoiNo.SelectedValue != null)
+                    {
+                        DisplayRequisition(lstreqoiNo.SelectedValue.ToString());
+                    }
                 }
-                uctxtNarration.Focus();
+                uctxtItemName.Focus();
 
             }
             if (e.KeyChar == (char)Keys.Back)
@@ -330,10 +360,27 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstFromLocation.Visible = false;
 
             lstProcess.Visible = false;
+            try
+            {
+              
+                uclstGrdItem.Visible = false;
+                if (chkwithRequisiton.Checked)
+                {
+                    Refload();
+                }
+                else
+                {
+                    lstreqoiNo.ValueMember = "strBillKey";
+                    lstreqoiNo.DisplayMember = "strRefNo";
+                    lstreqoiNo.DataSource = invms.mGetStockRequiNo(strComID,"None", "").ToList();
+                }
 
-            uclstGrdItem.Visible = false;
-            Refload();
-            lstreqoiNo.SelectedIndex = lstreqoiNo.FindString(txtRequsiNo.Text);
+                lstreqoiNo.SelectedIndex = lstreqoiNo.FindString(txtRequsiNo.Text);
+            }
+            catch (Exception ex)
+            {
+
+            }
 
         }
         private void txtBranch_TextChanged(object sender, EventArgs e)
@@ -525,6 +572,14 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstProcess.Visible = true;
             
             uclstGrdItem.Visible = false;
+
+            if (uctxtFromLocation.Text != "")
+            {
+                lstProcess.ValueMember = "strProcessName";
+                lstProcess.DisplayMember = "strProcessName";
+                lstProcess.DataSource = invms.mLoadProcessNew(strComID, "", "", 0, 0, uctxtFromLocation.Text).ToList();
+            }
+
             lstProcess.SelectedIndex = lstProcess.FindString(uctxtProcessName.Text);
         }
 
@@ -583,7 +638,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 uctxtRate.Text = Utility.gdblGetCostPriceNew(strComID, uctxtItemName.Text, dteDate.Text).ToString();
                 if (Utility.Val(uctxtRate.Text) != 0)
                 {
-                    mAddStockItem(DG, uctxtItemName.Text, Utility.Val(uctxtQty.Text), Utility.Val(uctxtRate.Text), "");
+                    mAddStockItem(DG, uctxtItemName.Text, Utility.Val(uctxtQty.Text), Math.Abs(Utility.Val(uctxtRate.Text)), "");
                     uctxtItemName.Focus();
                 }
                 else
@@ -768,8 +823,16 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             if (e.KeyChar == (char)Keys.Return)
             {
+                if (Utility.gstrUserName.ToUpper() == "DEEPLAID")
+                {
+                    dteDate.Enabled = true;
+                    dteDate.Focus();
 
-                dteDate.Focus();
+                }
+                else
+                {
+                    uctxtFromLocation.Focus();
+                }
 
             }
         }
@@ -873,8 +936,10 @@ namespace JA.Modulecontrolar.UI.Inventory
             uclstGrdItem.Rows.Clear();
             //oogrp = objWIS.gFillStockItem(strComID, uctxtFromLocation.Text).ToList();
             //oogrp = objWIS.gFillStockItemNew(strComID,"", uctxtFromLocation.Text).ToList();
-            string strBranchID = Utility.gstrGetBranchIDfromGodown(strComID, uctxtFromLocation.Text.Trim());
-            oogrp = objWIS.mGetProductStatementView(strComID, "", strBranchID, uctxtFromLocation.Text,"").ToList();
+            //string strBranchID = Utility.gstrGetBranchIDfromGodown(strComID, uctxtFromLocation.Text.Trim());
+            
+            oogrp = objWIS.mGetProductStatementView(strComID, "", lstBranch.SelectedValue.ToString(), uctxtFromLocation.Text,"").ToList();
+            
             if (oogrp.Count > 0)
             {
 
@@ -962,6 +1027,16 @@ namespace JA.Modulecontrolar.UI.Inventory
             txtRequsiNo.Text = "";
             uctxtRequiLocation.Enabled = true;
             txtRequsiNo.Enabled = true;
+            if (Utility.gstrUserName.ToUpper() == "DEEPLAID")
+            {
+                dteDate.Enabled = true;
+                dteDate.Focus();
+
+            }
+            else
+            {
+                uctxtFromLocation.Focus();
+            }
             m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
             if (mblnNumbMethod)
             {
@@ -1147,12 +1222,18 @@ namespace JA.Modulecontrolar.UI.Inventory
                 uctxtItemName.Focus();
                 return false;
             }
-            //if (uctxtFromLocation.Text.TrimStart() == uctxtRequiLocation.Text.TrimStart())
-            //{
-            //    MessageBox.Show("Both Location Cannot be Same");
-            //    uctxtFromLocation.Focus();
-            //    return false;
-            //}
+            if (uctxtFromLocation.Text.TrimStart() == uctxtRequiLocation.Text.TrimStart())
+            {
+                MessageBox.Show("Both Location Cannot be Same");
+                uctxtFromLocation.Focus();
+                return false;
+            }
+            if (uctxtRequiLocation.Text=="")
+            {
+                MessageBox.Show("To Location Cannot be empty");
+                uctxtRequiLocation.Focus();
+                return false;
+            }
 
             if (m_action == 1)
             {
@@ -1190,17 +1271,29 @@ namespace JA.Modulecontrolar.UI.Inventory
                     return false;
                 }
             }
+
+            string strLockvoucher = Utility.gLockVocher(strComID, mintVtype);
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
+                {
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return false;
+                }
+            }
             try
             {
                 for (int i = 0; i < DG.Rows.Count; i++)
                 {
                     if (DG[0, i].Value.ToString() != "")
                     {
-                        dblClosingQTY = Utility.gdblClosingStockSales(strComID, DG[0, i].Value.ToString(), lstBranch.SelectedValue.ToString(), "", uctxtFromLocation.Text);
+                        dblClosingQTY = Utility.gdblClosingStock(strComID, DG[0, i].Value.ToString(), uctxtFromLocation.Text, dteDate.Value.ToString("dd-MM-yyyy"));
+                        //dblClosingQTY = objWIS.mGetProductStatementView(strComID,""lstBranch.SelectedValue.ToString(), uctxtFromLocation.Text, "").ToList();
                         if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                         {
-                            strBillKey = DG[6, i].Value.ToString();
-                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+                            strBillKey = DG[8, i].Value.ToString();
+                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey, uctxtFromLocation.Text);
                         }
                         dblCurrentQTY = Utility.Val(DG[2, i].Value.ToString());
                         if ((dblClosingQTY) - dblCurrentQTY < 0)
@@ -1272,8 +1365,9 @@ namespace JA.Modulecontrolar.UI.Inventory
             objfrm.lngFormPriv = lngFormPriv;
             objfrm.strFlag = "O";
             objfrm.onAddAllButtonClicked = new frmStockTransferList.AddAllClick(DisplayVoucherList);
-            objfrm.Show();
+            objfrm.strPreserveSQl = mstrPrserveSql;
             objfrm.MdiParent = MdiParent;
+            objfrm.Show();
             uctxtInvoiceNo.Focus();
         }
 
@@ -1294,6 +1388,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                     // uctxtFromLocation.Text = tests[0].strBranchName;
                     dteDate.Text = tests[0].strDate;
                     uctxtNarration.Text = tests[0].strNarration;
+                    mstrPrserveSql = tests[0].strPreserveSQL;
                     List<StockItem> oRm = objWIS.mFillDisplayStockTransferOut(strComID, tests[0].strRefNo).ToList();
                     {
                         if (oRm.Count > 0)
@@ -1311,7 +1406,9 @@ namespace JA.Modulecontrolar.UI.Inventory
                                 DG[5, intrm].Value = Math.Abs(ooRm.dblOpnValue);
                                 DG[6, intrm].Value = ooRm.strBatch;
                                 DG[7, intrm].Value = "Delete";
+                                DG[8, intrm].Value = ooRm.strBillKey;
                                 uctxtFromLocation.Text = ooRm.strFromLocation;
+                                
                                 uctxtProcessName.Text = ooRm.strProcess;
                                 uctxtRequiLocation.Enabled = false;
                                 txtRequsiNo.Enabled = false;
@@ -1410,47 +1507,82 @@ namespace JA.Modulecontrolar.UI.Inventory
         #region load
         private void frmStockTransferOut_Load(object sender, EventArgs e)
         {
+            string strYesNo = "Y";
             mGetConfig();
             mClear(); ;
             oinv = invms.mGetInvoiceConfig(strComID).ToList();
             lstFromLocation.Visible = false;
-           
+
             lstProcess.Visible = false;
             DG.AllowUserToAddRows = false;
 
             frmLabel.Text = "Stock Transfer(Out)";
             this.DG.DefaultCellStyle.Font = new Font("verdana", 9);
-            DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 300, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, false, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
-            DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 202, m_action))
+                {
+                    strYesNo = "N";
+                }
+            }
+           
+           
+            if (strYesNo == "Y")
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 340, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 150, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 90, true, DataGridViewContentAlignment.TopLeft, false));
+                DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 70, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+            }
+            else
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 500, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 250, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
+                DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 80, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                label8.Visible = false;
+                lblAmount.Visible = false;
+            }
             DG.Columns.Add(Utility.Create_Grid_Column("Batch", "Batch", 150, false, DataGridViewContentAlignment.TopLeft, true));
             DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 80, true, DataGridViewContentAlignment.TopCenter, true));
             DG.Columns.Add(Utility.Create_Grid_Column("InvTranKey", "InvTranKey", 200, false, DataGridViewContentAlignment.TopLeft, true));
-
-            //lstToLocation.ValueMember = "strLocation";
-            //lstToLocation.DisplayMember = "strLocation";
-            //lstToLocation.DataSource = invms.gLoadLocation(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName, 2).ToList();
-
             lstFromLocation.ValueMember = "strLocation";
             lstFromLocation.DisplayMember = "strLocation";
             lstFromLocation.DataSource = invms.gLoadLocation(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName, 2).ToList();
-
-            lstProcess.ValueMember = "strProcessName";
-            lstProcess.DisplayMember = "strProcessName";
-            lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", 0, 0).ToList();
-
             lstBranch.ValueMember = "BranchID";
             lstBranch.DisplayMember = "BranchName";
             lstBranch.DataSource = accms.mFillBranch(strComID, Utility.gblnAccessControl, Utility.gstrUserName).ToList();
 
-            lstreqoiLocation.ValueMember = "strLocation";
-            lstreqoiLocation.DisplayMember = "strLocation";
-            lstreqoiLocation.DataSource = invms.gLoadLocation(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName, 2).ToList();
+
+
+            lstreqoiLocation.ValueMember = "Key";
+            lstreqoiLocation.DisplayMember = "Value";
+            lstreqoiLocation.DataSource = invms.gLoadLocationOut(strComID, "1", Utility.gblnAccessControl, Utility.gstrUserName, 0).ToList();
+
         }
         #endregion
+
+        private void chkwithRequisiton_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void chkwithRequisiton_Click(object sender, EventArgs e)
+        {
+            if (chkwithRequisiton.Checked)
+            {
+                Refload();
+                txtRequsiNo.Focus();
+            }
+            else
+            {
+                uctxtItemName.Focus();
+            }
+        }
     }
 
 }

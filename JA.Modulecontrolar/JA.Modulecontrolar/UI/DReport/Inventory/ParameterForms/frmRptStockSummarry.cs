@@ -359,15 +359,15 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             List<StockItem> oogrp;
             if (strName == "S")
             {
-                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName,"Y",cboGroupName.Text).ToList();
+                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName,"Y",cboGroupName.Text,"").ToList();
             }
             else if (strName == "Su")
             {
-                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "Y","").ToList();
+                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "Y","","").ToList();
             }
             else
             {
-                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "K", cboGroupName.Text).ToList();
+                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "K", cboGroupName.Text,"").ToList();
                  //oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName,"P").ToList();
             }
             if (oogrp.Count > 0)

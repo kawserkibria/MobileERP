@@ -82,14 +82,12 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
         {
             lstBranch.SelectedIndex = lstBranch.FindString(uctxtBranchName.Text);
         }
-
         private void lstBranch_DoubleClick(object sender, EventArgs e)
         {
             uctxtBranchName.Text = lstBranch.Text;
             lstBranch.Visible = false;
             btnPrint.Focus();
         }
-
         private void uctxtBranchName_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Return)
@@ -388,7 +386,7 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
             int introw = 0;
             DGMr.Rows.Clear();
 
-            ooPartyName = invms.mfillPartyNameNew(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName, 0, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName, 0, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {

@@ -33,6 +33,8 @@
             this.dteImportDate = new System.Windows.Forms.DateTimePicker();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnReplacement = new System.Windows.Forms.Button();
+            this.txtLedgerName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
@@ -46,6 +48,8 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.label1);
+            this.pnlMain.Controls.Add(this.txtLedgerName);
             this.pnlMain.Controls.Add(this.btnReplacement);
             this.pnlMain.Controls.Add(this.textBox1);
             this.pnlMain.Controls.Add(this.progressBar1);
@@ -59,9 +63,10 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(92, 39);
-            this.btnEdit.Size = new System.Drawing.Size(10, 10);
-            this.btnEdit.Visible = false;
+            this.btnEdit.Location = new System.Drawing.Point(214, 331);
+            this.btnEdit.Size = new System.Drawing.Size(132, 40);
+            this.btnEdit.Text = "Generate";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnSave
             // 
@@ -77,9 +82,10 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(212, 331);
-            this.btnNew.Size = new System.Drawing.Size(133, 41);
+            this.btnNew.Location = new System.Drawing.Point(61, 331);
+            this.btnNew.Size = new System.Drawing.Size(17, 20);
             this.btnNew.Text = "Generate";
+            this.btnNew.Visible = false;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnClose
@@ -109,17 +115,17 @@
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(146, 157);
+            this.lblName.Location = new System.Drawing.Point(81, 157);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(37, 14);
+            this.lblName.Size = new System.Drawing.Size(42, 14);
             this.lblName.TabIndex = 9;
-            this.lblName.Text = "Date";
+            this.lblName.Text = "Date:";
             // 
             // dteImportDate
             // 
             this.dteImportDate.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteImportDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteImportDate.Location = new System.Drawing.Point(189, 155);
+            this.dteImportDate.Location = new System.Drawing.Point(124, 155);
             this.dteImportDate.Name = "dteImportDate";
             this.dteImportDate.Size = new System.Drawing.Size(132, 22);
             this.dteImportDate.TabIndex = 8;
@@ -137,21 +143,41 @@
             // btnReplacement
             // 
             this.btnReplacement.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReplacement.Location = new System.Drawing.Point(326, 154);
+            this.btnReplacement.Location = new System.Drawing.Point(261, 154);
             this.btnReplacement.Name = "btnReplacement";
             this.btnReplacement.Size = new System.Drawing.Size(102, 24);
             this.btnReplacement.TabIndex = 12;
             this.btnReplacement.Text = "Replacement";
             this.btnReplacement.UseVisualStyleBackColor = true;
-            this.btnReplacement.Click += new System.EventHandler(this.btnReplacement_Click);
+            this.btnReplacement.Click += new System.EventHandler(this.btnReplacement_Click_1);
+            // 
+            // txtLedgerName
+            // 
+            this.txtLedgerName.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLedgerName.Location = new System.Drawing.Point(125, 180);
+            this.txtLedgerName.Name = "txtLedgerName";
+            this.txtLedgerName.Size = new System.Drawing.Size(355, 22);
+            this.txtLedgerName.TabIndex = 13;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(40, 183);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 14);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "MPO Name:";
             // 
             // frmAutoJV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(503, 399);
             this.isEnterTabAllow = true;
+            this.KeyPreview = false;
             this.MinimizeBox = false;
             this.Name = "frmAutoJV";
+            this.Load += new System.EventHandler(this.frmAutoJV_Load);
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
             this.pnlTop.ResumeLayout(false);
@@ -167,6 +193,8 @@
         private System.Windows.Forms.DateTimePicker dteImportDate;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnReplacement;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtLedgerName;
 
     }
 }

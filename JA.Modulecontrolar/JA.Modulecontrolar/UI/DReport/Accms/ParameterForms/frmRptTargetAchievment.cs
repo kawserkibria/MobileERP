@@ -333,7 +333,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            int intSelection = 0, intGroupSelection = 0, intmonthNo, intActive = 0, intSuppress,intSalesColl=0,intTargetSupp=0;
+            int intSelection = 0, intGroupSelection = 0, intmonthNo, intActive = 0, intSuppress,intSalesColl=0,intTargetSupp=0,intBaseTarget=0;
             //1=Group,3=gropParent,2=primary
             string strBranchId = "", strMonthID = "", strName = "";
             long lngcount = 0;
@@ -378,13 +378,17 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
 
                 strName = uctxtLedgerConfig.Text;
             }
-            if (chkStatus.Checked==true)
+            if (rbtnAll.Checked == true)
+            {
+                intActive = 2;
+            }
+            else if (rbtnActive.Checked == true)
             {
                 intActive = 0;
             }
             else
             {
-                intActive = 1;
+                intActive = 3;
             }
 
             if (cbxSelection.Text!= "")
@@ -408,7 +412,10 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
                 {
                     intGroupSelection = 4;
                 }
-               
+                if (cbxSelection.Text == "ALL ZONE")
+                {
+                    intGroupSelection = 5;
+                }
             }
             if (chkSalesCollection.Checked==true)
             {
@@ -418,6 +425,14 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             if (chkTargetSuppress.Checked ==true)
             {
                 intTargetSupp = 1;
+            }
+            if (chkBase.Checked==true)
+            {
+                intBaseTarget = 1;
+            }
+            else
+            {
+                intBaseTarget = 0;
             }
             intmonthNo = dteFromDate.Value.Month;
             lngcount = Utility.DateDiff(Utility.DateInterval.Month, dteFromDate.Value, dteToDate.Value);
@@ -456,6 +471,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             frmviewer.intSP = intGroupSelection;
             frmviewer.intSalesColl = intSalesColl;
             frmviewer.intTargetSuppress = intTargetSupp;
+            frmviewer.intTarget = intBaseTarget;
             frmviewer.Show();
 
         }
@@ -497,7 +513,7 @@ namespace JA.Modulecontrolar.UI.DReport.Accms.ParameterForms
             int introw = 0;
             DGMr.Rows.Clear();
 
-            ooPartyName = invms.mfillPartyNameNew(strComID, "", false, Utility.gstrUserName, 0, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, "", false, Utility.gstrUserName, 0, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {

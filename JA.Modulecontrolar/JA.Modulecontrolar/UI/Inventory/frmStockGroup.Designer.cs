@@ -43,6 +43,8 @@
             this.row4 = new System.Windows.Forms.ImageList(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.cboStatus = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cboDilEffect = new System.Windows.Forms.ComboBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +57,8 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.label8);
+            this.pnlMain.Controls.Add(this.cboDilEffect);
             this.pnlMain.Controls.Add(this.label6);
             this.pnlMain.Controls.Add(this.cboStatus);
             this.pnlMain.Controls.Add(this.label4);
@@ -242,7 +246,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(266, 328);
+            this.label6.Location = new System.Drawing.Point(240, 328);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 18);
             this.label6.TabIndex = 47;
@@ -255,11 +259,34 @@
             this.cboStatus.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.cboStatus.Location = new System.Drawing.Point(269, 352);
+            this.cboStatus.Location = new System.Drawing.Point(243, 352);
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(177, 22);
             this.cboStatus.TabIndex = 46;
             this.cboStatus.Text = "No";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(458, 328);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(186, 18);
+            this.label8.TabIndex = 49;
+            this.label8.Text = "Dilution Effect Inventory";
+            // 
+            // cboDilEffect
+            // 
+            this.cboDilEffect.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboDilEffect.FormattingEnabled = true;
+            this.cboDilEffect.Items.AddRange(new object[] {
+            "No",
+            "Yes"});
+            this.cboDilEffect.Location = new System.Drawing.Point(461, 352);
+            this.cboDilEffect.Name = "cboDilEffect";
+            this.cboDilEffect.Size = new System.Drawing.Size(177, 22);
+            this.cboDilEffect.TabIndex = 48;
+            this.cboDilEffect.Text = "No";
             // 
             // frmStockGroup
             // 
@@ -304,5 +331,7 @@
         private System.Windows.Forms.ImageList row4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cboStatus;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cboDilEffect;
     }
 }

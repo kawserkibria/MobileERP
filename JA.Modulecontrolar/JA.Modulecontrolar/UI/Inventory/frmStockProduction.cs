@@ -81,6 +81,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             this.lstLocation.DoubleClick += new System.EventHandler(this.lstLocation_DoubleClick);
             this.uctxtLocation.GotFocus += new System.EventHandler(this.uctxtLocation_GotFocus);
             this.DG.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DG_KeyDown);
+            this.chkFG.Click += new System.EventHandler(this.chkFG_Click);
             Utility.CreateListBox(lstBranchName, pnlMain, uctxtBranchName);
             Utility.CreateListBox(lstLocation, pnlMain, uctxtLocation);
             Utility.CreateListBox(lstBatch, panel2, uctxtBatch);
@@ -206,11 +207,11 @@ namespace JA.Modulecontrolar.UI.Inventory
                 if (Utility.Val(uctxtRate.Text) != 0)
                 {
                     //mAddStockItem(DG, uctxtItemName.Text, Utility.Val(uctxtQty.Text), Utility.Val(uctxtRate.Text), Utility.gCheckNull(uctxtBatch.Text));
-                    uctxtRate.Focus();
+                    uctxtBatch.Focus();
                 }
                 else
                 {
-                    uctxtRate.Focus();
+                    uctxtBatch.Focus();
                 }
             }
             if (e.KeyChar == (char)Keys.Back)
@@ -323,6 +324,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstBranchName.Visible = false;
             lstLocation.Visible = false;
             uclstGrdItem.Visible = false;
+           
         }
         private void uctxtNarration_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -365,7 +367,26 @@ namespace JA.Modulecontrolar.UI.Inventory
             if (e.KeyChar == (char)Keys.Return)
             {
 
-                dteDate.Focus();
+                if (Utility.gstrUserName.ToUpper() == "DEEPLAID")
+                {
+                    dteDate.Enabled = false;
+                    if (dteDate.Enabled)
+                    {
+                        dteDate.Select();
+                        dteDate.Focus();
+                    }
+                    else
+                    {
+                        uctxtBranchName.Select();
+                        uctxtBranchName.Focus();
+                    }
+                }
+                else
+                {
+                    dteDate.Enabled = true;
+                    dteDate.Select();
+                    dteDate.Focus();
+                }
 
             }
         }
@@ -655,23 +676,47 @@ namespace JA.Modulecontrolar.UI.Inventory
         #endregion
         private void frmStockDamage_Load(object sender, EventArgs e)
         {
+            string strYesNo = "Y";
             DG.AllowUserToAddRows = false;
             mGetConfig();
             mClear(); ;
             lstBranchName.Visible = false;
             lstBatch.Visible = false;
             oinv = invms.mGetInvoiceConfig(strComID).ToList();
+           
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 202, m_action))
+                {
+                    strYesNo = "N";
+                }
+            }
           
             if (mintVtype == (int)Utility.VOUCHER_TYPE.vtSTOCK_PHYSICAL)
             {
                 frmLabel.Text = "Physical Stock";
                 this.DG.DefaultCellStyle.Font = new Font("verdana", 9);
-                DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 220, true, DataGridViewContentAlignment.TopLeft, true));
-                DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, true, DataGridViewContentAlignment.TopLeft, true));
-                DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
-                DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
-                DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, true, DataGridViewContentAlignment.TopLeft, true));
-                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                if (strYesNo == "Y")
+                {
+                    DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 220, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                }
+                else
+                {
+                    DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 410, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                    label8.Visible = false;
+                    lblAmount.Visible = false;
+
+                }
                 DG.Columns.Add(Utility.Create_Grid_Column("Batch", "Batch", 140, true, DataGridViewContentAlignment.TopLeft, true));
                 DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 80, true, DataGridViewContentAlignment.TopCenter, true));
                 DG.Columns.Add(Utility.Create_Grid_Column("BillKey", "BillKey", 200, false, DataGridViewContentAlignment.TopLeft, false));
@@ -680,20 +725,36 @@ namespace JA.Modulecontrolar.UI.Inventory
             {
                 frmLabel.Text = "Stock Damage";
                 this.DG.DefaultCellStyle.Font = new Font("verdana", 9);
-                DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 320, true, DataGridViewContentAlignment.TopLeft, true));
-                DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, false, DataGridViewContentAlignment.TopLeft, true));
-                DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
-                DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
-                DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, true, DataGridViewContentAlignment.TopLeft, true));
-                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                if (strYesNo == "Y")
+                {
+                    DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 320, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                }
+                else
+                {
+                    DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 500, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                    DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                    label8.Visible = false;
+                    lblAmount.Visible = false;
+                }
                 DG.Columns.Add(Utility.Create_Grid_Column("Batch", "Batch", 140, true, DataGridViewContentAlignment.TopLeft, true));
                 DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 80, true, DataGridViewContentAlignment.TopCenter, true));
                 DG.Columns.Add(Utility.Create_Grid_Column("BillKey", "BillKey", 200, false, DataGridViewContentAlignment.TopLeft, false));
             }
+          
         }
         private void mLoadAllItem()
         {
             int introw = 0;
+            string strYn = "";
             //var data = bbSc.GetBBTestFeeMaps(feecat).ToList();
             if (m_action == 1)
             {
@@ -701,18 +762,29 @@ namespace JA.Modulecontrolar.UI.Inventory
                 lblAmount.Text = "";
                 lblQnty.Text = "";
             }
-            //oogrp = invms.gFillStockItem(strComID, uctxtLocation.Text, "", false).ToList();
-            if (mintVtype == (int)Utility.VOUCHER_TYPE.vtSTOCK_DAMAGE)
+            if (chkFG.Checked == true)
             {
-                oogrp = objWIS.mGetProductStatementView(strComID, "", lstBranchName.SelectedValue.ToString(), uctxtLocation.Text,"").ToList();
-            }
-            else if (mintVtype == (int)Utility.VOUCHER_TYPE.vtSTOCK_PHYSICAL)
-            {
-                oogrp = objWIS.mGetProductStatementView(strComID, "", lstBranchName.SelectedValue.ToString(), uctxtLocation.Text,"").ToList();
+                strYn = "FG";
             }
             else
             {
-                oogrp = objWIS.gFillStockItemNew(strComID, "", uctxtLocation.Text).ToList();
+                strYn = "MC";
+            }
+            //oogrp = invms.gFillStockItem(strComID, uctxtLocation.Text, "", false).ToList();
+            if (mintVtype == (int)Utility.VOUCHER_TYPE.vtSTOCK_DAMAGE)
+            {
+                //oogrp = objWIS.mGetProductStatementView(strComID, "", lstBranchName.SelectedValue.ToString(), uctxtLocation.Text,"").ToList();
+                oogrp = objWIS.mGetProductStatementView(strComID, "", lstBranchName.SelectedValue.ToString(), uctxtLocation.Text, strYn).ToList();
+            }
+            else if (mintVtype == (int)Utility.VOUCHER_TYPE.vtSTOCK_PHYSICAL)
+            {
+                //oogrp = objWIS.mGetProductStatementView(strComID, "", lstBranchName.SelectedValue.ToString(), uctxtLocation.Text,"").ToList();
+                oogrp = objWIS.mGetProductStatementView(strComID, "", lstBranchName.SelectedValue.ToString(), uctxtLocation.Text, strYn).ToList();
+            }
+            else
+            {
+                //oogrp = objWIS.gFillStockItemNew(strComID, "", uctxtLocation.Text).ToList();
+                oogrp = objWIS.mGetProductStatementView(strComID, "", lstBranchName.SelectedValue.ToString(), uctxtLocation.Text, strYn).ToList();
             }
 
             if (oogrp.Count > 0)
@@ -745,11 +817,42 @@ namespace JA.Modulecontrolar.UI.Inventory
 
             uctxtNarration.Text = "";
             m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+            if (mintVtype == (int)Utility.VOUCHER_TYPE.vtSTOCK_PHYSICAL)
+            {
+                dteDate.Enabled = true;
+                dteDate.Select();
+                dteDate.Focus();
+            }
+            else
+            {
+                if (Utility.gstrUserName.ToUpper() == "DEEPLAID")
+                {
+                    dteDate.Enabled = true;
+                    if (dteDate.Enabled)
+                    {
+                        dteDate.Select();
+                        dteDate.Focus();
+                    }
+                    else
+                    {
+                        uctxtBranchName.Select();
+                        uctxtBranchName.Focus();
+                    }
+                }
+                else
+                {
+                    dteDate.Enabled = false;
+                    dteDate.Select();
+                    dteDate.Focus();
+                }
+            }
+
             if (mblnNumbMethod==true)
             {
                 uctxtInvoiceNo.Text = Utility.gstrLastNumber(strComID, mintVtype);
                 uctxtInvoiceNo.ReadOnly = true;
-                dteDate.Select();
+                //dteDate.Select();
+             
             }
             else
             {
@@ -1004,7 +1107,16 @@ namespace JA.Modulecontrolar.UI.Inventory
                     return false;
                 }
             }
-
+            string strLockvoucher = Utility.gLockVocher(strComID, mintVtype);
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
+                {
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return false;
+                }
+            }
             if (DG.Rows.Count == 0)
             {
                 MessageBox.Show("Item Cannot be Empty");
@@ -1038,12 +1150,19 @@ namespace JA.Modulecontrolar.UI.Inventory
                         }
                         if (mintVtype == (int)Utility.VOUCHER_TYPE.vtSTOCK_DAMAGE)
                         {
-                            //dblClosingQTY = Utility.gdblClosingStock(strComID, DG[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
+                            if (chkFG.Checked)
+                            {
+                                dblClosingQTY = Utility.gdblClosingStockSales(strComID, DG[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
+                            }
+                            else
+                            {
+                                dblClosingQTY = Utility.gdblClosingStock(strComID, DG[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
+                            }
                             
-                            dblClosingQTY = Utility.gdblClosingStockSales(strComID, DG[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "",uctxtLocation.Text);
+                            //dblClosingQTY = Utility.gdblClosingStockSales(strComID, DG[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "",uctxtLocation.Text);
                             if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                             {
-                                dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+                                dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey, uctxtLocation.Text);
                             }
                             dblCurrentQTY = Utility.Val(DG[2, i].Value.ToString());
                             if ((dblClosingQTY) - dblCurrentQTY < 0)
@@ -1063,10 +1182,19 @@ namespace JA.Modulecontrolar.UI.Inventory
                         {
                             if (Utility.Left(DG[2, i].Value.ToString(), 1) == "-")
                             {
-                                dblClosingQTY = Utility.gdblClosingStock(strComID, DG[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
+                                //dblClosingQTY = Utility.gdblClosingStock(strComID, DG[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
+                                if (chkFG.Checked)
+                                {
+                                    //dblClosingQTY = Utility.gdblClosingStockSales(strComID, DG[0, i].Value.ToString(), lstBranchName.SelectedValue.ToString(), "", uctxtLocation.Text);
+                                    dblClosingQTY = Utility.gdblClosingStock(strComID, DG[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
+                                }
+                                else
+                                {
+                                    dblClosingQTY = Utility.gdblClosingStock(strComID, DG[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
+                                }
                                 if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                                 {
-                                    dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+                                    dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey, uctxtLocation.Text);
                                 }
                                 dblCurrentQTY = Math.Abs(Utility.Val(DG[2, i].Value.ToString()));
                                 if ((dblClosingQTY) - dblCurrentQTY < 0)
@@ -1366,6 +1494,21 @@ namespace JA.Modulecontrolar.UI.Inventory
         private void DG_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             calculateTotal();
+        }
+
+        private void chkFG_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                uclstGrdItem.Rows.Clear();
+                mLoadAllItem();
+                uctxtItemName.Focus();
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
       

@@ -23,9 +23,13 @@ namespace JA.Modulecontrolar.UI.Inventory
         private ListBox lstFindWhat = new ListBox();
         private ListBox lstExpression = new ListBox();
         public int intConvert { get; set; }
+        public int intType { get; set; }
+        public int intVoucherType { get; set; }
+        public string strDel { get; set; }
         public long lngFormPriv { get; set; }
         public long lngFormApp_Priv { get; set; }
         public string strFormName { get; set; }
+        public string strFlag { get; set; }
         private string strComID { get; set; }
         public frmMFGVoucherList()
         {
@@ -328,8 +332,9 @@ namespace JA.Modulecontrolar.UI.Inventory
                 frmLabel.Text = "Conversion FG Voucher List";
                 DGMFGVoucherList.AllowUserToAddRows = false;
                 this.DGMFGVoucherList.DefaultCellStyle.Font = new Font("verdana", 9);
-                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 200, true, DataGridViewContentAlignment.TopLeft, true));
-                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Batch No", "Batch No", 250, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 130, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Batch No", "Batch No", 160, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Stock Group", "Stock Group", 180, true, DataGridViewContentAlignment.TopLeft, true));
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 100, true, DataGridViewContentAlignment.TopLeft, true));
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Process Name", "Process Name", 100, false, DataGridViewContentAlignment.TopLeft, true));
@@ -341,18 +346,59 @@ namespace JA.Modulecontrolar.UI.Inventory
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("RefNoin", "RefNoin", 100, false, DataGridViewContentAlignment.TopLeft, true));
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("RefNoWastage", "RefNoWastage", 100, false, DataGridViewContentAlignment.TopLeft, true));
                 DGMFGVoucherList.Columns.Add(Utility.CreateChkBxGrd("", "", 50, false, DataGridViewContentAlignment.TopLeft, false, false, "Check"));
-                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Status", "Status", 60, false, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Status", "Status", 50, false, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Vtype", "Vtype", 60, false, DataGridViewContentAlignment.TopLeft, true));
             }
-            else
+            else if (intConvert == 5)
             {
                 chkSelectAll.Visible = true;
-                btnApproved.Visible = true;
-                btnNotApproved.Visible = true;
+                frmLabel.Text = "                 FG Approved List";
+                if (Utility.gstrUserName.ToUpper() != "DEEPLAID")
+                {
+                    btnApproved.Visible = true;
+                    btnNotApproved.Visible = false;
+                }
+                else
+                {
+                    btnApproved.Visible = true;
+                    btnNotApproved.Visible = true;
+                }
                 btnListApp.Visible = true;
                 DGMFGVoucherList.AllowUserToAddRows = false;
                 this.DGMFGVoucherList.DefaultCellStyle.Font = new Font("verdana", 9);
-                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 150, true, DataGridViewContentAlignment.TopLeft, true));
-                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Batch No", "Batch No", 250, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 140, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Batch No", "Batch No", 160, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Stock Group", "Stock Group", 180, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Process Name", "Process Name", 300, false, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Branch ID", "Branch ID", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, false, DataGridViewContentAlignment.TopCenter, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 70, false, DataGridViewContentAlignment.TopCenter, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 70, true, DataGridViewContentAlignment.TopCenter, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("RefNoOut", "RefNoOut", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("RefNoin", "RefNoin", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("RefNoWastage", "RefNoWastage", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.CreateChkBxGrd("", "", 20, true, DataGridViewContentAlignment.TopLeft, false, false, "Check"));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Status", "Status", 50, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Vtype", "Vtype", 60, false, DataGridViewContentAlignment.TopLeft, true));
+                intConvert = 0;
+                intType = 1;
+                strDel = "I";
+            }
+            else
+            {
+                chkSelectAll.Visible = false;
+
+                btnApproved.Visible = false;
+                btnNotApproved.Visible = false;
+
+                btnListApp.Visible = true;
+                DGMFGVoucherList.AllowUserToAddRows = false;
+                this.DGMFGVoucherList.DefaultCellStyle.Font = new Font("verdana", 9);
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 110, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Batch No", "Batch No", 140, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Stock Group", "Stock Group", 150, true, DataGridViewContentAlignment.TopLeft, true));
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 100, true, DataGridViewContentAlignment.TopLeft, true));
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Process Name", "Process Name", 100, false, DataGridViewContentAlignment.TopLeft, true));
@@ -363,8 +409,9 @@ namespace JA.Modulecontrolar.UI.Inventory
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("RefNoOut", "RefNoOut", 100, false, DataGridViewContentAlignment.TopLeft, true));
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("RefNoin", "RefNoin", 100, false, DataGridViewContentAlignment.TopLeft, true));
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("RefNoWastage", "RefNoWastage", 100, false, DataGridViewContentAlignment.TopLeft, true));
-                DGMFGVoucherList.Columns.Add(Utility.CreateChkBxGrd("", "", 20, true, DataGridViewContentAlignment.TopLeft, false, false, "Check"));
+                DGMFGVoucherList.Columns.Add(Utility.CreateChkBxGrd("", "", 20, false, DataGridViewContentAlignment.TopLeft, false, false, "Check"));
                 DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Status", "Status", 60, true, DataGridViewContentAlignment.TopLeft, true));
+                DGMFGVoucherList.Columns.Add(Utility.Create_Grid_Column("Vtype", "Vtype", 60, false, DataGridViewContentAlignment.TopLeft, true));
 
                 DgRm.Columns.Add(Utility.Create_Grid_Column("Name of Item", "Name of Item", 270, true, DataGridViewContentAlignment.TopLeft, true));
                 DgRm.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
@@ -395,7 +442,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 dgWastagePm.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 80, true, DataGridViewContentAlignment.TopLeft, true));
                 dgWastagePm.Columns.Add(Utility.Create_Grid_Column_button("", "", "", 50, false, DataGridViewContentAlignment.TopCenter, true));
                 dgWastagePm.Columns.Add(Utility.Create_Grid_Column("billKey", "billKey", 100, false, DataGridViewContentAlignment.TopLeft, false));
-
+                strDel = "O";
             }
             mLoadFind();
             mfgVoucherList(0);
@@ -420,20 +467,20 @@ namespace JA.Modulecontrolar.UI.Inventory
             {
                 if (uctxtFindWhat.Text == "Voucher Number")
                 {
-                    oogrp = objWIS.mLoadMFGVoucher(strComID, "", "", intConvert, uctxtFindWhat.Text, uctxtExpression.Text, "", Appststus).ToList();
+                    oogrp = objWIS.mLoadMFGVoucher(strComID, "", "", intConvert, uctxtFindWhat.Text, uctxtExpression.Text, "", Appststus, intType,Utility.gstrUserName ).ToList();
                 }
                 else if (uctxtFindWhat.Text == "Voucher Date")
                 {
-                    oogrp = objWIS.mLoadMFGVoucher(strComID, uctxtFromDate.Text, uctxtToDate.Text, intConvert, uctxtFindWhat.Text, "", "", Appststus).ToList();
+                    oogrp = objWIS.mLoadMFGVoucher(strComID, uctxtFromDate.Text, uctxtToDate.Text, intConvert, uctxtFindWhat.Text, "", "", Appststus, intType, Utility.gstrUserName).ToList();
                 }
                 else
                 {
-                    oogrp = objWIS.mLoadMFGVoucher(strComID, "", "", intConvert, uctxtFindWhat.Text, uctxtExpression.Text, "", Appststus).ToList();
+                    oogrp = objWIS.mLoadMFGVoucher(strComID, "", "", intConvert, uctxtFindWhat.Text, uctxtExpression.Text, "", Appststus, intType, Utility.gstrUserName).ToList();
                 }
             }
             else
             {
-                oogrp = objWIS.mLoadMFGVoucher(strComID, DateTime.Now.ToString("dd/MM/yyyy"), DateTime.Now.Date.ToString("dd/MM/yyyy"), intConvert, "", "", "", Appststus).ToList();
+                oogrp = objWIS.mLoadMFGVoucher(strComID, DateTime.Now.ToString("dd/MM/yyyy"), DateTime.Now.Date.ToString("dd/MM/yyyy"), intConvert, "", "", "", Appststus, intType, Utility.gstrUserName).ToList();
             }
 
             if (oogrp.Count > 0)
@@ -450,34 +497,35 @@ namespace JA.Modulecontrolar.UI.Inventory
                     {
                         DGMFGVoucherList[1, introw].Value = "End of List";
                     }
-                    DGMFGVoucherList[2, introw].Value = ogrp.strDate;
-                    DGMFGVoucherList[3, introw].Value = ogrp.dblAmount;
+                    DGMFGVoucherList[2, introw].Value = ogrp.strLocation;
+                    DGMFGVoucherList[3, introw].Value = ogrp.strDate;
+                    DGMFGVoucherList[4, introw].Value = ogrp.dblAmount;
 
-                    DGMFGVoucherList[4, introw].Value = ogrp.strProcess;
-                    DGMFGVoucherList[5, introw].Value = ogrp.strBranchId;
+                    DGMFGVoucherList[5, introw].Value = ogrp.strProcess;
+                    DGMFGVoucherList[6, introw].Value = ogrp.strBranchId;
 
 
-                    DGMFGVoucherList[6, introw].Value = "Edit";
-                    DGMFGVoucherList[7, introw].Value = "Delete";
-                    DGMFGVoucherList[8, introw].Value = "View";
+                    DGMFGVoucherList[7, introw].Value = "Edit";
+                    DGMFGVoucherList[8, introw].Value = "Delete";
+                    DGMFGVoucherList[9, introw].Value = "View";
 
-                    DGMFGVoucherList[9, introw].Value = ogrp.strRMRefNo;
-                    DGMFGVoucherList[10, introw].Value = ogrp.strFgRefNo;
-                    DGMFGVoucherList[11, introw].Value = ogrp.strWmRefNo;
+                    DGMFGVoucherList[10, introw].Value = ogrp.strRMRefNo;
+                    DGMFGVoucherList[11, introw].Value = ogrp.strFgRefNo;
+                    DGMFGVoucherList[12, introw].Value = ogrp.strWmRefNo;
                     if (intConvert == 0)
                     {
                         if (ogrp.intAppStatus == 0)
                         {
-                            DGMFGVoucherList[13, introw].Value = "No";
+                            DGMFGVoucherList[14, introw].Value = "No";
                             //Convert.ToBoolean(DGMFGVoucherList[12, introw].Value = false);
                         }
                         else
                         {
-                            DGMFGVoucherList[13, introw].Value = "Yes";
+                            DGMFGVoucherList[14, introw].Value = "Yes";
                             //Convert.ToBoolean(DGMFGVoucherList[12, introw].Value = true);
                         }
                     }
-
+                    DGMFGVoucherList[15, introw].Value = ogrp.intVtype;
                     //if (introw % 2 == 0)
                     //{
                     //    DGMFGVoucherList.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
@@ -496,8 +544,32 @@ namespace JA.Modulecontrolar.UI.Inventory
         private void DGMFGVoucherList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             string strmsg="";
-            if (e.ColumnIndex == 7)
+            if (e.ColumnIndex == 8)
             {
+                if (Utility.gstrUserName.ToUpper() != "DEEPLAID")
+                {
+                    strmsg = Utility.mGetCheckProductIonApproved(strComID, DGMFGVoucherList.CurrentRow.Cells[11].Value.ToString());
+
+                    if (strmsg != "")
+                    {
+                        MessageBox.Show("Approved Voucher Cannot be Delete..");
+                        return;
+                    }
+                }
+                else
+                { 
+}
+                string strLockvoucher = Utility.gLockVocher(strComID, intVoucherType );
+                long lngDate = Convert.ToInt64(Convert.ToDateTime(DGMFGVoucherList.CurrentRow.Cells[3].Value.ToString()).ToString("yyyyMMdd"));
+                if (strLockvoucher != "")
+                {
+                    long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                    if (lngDate <= lngBackdate)
+                    {
+                        MessageBox.Show("Invalid Date, Back Date is locked");
+                        return;
+                    }
+                }
                 var strResponse = MessageBox.Show("Do You  want to Delete?", "Delete Button", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (strResponse == DialogResult.Yes)
                 {
@@ -509,8 +581,8 @@ namespace JA.Modulecontrolar.UI.Inventory
                             return;
                         }
                     }
-                    string i = objWIS.mDeleteMFG(strComID, DGMFGVoucherList.CurrentRow.Cells[1].Value.ToString(), DGMFGVoucherList.CurrentRow.Cells[9].Value.ToString(),
-                                                DGMFGVoucherList.CurrentRow.Cells[11].Value.ToString(), DGMFGVoucherList.CurrentRow.Cells[10].Value.ToString(),intConvert);
+                    string i = objWIS.mDeleteMFG(strComID, DGMFGVoucherList.CurrentRow.Cells[1].Value.ToString(), DGMFGVoucherList.CurrentRow.Cells[10].Value.ToString(),
+                                                DGMFGVoucherList.CurrentRow.Cells[12].Value.ToString(), DGMFGVoucherList.CurrentRow.Cells[11].Value.ToString(),intConvert);
                     if (i == "Deleted...")
                     {
                         if (Utility.gblnAccessControl)
@@ -528,7 +600,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                    
                 }
             }
-            if (e.ColumnIndex == 6)
+            if (e.ColumnIndex == 7)
             {
                 if (Utility.gblnAccessControl)
                 {
@@ -538,7 +610,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         return;
                     }
                 }
-                strmsg = Utility.mGetCheckProductIonApproved(strComID, DGMFGVoucherList.CurrentRow.Cells[10].Value.ToString());
+                strmsg = Utility.mGetCheckProductIonApproved(strComID, DGMFGVoucherList.CurrentRow.Cells[11].Value.ToString());
 
                 if (strmsg != "")
                 {
@@ -551,23 +623,28 @@ namespace JA.Modulecontrolar.UI.Inventory
                 this.Dispose();
             }
 
-            if (e.ColumnIndex == 8)
+            if (e.ColumnIndex == 9)
             {
                 if (intConvert == 1)
                 {
                     JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer();
                     frmviewer.selector = JA.Modulecontrolar.UI.DReport.Inventory.ViewerSelector.intventoryVoucher;
                     frmviewer.strFdate = "";
-                    frmviewer.strString = DGMFGVoucherList.CurrentRow.Cells[10].Value.ToString();
+                    frmviewer.strString = DGMFGVoucherList.CurrentRow.Cells[11].Value.ToString();
                     frmviewer.strSelction = "M";
                     frmviewer.Show();
                 }
                 else
                 {
+                    if (strFlag =="")
+                    {
+                        strFlag = "N";
+                    }
                     JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer();
                     frmviewer.selector = JA.Modulecontrolar.UI.DReport.Inventory.ViewerSelector.Production;
                     frmviewer.strFdate = "";
-                    frmviewer.strString = DGMFGVoucherList.CurrentRow.Cells[10].Value.ToString();
+                    frmviewer.strString = DGMFGVoucherList.CurrentRow.Cells[11].Value.ToString();
+                    frmviewer.strString5 = strFlag;
                     frmviewer.strSelction = "M";
                     frmviewer.Show();
                 }
@@ -592,13 +669,13 @@ namespace JA.Modulecontrolar.UI.Inventory
             {
                 itm.strVoucherNo = DGMFGVoucherList.CurrentRow.Cells[0].Value.ToString();
                 itm.strBatch = DGMFGVoucherList.CurrentRow.Cells[1].Value.ToString();
-                itm.strDate = DGMFGVoucherList.CurrentRow.Cells[2].Value.ToString();
-                itm.strProcess = DGMFGVoucherList.CurrentRow.Cells[4].Value.ToString();
-                itm.strBranchId = DGMFGVoucherList.CurrentRow.Cells[5].Value.ToString();
+                itm.strDate = DGMFGVoucherList.CurrentRow.Cells[3].Value.ToString();
+                itm.strProcess = DGMFGVoucherList.CurrentRow.Cells[5].Value.ToString();
+                itm.strBranchId = DGMFGVoucherList.CurrentRow.Cells[6].Value.ToString();
 
-                itm.strRMRefNo = DGMFGVoucherList.CurrentRow.Cells[9].Value.ToString();
-                itm.strFgRefNo = DGMFGVoucherList.CurrentRow.Cells[10].Value.ToString();
-                itm.strWmRefNo = DGMFGVoucherList.CurrentRow.Cells[11].Value.ToString();
+                itm.strRMRefNo = DGMFGVoucherList.CurrentRow.Cells[10].Value.ToString();
+                itm.strFgRefNo = DGMFGVoucherList.CurrentRow.Cells[11].Value.ToString();
+                itm.strWmRefNo = DGMFGVoucherList.CurrentRow.Cells[12].Value.ToString();
 
                 items.Add(itm);
             }
@@ -635,7 +712,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 for (int i = 0; i < intcount; i++)
                 {
 
-                    Convert.ToBoolean(DGMFGVoucherList[12, i].Value = true);
+                    Convert.ToBoolean(DGMFGVoucherList[13, i].Value = true);
 
                 }
             }
@@ -644,11 +721,11 @@ namespace JA.Modulecontrolar.UI.Inventory
                 int intcount = DGMFGVoucherList.Rows.Count;
                 for (int i = 0; i < intcount; i++)
                 {
-                    Convert.ToBoolean(DGMFGVoucherList[12, i].Value = false);
+                    Convert.ToBoolean(DGMFGVoucherList[13, i].Value = false);
                 }
             }
         }
-        private bool ValidateFields(DataGridView DgRm, DataGridView DgPm, DataGridView DgWastageRm, DataGridView dgWastagePm, string strBranchID, string strGodownsName)
+        private bool ValidateFields(DataGridView DgRm, DataGridView DgPm, DataGridView DgWastageRm, DataGridView dgWastagePm, string strBranchID, string strGodownsName,string strDate)
         {
 
             try
@@ -665,8 +742,8 @@ namespace JA.Modulecontrolar.UI.Inventory
                         if (DgRm[0, i].Value.ToString() != "")
                         {
 
-                            //dblClosingQTY = Utility.gdblClosingStock(strComID, DgRm[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
-                            dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgRm[0, i].Value.ToString(), strBranchID, "", strGodownsName);
+                            dblClosingQTY = Utility.gdblClosingStock(strComID, DgRm[0, i].Value.ToString(), strGodownsName, strDate);
+                            //dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgRm[0, i].Value.ToString(), strBranchID, "", strGodownsName);
                             //if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                             //{
                             //    strBillKey = DgRm[6, i].Value.ToString();
@@ -687,8 +764,8 @@ namespace JA.Modulecontrolar.UI.Inventory
                         if (DgPm[0, i].Value.ToString() != "")
                         {
 
-                            //dblClosingQTY = Utility.gdblClosingStock(strComID, DgRm[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
-                            dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgPm[0, i].Value.ToString(), strBranchID, "", strGodownsName);
+                            dblClosingQTY = Utility.gdblClosingStock(strComID, DgPm[0, i].Value.ToString(), strGodownsName, strDate);
+                            //dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgPm[0, i].Value.ToString(), strBranchID, "", strGodownsName);
                             //if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                             //{
                             //    strBillKey = DgPm[6, i].Value.ToString();
@@ -715,8 +792,8 @@ namespace JA.Modulecontrolar.UI.Inventory
                         if (DgWastageRm[0, i].Value.ToString() != "")
                         {
                             //strBillKey = DgWastageRm[5, i].Value.ToString();
-                            //dblClosingQTY = Utility.gdblClosingStock(strComID, DgWastage[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
-                            dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgWastageRm[0, i].Value.ToString(), strBranchID, "", strGodownsName);
+                            dblClosingQTY = Utility.gdblClosingStock(strComID, DgWastageRm[0, i].Value.ToString(), strGodownsName, strDate);
+                            //dblClosingQTY = Utility.gdblClosingStockSales(strComID, DgWastageRm[0, i].Value.ToString(), strBranchID, "", strGodownsName);
                             //if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                             //{
                             //    strBillKey = DgWastageRm[5, i].Value.ToString();
@@ -744,8 +821,8 @@ namespace JA.Modulecontrolar.UI.Inventory
                         if (dgWastagePm[0, i].Value.ToString() != "")
                         {
 
-                            //dblClosingQTY = Utility.gdblClosingStock(strComID, DgWastage[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
-                            dblClosingQTY = Utility.gdblClosingStockSales(strComID, dgWastagePm[0, i].Value.ToString(), strBranchID, "", strGodownsName);
+                            dblClosingQTY = Utility.gdblClosingStock(strComID, dgWastagePm[0, i].Value.ToString(), strGodownsName, strDate);
+                            //dblClosingQTY = Utility.gdblClosingStockSales(strComID, dgWastagePm[0, i].Value.ToString(), strBranchID, "", strGodownsName);
                             //if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                             //{
                             //    strBillKey = dgWastagePm[5, i].Value.ToString();
@@ -780,120 +857,43 @@ namespace JA.Modulecontrolar.UI.Inventory
         private void btnApproved_Click(object sender, EventArgs e)
         {
             int intcount = 0;
-          
-            string strmsg = "",strBranchID="",strGodowns="",strTLocation="";
-            int intrm = 0, intPm = 0, intrmWastage = 0, intPmWastage = 0;
+
+            string strmsg = "", strTLocation = "";
             try
             {
-                //if (Utility.gblnAccessControl)
-                //{
-                //    if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 189, 1))
-                //    {
-                //        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //        return;
-                //    }
-                //}
-              
+
                 for (int i = 0; i < DGMFGVoucherList.Rows.Count; i++)
                 {
-                    DgRm.Rows.Clear();
-                    DgPm.Rows.Clear();
-                    DgWastageRm.Rows.Clear();
-                    dgWastagePm.Rows.Clear();
-                    if (Convert.ToBoolean(DGMFGVoucherList.Rows[i].Cells[12].Value) == true)
+                   
+                    if (DGMFGVoucherList.Rows[i].Cells[14].Value.ToString() == "Yes")
                     {
-                        
-                        List<MFGvouhcer> oRm = objWIS.mDisplayProductionList(strComID, DGMFGVoucherList.Rows[i].Cells[10].Value.ToString()).ToList();
-                        {
-                            strBranchID = oRm[0].strBranchId;
-                            strGodowns = oRm[0].strLocation;
-                            strTLocation = oRm[0].strTLocation;
-                            foreach (MFGvouhcer ooRm in oRm)
-                            {
-
-                                if (ooRm.intProcessType == 1)
-                                {
-                                    DgRm.Rows.Add();
-                                    DgRm[0, intrm].Value = ooRm.strItemName;
-                                    DgRm[1, intrm].Value = ooRm.dblQnty + " " + ooRm.strUOM;
-                                    DgRm[2, intrm].Value = ooRm.strUOM;
-                                    //dblrate = Utility.gdblPurchasePrice(strComID, ts.stritemName, dteDate.Text);
-                                    DgRm[3, intrm].Value = Math.Round((ooRm.dblAmount), 4);
-                                    DgRm[4, intrm].Value = "Del.";
-                                    DgRm[5, intrm].Value = ooRm.dblQnty;
-                                    DgRm[6, intrm].Value = ooRm.strBillKey;
-                                    intrm += 1;
-                                }
-                                if (ooRm.intProcessType == 2)
-                                {
-                                    DgPm.Rows.Add();
-                                    DgPm[0, intPm].Value = ooRm.strItemName;
-                                    DgPm[1, intPm].Value = ooRm.dblQnty + " " + ooRm.strUOM;
-                                    DgPm[2, intPm].Value = ooRm.strUOM;
-                                    //dblrate = Utility.gdblPurchasePrice(strComID, ts.stritemName, dteDate.Text);
-                                    DgPm[3, intPm].Value = Math.Round((ooRm.dblAmount), 4);
-                                    DgPm[4, intPm].Value = "Del.";
-                                    DgPm[5, intPm].Value = ooRm.dblQnty;
-                                    DgPm[6, intPm].Value = ooRm.strBillKey;
-                                    intPm += 1;
-                                }
-                                if (ooRm.intProcessType == 3)
-                                {
-                                    DgWastageRm.Rows.Add();
-                                    DgWastageRm[0, intrmWastage].Value = ooRm.strItemName;
-                                    DgWastageRm[1, intrmWastage].Value = ooRm.dblQnty + " " + ooRm.strUOM;
-                                    DgWastageRm[2, intrmWastage].Value = ooRm.strUOM;
-                                    //dblrate = Utility.gdblPurchasePrice(strComID, ts.stritemName, dteDate.Text);
-                                    DgWastageRm[3, intrmWastage].Value = Math.Round((ooRm.dblAmount), 4);
-                                    DgWastageRm[4, intrmWastage].Value = "Del.";
-                                    //DgWastageRm[5, intrmWastage].Value = ooRm.dblQnty;
-                                    DgWastageRm[5, intrmWastage].Value = ooRm.strBillKey;
-                                    intrmWastage += 1;
-                                }
-                                if (ooRm.intProcessType == 4)
-                                {
-                                    dgWastagePm.Rows.Add();
-                                    dgWastagePm[0, intPmWastage].Value = ooRm.strItemName;
-                                    dgWastagePm[1, intPmWastage].Value = ooRm.dblQnty + " " + ooRm.strUOM;
-                                    dgWastagePm[2, intPmWastage].Value = ooRm.strUOM;
-                                    //dblrate = Utility.gdblPurchasePrice(strComID, ts.stritemName, dteDate.Text);
-                                    dgWastagePm[3, intPmWastage].Value = Math.Round((ooRm.dblAmount), 4);
-                                    dgWastagePm[4, intPmWastage].Value = "Del.";
-                                    //dgWastagePm[5, intPmWastage].Value = ooRm.dblQnty;
-                                    dgWastagePm[5, intPmWastage].Value = ooRm.strBillKey;
-                                    intPmWastage += 1;
-                                }
-                                DgRm.AllowUserToAddRows = false;
-                                DgWastageRm.AllowUserToAddRows = false;
-                                DgPm.AllowUserToAddRows = false;
-                                dgWastagePm.AllowUserToAddRows = false;
-                            }
-                        }
-                        if (ValidateFields(DgRm, DgPm, DgWastageRm, dgWastagePm, strBranchID, strGodowns) == false)
-                        {
-                            return;
-                        }
-
-                        strmsg = objWIS.gUpdateProductionOrder(strComID, DGMFGVoucherList[10, i].Value.ToString(), 1, strTLocation);
-                        if (strmsg=="1")
-                        {
-                            DGMFGVoucherList.Rows.RemoveAt(i);
-                        }
-                        strBranchID = "";
-                        strGodowns = "";
-                        strTLocation = "";
-                        intrm = 0;
-                        intPm = 0;
-                        intrmWastage = 0;
-                        intPmWastage = 0;
-                        intcount += 1;
+                        MessageBox.Show("Sorry!Already Approved");
+                        DGMFGVoucherList.Focus();
+                        return;
                     }
+                    if (Convert.ToBoolean(DGMFGVoucherList.Rows[i].Cells[13].Value) == true)
+                    {
+                        strmsg = objWIS.gUpdateProductionOrder(strComID, DGMFGVoucherList[11, i].Value.ToString(), 1, strTLocation, "", Convert.ToInt32(Utility.Val(DGMFGVoucherList.Rows[i].Cells[15].Value.ToString())));
+                        intcount += 1;
+                        //if (strmsg == "1")
+                        //{
+                        //    DGMFGVoucherList.Rows.RemoveAt(i);
+                          
+                        //}
+                       
+                    }
+
+
+                    strTLocation = "";
+                  
+
                 }
                 if (strmsg == "1")
                 {
                     mfgVoucherList(0);
+                    MessageBox.Show(intcount + " Records Approved Successfully...");
                 }
-                MessageBox.Show(intcount + " Records Approved Successfully...");
+
             }
             catch (Exception ex)
             {
@@ -918,9 +918,9 @@ namespace JA.Modulecontrolar.UI.Inventory
                 }
                 for (int i = 0; i < DGMFGVoucherList.Rows.Count; i++)
                 {
-                    if (Convert.ToBoolean(DGMFGVoucherList.Rows[i].Cells[12].Value) == true)
+                    if (Convert.ToBoolean(DGMFGVoucherList.Rows[i].Cells[13].Value) == true)
                     {
-                        strmsg = objWIS.gUpdateProductionOrder(strComID, DGMFGVoucherList[10, i].Value.ToString(), 0,"");
+                        strmsg = objWIS.gUpdateProductionOrder(strComID, DGMFGVoucherList[11, i].Value.ToString(), 0, "", strDel,0);
                         intcount += 1;
                     }
                 }
@@ -940,14 +940,14 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             try
             {
-                if (Utility.gblnAccessControl)
-                {
-                    if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 191, 1))
-                    {
-                        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                }
+                //if (Utility.gblnAccessControl)
+                //{
+                //    if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 191, 1))
+                //    {
+                //        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //        return;
+                //    }
+                //}
                 mfgVoucherList(1);
             }
             catch (Exception EX)

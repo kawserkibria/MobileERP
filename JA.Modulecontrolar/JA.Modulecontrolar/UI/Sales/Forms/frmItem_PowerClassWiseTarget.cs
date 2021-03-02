@@ -261,7 +261,7 @@ namespace JA.Modulecontrolar.UI.Sales
                     }
                 }
             }
-            List<Invoice> objinv = invms.mfillPartyNameNew(strComID, strBranchID, false, Utility.gstrUserName, 0,"").ToList();
+            List<Invoice> objinv = invms.mfillPartyNameNew(strComID, strBranchID, false, Utility.gstrUserName, 0,"","").ToList();
             if (objinv.Count > 0)
             {
                 

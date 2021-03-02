@@ -36,7 +36,8 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             this.dteToDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(dteToDate_KeyPress);
             this.dteToDate.GotFocus += new System.EventHandler(this.dteToDate_GotFocus);
             this.lstLeft.DoubleClick += new System.EventHandler(this.lstLeft_DoubleClick);
-           
+            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
 
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -265,6 +266,39 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         private void lstLeft_DoubleClick(object sender, EventArgs e)
         {
             btnRightSingle.PerformClick();
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            lstLeft.SelectedIndex= lstLeft.FindString(txtSearch.Text);
+
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                if (lstLeft.SelectedItem != null)
+                {
+                    lstLeft.SelectedIndex = lstLeft.SelectedIndex - 1;
+                }
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                if (lstLeft.Items.Count - 1 > lstLeft.SelectedIndex)
+                {
+                    lstLeft.SelectedIndex = lstLeft.SelectedIndex + 1;
+                }
+            }
+
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar ==(char)Keys.Return)
+            {
+                btnRightSingle.PerformClick();
+            }
         }
 
      

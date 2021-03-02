@@ -349,7 +349,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         private void btnSave_Click(object sender, EventArgs e)
         {
             string i = "",strGRName="";
-            int intPackSize = 0,intStatus=0;
+            int intPackSize = 0,intStatus=0,intDilEffect=0;
 
            // Interaction.SaveSetting(Application.ExecutablePath, "Group", "StockGROUP", txtGroupName.Text);
             RegistryKey rk = Registry.CurrentUser.CreateSubKey("SOFTWARE\\SmartAccounts");
@@ -399,6 +399,14 @@ namespace JA.Modulecontrolar.UI.Inventory
             {
                 intStatus = 1;
             }
+            if (cboDilEffect.Text =="Yes")
+            {
+                intDilEffect = 1;
+            }
+            else
+            {
+                intDilEffect = 0;
+            }
             if (m_action==1)
             {
                 string strDuplicate = Utility.mCheckDuplicateItem(strComID, "INV_STOCKGROUP", "STOCKGROUP_NAME", txtGroupName.Text);
@@ -416,7 +424,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 {
                     try
                     {
-                        i = invms.mInsertGroup(strComID, txtGroupName.Text.ToString(), txtUnder.Text.ToString(), strGRName, intPackSize, intStatus);
+                        i = invms.mInsertGroup(strComID, txtGroupName.Text.ToString(), txtUnder.Text.ToString(), strGRName, intPackSize, intStatus, intDilEffect);
 
                         if (i == "1")
                         {
@@ -472,7 +480,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 {
                     try
                     {
-                        i = invms.mUpdateGroup(strComID, Convert.ToInt64(txtSlNo.Text), txtGroupName.Text.ToString(), txtUnder.Text.ToString(), strGRName, intPackSize,intStatus);
+                        i = invms.mUpdateGroup(strComID, Convert.ToInt64(txtSlNo.Text), txtGroupName.Text.ToString(), txtUnder.Text.ToString(), strGRName, intPackSize, intStatus, intDilEffect);
 
                         if (i == "1")
                         {
@@ -550,6 +558,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                     uctxtGroupConfig.Text = ooGrp[0].GrName;
                     cboPackSize.Text = ooGrp[0].strPackSize;
                     cboStatus.Text = ooGrp[0].strStatus ;
+                    cboDilEffect.Text = ooGrp[0].strDilEffect;
                 }
             }
             catch (Exception ex)

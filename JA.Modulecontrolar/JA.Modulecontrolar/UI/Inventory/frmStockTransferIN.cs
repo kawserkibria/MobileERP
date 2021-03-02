@@ -24,6 +24,7 @@ namespace JA.Modulecontrolar.UI.Inventory
        
         public int m_action { get; set; }
         private bool mblnNumbMethod { get; set; }
+        private string mySQL { get; set; }
         private int mintIsPrin { get; set; }
         public long lngFormPriv { get; set; }
         public string strFormName { get; set; }
@@ -193,7 +194,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             lstInvoiceNo.ValueMember = "strRefNo";
             lstInvoiceNo.DisplayMember = "strAgnstRefNo";
-            lstInvoiceNo.DataSource = invms.mGetStockTranRefNo(strComID, uctxtFromLocation.Text, "").ToList();
+            lstInvoiceNo.DataSource = invms.mGetStockTranRefNoNew(strComID, uctxtToLocation.Text, "").ToList();
         }
 
         private void lstInvoiceNo_DoubleClick(object sender, EventArgs e)
@@ -224,11 +225,12 @@ namespace JA.Modulecontrolar.UI.Inventory
                         if (ts.intType == 1)
                         {
                             DG.Rows.Add();
+                            //uctxtFromLocation.Text = ts.strGodown;
                             DG[0, intfg].Value = ts.stritemName;
                             DG[2, intfg].Value = ts.dblqnty;
                             DG[3, intfg].Value = ts.strUnit;
-                            DG[4, intfg].Value = ts.dblCostPrice;
-                            DG[5, intfg].Value = ts.dblsalesamount;
+                            DG[4, intfg].Value = Math.Abs(ts.dblCostPrice);
+                            DG[5, intfg].Value = Math.Abs (ts.dblsalesamount);
                             DG[7, intfg].Value = "Delete";
                             intfg += 1;
                             DG.AllowUserToAddRows = false;
@@ -312,7 +314,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             if (e.KeyChar == (char)Keys.Return)
             {
                 //uctxtRate.Text = Utility.gdblPurchasePrice(strComID, uctxtItemName.Text, dteDate.Text).ToString();
-                uctxtRate.Text = Utility.gdblGetCostPriceNew(strComID, uctxtItemName.Text, dteDate.Text).ToString();
+                uctxtRate.Text = Math.Abs(Utility.gdblGetCostPriceNew(strComID, uctxtItemName.Text, dteDate.Text)).ToString();
                 if (Utility.Val(uctxtRate.Text) != 0)
                 {
                     uctxtItemName.Focus();
@@ -608,7 +610,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             uctxtToLocation.Text = lstToLocation.Text;
             if (uctxtFromLocation.Enabled)
             {
-                uctxtFromLocation.Focus();
+                uctxtInvoiceNo.Focus();
             }
             else
             {
@@ -628,7 +630,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 lstToLocation.Visible = false;
                 if (uctxtFromLocation.Enabled)
                 {
-                    uctxtFromLocation.Focus();
+                    uctxtInvoiceNo.Focus();
                 }
                 else
                 {
@@ -794,17 +796,25 @@ namespace JA.Modulecontrolar.UI.Inventory
             {
                 uctxtVoucherNo.Text = Utility.gstrLastNumber(strComID, mintVtype);
                 uctxtVoucherNo.ReadOnly = true;
-                dteDate.Select();
+                //dteDate.Select();
             }
             else
             {
 
                 uctxtVoucherNo.Text = Utility.gobjNextNumber(uctxtInvoiceNo.Text);
                 uctxtVoucherNo.ReadOnly = false;
-                dteDate.Select();
+                //dteDate.Select();
             }
+            if (Utility.gstrUserName.ToUpper() == "DEEPLAID")
+            {
+                dteDate.Enabled = true;
+                dteDate.Focus();
 
-            
+            }
+            else
+            {
+                uctxtFromLocation.Focus();
+            }
         }
         #endregion
         #region "Calculatetotal
@@ -947,16 +957,11 @@ namespace JA.Modulecontrolar.UI.Inventory
                     return false;
                 }
             }
-            if (uctxtInvoiceNo.Text == "")
+          
+            if (uctxtToLocation.Text == "")
             {
                 MessageBox.Show("Cannot be Empty");
-                uctxtInvoiceNo.Focus();
-                return false;
-            }
-            if (uctxtFromLocation.Text == "")
-            {
-                MessageBox.Show("Cannot be Empty");
-                uctxtFromLocation.Focus();
+                uctxtToLocation.Focus();
                 return false;
             }
 
@@ -985,7 +990,17 @@ namespace JA.Modulecontrolar.UI.Inventory
                     return false;
                 }
             }
-           
+            string strLockvoucher = Utility.gLockVocher(strComID, mintVtype);
+            long lngDate = Convert.ToInt64(dteDate.Value.ToString("yyyyMMdd"));
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
+                {
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return false;
+                }
+            }
 
             return true;
         }
@@ -1019,7 +1034,9 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             if (e.ColumnIndex == 7)
             {
-                DG.Rows.RemoveAt(e.RowIndex);
+                //DG.Rows.RemoveAt(e.RowIndex);
+                MessageBox.Show("Sorry!Cannot Delete");
+                return;
             }
         }
 
@@ -1031,8 +1048,9 @@ namespace JA.Modulecontrolar.UI.Inventory
             objfrm.lngFormPriv = lngFormPriv;
             objfrm.strFlag = "I";
             objfrm.onAddAllButtonClicked = new frmStockTransferList.AddAllClick(DisplayVoucherList);
-            objfrm.Show();
+            objfrm.strPreserveSQl = mySQL;
             objfrm.MdiParent = MdiParent;
+            objfrm.Show();
             uctxtInvoiceNo.Focus();
         }
 
@@ -1057,14 +1075,21 @@ namespace JA.Modulecontrolar.UI.Inventory
                 uctxtInvoiceNo.Enabled = false;
                 uctxtVoucherNo.Text = Utility.Mid(tests[0].strRefNo, 6, tests[0].strRefNo.Length - 6);
                 textBox1.Text = tests[0].strRefNo;
-          
+                mySQL = tests[0].strPreserveSQL;
                 dteDate.Text = tests[0].strDate;
                 uctxtNarration.Text = tests[0].strNarration;
-                List<StockItem> oRm = objWIS.mFillDisplayStockTransferin(strComID, tests[0].strRefNo).ToList();
+                List<StockItem> oRm = objWIS.mFillDisplayStockTransferin(strComID, tests[0].strRefNo,"I").ToList();
                 {
                     if (oRm.Count > 0)
                     {
-                        uctxtInvoiceNo.Text = Utility.Mid(oRm[0].strAgnstRefNo, 6, oRm[0].strAgnstRefNo.Length - 6);
+                        if (oRm[0].strAgnstRefNo != "")
+                        {
+                            uctxtInvoiceNo.Text = Utility.Mid(oRm[0].strAgnstRefNo, 6, oRm[0].strAgnstRefNo.Length - 6);
+                        }
+                        else
+                        {
+                            uctxtInvoiceNo.Text = "";
+                        }
                         uctxtFromLocation.Text = objWIS.gstrGetFromLocation(strComID, oRm[0].strAgnstRefNo);
                         foreach (StockItem ooRm in oRm)
                         {
@@ -1156,6 +1181,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         #region "Load"
         private void frmStockTransferIN_Load(object sender, EventArgs e)
         {
+            string strYesNo = "Y";
             mGetConfig();
             mClear(); ;
             oinv = invms.mGetInvoiceConfig(strComID).ToList();
@@ -1166,13 +1192,35 @@ namespace JA.Modulecontrolar.UI.Inventory
 
             frmLabel.Text = "Stock Transfer(In)";
             this.DG.DefaultCellStyle.Font = new Font("verdana", 9);
-            DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 300, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, false, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, false));
-            DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Batch", "Batch", 150, true, DataGridViewContentAlignment.TopLeft, true));
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 202, m_action))
+                {
+                    strYesNo = "N";
+                }
+            }
+            if (strYesNo == "Y")
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 300, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Batch", "Batch", 130, true, DataGridViewContentAlignment.TopLeft, true));
+            }
+            else
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Item Name", "Item Name", 450, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Curr. Stock", "Curr. Stock", 150, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Qnty", "Qnty", 130, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Per", "Per", 60, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Rate", "Rate", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Batch", "Batch", 150, true, DataGridViewContentAlignment.TopLeft, true));
+                label8.Visible = false;
+                lblAmount.Visible = false;
+            }
             DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 80, true, DataGridViewContentAlignment.TopCenter, true));
             DG.Columns.Add(Utility.Create_Grid_Column("InvTranKey", "InvTranKey", 200, false, DataGridViewContentAlignment.TopLeft, true));
 
@@ -1183,10 +1231,18 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstFromLocation.ValueMember = "strLocation";
             lstFromLocation.DisplayMember = "strLocation";
             lstFromLocation.DataSource = invms.gLoadLocation(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName, 2).ToList();
-
-           
-            dteDate.Select();
-            dteDate.Focus();
+            if (dteDate.Enabled)
+            {
+                dteDate.Focus();
+                dteDate.Select();
+            }
+            else
+            {
+                uctxtToLocation.Focus();
+                uctxtToLocation.Select();
+            }
+            
+            
         }
         #endregion
     }

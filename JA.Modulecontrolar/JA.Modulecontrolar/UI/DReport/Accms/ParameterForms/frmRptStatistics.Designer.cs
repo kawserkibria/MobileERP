@@ -74,7 +74,7 @@
             // 
             this.pnlMain.Controls.Add(this.groupBox6);
             this.pnlMain.Location = new System.Drawing.Point(0, -86);
-            this.pnlMain.Size = new System.Drawing.Size(679, 445);
+            this.pnlMain.Size = new System.Drawing.Size(679, 502);
             this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
             // 
             // pnlTop
@@ -89,7 +89,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(61, 371);
+            this.btnSave.Location = new System.Drawing.Point(61, 422);
             this.btnSave.Size = new System.Drawing.Size(8, 9);
             this.btnSave.Visible = false;
             // 
@@ -107,19 +107,19 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(571, 362);
+            this.btnClose.Location = new System.Drawing.Point(571, 419);
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(438, 362);
+            this.btnPrint.Location = new System.Drawing.Point(438, 419);
             this.btnPrint.Size = new System.Drawing.Size(130, 39);
             this.btnPrint.Text = "Preview";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 401);
+            this.groupBox1.Location = new System.Drawing.Point(0, 462);
             this.groupBox1.Size = new System.Drawing.Size(682, 25);
             // 
             // groupBox6
@@ -137,7 +137,7 @@
             this.groupBox6.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox6.Location = new System.Drawing.Point(5, 150);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(667, 287);
+            this.groupBox6.Size = new System.Drawing.Size(667, 347);
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Period Seletion";
@@ -147,7 +147,7 @@
             this.chkboxWfactory.AutoSize = true;
             this.chkboxWfactory.Checked = true;
             this.chkboxWfactory.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkboxWfactory.Location = new System.Drawing.Point(536, 239);
+            this.chkboxWfactory.Location = new System.Drawing.Point(536, 309);
             this.chkboxWfactory.Name = "chkboxWfactory";
             this.chkboxWfactory.Size = new System.Drawing.Size(125, 18);
             this.chkboxWfactory.TabIndex = 32;
@@ -167,7 +167,7 @@
             this.groupSelection.Controls.Add(this.lstRight);
             this.groupSelection.Controls.Add(this.lstLeft);
             this.groupSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupSelection.Location = new System.Drawing.Point(4, 0);
+            this.groupSelection.Location = new System.Drawing.Point(4, 67);
             this.groupSelection.Name = "groupSelection";
             this.groupSelection.Size = new System.Drawing.Size(660, 219);
             this.groupSelection.TabIndex = 29;
@@ -275,9 +275,9 @@
             this.pnlYearMonth.Controls.Add(this.dateTimePicker1);
             this.pnlYearMonth.Controls.Add(this.comboBox1);
             this.pnlYearMonth.Controls.Add(this.label4);
-            this.pnlYearMonth.Location = new System.Drawing.Point(187, 42);
+            this.pnlYearMonth.Location = new System.Drawing.Point(187, 11);
             this.pnlYearMonth.Name = "pnlYearMonth";
-            this.pnlYearMonth.Size = new System.Drawing.Size(376, 70);
+            this.pnlYearMonth.Size = new System.Drawing.Size(376, 50);
             this.pnlYearMonth.TabIndex = 30;
             this.pnlYearMonth.Visible = false;
             // 
@@ -363,7 +363,7 @@
             this.pnlSummDet.Controls.Add(this.rbtYearly);
             this.pnlSummDet.Controls.Add(this.radSumm);
             this.pnlSummDet.Controls.Add(this.radDetails);
-            this.pnlSummDet.Location = new System.Drawing.Point(7, 225);
+            this.pnlSummDet.Location = new System.Drawing.Point(7, 295);
             this.pnlSummDet.Name = "pnlSummDet";
             this.pnlSummDet.Size = new System.Drawing.Size(494, 45);
             this.pnlSummDet.TabIndex = 24;
@@ -378,6 +378,7 @@
             this.rbtMonthly.TabIndex = 5;
             this.rbtMonthly.Text = "Monthly";
             this.rbtMonthly.UseVisualStyleBackColor = true;
+           
             // 
             // rbtYearly
             // 
@@ -455,7 +456,7 @@
             // frmRptStatistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(682, 426);
+            this.ClientSize = new System.Drawing.Size(682, 487);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;

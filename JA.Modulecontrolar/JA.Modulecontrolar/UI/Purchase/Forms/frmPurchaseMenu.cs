@@ -8,9 +8,9 @@ using System.Drawing;
 using System.Text;
 using System.Linq;
 using System.Windows.Forms;
-
+using JA.Modulecontrolar.UI.Forms;
 using JA.Modulecontrolar.UI.Sales.Forms;
-
+using JA.Modulecontrolar.UI.Accms.Forms;
 
 using JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms;
 using JA.Modulecontrolar.UI.DReport.Sales.ParameterForms;
@@ -68,11 +68,11 @@ namespace JA.Modulecontrolar.UI.Purchase.Forms
 
         private void btnPurchaseOrder_Click(object sender, EventArgs e)
         {
-            //frmSalesOrder objfrm = new frmSalesOrder();
-            //objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-            //objfrm.mlngvtype = (long)Utility.VOUCHER_TYPE.vtPURCHASE_ORDER;
-            //objfrm.Show();
-            //objfrm.MdiParent = this.MdiParent;
+            frmSalesOrder objfrm = new frmSalesOrder();
+            objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+            objfrm.mlngvtype = (long)Utility.VOUCHER_TYPE.vtPURCHASE_ORDER;
+            objfrm.Show();
+            objfrm.MdiParent = this.MdiParent;
         }
 
         private void btnPurchaseInvoice_Click(object sender, EventArgs e)
@@ -119,22 +119,22 @@ namespace JA.Modulecontrolar.UI.Purchase.Forms
                     return;
                 }
             }
-            //if (System.Windows.Forms.Application.OpenForms["frmVoucherTypesList"] as frmVoucherTypesList == null)
-            //{
-            //    frmVoucherTypesList objfrm = new frmVoucherTypesList();
-            //    objfrm.lngMtype = (long)Utility.MODULE_TYPE.mtPURCHASE;
-            //    objfrm.lngFormPriv = 43;
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (System.Windows.Forms.Application.OpenForms["frmVoucherTypesList"] as frmVoucherTypesList == null)
+            {
+                frmVoucherTypesList objfrm = new frmVoucherTypesList();
+                objfrm.lngMtype = (long)Utility.MODULE_TYPE.mtPURCHASE;
+                objfrm.lngFormPriv = 43;
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmVoucherTypesList objfrm = (frmVoucherTypesList)Application.OpenForms["frmVoucherTypesList"];
-            //    objfrm.lngFormPriv = 43;
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmVoucherTypesList objfrm = (frmVoucherTypesList)Application.OpenForms["frmVoucherTypesList"];
+                objfrm.lngFormPriv = 43;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
            
         }
 
@@ -148,26 +148,26 @@ namespace JA.Modulecontrolar.UI.Purchase.Forms
                     return;
                 }
             }
-            //if (System.Windows.Forms.Application.OpenForms["frmVoucherTypesList"] as frmVoucherTypesList == null)
-            //{
-            //    frmSalesReturn objfrm = new frmSalesReturn();
-            //    objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-            //    objfrm.intVtype = (int)Utility.VOUCHER_TYPE.vtPURCHASE_RETURN;
-            //    objfrm.lngLedgeras = (int)Utility.GR_GROUP_TYPE.grSUPPLIER;
-            //    objfrm.lngFormPriv = 45;
-            //    objfrm.strFormName = "Purchase Return";
-            //    objfrm.intModuletype = (int)Utility.MODULE_TYPE.mtPURCHASE;
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (System.Windows.Forms.Application.OpenForms["frmVoucherTypesList"] as frmVoucherTypesList == null)
+            {
+                frmSalesReturn objfrm = new frmSalesReturn();
+                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                objfrm.intVtype = (int)Utility.VOUCHER_TYPE.vtPURCHASE_RETURN;
+                objfrm.lngLedgeras = (int)Utility.GR_GROUP_TYPE.grSUPPLIER;
+                objfrm.lngFormPriv = 45;
+                objfrm.strFormName = "Purchase Return";
+                objfrm.intModuletype = (int)Utility.MODULE_TYPE.mtPURCHASE;
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmVoucherTypesList objfrm = (frmVoucherTypesList)Application.OpenForms["frmVoucherTypesList"];
-            //    objfrm.lngFormPriv = 45;
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmVoucherTypesList objfrm = (frmVoucherTypesList)Application.OpenForms["frmVoucherTypesList"];
+                objfrm.lngFormPriv = 45;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
            
         }
 
@@ -181,24 +181,24 @@ namespace JA.Modulecontrolar.UI.Purchase.Forms
                     return;
                 }
             }
-            //if (System.Windows.Forms.Application.OpenForms["frmGroupConfiguration"] as frmGroupConfiguration == null)
-            //{
-            //    frmGroupConfiguration objfrm = new frmGroupConfiguration();
-            //    objfrm.inttype = (int)Utility.GR_GROUP_TYPE.grSUPPLIER;
-            //    objfrm.lngFormPriv = 41;
-            //    objfrm.strFoemName = "Group";
-            //    objfrm.intModuleType = (int)Utility.MODULE_TYPE.mtPURCHASE;
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (System.Windows.Forms.Application.OpenForms["frmGroupConfiguration"] as frmGroupConfiguration == null)
+            {
+                frmGroupConfiguration objfrm = new frmGroupConfiguration();
+                objfrm.inttype = (int)Utility.GR_GROUP_TYPE.grSUPPLIER;
+                objfrm.lngFormPriv = 41;
+                objfrm.strFoemName = "Group";
+                objfrm.intModuleType = (int)Utility.MODULE_TYPE.mtPURCHASE;
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmGroupConfiguration objfrm = (frmGroupConfiguration)Application.OpenForms["frmGroupConfiguration"];
-            //    objfrm.lngFormPriv = 41;
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmGroupConfiguration objfrm = (frmGroupConfiguration)Application.OpenForms["frmGroupConfiguration"];
+                objfrm.lngFormPriv = 41;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
            
         }
 

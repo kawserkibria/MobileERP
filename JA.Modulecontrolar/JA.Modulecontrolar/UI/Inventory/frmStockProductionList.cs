@@ -423,6 +423,17 @@ namespace JA.Modulecontrolar.UI.Inventory
                         return;
                     }
                 }
+                string strLockvoucher = Utility.gLockVocher(strComID, intvType);
+                long lngDate = Convert.ToInt64(Convert.ToDateTime(DG.CurrentRow.Cells[2].Value.ToString().ToString()).ToString("yyyyMMdd"));
+                if (strLockvoucher != "")
+                {
+                    long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                    if (lngDate <= lngBackdate)
+                    {
+                        MessageBox.Show("Invalid Date, Back Date is locked");
+                        return;
+                    }
+                }
                 var strResponse = MessageBox.Show("Do You  want to Delete?", "Delete Button", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (strResponse == DialogResult.Yes)
                 {

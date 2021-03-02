@@ -12,7 +12,7 @@ using JA.Modulecontrolar.UI.DReport.Accms.Viewer;
 using JA.Modulecontrolar.UI.DReport.Accms;
 using JA.Modulecontrolar.UI.Inventory;
 using JA.Modulecontrolar.JACCMS;
-
+using JA.Modulecontrolar.UI.Accms.Forms;
 using Microsoft.Win32;
 using System.Data.SqlClient;
 using System.Drawing.Imaging;
@@ -249,7 +249,7 @@ namespace JA.Modulecontrolar.UI.Tools.Forms
                     _imageData = new byte[ms.Length];
                     ms.Position = 0;
                     ms.Read(_imageData, 0, _imageData.Length);
-                    CreateDefaultdata.gInsertAccessControl("Deeplaid", "DeepLaid", _imageData, strBarchID);
+                    CreateDefaultdata.gInsertAccessControl("Deeplaid", "Deeplaid", _imageData, strBarchID);
 
                     string strSourceDB = "";
 

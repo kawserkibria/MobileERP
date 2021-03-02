@@ -206,7 +206,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         {
             lstItem.ValueMember = "strItemGroup";
             lstItem.DisplayMember = "strItemGroup";
-            lstItem.DataSource = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName,"N","").ToList();
+            lstItem.DataSource = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName,"N","","").ToList();
          
         }
 

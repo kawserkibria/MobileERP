@@ -323,49 +323,57 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
         {
             lstLeft.Items.Clear();
             lstRight.Items.Clear();
-            string strBranchId = "", strString = "", strSelction;
-            int Item = 2;
-            {
-                for (int i = 0; i < lstLeft2.Items.Count; i++)
-                {
-                    strString = strString + "'" + lstLeft2.Items[i].ToString().Replace("'", "''") + "',";
-                }
-                if (strString != "")
-                {
-                    strString = Utility.Mid(strString, 0, strString.Length - 1);
-                }
-            }
-
             int intmodeProdctSelection = 0;
+            try
+            {
+                string strString = "";
 
-            if (rbtnZONE.Checked == true)
-            {
-                intmodeProdctSelection = 1;
-            }
-            if (rbtnDSMRSM.Checked == true)
-            {
-                intmodeProdctSelection = 2;
-            }
-            if (rbtnAMFM.Checked == true)
-            {
-                intmodeProdctSelection = 3;
-            }
-            if (rbtnMPO.Checked == true)
-            {
-                intmodeProdctSelection = 4;
-            }
-
-
-            List<RProductSales> orptt = objWoIS.mloadProduct(strComID, 0).ToList();
-             
-            if (orptt.Count > 0)
-            {
-                foreach (RProductSales ostk in orptt)
                 {
-
-                    lstLeft.Items.Add(ostk.strStockItemName);
-
+                    for (int i = 0; i < lstLeft2.Items.Count; i++)
+                    {
+                        strString = strString + "'" + lstLeft2.Items[i].ToString().Replace("'", "''") + "',";
+                    }
+                    if (strString != "")
+                    {
+                        strString = Utility.Mid(strString, 0, strString.Length - 1);
+                    }
                 }
+
+
+
+                if (rbtnZONE.Checked == true)
+                {
+                    intmodeProdctSelection = 1;
+                }
+                else if (rbtnDSMRSM.Checked == true)
+                {
+                    intmodeProdctSelection = 2;
+                }
+                else if (rbtnAMFM.Checked == true)
+                {
+                    intmodeProdctSelection = 3;
+                }
+                else if (rbtnMPO.Checked == true)
+                {
+                    intmodeProdctSelection = 4;
+                }
+
+
+                List<RProductSales> orptt = objWoIS.mloadProduct(strComID, 1).ToList();
+
+                if (orptt.Count > 0)
+                {
+                    foreach (RProductSales ostk in orptt)
+                    {
+
+                        lstLeft.Items.Add(ostk.strStockItemName);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
 
         }
@@ -513,7 +521,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
                 intmodeProdctSelection = 4;
             }
 
-            List<Sample> orptt = invms.mFillSample(strComID, "SI").ToList();
+            List<Sample> orptt = invms.mFillSample(strComID, "SI", Utility.gstrUserName).ToList();
             if (orptt.Count > 0)
             {
                 foreach (Sample ostk in orptt)

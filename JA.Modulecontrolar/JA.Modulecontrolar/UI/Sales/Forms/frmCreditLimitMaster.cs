@@ -92,21 +92,19 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
         private void btnCollectionMonth_Click(object sender, EventArgs e)
         {
-            //if (Utility.gblnAccessControl)
-            //{
-            //    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 17))
-            //    {
-            //        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //        return;
-            //    }
-            //}
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 217))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
             if (System.Windows.Forms.Application.OpenForms["frmCollectionTargetMonth"] as frmCollectionTargetMonth == null)
             {
                 frmCollectionTargetMonth objfrm = new frmCollectionTargetMonth();
                 objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-                //objfrm.strSelection = "CT";
-                objfrm.lngFormPriv = 17;
-                //objfrm.strtFormName = "Collection Target";
+                objfrm.lngFormPriv = 217;
                 objfrm.Show();
                 objfrm.MdiParent = this.MdiParent;
 

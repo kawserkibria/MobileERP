@@ -21,6 +21,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         private ListBox lstExpression = new ListBox();
         public delegate void AddAllClick(List<StockItem> items, object sender, EventArgs e);
         public AddAllClick onAddAllButtonClicked;
+        public string strPreserveSQl { get; set; }
         public long lngFormPriv { get; set; }
         public string strFormName { get; set; }
         public int intvType { get; set; }
@@ -71,6 +72,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             if (e.KeyChar == (char)Keys.Return)
             {
+                strPreserveSQl = "";
                 uctxtFromDate.Text = Utility.ctrlDateFormat(uctxtFromDate.Text);
                 uctxtToDate.Focus();
             }
@@ -79,9 +81,8 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             if (e.KeyChar == (char)Keys.Return)
             {
+                strPreserveSQl = "";
                 uctxtToDate.Text = Utility.ctrlDateFormat(uctxtToDate.Text);
-
-
                 //mFetchRecord(uctxtFindWhat.Text, uctxtExpression.Text, uctxtFromDate.Text, uctxtToDate.Text);
                 mVoucherList();
                 PanelSearch.Visible = false;
@@ -107,6 +108,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         private void lstExpression_DoubleClick(object sender, EventArgs e)
         {
             uctxtExpression.Text = lstExpression.Text;
+            strPreserveSQl = "";
             PanelSearch.Visible = false;
             mVoucherList();
             DG.Focus();
@@ -124,6 +126,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         uctxtExpression.Text = lstExpression.Text;
                     }
                 }
+                strPreserveSQl = "";
                 //mFetchRecord(uctxtFindWhat.Text, uctxtExpression.Text, uctxtFromDate.Text, uctxtToDate.Text);
                 mVoucherList();
                 PanelSearch.Visible = false;
@@ -168,6 +171,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             uctxtFindWhat.Text = lstFindWhat.Text;
             if (uctxtFindWhat.Text == "Voucher Number")
             {
+                strPreserveSQl = "";
                 lstFindWhat.Visible = false;
                 lblExpression.Visible = false;
                 uctxtExpression.Visible = true;
@@ -178,6 +182,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             }
             else if (uctxtFindWhat.Text == "Stock Item")
             {
+                strPreserveSQl = "";
                 lstExpression.Visible = true;
                 lstFindWhat.Visible = false;
                 uctxtExpression.Visible = true;
@@ -191,6 +196,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             }
             else if (uctxtFindWhat.Text == "Voucher Date")
             {
+                strPreserveSQl = "";
                 lstExpression.Visible = false;
                 lblExpression.Visible = false;
                 uctxtExpression.Visible = false;
@@ -222,6 +228,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                 {
                     uctxtFindWhat.Text = lstFindWhat.Text;
                 }
+                strPreserveSQl = "";
                 if (uctxtFindWhat.Text == "Voucher Number")
                 {
                     lstExpression.Visible = false;
@@ -258,27 +265,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                     uctxtFromDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
                     uctxtToDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
                 }
-                //else if (uctxtFindWhat.Text == "Cheque Date")
-                //{
-                //    lstExpression.Visible = false;
-                //    lblExpression.Visible = false;
-                //    uctxtExpression.Visible = false;
-                //    uctxtFromDate.Visible = true;
-                //    uctxtToDate.Visible = true;
-                //    lblfromDate.Visible = true;
-                //    lblTodate.Visible = true;
-                //}
-                //else
-                //{
-                //    lstExpression.Visible = false;
-                //    lblExpression.Visible = true;
-                //    uctxtExpression.Visible = true;
-                //    uctxtFromDate.Visible = false;
-                //    uctxtToDate.Visible = false;
-                //    lblfromDate.Visible = false;
-                //    lblTodate.Visible = false;
-                //}
-
+             
 
                 if (uctxtExpression.Visible)
                 {
@@ -331,19 +318,79 @@ namespace JA.Modulecontrolar.UI.Inventory
             {
                 frmLabel.Text = "Stock Transfer List (IN)";
             }
+            else if (intvType == (int)Utility.VOUCHER_TYPE.vtSTATIONARY)
+            {
+                frmLabel.Text = "Stationary Use List";
+            }
             else
             {
                 frmLabel.Text = "Physical Stock List";
             }
             this.DG.DefaultCellStyle.Font = new Font("verdana", 9);
-            DG.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 200, false, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 300, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 200, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 200, true, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column("Narration", "Narration", 200, false, DataGridViewContentAlignment.TopLeft, true));
-            DG.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, true, DataGridViewContentAlignment.TopCenter, true));
-            DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
-            DG.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 60, true, DataGridViewContentAlignment.TopCenter, true));
+            if (intvType == (int)Utility.VOUCHER_TYPE.vtSTOCK_TRANSFER)
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 160, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("To Location", "To Location", 145, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Process Name", "Process Name", 130, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Agnst ref No", "Agnst ref No", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Narration", "Narration", 200, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("SQL", "SQL", 200, false, DataGridViewContentAlignment.TopLeft, true));
+              
+            }
+            else if (intvType == (int)Utility.VOUCHER_TYPE.vtSTOCK_TRANFERIN)
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 130, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("To Location", "To Location", 135, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Process Name", "Process Name", 130, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Agnst ref No", "Agnst ref No", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Narration", "Narration", 200, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("SQL", "SQL", 200, false, DataGridViewContentAlignment.TopLeft, true));
+                
+            }
+            else if (intvType == (int)Utility.VOUCHER_TYPE.vtSTATIONARY)
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 160, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("From Location", "From Location", 200, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("To Location", "To Location", 190, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Agnst ref No", "Agnst ref No", 150, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Narration", "Narration", 200, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("SQL", "SQL", 200, false, DataGridViewContentAlignment.TopLeft, true));
+               
+            }
+            else
+            {
+                DG.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 160, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Voucher No", "Voucher No", 120, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("To Location", "To Location", 145, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Process Name", "Process Name", 230, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Agnst ref No", "Agnst ref No", 150, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Date", "Date", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Amount", "Amount", 100, true, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("Narration", "Narration", 200, false, DataGridViewContentAlignment.TopLeft, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column_button("View", "View", "View", 60, true, DataGridViewContentAlignment.TopCenter, true));
+                DG.Columns.Add(Utility.Create_Grid_Column("SQL", "SQL", 200, false, DataGridViewContentAlignment.TopLeft, true));
+               
+            }
             mLoadFind();
             mVoucherList();
         }
@@ -353,7 +400,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstFindWhat.Items.Clear();
             lstFindWhat.Items.Add("Voucher Number");
             lstFindWhat.Items.Add("Voucher Date");
-            lstFindWhat.Items.Add("Stock Item");
+            //lstFindWhat.Items.Add("Stock Item");
 
         }
         private void mVoucherList()
@@ -363,63 +410,124 @@ namespace JA.Modulecontrolar.UI.Inventory
             this.DG.DefaultCellStyle.Font = new Font("verdana", 9);
             DG.Rows.Clear();
             //List<StockItem> oogrp = invms.mFillStockTransfer(intvType).ToList();
-
+            if (strPreserveSQl == null || strPreserveSQl == "")
+            {
+                strPreserveSQl = "";
+            }
             if (uctxtFindWhat.Text != "")
             {
                 if (uctxtFindWhat.Text == "Voucher Number")
                 {
-                    oogrp = objWIS.mFillStockTransfer(strComID, intvType, uctxtFindWhat.Text, uctxtExpression.Text, uctxtFromDate.Text, uctxtToDate.Text, strFlag).ToList();
+                    oogrp = objWIS.mFillStockTransfer(strComID, intvType, uctxtFindWhat.Text, uctxtExpression.Text, uctxtFromDate.Text, uctxtToDate.Text, strFlag, Utility.gstrUserName, strPreserveSQl).ToList();
                 }
                 else if (uctxtFindWhat.Text == "Voucher Date")
                 {
-                    oogrp = objWIS.mFillStockTransfer(strComID, intvType, uctxtFindWhat.Text, uctxtExpression.Text, uctxtFromDate.Text, uctxtToDate.Text, strFlag).ToList();
+                    oogrp = objWIS.mFillStockTransfer(strComID, intvType, uctxtFindWhat.Text, uctxtExpression.Text, uctxtFromDate.Text, uctxtToDate.Text, strFlag, Utility.gstrUserName, strPreserveSQl).ToList();
                 }
                 else
                 {
-                    oogrp = objWIS.mFillStockTransfer(strComID, intvType, uctxtFindWhat.Text, uctxtExpression.Text, uctxtFromDate.Text, uctxtToDate.Text, strFlag).ToList();
+                    oogrp = objWIS.mFillStockTransfer(strComID, intvType, uctxtFindWhat.Text, uctxtExpression.Text, uctxtFromDate.Text, uctxtToDate.Text, strFlag, Utility.gstrUserName, strPreserveSQl).ToList();
                 }
             }
             else
             {
                 oogrp = objWIS.mFillStockTransfer(strComID, intvType, uctxtFindWhat.Text, uctxtExpression.Text, DateTime.Now.ToString("dd/MM/yyyy"),
-                                            DateTime.Now.Date.ToString("dd/MM/yyyy"), strFlag).ToList();
+                                            DateTime.Now.Date.ToString("dd/MM/yyyy"), strFlag, Utility.gstrUserName, strPreserveSQl).ToList();
             }
 
 
 
             if (oogrp.Count > 0)
             {
-                foreach (StockItem ogrp in oogrp)
+                if (intvType == (int)Utility.VOUCHER_TYPE.vtSTATIONARY)
                 {
-                    DG.Rows.Add();
-                    DG[0, introw].Value = ogrp.strRefNo;
-                    DG[1, introw].Value = Utility.Mid(ogrp.strRefNo,6,ogrp.strRefNo.Length-6);
-                    DG[2, introw].Value = ogrp.strDate;
-                    DG[3, introw].Value = ogrp.dblBranchAmnout;
-                    DG[4, introw].Value = ogrp.strNarration ;
 
-                    DG[5, introw].Value = "Edit";
-                    //DGMFGVoucherList[5, introw].Value = "Print";
-                    DG[6, introw].Value = "Delete";
-                    DG[7, introw].Value = "View";
-                    
-                   
-                    introw += 1;
+                    foreach (StockItem ogrp in oogrp)
+                    {
+                        DG.Rows.Add();
+                        DG[0, introw].Value = ogrp.strRefNo;
+                        DG[1, introw].Value = Utility.Mid(ogrp.strRefNo, 6, ogrp.strRefNo.Length - 6);
+                        DG[2, introw].Value = Utility.gstrGetLocation(strComID, ogrp.strRefNo,"O");
+                        DG[3, introw].Value = Utility.gstrGetLocation(strComID, ogrp.strRefNo, "I");
+                        if (ogrp.strAgnstRefNo != "")
+                        {
+                            DG[4, introw].Value = Utility.Mid(ogrp.strAgnstRefNo, 6, ogrp.strAgnstRefNo.Length - 6);
+                        }
+                        else
+                        {
+                            DG[4, introw].Value = "";
+                        }
+                        DG[5, introw].Value = ogrp.strDate;
+                        DG[6, introw].Value = ogrp.dblBranchAmnout;
+                        DG[7, introw].Value = ogrp.strNarration;
+
+                        DG[8, introw].Value = "Edit";
+                        //DGMFGVoucherList[5, introw].Value = "Print";
+                        DG[9, introw].Value = "Delete";
+                        DG[10, introw].Value = "View";
+                        DG[11, introw].Value = ogrp.strPreserveSQL;
+
+                        introw += 1;
+                    }
+                    lblCount.Text = "Total Record: " + introw;
+                    DG.AllowUserToAddRows = false;
                 }
-                lblCount.Text = "Total Record: " + introw;
-                DG.AllowUserToAddRows = false;
+                else
+                {
+                    foreach (StockItem ogrp in oogrp)
+                    {
+                        DG.Rows.Add();
+                        DG[0, introw].Value = ogrp.strRefNo;
+                        DG[1, introw].Value = Utility.Mid(ogrp.strRefNo, 6, ogrp.strRefNo.Length - 6);
+                        DG[2, introw].Value = ogrp.strLocation;
+                        DG[3, introw].Value = ogrp.strProcess;
+                        if (ogrp.strAgnstRefNo != "")
+                        {
+                            DG[4, introw].Value = Utility.Mid(ogrp.strAgnstRefNo, 6, ogrp.strAgnstRefNo.Length - 6);
+                        }
+                        else
+                        {
+                            DG[4, introw].Value = "";
+                        }
+                        DG[5, introw].Value = ogrp.strDate;
+                        DG[6, introw].Value = ogrp.dblBranchAmnout;
+                        DG[7, introw].Value = ogrp.strNarration;
+
+                        DG[8, introw].Value = "Edit";
+                        //DGMFGVoucherList[5, introw].Value = "Print";
+                        DG[9, introw].Value = "Delete";
+                        DG[10, introw].Value = "View";
+                        DG[11, introw].Value = ogrp.strPreserveSQL;
+
+                        introw += 1;
+                    }
+                    lblCount.Text = "Total Record: " + introw;
+                    DG.AllowUserToAddRows = false;
+
+                }
             }
         }
 
         private void DGMFGVoucherList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 6)
+            if (e.ColumnIndex == 9)
             {
                 if (Utility.gblnAccessControl)
                 {
                     if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, lngFormPriv, 3))
                     {
-                         MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
+                        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+                string strLockvoucher = Utility.gLockVocher(strComID, intvType);
+                long lngDate = Convert.ToInt64(Convert.ToDateTime(DG.CurrentRow.Cells[5].Value.ToString().ToString()).ToString("yyyyMMdd"));
+                if (strLockvoucher != "")
+                {
+                    long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                    if (lngDate <= lngBackdate)
+                    {
+                        MessageBox.Show("Invalid Date, Back Date is locked");
                         return;
                     }
                 }
@@ -436,13 +544,13 @@ namespace JA.Modulecontrolar.UI.Inventory
                 if (strResponse == DialogResult.Yes)
                 {
 
-                    double dblAmnt = Convert.ToDouble(DG.CurrentRow.Cells[3].Value.ToString());
-                    string strVoucherDate = DG.CurrentRow.Cells[2].Value.ToString();
+                    double dblAmnt = Convert.ToDouble(DG.CurrentRow.Cells[6].Value.ToString());
+                    string strVoucherDate = DG.CurrentRow.Cells[5].Value.ToString();
                     string strBranchID = "0001";
      
                     string i = objWIS.mDeleteStockTransfer(strComID, DG.CurrentRow.Cells[0].Value.ToString());
-              
-                    if (i == "Delted...")
+
+                    if (i == "Deleted...")
                     {
                         if (Utility.gblnAccessControl)
                         {
@@ -451,17 +559,16 @@ namespace JA.Modulecontrolar.UI.Inventory
                         }
                     }
                     MessageBox.Show(i.ToString());
-                    //mVoucherList();
                     DG.Rows.RemoveAt(e.RowIndex);
                 }
             }
-            if (e.ColumnIndex == 5)
+            if (e.ColumnIndex == 8)
             {
                 if (Utility.gblnAccessControl)
                 {
                     if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, lngFormPriv, 2))
                     {
-                         MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
+                        MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                 }
@@ -478,15 +585,25 @@ namespace JA.Modulecontrolar.UI.Inventory
                     onAddAllButtonClicked(GetSelectedItem(), sender, e);
                 this.Dispose();
             }
-            if (e.ColumnIndex == 7)
+            if (e.ColumnIndex == 10)
             {
 
-                JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer();
-                frmviewer.selector = JA.Modulecontrolar.UI.DReport.Inventory.ViewerSelector.intventoryVoucher;
-                frmviewer.strFdate = "";
-                frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
-                frmviewer.strSelction = "T";
-                frmviewer.Show();
+                if (strFlag == "O")
+                {
+                    JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer();
+                    frmviewer.selector = JA.Modulecontrolar.UI.DReport.Inventory.ViewerSelector.StockOut;
+                    frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
+                    frmviewer.intype  =intvType;
+                    frmviewer.Show();
+                }
+                else if (strFlag == "I")
+                {
+                    JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Inventory.Viewer.frmReportViewer();
+                    frmviewer.selector = JA.Modulecontrolar.UI.DReport.Inventory.ViewerSelector.StockIn;
+                    frmviewer.strString = DG.CurrentRow.Cells[0].Value.ToString();
+                    frmviewer.intype = intvType;
+                    frmviewer.Show();
+                }
 
             }
         }
@@ -512,8 +629,11 @@ namespace JA.Modulecontrolar.UI.Inventory
             List<StockItem> items = new List<StockItem>();
             StockItem itm = new StockItem();
             itm.strRefNo = DG.CurrentRow.Cells[0].Value.ToString();
-            itm.strDate = DG.CurrentRow.Cells[2].Value.ToString();
-            itm.strNarration = DG.CurrentRow.Cells[4].Value.ToString();
+            itm.strFromLocation = DG.CurrentRow.Cells[2].Value.ToString();
+            itm.strToLocation = DG.CurrentRow.Cells[3].Value.ToString();
+            itm.strDate = DG.CurrentRow.Cells[5].Value.ToString();
+            itm.strNarration = DG.CurrentRow.Cells[7].Value.ToString();
+            itm.strPreserveSQL = DG.CurrentRow.Cells[11].Value.ToString();
             items.Add(itm);
             return items;
         }

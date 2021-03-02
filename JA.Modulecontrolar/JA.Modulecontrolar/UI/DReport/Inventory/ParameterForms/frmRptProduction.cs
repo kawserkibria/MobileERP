@@ -18,6 +18,8 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
     {
         JRPT.SWRPTClient orptCnn = new SWRPTClient();
         JINVMS.IWSINVMS invms = new JINVMS.WSINVMSClient();
+        List<StockItem> oogrp;
+        string GoupLoadOption = "";
         public string strType { get; set; }
         private string strComID { get; set; }
         public frmRptProduction()
@@ -124,10 +126,12 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         {
             for (int i = 0; i < lstRightPower.Items.Count; i++)
             {
-                string strItem = lstRight.Items[i].ToString().TrimStart();
+                string strItem = lstRightPower.Items[i].ToString().TrimStart();
                 lstLeftPowet.Items.Add(strItem);
             }
             lstRightPower.Items.Clear();
+
+         
         }
 
         private void mLaodPower()
@@ -140,6 +144,20 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                 foreach (RoMonthlyProduction ostk in oogrp)
                 {
                     lstLeftPowet.Items.Add(ostk.strPowerClass);
+                }
+            }
+        }
+        private void mLaodPackSize()
+        {
+            lstLeftPowet.Items.Clear();
+            lstRightPower.Items.Clear();
+            //List<RoMonthlyProduction> oogrp = orptCnn.mGetloadPowerClass(strComID).ToList();
+            List<StockCategory> oogrp = invms.mFillStockCategory(strComID).ToList();
+            if (oogrp.Count > 0)
+            {
+                foreach (StockCategory ostk in oogrp)
+                {
+                    lstLeftPowet.Items.Add(ostk.CategoryName);
                 }
             }
         }
@@ -160,7 +178,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         private void lstLeftNew_DoubleClick(object sender, EventArgs e)
         {
             btnRightNew.PerformClick();
-            lstLeftNew.SetSelected(0, true);
+            //lstLeftNew.SetSelected(0, true);
         }
 
         private void lstLeftNew_KeyPress(object sender, KeyPressEventArgs e)
@@ -197,7 +215,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         {
             lstLeftNew.Items.Clear();
             lstRightNew.Items.Clear();
-            List<StockItem> oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "N", cboGroupName.Text).ToList();
+            List<StockItem> oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "N", cboGroupName.Text,"").ToList();
             if (oogrp.Count > 0)
             {
                 foreach (StockItem ostk in oogrp)
@@ -211,7 +229,15 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         {
             lstLeft.Items.Clear();
             lstRight.Items.Clear();
-            List<StockItem> oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "N", cboGroupName.Text).ToList();
+
+            if (GoupLoadOption == "FG")
+            {
+                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "N", "Finished Goods","").ToList();
+            }
+            else
+            {
+                oogrp = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName, "N", cboGroupName.Text,"").ToList();
+            }
             if (oogrp.Count > 0)
             {
                 foreach (StockItem ostk in oogrp)
@@ -300,6 +326,14 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                 groupBox4.Enabled = true;
                 mLaodPower();
             }
+            if (rbtnPacksize.Checked == true)
+            {
+                lstLeftPowet.Items.Clear();
+                lstRightPower.Items.Clear();
+                groupBox4.Enabled = true;
+                mLaodPackSize();
+            }
+           
 
             grpGroup.Enabled = true;
             groupBox7.Enabled = true;
@@ -320,14 +354,25 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
 
             groupBox7.Enabled = false;
             grpGroup.Enabled = false;
+            groupBox4.Enabled = false;
             lstRight.Items.Clear();
             lstRightNew.Items.Clear();
             lstLeftNew.Items.Clear();
             lstRightNew.Items.Clear();
             lstLeftPowet.Items.Clear();
             lstRightPower.Items.Clear();
-            groupBox4.Enabled = true;
+            mLoadLocation();
+            if (rbtnClassPower.Checked == true)
+            {
+               
+                mLaodPower();
+            }
+            if (rbtnPacksize.Checked == true)
+            {
 
+                mLaodPackSize();
+            }
+          
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -471,11 +516,23 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
 
         private void btnRightNew_Click(object sender, EventArgs e)
         {
-            if (lstLeftNew.SelectedItems.Count > 0)
+            try
             {
-                lstRightNew.Items.Add(lstLeftNew.SelectedItem.ToString());
-                lstLeftNew.Items.Remove(lstLeftNew.SelectedItem.ToString());
-                lstLeftNew.SetSelected(0, true);
+                if (lstLeftNew.SelectedItems.Count > 0)
+                {
+
+                    lstRightNew.Items.Add(lstLeftNew.SelectedItem.ToString());
+                    lstLeftNew.Items.Remove(lstLeftNew.SelectedItem.ToString());
+                    if (lstLeftNew.Items.Count > 0)
+                    {
+                        lstLeftNew.SetSelected(0, true);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
@@ -520,7 +577,6 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             cboGroupName.ValueMember = "strItemGroup";
             cboGroupName.DisplayMember = "strItemGroup";
             cboGroupName.DataSource = invms.mGetStockGroup(strComID,1).ToList();
-           
             strType = "L";
             grpGroup.Visible = true;
             mLoadStockGroupNew();
@@ -548,7 +604,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         {
             string strString = "", struserString = "", strString1 = "", strString3 = "", strDiulotion="";
             int intCount = 0;
-            strDiulotion = lstRight.Items[0].ToString();
+            //strDiulotion = lstRight.Items[0].ToString();
 
             intCount = lstRight.Items.Count;
 
@@ -566,7 +622,10 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             {
                 strString = struserString;
             }
-
+            if (rbtnFG.Checked == true)
+            {
+                strString1 = "'Main Location',";
+            }
             for (int i = 0; i < lstRightNew.Items.Count; i++)
             {
                 strString1 = strString1 + "'" + lstRightNew.Items[i].ToString() + "',";
@@ -655,21 +714,42 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                 frmviewer.strTdate = dteToDate.Text;
                 frmviewer.Show();
             }
+            if (rbtnPacksize.Checked == true)
+            {
+                frmReportViewer frmviewer = new frmReportViewer();
+                frmviewer.selector = ViewerSelector.MonthlyProduction_Class_Power;
+                if (radSelection.Checked == true)
+                {
+                    frmviewer.strString5 = strString;
+                    frmviewer.strString6 = strString1;
+                    frmviewer.strString7 = "";
+                    frmviewer.strString3 = strString3;
+                    frmviewer.intype = intCount;
+
+                }
+                frmviewer.strFdate = dteFromDate.Text;
+                frmviewer.strTdate = dteToDate.Text;
+                frmviewer.Show();
+            }
         }
         private void frmRptProduction_Load(object sender, EventArgs e)
         {
-            label6.Visible = true;
+           
+            GoupLoadOption = "FG";
+            label6.Visible = false;
             groupBox4.Enabled = false;
             cboGroupName.Visible = true;
             cboGroupName.ValueMember = "strItemGroup";
             cboGroupName.DisplayMember = "strItemGroup";
-            cboGroupName.DataSource = invms.mGetStockGroup(strComID,1).ToList();
-            frmLabel.Text = "Monthly Productioon";
-            mLoadStockGroup();
+            cboGroupName.DataSource = invms.mGetStockGroup(strComID,2).ToList();
+            frmLabel.Text = "Production Statement";
             mLoadLocation();
             dteToDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
             dteFromDate.Text = Utility.FirstDayOfMonth(dteToDate.Value).ToString("dd-MM-yyyy");
-       
+            cboGroupName.Visible = false;
+            mLoadStockGroup();
+            mLoadLocation();
+            mLaodPower();
         }
 
         private void rbtnClassPower_Click(object sender, EventArgs e)
@@ -678,10 +758,24 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             {
                 lstLeftPowet.Items.Clear();
                 lstRightPower.Items.Clear();
-                mLaodPower();
                 groupBox4.Enabled = true;
+                GoupLoadOption = "FG";
+                mLaodPower();
+                mLoadStockGroup();
+                cboGroupName.Visible = false;
+                label6.Visible = false;
             }
-      
+            else
+            {
+                lstLeftPowet.Items.Clear();
+                lstRightPower.Items.Clear();
+                groupBox4.Enabled = false;
+                GoupLoadOption = "FG";
+                mLaodPower();
+                mLoadStockGroup();
+                cboGroupName.Visible = false;
+                label6.Visible = false;
+            }
            
         }
 
@@ -690,6 +784,10 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             lstLeftPowet.Items.Clear();
             lstRightPower.Items.Clear();
             groupBox4.Enabled = false;
+            cboGroupName.Visible = false;
+            label6.Visible = false;
+            GoupLoadOption = "FG";
+            mLoadStockGroup();
         }
 
         private void rbtnConsumption_Click(object sender, EventArgs e)
@@ -697,6 +795,11 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             lstLeftPowet.Items.Clear();
             lstRightPower.Items.Clear();
             groupBox4.Enabled = false;
+            cboGroupName.Visible = false;
+            label6.Visible = false;
+            GoupLoadOption = "FG";
+            mLoadStockGroup();
+          
         }
 
         private void rbtnPackingRawStock_Click(object sender, EventArgs e)
@@ -704,7 +807,54 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             lstLeftPowet.Items.Clear();
             lstRightPower.Items.Clear();
             groupBox4.Enabled = false;
+            cboGroupName.Visible = true;
+            label6.Visible = true;
+            label6.Visible = false;
+            GoupLoadOption = "RMPM";
+            mLoadStockGroup();
         }
+        private void rbtnPacksize_Click(object sender, EventArgs e)
+        {
+            if (radSelection.Checked == true)
+            {
+                lstLeftPowet.Items.Clear();
+                lstRightPower.Items.Clear();
+                groupBox4.Enabled = true;
+                GoupLoadOption = "FG";
+                mLaodPackSize();
+                mLoadStockGroup();
+                cboGroupName.Visible = false;
+                label6.Visible = false;
+            }
+            else
+            {
+                lstLeftPowet.Items.Clear();
+                lstRightPower.Items.Clear();
+                groupBox4.Enabled = false;
+                GoupLoadOption = "FG";
+                mLaodPackSize();
+                mLoadStockGroup();
+                cboGroupName.Visible = false;
+                label6.Visible = false;
+            }
+         
+        }
+        private void rbtnPackingRawStock_ClientSizeChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnlMain_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void rbtnConsumption_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+      
 
     }
 }

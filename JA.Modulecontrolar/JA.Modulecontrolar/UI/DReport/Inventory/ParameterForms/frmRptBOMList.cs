@@ -181,7 +181,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             lstProcess.Visible = false;
             lstProcess.ValueMember = "strProcessName";
             lstProcess.DisplayMember = "strProcessName";
-            lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", 0,0).ToList();
+            lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", 0,0,Utility.gstrUserName).ToList();
             if (Utility.gstrUserName.ToUpper() =="DEEPLAID")
             {
                 pnlSelection.Visible = true;
@@ -199,14 +199,14 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
                 lstProcess.Visible = false;
                 lstProcess.ValueMember = "strProcessName";
                 lstProcess.DisplayMember = "strProcessName";
-                lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", 0, 1).ToList();
+                lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", 0, 1, Utility.gstrUserName).ToList();
             }
             else
             {
                 lstProcess.Visible = false;
                 lstProcess.ValueMember = "strProcessName";
                 lstProcess.DisplayMember = "strProcessName";
-                lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", 0, 0).ToList();
+                lstProcess.DataSource = invms.mLoadProcess(strComID, "", "", 0, 0, Utility.gstrUserName).ToList();
             }
             uctxtName.Focus();
 

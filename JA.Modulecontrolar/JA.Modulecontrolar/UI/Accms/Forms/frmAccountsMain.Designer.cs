@@ -59,15 +59,8 @@
             this.btnRptCostCenter = new ColorButton.ColorButton();
             this.btnTrailBalance = new ColorButton.ColorButton();
             this.customPanel2 = new CSharpCustomPanelControl.CustomPanel();
-            this.btnAutoPFHL = new ColorButton.ColorButton();
-            this.btnBankReconcilation = new ColorButton.ColorButton();
             this.btnCommissionTran = new ColorButton.ColorButton();
             this.btnDashBoard = new ColorButton.ColorButton();
-            this.btnInterestCharge = new ColorButton.ColorButton();
-            this.btnContra = new ColorButton.ColorButton();
-            this.btnJournal = new ColorButton.ColorButton();
-            this.btnReceipt = new ColorButton.ColorButton();
-            this.btnPayment = new ColorButton.ColorButton();
             this.customPanel1 = new CSharpCustomPanelControl.CustomPanel();
             this.btnLoan = new ColorButton.ColorButton();
             this.btnMpoConfig = new ColorButton.ColorButton();
@@ -79,6 +72,8 @@
             this.btnGroups = new ColorButton.ColorButton();
             this.btnVoucherTypes = new ColorButton.ColorButton();
             this.btnBranch = new ColorButton.ColorButton();
+            this.btnAccountsVoucher = new ColorButton.ColorButton();
+            this.btnOthersTransaction = new ColorButton.ColorButton();
             this.panel1.SuspendLayout();
             this.customPanel7.SuspendLayout();
             this.customPanel6.SuspendLayout();
@@ -308,7 +303,7 @@
             this.btnRptPDC.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnRptPDC.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnRptPDC.HoverColorB = System.Drawing.Color.White;
-            this.btnRptPDC.Location = new System.Drawing.Point(247, 62);
+            this.btnRptPDC.Location = new System.Drawing.Point(247, 63);
             this.btnRptPDC.Name = "btnRptPDC";
             this.btnRptPDC.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnRptPDC.NormalColorA = System.Drawing.Color.White;
@@ -628,7 +623,7 @@
             this.btnTrailBalance.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnTrailBalance.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnTrailBalance.HoverColorB = System.Drawing.Color.White;
-            this.btnTrailBalance.Location = new System.Drawing.Point(15, 62);
+            this.btnTrailBalance.Location = new System.Drawing.Point(15, 63);
             this.btnTrailBalance.Name = "btnTrailBalance";
             this.btnTrailBalance.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnTrailBalance.NormalColorA = System.Drawing.Color.White;
@@ -646,60 +641,15 @@
             this.customPanel2.BorderColor = System.Drawing.Color.Silver;
             this.customPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.customPanel2.BorderWidth = 7;
-            this.customPanel2.Controls.Add(this.btnAutoPFHL);
-            this.customPanel2.Controls.Add(this.btnBankReconcilation);
+            this.customPanel2.Controls.Add(this.btnOthersTransaction);
+            this.customPanel2.Controls.Add(this.btnAccountsVoucher);
             this.customPanel2.Controls.Add(this.btnCommissionTran);
             this.customPanel2.Controls.Add(this.btnDashBoard);
-            this.customPanel2.Controls.Add(this.btnInterestCharge);
-            this.customPanel2.Controls.Add(this.btnContra);
-            this.customPanel2.Controls.Add(this.btnJournal);
-            this.customPanel2.Controls.Add(this.btnReceipt);
-            this.customPanel2.Controls.Add(this.btnPayment);
             this.customPanel2.Curvature = 20;
             this.customPanel2.Location = new System.Drawing.Point(254, 88);
             this.customPanel2.Name = "customPanel2";
             this.customPanel2.Size = new System.Drawing.Size(241, 435);
             this.customPanel2.TabIndex = 17;
-            // 
-            // btnAutoPFHL
-            // 
-            this.btnAutoPFHL.Active = true;
-            this.btnAutoPFHL.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
-            this.btnAutoPFHL.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAutoPFHL.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
-            this.btnAutoPFHL.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
-            this.btnAutoPFHL.HoverColorA = System.Drawing.Color.LemonChiffon;
-            this.btnAutoPFHL.HoverColorB = System.Drawing.Color.White;
-            this.btnAutoPFHL.Location = new System.Drawing.Point(20, 349);
-            this.btnAutoPFHL.Name = "btnAutoPFHL";
-            this.btnAutoPFHL.NormalBorderColor = System.Drawing.Color.Aqua;
-            this.btnAutoPFHL.NormalColorA = System.Drawing.Color.White;
-            this.btnAutoPFHL.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnAutoPFHL.Size = new System.Drawing.Size(200, 40);
-            this.btnAutoPFHL.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
-            this.btnAutoPFHL.TabIndex = 11;
-            this.btnAutoPFHL.Text = "Auto PF/HL";
-            this.btnAutoPFHL.Click += new System.EventHandler(this.btnAutoPFHL_Click);
-            // 
-            // btnBankReconcilation
-            // 
-            this.btnBankReconcilation.Active = true;
-            this.btnBankReconcilation.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
-            this.btnBankReconcilation.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBankReconcilation.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
-            this.btnBankReconcilation.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
-            this.btnBankReconcilation.HoverColorA = System.Drawing.Color.LemonChiffon;
-            this.btnBankReconcilation.HoverColorB = System.Drawing.Color.White;
-            this.btnBankReconcilation.Location = new System.Drawing.Point(20, 186);
-            this.btnBankReconcilation.Name = "btnBankReconcilation";
-            this.btnBankReconcilation.NormalBorderColor = System.Drawing.Color.Aqua;
-            this.btnBankReconcilation.NormalColorA = System.Drawing.Color.White;
-            this.btnBankReconcilation.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnBankReconcilation.Size = new System.Drawing.Size(200, 40);
-            this.btnBankReconcilation.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
-            this.btnBankReconcilation.TabIndex = 10;
-            this.btnBankReconcilation.Text = "Bank Reconcilation";
-            this.btnBankReconcilation.Click += new System.EventHandler(this.btnBankReconcilation_Click_1);
             // 
             // btnCommissionTran
             // 
@@ -710,7 +660,7 @@
             this.btnCommissionTran.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnCommissionTran.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnCommissionTran.HoverColorB = System.Drawing.Color.White;
-            this.btnCommissionTran.Location = new System.Drawing.Point(20, 226);
+            this.btnCommissionTran.Location = new System.Drawing.Point(20, 103);
             this.btnCommissionTran.Name = "btnCommissionTran";
             this.btnCommissionTran.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnCommissionTran.NormalColorA = System.Drawing.Color.White;
@@ -730,7 +680,7 @@
             this.btnDashBoard.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnDashBoard.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnDashBoard.HoverColorB = System.Drawing.Color.White;
-            this.btnDashBoard.Location = new System.Drawing.Point(20, 308);
+            this.btnDashBoard.Location = new System.Drawing.Point(20, 143);
             this.btnDashBoard.Name = "btnDashBoard";
             this.btnDashBoard.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnDashBoard.NormalColorA = System.Drawing.Color.White;
@@ -740,106 +690,6 @@
             this.btnDashBoard.TabIndex = 7;
             this.btnDashBoard.Text = "Dash Board";
             this.btnDashBoard.Click += new System.EventHandler(this.btnDashBoard_Click);
-            // 
-            // btnInterestCharge
-            // 
-            this.btnInterestCharge.Active = true;
-            this.btnInterestCharge.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
-            this.btnInterestCharge.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInterestCharge.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
-            this.btnInterestCharge.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
-            this.btnInterestCharge.HoverColorA = System.Drawing.Color.LemonChiffon;
-            this.btnInterestCharge.HoverColorB = System.Drawing.Color.White;
-            this.btnInterestCharge.Location = new System.Drawing.Point(20, 268);
-            this.btnInterestCharge.Name = "btnInterestCharge";
-            this.btnInterestCharge.NormalBorderColor = System.Drawing.Color.Aqua;
-            this.btnInterestCharge.NormalColorA = System.Drawing.Color.White;
-            this.btnInterestCharge.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnInterestCharge.Size = new System.Drawing.Size(200, 40);
-            this.btnInterestCharge.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
-            this.btnInterestCharge.TabIndex = 6;
-            this.btnInterestCharge.Text = "Interest Charge";
-            this.btnInterestCharge.Click += new System.EventHandler(this.btnInterestCharge_Click);
-            // 
-            // btnContra
-            // 
-            this.btnContra.Active = true;
-            this.btnContra.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
-            this.btnContra.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnContra.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
-            this.btnContra.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
-            this.btnContra.HoverColorA = System.Drawing.Color.LemonChiffon;
-            this.btnContra.HoverColorB = System.Drawing.Color.White;
-            this.btnContra.Location = new System.Drawing.Point(20, 145);
-            this.btnContra.Name = "btnContra";
-            this.btnContra.NormalBorderColor = System.Drawing.Color.Aqua;
-            this.btnContra.NormalColorA = System.Drawing.Color.White;
-            this.btnContra.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnContra.Size = new System.Drawing.Size(200, 40);
-            this.btnContra.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
-            this.btnContra.TabIndex = 4;
-            this.btnContra.Text = "Contra";
-            this.btnContra.Click += new System.EventHandler(this.btnContra_Click);
-            // 
-            // btnJournal
-            // 
-            this.btnJournal.Active = true;
-            this.btnJournal.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
-            this.btnJournal.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnJournal.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
-            this.btnJournal.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
-            this.btnJournal.HoverColorA = System.Drawing.Color.LemonChiffon;
-            this.btnJournal.HoverColorB = System.Drawing.Color.White;
-            this.btnJournal.Location = new System.Drawing.Point(20, 104);
-            this.btnJournal.Name = "btnJournal";
-            this.btnJournal.NormalBorderColor = System.Drawing.Color.Aqua;
-            this.btnJournal.NormalColorA = System.Drawing.Color.White;
-            this.btnJournal.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnJournal.Size = new System.Drawing.Size(200, 40);
-            this.btnJournal.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
-            this.btnJournal.TabIndex = 2;
-            this.btnJournal.Text = "Journal";
-            this.btnJournal.Click += new System.EventHandler(this.btnJournal_Click);
-            // 
-            // btnReceipt
-            // 
-            this.btnReceipt.Active = true;
-            this.btnReceipt.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
-            this.btnReceipt.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReceipt.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
-            this.btnReceipt.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
-            this.btnReceipt.HoverColorA = System.Drawing.Color.LemonChiffon;
-            this.btnReceipt.HoverColorB = System.Drawing.Color.White;
-            this.btnReceipt.Location = new System.Drawing.Point(20, 64);
-            this.btnReceipt.Name = "btnReceipt";
-            this.btnReceipt.NormalBorderColor = System.Drawing.Color.Aqua;
-            this.btnReceipt.NormalColorA = System.Drawing.Color.White;
-            this.btnReceipt.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnReceipt.Size = new System.Drawing.Size(200, 40);
-            this.btnReceipt.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
-            this.btnReceipt.TabIndex = 1;
-            this.btnReceipt.Text = "Receipt";
-            this.btnReceipt.Click += new System.EventHandler(this.btnReceipt_Click);
-            // 
-            // btnPayment
-            // 
-            this.btnPayment.Active = true;
-            this.btnPayment.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
-            this.btnPayment.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPayment.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
-            this.btnPayment.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
-            this.btnPayment.HoverColorA = System.Drawing.Color.LemonChiffon;
-            this.btnPayment.HoverColorB = System.Drawing.Color.White;
-            this.btnPayment.Location = new System.Drawing.Point(20, 24);
-            this.btnPayment.Name = "btnPayment";
-            this.btnPayment.NormalBorderColor = System.Drawing.Color.Aqua;
-            this.btnPayment.NormalColorA = System.Drawing.Color.White;
-            this.btnPayment.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnPayment.Size = new System.Drawing.Size(200, 40);
-            this.btnPayment.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
-            this.btnPayment.TabIndex = 0;
-            this.btnPayment.Text = "Payment";
-            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
             // 
             // customPanel1
             // 
@@ -1064,6 +914,46 @@
             this.btnBranch.Text = "Branch";
             this.btnBranch.Click += new System.EventHandler(this.btnBranch_Click);
             // 
+            // btnAccountsVoucher
+            // 
+            this.btnAccountsVoucher.Active = true;
+            this.btnAccountsVoucher.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
+            this.btnAccountsVoucher.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAccountsVoucher.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
+            this.btnAccountsVoucher.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
+            this.btnAccountsVoucher.HoverColorA = System.Drawing.Color.LemonChiffon;
+            this.btnAccountsVoucher.HoverColorB = System.Drawing.Color.White;
+            this.btnAccountsVoucher.Location = new System.Drawing.Point(20, 23);
+            this.btnAccountsVoucher.Name = "btnAccountsVoucher";
+            this.btnAccountsVoucher.NormalBorderColor = System.Drawing.Color.Aqua;
+            this.btnAccountsVoucher.NormalColorA = System.Drawing.Color.White;
+            this.btnAccountsVoucher.NormalColorB = System.Drawing.Color.Honeydew;
+            this.btnAccountsVoucher.Size = new System.Drawing.Size(200, 40);
+            this.btnAccountsVoucher.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
+            this.btnAccountsVoucher.TabIndex = 13;
+            this.btnAccountsVoucher.Text = "Accounts Voucher";
+            this.btnAccountsVoucher.Click += new System.EventHandler(this.btnAccountsVoucher_Click);
+            // 
+            // btnOthersTransaction
+            // 
+            this.btnOthersTransaction.Active = true;
+            this.btnOthersTransaction.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
+            this.btnOthersTransaction.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOthersTransaction.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
+            this.btnOthersTransaction.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
+            this.btnOthersTransaction.HoverColorA = System.Drawing.Color.LemonChiffon;
+            this.btnOthersTransaction.HoverColorB = System.Drawing.Color.White;
+            this.btnOthersTransaction.Location = new System.Drawing.Point(20, 63);
+            this.btnOthersTransaction.Name = "btnOthersTransaction";
+            this.btnOthersTransaction.NormalBorderColor = System.Drawing.Color.Aqua;
+            this.btnOthersTransaction.NormalColorA = System.Drawing.Color.White;
+            this.btnOthersTransaction.NormalColorB = System.Drawing.Color.Honeydew;
+            this.btnOthersTransaction.Size = new System.Drawing.Size(200, 40);
+            this.btnOthersTransaction.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
+            this.btnOthersTransaction.TabIndex = 14;
+            this.btnOthersTransaction.Text = "Others Transaction";
+            this.btnOthersTransaction.Click += new System.EventHandler(this.btnOthersTransaction_Click);
+            // 
             // frmAccountsMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1098,10 +988,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private CSharpCustomPanelControl.CustomPanel customPanel2;
-        private ColorButton.ColorButton btnContra;
-        private ColorButton.ColorButton btnJournal;
-        private ColorButton.ColorButton btnReceipt;
-        private ColorButton.ColorButton btnPayment;
         private CSharpCustomPanelControl.CustomPanel customPanel1;
         private ColorButton.ColorButton btnCostCenter;
         private ColorButton.ColorButton btnCostCategory;
@@ -1120,7 +1006,6 @@
         private ColorButton.ColorButton btnDailyCollection;
         private ColorButton.ColorButton btnManufacturing;
         private ColorButton.ColorButton btnDashBoard;
-        private ColorButton.ColorButton btnInterestCharge;
         private ColorButton.ColorButton btnBudget;
         private ColorButton.ColorButton btnFixedAssets;
         private ColorButton.ColorButton btnMarketMonitoringSheet;
@@ -1142,10 +1027,10 @@
         private System.Windows.Forms.Label label2;
         private ColorButton.ColorButton btnCommissionTran;
         private ColorButton.ColorButton btnBankReceiptPayment;
-        private ColorButton.ColorButton btnBankReconcilation;
         private ColorButton.ColorButton btnMpoConfig;
         private ColorButton.ColorButton btnLoan;
         private ColorButton.ColorButton btnRptHondLoan;
-        private ColorButton.ColorButton btnAutoPFHL;
+        private ColorButton.ColorButton btnOthersTransaction;
+        private ColorButton.ColorButton btnAccountsVoucher;
     }
 }

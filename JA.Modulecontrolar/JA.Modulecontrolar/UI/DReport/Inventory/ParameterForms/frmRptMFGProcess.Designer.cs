@@ -198,9 +198,9 @@
             this.chkStockRequisition.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkStockRequisition.Location = new System.Drawing.Point(196, 184);
             this.chkStockRequisition.Name = "chkStockRequisition";
-            this.chkStockRequisition.Size = new System.Drawing.Size(100, 17);
+            this.chkStockRequisition.Size = new System.Drawing.Size(98, 17);
             this.chkStockRequisition.TabIndex = 27;
-            this.chkStockRequisition.Text = "MVG Process";
+            this.chkStockRequisition.Text = "MFG Process";
             this.chkStockRequisition.UseVisualStyleBackColor = true;
             this.chkStockRequisition.CheckedChanged += new System.EventHandler(this.chkStockRequisition_CheckedChanged);
             this.chkStockRequisition.Click += new System.EventHandler(this.chkStockRequisition_Click);

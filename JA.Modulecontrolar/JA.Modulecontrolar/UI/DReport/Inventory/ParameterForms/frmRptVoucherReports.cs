@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using JA.Modulecontrolar.JACCMS;
 using JA.Modulecontrolar.UI.DReport.Inventory.Viewer;
 using Microsoft.Win32;
+using System.Collections;
 
 namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
 {
@@ -87,6 +88,13 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         }
         private void uctxtBranchName_TextChanged(object sender, EventArgs e)
         {
+            if (lstBranch.SelectedValue != null)
+            {
+                cboLocation.ValueMember = "strLocation";
+                cboLocation.DisplayMember = "strLocation";
+                cboLocation.DataSource = invms.gLoadLocation(strComID, lstBranch.SelectedValue.ToString(), Utility.gblnAccessControl, Utility.gstrUserName, 0).ToList();
+            }
+
             lstBranch.SelectedIndex = lstBranch.FindString(uctxtBranchName.Text);
         }
 
@@ -140,6 +148,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         private void radIndividual_Click(object sender, EventArgs e)
         {
             uctxtBranchName.Enabled = true;
+            cboLocation.Enabled = true;
             uctxtBranchName.Focus();
         }
 
@@ -157,12 +166,13 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         private void radAll_Click(object sender, EventArgs e)
         {
             uctxtBranchName.Enabled = false;
+            cboLocation.Enabled = false;
             dteFromDate.Focus();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            string strString = "", strSelection = "",strDetails="";
+            string strString = "", strSelection = "",strDetails="",strLocation="";
             if (uctxtBranchName.Text == "")
             {
                 strString = "";
@@ -179,13 +189,30 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             {
                 strDetails = "Summ";
             }
+            if (cboLocation.Text !="")
+            {
+                strLocation = cboLocation.Text;
+            }
+            else
+            {
+                strLocation = "";
+            }
+
             if (radDamage.Checked == true)
             {
                 strSelection = "D";
             }
+            else if (rbtnRequsition.Checked == true)
+            {
+                strSelection = "StockRequisition";
+            }
             else if (radStockTransfer.Checked == true)
             {
-                strSelection = "T";
+                strSelection = "StockTransferOut";
+            }
+            else if (rbtnstockTrnsferIN.Checked == true)
+            {
+                strSelection = "StockTransferIN";
             }
             else if (radPhysicalStock.Checked == true)
             {
@@ -193,7 +220,7 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             }
             else if (radStockAbsorved.Checked == true)
             {
-                strSelection = "C";
+                strSelection = "StockConsumption";
             }
             else if (radManufacturing.Checked == true)
             {
@@ -207,17 +234,44 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
             {
                 strSelection = "S";
             }
-
+            else if (rbtnProduction.Checked == true)
+            {
+                strSelection = "Production";
+            }
+            else if (rbtnConversionFG.Checked == true)
+            {
+                strSelection = "Con";
+            }
+            else if (rbtnStationaryCons.Checked == true)
+            {
+                strSelection = "Stationary";
+            }
+            else if (rbtnMFGVoucher.Checked == true)
+            {
+                strSelection = "MFG";
+            }
+            else if (radManufacturing.Checked == true)
+            {
+                strSelection = "MFGB";
+            }
             frmReportViewer frmviewer = new frmReportViewer();
-            frmviewer.selector = ViewerSelector.intventoryVoucher;
+            frmviewer.selector = ViewerSelector.intventoryVoucherNew;
             frmviewer.strFdate = dteFromDate.Text;
             frmviewer.strTdate = dteToDate.Text;
             frmviewer.strString = strString;
+            frmviewer.strGroup = strLocation;
             frmviewer.strSummDetails = strDetails;
             frmviewer.strSelction = strSelection;
             frmviewer.Show();
             
         }
+
+        private void uctxtBranchName_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+       
     }
 }
 

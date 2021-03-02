@@ -205,6 +205,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 uctxtToDate.Visible = false;
                 lblfromDate.Visible = false;
                 lblTodate.Visible = false;
+                lstFindWhat.Visible = false;
                 if (mintVType == (int)(Utility.VOUCHER_TYPE.vtSALES_INVOICE))
                 {
                     lstExpression.DataSource = accms.mFillLedgerList(strComID, (int)Utility.GR_GROUP_TYPE.grCUSTOMER).ToList();
@@ -235,6 +236,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 uctxtToDate.Visible = false;
                 lblfromDate.Visible = false;
                 lblTodate.Visible = false;
+                lstFindWhat.Visible = false;
                 lstExpression.DataSource = accms.mFillBranch(strComID, Utility.gblnAccessControl, Utility.gstrUserName).ToList();
                 lstExpression.ValueMember = "BranchID";
                 lstExpression.DisplayMember = "BranchName";
@@ -248,6 +250,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 uctxtToDate.Visible = true;
                 lblfromDate.Visible = true;
                 lblTodate.Visible = true;
+                lstFindWhat.Visible = false;
 
             }
             else if (uctxtFindWhat.Text == "Cheque Date")
@@ -259,16 +262,18 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 uctxtToDate.Visible = true;
                 lblfromDate.Visible = true;
                 lblTodate.Visible = true;
+                lstFindWhat.Visible = false;
             }
             else
             {
                 lstExpression.Visible = false;
-                lblExpression.Visible = false;
-                uctxtExpression.Visible = false;
+                lblExpression.Visible = true;
+                uctxtExpression.Visible = true;
                 uctxtFromDate.Visible = false;
                 uctxtToDate.Visible = false;
                 lblfromDate.Visible = false;
                 lblTodate.Visible = false;
+                lstFindWhat.Visible = false;
             }
             if (uctxtExpression.Visible)
             {
@@ -497,45 +502,136 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             }
             if (mintVType == (int)(Utility.VOUCHER_TYPE.vtSALES_QUOTATION))
             {
+                if (chkAreaStatus.Checked)
+                {
+                    intAreaStatus = 1;
+                    strPreserveSQl = "";
+                }
+                else
+                {
+                    strPreserveSQl = "";
+                }
                 ooVlist = accms.mOpentableQuo(strComID, mintVType, DateTime.Now.ToString("dd/MM/yyyy"), DateTime.Now.ToString("dd/MM/yyyy"), "").ToList();
             }
 
             else if (strFindWhat == "Voucher Number")
             {
+                if (chkAreaStatus.Checked)
+                {
+                    intAreaStatus = 1;
+                    strPreserveSQl = "";
+                }
+                else
+                {
+                    strPreserveSQl = "";
+                }
                 ooVlist = objWoIS.mOpenTable(strComID, mintVType, strFindWhat, strExpression, Utility.gstrUserName, "", "", mintSp, strPreserveSQl, intAreaStatus).ToList();
             }
             else if (strFindWhat == "Voucher Date")
             {
+                if (chkAreaStatus.Checked)
+                {
+                    intAreaStatus = 1;
+                    strPreserveSQl = "";
+                }
+                else
+                {
+                    strPreserveSQl = "";
+                }
                 ooVlist = objWoIS.mOpenTable(strComID, mintVType, strFindWhat, "", Utility.gstrUserName, strFdate, strTdate, mintSp, strPreserveSQl, intAreaStatus).ToList();
             }
             else if (strFindWhat == "Ledger Name")
             {
+                if (chkAreaStatus.Checked)
+                {
+                    intAreaStatus = 1;
+                    strPreserveSQl = "";
+                }
+                else
+                {
+                    strPreserveSQl = "";
+                }
                 ooVlist = objWoIS.mOpenTable(strComID, mintVType, strFindWhat, strExpression, Utility.gstrUserName, "", "", mintSp, strPreserveSQl, intAreaStatus).ToList();
             }
             else if (strFindWhat == "Branch Name")
             {
+                if (chkAreaStatus.Checked)
+                {
+                    intAreaStatus = 1;
+                    strPreserveSQl = "";
+                }
+                else
+                {
+                    strPreserveSQl = "";
+                }
                 ooVlist = objWoIS.mOpenTable(strComID, mintVType, strFindWhat, strExpression, Utility.gstrUserName, "", "", mintSp, strPreserveSQl, intAreaStatus).ToList();
             }
             else if (strFindWhat == "Amount")
             {
+                if (chkAreaStatus.Checked)
+                {
+                    intAreaStatus = 1;
+                    strPreserveSQl = "";
+                }
+                else
+                {
+                    strPreserveSQl = "";
+                }
                 ooVlist = objWoIS.mOpenTable(strComID, mintVType, strFindWhat, strExpression, Utility.gstrUserName, "", "", mintSp, strPreserveSQl, intAreaStatus).ToList();
             }
             else if (strFindWhat == "Narrations")
             {
+                if (chkAreaStatus.Checked)
+                {
+                    intAreaStatus = 1;
+                    strPreserveSQl = "";
+                }
+                else
+                {
+                    strPreserveSQl = "";
+                }
                 ooVlist = objWoIS.mOpenTable(strComID, mintVType, strFindWhat, strExpression, Utility.gstrUserName, "", "", mintSp, strPreserveSQl, intAreaStatus).ToList();
             }
             else if (strFindWhat == "Cheque Number")
             {
+                if (chkAreaStatus.Checked)
+                {
+                    intAreaStatus = 1;
+                    strPreserveSQl = "";
+                }
+                else
+                {
+                    strPreserveSQl = "";
+                }
                 ooVlist = objWoIS.mOpenTable(strComID, mintVType, strFindWhat, strExpression, Utility.gstrUserName, "", "", mintSp, strPreserveSQl, intAreaStatus).ToList();
             }
             else if (strFindWhat == "Cheque Date")
             {
+                if (chkAreaStatus.Checked)
+                {
+                    intAreaStatus = 1;
+                    strPreserveSQl = "";
+                }
+                else
+                {
+                    strPreserveSQl = "";
+                }
                 ooVlist = objWoIS.mOpenTable(strComID, mintVType, strFindWhat, "", Utility.gstrUserName, strFdate, strTdate, mintSp, strPreserveSQl, intAreaStatus).ToList();
             }
 
             else
             {
-                ooVlist = objWoIS.mOpenTable(strComID, mintVType, strFindWhat, "", Utility.gstrUserName, DateTime.Now.ToString("dd/MM/yyyy"), DateTime.Now.ToString("dd/MM/yyyy"), mintSp, strPreserveSQl,intAreaStatus).ToList();
+                if (chkAreaStatus.Checked)
+                {
+                    intAreaStatus = 1;
+                    strPreserveSQl = "";
+                }
+                else
+                {
+                    strPreserveSQl = "";
+                }
+                //ooVlist = objWoIS.mOpenTable(strComID, mintVType, strFindWhat, "", Utility.gstrUserName, DateTime.Now.ToString("dd/MM/yyyy"), DateTime.Now.ToString("dd/MM/yyyy"), mintSp, strPreserveSQl,intAreaStatus).ToList();
+                ooVlist = objWoIS.mOpenTable(strComID, mintVType, strFindWhat, "", Utility.gstrUserName, "", "", mintSp, strPreserveSQl, intAreaStatus).ToList();
             }
 
 
@@ -582,6 +678,15 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     DG[10, j].Value = "Delele";
                     DG[11, j].Value = "View";
                     DG[12, j].Value = ovoucher.strPreserveSQL;
+                    if(ovoucher.intvoucherPos ==1)
+                    {
+                        DG.Rows[j].DefaultCellStyle.BackColor = Color.LemonChiffon;
+                    }
+                    if (ovoucher.intAppSIRet == 1)
+                    {
+                        DG.Rows[j].DefaultCellStyle.BackColor = Color.Salmon;
+                        DG.Rows[j].DefaultCellStyle.ForeColor = Color.White;
+                    }
                     j += 1;
 
                 }
@@ -716,10 +821,41 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
 
                 }
-
-
                 if (onAddAllButtonClicked != null)
                     onAddAllButtonClicked(GetSelectedItem(), sender, e);
+                try
+                {
+                    if (System.Windows.Forms.Application.OpenForms["frmSalesOrderNew"] as frmSalesOrderNew == null)
+                    {
+                        frmSalesOrderNew objfrm = new frmSalesOrderNew();
+                        objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.EDIT_MODE;
+                        objfrm.intVtype = (int)Utility.VOUCHER_TYPE.vtSALES_ORDER;
+                        objfrm.lngFormPriv = 158;
+                        objfrm.strVoucherNo = DG.CurrentRow.Cells[1].Value.ToString();
+                        if (DG.CurrentRow.Cells[7].Value.ToString() == "No")
+                        {
+                            objfrm.intAppStatus = 0;
+                        }
+                        else
+                        {
+                            objfrm.intAppStatus = 1;
+                        }
+                        objfrm.MdiParent = this.MdiParent;
+                        objfrm.Show();
+                    }
+                    else
+                    {
+                        frmSalesOrderNew objfrm = (frmSalesOrderNew)Application.OpenForms["frmSalesOrderNew"];
+                        objfrm.Focus();
+                        objfrm.MdiParent = this.MdiParent;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                
                 this.Dispose();
             }
             if (e.ColumnIndex == 10)
@@ -754,7 +890,17 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
 
                 }
-
+                string strLockvoucher = Utility.gLockVocher(strComID, mintVType);
+                long lngDate = Convert.ToInt64(Convert.ToDateTime(DG.CurrentRow.Cells[3].Value.ToString()).ToString("yyyyMMdd"));
+                if (strLockvoucher != "")
+                {
+                    long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                    if (lngDate <= lngBackdate)
+                    {
+                        MessageBox.Show("Invalid Date, Back Date is locked");
+                        return;
+                    }
+                }
                 var strResponse = MessageBox.Show("Do You  want to Delete?", "Delete Button", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (strResponse == DialogResult.Yes)
                 {
@@ -803,6 +949,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     JA.Modulecontrolar.UI.DReport.Purchase.Viewer.frmReportViewer frmviewer = new JA.Modulecontrolar.UI.DReport.Purchase.Viewer.frmReportViewer();
                     frmviewer.selector = JA.Modulecontrolar.UI.DReport.Purchase.ViewerSelector.VouchearVouNoListReport;
                     frmviewer.strString = "'" + DG.CurrentRow.Cells[1].Value.ToString() + "'";
+                    frmviewer.strLedgerName = "'" + DG.CurrentRow.Cells[4].Value.ToString() + "' ";
                     frmviewer.strString2 = "Sales Order";
                     frmviewer.intSuppress = 1;
                     frmviewer.intMode = mintVType;
@@ -814,8 +961,9 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
 
         }
+     
 
-
+       
         private List<AccountsVoucher> GetSelectedItem()
         {
             List<AccountsVoucher> items = new List<AccountsVoucher>();
@@ -1109,16 +1257,18 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
 
         }
         #endregion
-        private bool validationFields(string vstrRefNo)
+        private bool validationFields(string vstrRefNo, double dblAmount)
         {
-            
+
             double dblPending = 0, dblCreditLimit = 0, dblLedgerClosing = 0;
             DateTime dteDate = Convert.ToDateTime(DG.CurrentRow.Cells[3].Value.ToString());
-            string strMPO = Utility.gGetLedgerNameFromMerze(strComID,DG.CurrentRow.Cells[4].Value.ToString());
+            string strMPO = Utility.gGetLedgerNameFromMerze(strComID, DG.CurrentRow.Cells[4].Value.ToString());
             //dblCreditLimit = Utility.gdblCreditLimitGrace(strComID, strMPO, dteDate.ToString("MMMyy"), dteDate.ToString("dd-MM-yyyy"));
             dblCreditLimit = Utility.gdblCreditLimit(strComID, strMPO, dteDate.ToString("MMMyy"));
+
             string strResponse = Utility.gstrGetCommCal(strComID, vstrRefNo);
-            if (strResponse=="No")
+
+            if (strResponse == "No")
             {
                 MessageBox.Show("You Need to Commission Calculation First,then Approved!!", "Commission Calculator", MessageBoxButtons.OK, MessageBoxIcon.Question);
                 return false;
@@ -1127,13 +1277,26 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             if (dblCreditLimit != 0)
             {
                 string strFDate = Utility.FirstDayOfMonth(dteDate).ToString("dd-MM-yyyy");
-                dblLedgerClosing = Utility.dblLedgerClosingBalance(strComID, strFDate, dteDate.ToString("dd-MM-yyyy"), strMPO, "");
+                //dblLedgerClosing = Utility.dblLedgerClosingBalance(strComID, strFDate, dteDate.ToString("dd-MM-yyyy"), strMPO, "");
+                dblLedgerClosing = Utility.dblLedgerClosingBalance(strComID, Utility.gdteFinancialYearFrom.ToString(), Utility.gdteFinancialYearTo.ToString(), strMPO, "");
 
-                dblPending = Math.Round(dblCreditLimit - Math.Abs(dblLedgerClosing), 2);
+                //dblPending = Math.Round(dblCreditLimit - Math.Abs(dblLedgerClosing), 2);
 
-                if (dblPending < Utility.Val(txtNetTotal.Text))
+                //if (dblPending < dblAmount)
+                //{
+                string strCls = "";
+
+                if (dblLedgerClosing > 0)
                 {
-                    string strCls = "";
+                    dblPending = Math.Round(dblCreditLimit + Math.Abs(dblLedgerClosing), 2);
+                }
+                else
+                {
+                    dblPending = Math.Round(dblCreditLimit - Math.Abs(dblLedgerClosing), 2);
+                }
+                if (dblPending < dblAmount)
+                {
+                    
                     if (dblLedgerClosing < 0)
                     {
                         strCls = dblLedgerClosing * -1 + " Dr";
@@ -1144,22 +1307,25 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     }
                     MessageBox.Show("You have crossed your Credit Limit" + Environment.NewLine + "Closing Balance :" + strCls + Environment.NewLine
                                                                     + "Credit Limt :" + dblCreditLimit + Environment.NewLine + "Pending : " + dblPending, "Credit Limit Information", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                   
-                    return false ;
-                
+                    return false;
+
+
+
+
+
                 }
                 else
                 {
-                    
+
                     return true;
                 }
             }
             else
             {
-               
+
                 return true;
             }
-           
+
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
@@ -1178,24 +1344,37 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                     {
                         if (chkAreaStatus.Checked == false)
                         {
-                            if (validationFields(DG[1, i].Value.ToString()) == true)
+                            if (validationFields(DG[1, i].Value.ToString(), Utility.Val(DG[6, i].Value.ToString())) == false)
                             {
-                                strmsg = objWoIS.gUpdateOnlineOrder(strComID, DG[1, i].Value.ToString(), 2);
+                                mFetchRecord(uctxtFindWhat.Text, uctxtExpression.Text, uctxtFromDate.Text, uctxtToDate.Text, intAreaStaus);
+                                return;
                             }
-                            if (strmsg!="1")
+                                strmsg = objWoIS.gUpdateOnlineOrder(strComID, DG[1, i].Value.ToString(), 2);
+                                //DG.Rows.RemoveAt(i);
+                            
+                            if (strmsg != "")
                             {
-                                MessageBox.Show(strmsg);
+                                if (strmsg != "1")
+                                {
+                                    MessageBox.Show(strmsg);
+                                    return;
+                                }
+                            }
+                            else
+                            {
                                 return;
                             }
                         }
                         else
                         {
                             strmsg = objWoIS.gUpdateOnlineOrder(strComID, DG[1, i].Value.ToString(), 1);
+                            //DG.Rows.RemoveAt(i);
                         }
+                        //strmsg = "";
                         intcount += 1;
                     }
                 }
-                chkAreaStatus.Checked = false;
+                //chkAreaStatus.Checked = false;
                 chkSelectAll.Checked = false;
                 if (strmsg == "1")
                 {
@@ -1306,6 +1485,36 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 mFetchRecord(uctxtFindWhat.Text, uctxtExpression.Text, uctxtFromDate.Text, uctxtToDate.Text, 0);
             }
         }
+
+        private void btnCreateView_Click(object sender, EventArgs e)
+        {
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, lngFormPriv))
+                {
+                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmSalesOrderNew"] as frmSalesOrderNew == null)
+            {
+                frmSalesOrderNew objfrm = new frmSalesOrderNew();
+                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                objfrm.intVtype = (int)Utility.VOUCHER_TYPE.vtSALES_ORDER;
+                objfrm.lngFormPriv = 158;
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
+
+            }
+            else
+            {
+                frmSalesOrderNew objfrm = (frmSalesOrderNew)Application.OpenForms["frmSalesOrderNew"];
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
+        }
+
+      
 
 
     }

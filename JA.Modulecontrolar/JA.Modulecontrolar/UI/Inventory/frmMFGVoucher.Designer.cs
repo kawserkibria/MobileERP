@@ -37,13 +37,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.uctxtProcessName = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label21 = new System.Windows.Forms.Label();
+            this.lblWastaeRm = new System.Windows.Forms.Label();
             this.lblWastageRmAmnt = new System.Windows.Forms.Label();
             this.DgWastageRm = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.chkPartial = new System.Windows.Forms.CheckBox();
             this.chkChangeRm = new System.Windows.Forms.CheckBox();
-            this.label20 = new System.Windows.Forms.Label();
+            this.lblRMTotal = new System.Windows.Forms.Label();
             this.lblRmAmount = new System.Windows.Forms.Label();
             this.DgRm = new System.Windows.Forms.DataGridView();
             this.label11 = new System.Windows.Forms.Label();
@@ -78,12 +78,12 @@
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chkChangePm = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lblPMTotal = new System.Windows.Forms.Label();
             this.lblPmAmount = new System.Windows.Forms.Label();
             this.DgPm = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label17 = new System.Windows.Forms.Label();
+            this.lblPMWastage = new System.Windows.Forms.Label();
             this.lblWastagePmAmount = new System.Windows.Forms.Label();
             this.dgWastagePm = new System.Windows.Forms.DataGridView();
             this.txtFm = new System.Windows.Forms.TextBox();
@@ -94,6 +94,10 @@
             this.uctxtSampletoFg = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.uctxtSampleToQC = new System.Windows.Forms.TextBox();
+            this.chkBatchComplete = new System.Windows.Forms.CheckBox();
+            this.lblFGName = new System.Windows.Forms.Label();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.btnSerach = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -115,6 +119,9 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.btnSerach);
+            this.pnlMain.Controls.Add(this.lblFGName);
+            this.pnlMain.Controls.Add(this.chkBatchComplete);
             this.pnlMain.Controls.Add(this.label19);
             this.pnlMain.Controls.Add(this.uctxtSampleToQC);
             this.pnlMain.Controls.Add(this.label18);
@@ -221,7 +228,7 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label21);
+            this.groupBox4.Controls.Add(this.lblWastaeRm);
             this.groupBox4.Controls.Add(this.lblWastageRmAmnt);
             this.groupBox4.Controls.Add(this.DgWastageRm);
             this.groupBox4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -232,16 +239,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Wastage Raw Material";
             // 
-            // label21
+            // lblWastaeRm
             // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.Red;
-            this.label21.Location = new System.Drawing.Point(153, 212);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(99, 14);
-            this.label21.TabIndex = 158;
-            this.label21.Text = "Total Amount:";
+            this.lblWastaeRm.AutoSize = true;
+            this.lblWastaeRm.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWastaeRm.ForeColor = System.Drawing.Color.Red;
+            this.lblWastaeRm.Location = new System.Drawing.Point(153, 212);
+            this.lblWastaeRm.Name = "lblWastaeRm";
+            this.lblWastaeRm.Size = new System.Drawing.Size(99, 14);
+            this.lblWastaeRm.TabIndex = 158;
+            this.lblWastaeRm.Text = "Total Amount:";
             // 
             // lblWastageRmAmnt
             // 
@@ -269,7 +276,7 @@
             // 
             this.groupBox3.Controls.Add(this.chkPartial);
             this.groupBox3.Controls.Add(this.chkChangeRm);
-            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.lblRMTotal);
             this.groupBox3.Controls.Add(this.lblRmAmount);
             this.groupBox3.Controls.Add(this.DgRm);
             this.groupBox3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -304,16 +311,16 @@
             this.chkChangeRm.Text = "Change";
             this.chkChangeRm.UseVisualStyleBackColor = true;
             // 
-            // label20
+            // lblRMTotal
             // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.Red;
-            this.label20.Location = new System.Drawing.Point(229, 214);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(99, 14);
-            this.label20.TabIndex = 120;
-            this.label20.Text = "Total Amount:";
+            this.lblRMTotal.AutoSize = true;
+            this.lblRMTotal.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRMTotal.ForeColor = System.Drawing.Color.Red;
+            this.lblRMTotal.Location = new System.Drawing.Point(229, 214);
+            this.lblRMTotal.Name = "lblRMTotal";
+            this.lblRMTotal.Size = new System.Drawing.Size(99, 14);
+            this.lblRMTotal.TabIndex = 120;
+            this.lblRMTotal.Text = "Total Amount:";
             // 
             // lblRmAmount
             // 
@@ -467,6 +474,7 @@
             // 
             // dteDate
             // 
+            this.dteDate.Enabled = false;
             this.dteDate.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dteDate.Location = new System.Drawing.Point(10, 236);
@@ -619,9 +627,9 @@
             this.label15.Font = new System.Drawing.Font("Tahoma", 20.25F);
             this.label15.Location = new System.Drawing.Point(18, 10);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(436, 33);
+            this.label15.Size = new System.Drawing.Size(468, 33);
             this.label15.TabIndex = 116;
-            this.label15.Text = "Manufacturing Voucher (Batchwise)";
+            this.label15.Text = "Manufacturing Voucher (Process wise)";
             // 
             // lblUnitPrice
             // 
@@ -708,7 +716,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.chkChangePm);
-            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.lblPMTotal);
             this.groupBox2.Controls.Add(this.lblPmAmount);
             this.groupBox2.Controls.Add(this.DgPm);
             this.groupBox2.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -731,16 +739,16 @@
             this.chkChangePm.Text = "Change";
             this.chkChangePm.UseVisualStyleBackColor = true;
             // 
-            // label13
+            // lblPMTotal
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(240, 191);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(99, 14);
-            this.label13.TabIndex = 120;
-            this.label13.Text = "Total Amount:";
+            this.lblPMTotal.AutoSize = true;
+            this.lblPMTotal.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPMTotal.ForeColor = System.Drawing.Color.Red;
+            this.lblPMTotal.Location = new System.Drawing.Point(240, 191);
+            this.lblPMTotal.Name = "lblPMTotal";
+            this.lblPMTotal.Size = new System.Drawing.Size(99, 14);
+            this.lblPMTotal.TabIndex = 120;
+            this.lblPMTotal.Text = "Total Amount:";
             // 
             // lblPmAmount
             // 
@@ -774,7 +782,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.label17);
+            this.groupBox5.Controls.Add(this.lblPMWastage);
             this.groupBox5.Controls.Add(this.lblWastagePmAmount);
             this.groupBox5.Controls.Add(this.dgWastagePm);
             this.groupBox5.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -785,16 +793,16 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Wastage Packing Material";
             // 
-            // label17
+            // lblPMWastage
             // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.Red;
-            this.label17.Location = new System.Drawing.Point(153, 191);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(99, 14);
-            this.label17.TabIndex = 158;
-            this.label17.Text = "Total Amount:";
+            this.lblPMWastage.AutoSize = true;
+            this.lblPMWastage.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPMWastage.ForeColor = System.Drawing.Color.Red;
+            this.lblPMWastage.Location = new System.Drawing.Point(153, 191);
+            this.lblPMWastage.Name = "lblPMWastage";
+            this.lblPMWastage.Size = new System.Drawing.Size(99, 14);
+            this.lblPMWastage.TabIndex = 158;
+            this.lblPMWastage.Text = "Total Amount:";
             // 
             // lblWastagePmAmount
             // 
@@ -866,6 +874,7 @@
             this.label18.Size = new System.Drawing.Size(102, 16);
             this.label18.TabIndex = 159;
             this.label18.Text = "Sample to FG:";
+            this.label18.Visible = false;
             // 
             // uctxtSampletoFg
             // 
@@ -875,6 +884,7 @@
             this.uctxtSampletoFg.Name = "uctxtSampletoFg";
             this.uctxtSampletoFg.Size = new System.Drawing.Size(76, 23);
             this.uctxtSampletoFg.TabIndex = 158;
+            this.uctxtSampletoFg.Visible = false;
             // 
             // label19
             // 
@@ -886,6 +896,7 @@
             this.label19.Size = new System.Drawing.Size(104, 16);
             this.label19.TabIndex = 161;
             this.label19.Text = "Sample to QC:";
+            this.label19.Visible = false;
             // 
             // uctxtSampleToQC
             // 
@@ -895,6 +906,47 @@
             this.uctxtSampleToQC.Name = "uctxtSampleToQC";
             this.uctxtSampleToQC.Size = new System.Drawing.Size(75, 23);
             this.uctxtSampleToQC.TabIndex = 160;
+            this.uctxtSampleToQC.Visible = false;
+            // 
+            // chkBatchComplete
+            // 
+            this.chkBatchComplete.AutoSize = true;
+            this.chkBatchComplete.Location = new System.Drawing.Point(162, 217);
+            this.chkBatchComplete.Name = "chkBatchComplete";
+            this.chkBatchComplete.Size = new System.Drawing.Size(101, 17);
+            this.chkBatchComplete.TabIndex = 162;
+            this.chkBatchComplete.Text = "Batch Complete";
+            this.chkBatchComplete.UseVisualStyleBackColor = true;
+            // 
+            // lblFGName
+            // 
+            this.lblFGName.AutoSize = true;
+            this.lblFGName.Font = new System.Drawing.Font("Verdana", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFGName.ForeColor = System.Drawing.Color.Blue;
+            this.lblFGName.Location = new System.Drawing.Point(84, 173);
+            this.lblFGName.Name = "lblFGName";
+            this.lblFGName.Size = new System.Drawing.Size(0, 13);
+            this.lblFGName.TabIndex = 163;
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "icons8-search-48.png");
+            // 
+            // btnSerach
+            // 
+            this.btnSerach.BackColor = System.Drawing.Color.White;
+            this.btnSerach.ForeColor = System.Drawing.Color.Teal;
+            this.btnSerach.ImageIndex = 0;
+            this.btnSerach.ImageList = this.imageList1;
+            this.btnSerach.Location = new System.Drawing.Point(226, 457);
+            this.btnSerach.Name = "btnSerach";
+            this.btnSerach.Size = new System.Drawing.Size(40, 25);
+            this.btnSerach.TabIndex = 164;
+            this.btnSerach.UseVisualStyleBackColor = false;
+            this.btnSerach.Visible = false;
+            this.btnSerach.Click += new System.EventHandler(this.btnSerach_Click);
             // 
             // frmMFGVoucher
             // 
@@ -980,19 +1032,19 @@
         private System.Windows.Forms.Label lblUnitPrice;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtFgValue;
-        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label lblWastaeRm;
         private System.Windows.Forms.Label lblWastageRmAmnt;
-        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label lblRMTotal;
         private System.Windows.Forms.Label lblRmAmount;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblPMTotal;
         private System.Windows.Forms.Label lblPmAmount;
         private System.Windows.Forms.DataGridView DgPm;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.CheckBox chkChangePm;
         private System.Windows.Forms.CheckBox chkChangeRm;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label lblPMWastage;
         private System.Windows.Forms.Label lblWastagePmAmount;
         private System.Windows.Forms.DataGridView dgWastagePm;
         private System.Windows.Forms.TextBox txtFm;
@@ -1007,5 +1059,9 @@
         private System.Windows.Forms.Button lblUsed;
         private System.Windows.Forms.Button lblBatchSize;
         private System.Windows.Forms.CheckBox chkPartial;
+        private System.Windows.Forms.CheckBox chkBatchComplete;
+        private System.Windows.Forms.Label lblFGName;
+        private System.Windows.Forms.ImageList imageList2;
+        private System.Windows.Forms.Button btnSerach;
     }
 }

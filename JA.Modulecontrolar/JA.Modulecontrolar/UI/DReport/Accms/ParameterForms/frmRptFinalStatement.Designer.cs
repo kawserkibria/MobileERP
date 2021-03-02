@@ -66,6 +66,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.chkOnlyPrint = new System.Windows.Forms.CheckBox();
+            this.chkBaseTarget = new System.Windows.Forms.CheckBox();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -83,6 +84,7 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.chkBaseTarget);
             this.pnlMain.Controls.Add(this.chkOnlyPrint);
             this.pnlMain.Controls.Add(this.groupBox2);
             this.pnlMain.Controls.Add(this.label8);
@@ -513,6 +515,17 @@
             this.chkOnlyPrint.UseVisualStyleBackColor = true;
             this.chkOnlyPrint.Visible = false;
             // 
+            // chkBaseTarget
+            // 
+            this.chkBaseTarget.AutoSize = true;
+            this.chkBaseTarget.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkBaseTarget.Location = new System.Drawing.Point(38, 460);
+            this.chkBaseTarget.Name = "chkBaseTarget";
+            this.chkBaseTarget.Size = new System.Drawing.Size(104, 17);
+            this.chkBaseTarget.TabIndex = 220;
+            this.chkBaseTarget.Text = "Base Target";
+            this.chkBaseTarget.UseVisualStyleBackColor = true;
+            // 
             // frmRptFinalStatement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -573,5 +586,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox chkOnlyPrint;
+        private System.Windows.Forms.CheckBox chkBaseTarget;
     }
 }

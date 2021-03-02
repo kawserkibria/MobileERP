@@ -9,7 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 using JA.Modulecontrolar.UI.Accms.Forms;
-
+using JA.Modulecontrolar.UI.Forms;
 using JA.Modulecontrolar.JACCMS;
 using JA.Modulecontrolar.UI.Inventory;
 using Microsoft.VisualBasic;
@@ -2627,7 +2627,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
             int introw = 0;
             DGMr.Rows.Clear();
 
-            ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, 0,"").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, strBranchID, Utility.gblnAccessControl, Utility.gstrUserName, 0,"","").ToList();
 
             if (ooPartyName.Count > 0)
             {
@@ -2824,7 +2824,16 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                 MessageBox.Show("Invalid Date, Date Can't less then Financial Year");
                 return false;
             }
-
+            string strLockvoucher = Utility.gLockVocher(strComID, intVtype);
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
+                {
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return false;
+                }
+            }
             string strBacklockDate = Utility.gCheckBackLock(strComID);
 
             if (DGSalesGrid.Rows.Count ==0)
@@ -2857,7 +2866,7 @@ namespace JA.Modulecontrolar.UI.Sales.Forms
                         dblClosingQTY = Utility.gdblClosingStock(strComID, DGSalesGrid[0, i].Value.ToString(), uctxtLocation.Text, dteDate.Text);
                         if (m_action == (int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
                         {
-                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey);
+                            dblClosingQTY = dblClosingQTY + Utility.gdblGetBillQty(strComID, strBillKey, uctxtLocation.Text);
                         }
                         dblCurrentQTY = Utility.Val(DGSalesGrid[2, i].ToString());
                         if ((dblClosingQTY) - dblCurrentQTY < 0)

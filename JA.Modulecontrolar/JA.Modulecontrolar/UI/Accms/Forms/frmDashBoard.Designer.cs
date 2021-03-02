@@ -137,7 +137,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 512);
+            this.groupBox1.Location = new System.Drawing.Point(0, 525);
             this.groupBox1.Size = new System.Drawing.Size(789, 27);
             // 
             // timer1
@@ -648,7 +648,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.BackColor = System.Drawing.Color.Beige;
-            this.ClientSize = new System.Drawing.Size(789, 539);
+            this.ClientSize = new System.Drawing.Size(789, 552);
             this.isEnterTabAllow = true;
             this.KeyPreview = false;
             this.MinimizeBox = false;

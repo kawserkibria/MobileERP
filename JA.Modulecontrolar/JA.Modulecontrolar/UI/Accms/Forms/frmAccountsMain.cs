@@ -26,307 +26,184 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             strComID = (String)regKey.GetValue("CompanyID", "0001");
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmAccountsMain_KeyDown);
 
-            this.btnBankReconcilation.Click += new System.EventHandler(this.btnBankReconcilation_Click);
+            
         }
 
-        private void btnPayment_Click(object sender, EventArgs e)
-        {
-            if (Utility.gblnAccessControl)
-            {
-                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 103))
-                {
-                     MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
-                    return;
-                }
-            }
-            if (System.Windows.Forms.Application.OpenForms["frmAccountsVoucher"] as frmAccountsVoucher == null)
-            {
-                frmAccountsVoucher objfrm = new frmAccountsVoucher();
-                objfrm.intvtype = (int)Utility.VOUCHER_TYPE.vtPAYMENT_VOUCHER;
-                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-                objfrm.lngFormPriv = 103;
-                objfrm.strFormName = "Payment";
-                objfrm.Show();
-                objfrm.MdiParent = this.MdiParent;
-
-            }
-            else
-            {
-                frmAccountsVoucher objfrm = (frmAccountsVoucher)Application.OpenForms["frmAccountsVoucher"];
-                objfrm.lngFormPriv = 103;
-                objfrm.Focus();
-                objfrm.MdiParent = this.MdiParent;
-            }
-
-        }
-
-        private void btnReceipt_Click(object sender, EventArgs e)
-        {
-            if (Utility.gblnAccessControl)
-            {
-                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 104))
-                {
-                     MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
-                    return;
-                }
-            }
-            if (System.Windows.Forms.Application.OpenForms["frmAccountsVoucher"] as frmAccountsVoucher == null)
-            {
-                frmAccountsVoucher objfrm = new frmAccountsVoucher();
-                objfrm.intvtype = (int)Utility.VOUCHER_TYPE.vtRECEIPT_VOUCHER;
-                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-                objfrm.strFormName = "Receipt";
-                objfrm.lngFormPriv = 104;
-                objfrm.Show();
-                objfrm.MdiParent = this.MdiParent;
-
-            }
-            else
-            {
-                frmAccountsVoucher objfrm = (frmAccountsVoucher)Application.OpenForms["frmAccountsVoucher"];
-                objfrm.lngFormPriv = 104;
-                objfrm.Focus();
-                objfrm.MdiParent = this.MdiParent;
-            }
-
-        }
-
-        private void btnContra_Click(object sender, EventArgs e)
-        {
-            if (Utility.gblnAccessControl)
-            {
-                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 106))
-                {
-                     MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
-                    return;
-                }
-            }
-            if (System.Windows.Forms.Application.OpenForms["frmAccountsVoucher"] as frmAccountsVoucher == null)
-            {
-                frmAccountsVoucher objfrm = new frmAccountsVoucher();
-                objfrm.intvtype = (int)Utility.VOUCHER_TYPE.vtCONTRA_VOUCHER;
-                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-                objfrm.lngFormPriv = 106;
-                objfrm.strFormName = "Contra";
-                objfrm.Show();
-                objfrm.MdiParent = this.MdiParent;
-
-            }
-            else
-            {
-                frmAccountsVoucher objfrm = (frmAccountsVoucher)Application.OpenForms["frmAccountsVoucher"];
-                objfrm.lngFormPriv = 106;
-                objfrm.Focus();
-                objfrm.MdiParent = this.MdiParent;
-            }
-
-        }
-
-        private void btnJournal_Click(object sender, EventArgs e)
-        {
-            if (Utility.gblnAccessControl)
-            {
-                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 105))
-                {
-                     MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
-                    return;
-                }
-            }
-            if (System.Windows.Forms.Application.OpenForms["frmAccountsVoucher"] as frmAccountsVoucher == null)
-            {
-                frmAccountsVoucher objfrm = new frmAccountsVoucher();
-                objfrm.intvtype = (int)Utility.VOUCHER_TYPE.vtJOURNAL_VOUCHER;
-                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-                objfrm.lngFormPriv = 105;
-                objfrm.strFormName = "Journal";
-                objfrm.Show();
-                objfrm.MdiParent = this.MdiParent;
-
-            }
-            else
-            {
-                frmAccountsVoucher objfrm = (frmAccountsVoucher)Application.OpenForms["frmAccountsVoucher"];
-                objfrm.lngFormPriv = 105;
-                objfrm.Focus();
-                objfrm.MdiParent = this.MdiParent;
-            }
-
-
-        }
+        
 
         private void btnVoucherTypes_Click(object sender, EventArgs e)
         {
-            //if (Utility.gblnAccessControl)
-            //{
-            //    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 99))
-            //    {
-            //         MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
-            //        return;
-            //    }
-            //}
-            //if (System.Windows.Forms.Application.OpenForms["frmVoucherTypesList"] as frmVoucherTypesList == null)
-            //{
-            //    frmVoucherTypesList objfrm = new frmVoucherTypesList();
-            //    objfrm.lngMtype = (long)Utility.MODULE_TYPE.mtACCOUNT;
-            //    objfrm.lngFormPriv = 99;
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 99))
+                {
+                     MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmVoucherTypesList"] as frmVoucherTypesList == null)
+            {
+                frmVoucherTypesList objfrm = new frmVoucherTypesList();
+                objfrm.lngMtype = (long)Utility.MODULE_TYPE.mtACCOUNT;
+                objfrm.lngFormPriv = 99;
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmVoucherTypesList objfrm = (frmVoucherTypesList)Application.OpenForms["frmVoucherTypesList"];
-            //    objfrm.lngFormPriv = 99;
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmVoucherTypesList objfrm = (frmVoucherTypesList)Application.OpenForms["frmVoucherTypesList"];
+                objfrm.lngFormPriv = 99;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
 
         }
 
         private void btnBranch_Click(object sender, EventArgs e)
         {
-            //if (Utility.gblnAccessControl)
-            //{
-            //    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 94))
-            //    {
-            //         MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
-            //        return;
-            //    }
-            //}
-            //if (System.Windows.Forms.Application.OpenForms["frmBranch"] as frmBranch == null)
-            //{
-            //    frmBranch objfrm = new frmBranch();
-            //    objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-            //    objfrm.lngFormPriv = 94;
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 94))
+                {
+                     MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmBranch"] as frmBranch == null)
+            {
+                frmBranch objfrm = new frmBranch();
+                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                objfrm.lngFormPriv = 94;
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
                
 
-            //}
-            //else
-            //{
-            //    frmBranch objfrm = (frmBranch)Application.OpenForms["frmBranch"];
-            //    objfrm.lngFormPriv = 94;
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmBranch objfrm = (frmBranch)Application.OpenForms["frmBranch"];
+                objfrm.lngFormPriv = 94;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
 
         }
 
         private void btnCostCenter_Click(object sender, EventArgs e)
         {
-            //if (Utility.gblnAccessControl)
-            //{
-            //    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 98))
-            //    {
-            //         MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
-            //        return;
-            //    }
-            //}
-            //if (System.Windows.Forms.Application.OpenForms["frmCostCenter"] as frmCostCenter == null)
-            //{
-            //    frmCostCenter objfrm = new frmCostCenter();
-            //    objfrm.lngFormPriv = 98;
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 98))
+                {
+                     MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmCostCenter"] as frmCostCenter == null)
+            {
+                frmCostCenter objfrm = new frmCostCenter();
+                objfrm.lngFormPriv = 98;
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmCostCenter objfrm = (frmCostCenter)Application.OpenForms["frmCostCenter"];
-            //    objfrm.lngFormPriv = 98;
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmCostCenter objfrm = (frmCostCenter)Application.OpenForms["frmCostCenter"];
+                objfrm.lngFormPriv = 98;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
 
         }
 
         private void btnCostCategory_Click(object sender, EventArgs e)
         {
-            //if (Utility.gblnAccessControl)
-            //{
-            //    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 97))
-            //    {
-            //         MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
-            //        return;
-            //    }
-            //}
-            //if (System.Windows.Forms.Application.OpenForms["frmCostCategory"] as frmCostCategory == null)
-            //{
-            //    frmCostCategory objfrm = new frmCostCategory();
-            //    objfrm.lngFormPriv = 97;
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 97))
+                {
+                     MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmCostCategory"] as frmCostCategory == null)
+            {
+                frmCostCategory objfrm = new frmCostCategory();
+                objfrm.lngFormPriv = 97;
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmCostCategory objfrm = (frmCostCategory)Application.OpenForms["frmCostCategory"];
-            //    objfrm.lngFormPriv = 97;
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmCostCategory objfrm = (frmCostCategory)Application.OpenForms["frmCostCategory"];
+                objfrm.lngFormPriv = 97;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
 
         }
 
         private void btnLedger_Click(object sender, EventArgs e)
         {
-            //if (Utility.gblnAccessControl)
-            //{
-            //    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 96))
-            //    {
-            //         MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
-            //        return;
-            //    }
-            //}
-            //if (System.Windows.Forms.Application.OpenForms["frmAccountsLedger"] as frmAccountsLedger == null)
-            //{
-            //    frmAccountsLedger objfrm = new frmAccountsLedger();
-            //    objfrm.m_acction = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-            //    objfrm.lngFormPriv = 96;
-            //    objfrm.Show();
-            //    objfrm.BringToFront();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 96))
+                {
+                     MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmAccountsLedger"] as frmAccountsLedger == null)
+            {
+                frmAccountsLedger objfrm = new frmAccountsLedger();
+                objfrm.m_acction = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                objfrm.lngFormPriv = 96;
+                objfrm.Show();
+                objfrm.BringToFront();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmAccountsLedger objfrm = (frmAccountsLedger)Application.OpenForms["frmAccountsLedger"];
-            //    objfrm.lngFormPriv = 96;
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmAccountsLedger objfrm = (frmAccountsLedger)Application.OpenForms["frmAccountsLedger"];
+                objfrm.lngFormPriv = 96;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
 
         }
 
         private void btnGroups_Click(object sender, EventArgs e)
         {
-            //if (Utility.gblnAccessControl)
-            //{
-            //    if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 95))
-            //    {
-            //         MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
-            //        return;
-            //    }
-            //}
-            //if (System.Windows.Forms.Application.OpenForms["frmGroupConfiguration"] as frmGroupConfiguration == null)
-            //{
-            //    frmGroupConfiguration objfrm = new frmGroupConfiguration();
-            //    objfrm.lngFormPriv = 95;
-            //    objfrm.intModuleType = (int)Utility.MODULE_TYPE.mtACCOUNT;
-            //    objfrm.strFoemName = "Group";
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (Utility.gblnAccessControl)
+            {
+                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 95))
+                {
+                     MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
+                    return;
+                }
+            }
+            if (System.Windows.Forms.Application.OpenForms["frmGroupConfiguration"] as frmGroupConfiguration == null)
+            {
+                frmGroupConfiguration objfrm = new frmGroupConfiguration();
+                objfrm.lngFormPriv = 95;
+                objfrm.intModuleType = (int)Utility.MODULE_TYPE.mtACCOUNT;
+                objfrm.strFoemName = "Group";
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmGroupConfiguration objfrm = (frmGroupConfiguration)Application.OpenForms["frmGroupConfiguration"];
-            //    objfrm.strFoemName = "Group";
-            //    objfrm.lngFormPriv = 95;
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmGroupConfiguration objfrm = (frmGroupConfiguration)Application.OpenForms["frmGroupConfiguration"];
+                objfrm.strFoemName = "Group";
+                objfrm.lngFormPriv = 95;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
 
         }
 
@@ -423,19 +300,19 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     return;
                 }
             }
-            //if (System.Windows.Forms.Application.OpenForms["frmCostCenterMain"] as frmCostCenterMain == null)
-            //{
-            //    frmCostCenterMain objfrm = new frmCostCenterMain();
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (System.Windows.Forms.Application.OpenForms["frmCostCenterMain"] as frmCostCenterMain == null)
+            {
+                frmCostCenterMain objfrm = new frmCostCenterMain();
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmCostCenterMain objfrm = (frmCostCenterMain)Application.OpenForms["frmCostCenterMain"];
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmCostCenterMain objfrm = (frmCostCenterMain)Application.OpenForms["frmCostCenterMain"];
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
 
         }
 
@@ -562,33 +439,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
 
         }
 
-        private void btnInterestCharge_Click(object sender, EventArgs e)
-        {
-            if (Utility.gblnAccessControl)
-            {
-                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 108))
-                {
-                     MessageBox.Show("You have no Permission to Access","Privileges",MessageBoxButtons.OK,MessageBoxIcon.Warning );
-                    return;
-                }
-            }
-            if (System.Windows.Forms.Application.OpenForms["frmInterestChargee"] as frmInterestChargee == null)
-            {
-                frmInterestChargee objfrm = new frmInterestChargee();
-                objfrm.lngFormPriv = 108;
-                objfrm.Show();
-                objfrm.MdiParent = this.MdiParent;
-
-            }
-            else
-            {
-                frmInterestChargee objfrm = (frmInterestChargee)Application.OpenForms["frmInterestChargee"];
-                objfrm.lngFormPriv = 108;
-                objfrm.Focus();
-                objfrm.MdiParent = this.MdiParent;
-            }
-
-        }
+      
 
         private void btnDashBoard_Click(object sender, EventArgs e)
         {
@@ -600,19 +451,19 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     return;
                 }
             }
-            if (System.Windows.Forms.Application.OpenForms["frmDashBoard"] as frmDashBoard == null)
-            {
-                frmDashBoard objfrm = new frmDashBoard();
-                objfrm.Show();
-                objfrm.MdiParent = this.MdiParent;
+            //if (System.Windows.Forms.Application.OpenForms["frmDashBoard"] as frmDashBoard == null)
+            //{
+            //    frmDashBoard objfrm = new frmDashBoard();
+            //    objfrm.Show();
+            //    objfrm.MdiParent = this.MdiParent;
 
-            }
-            else
-            {
-                frmDashBoard objfrm = (frmDashBoard)Application.OpenForms["frmDashBoard"];
-                objfrm.Focus();
-                objfrm.MdiParent = this.MdiParent;
-            }
+            //}
+            //else
+            //{
+            //    frmDashBoard objfrm = (frmDashBoard)Application.OpenForms["frmDashBoard"];
+            //    objfrm.Focus();
+            //    objfrm.MdiParent = this.MdiParent;
+            //}
         }
 
 
@@ -626,22 +477,22 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     return;
                 }
             }
-            //if (System.Windows.Forms.Application.OpenForms["frmFixedAssets"] as frmFixedAssets == null)
-            //{
-            //    frmFixedAssets objfrm = new frmFixedAssets();
-            //    objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-            //    objfrm.lngFormPriv = 100;
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (System.Windows.Forms.Application.OpenForms["frmFixedAssets"] as frmFixedAssets == null)
+            {
+                frmFixedAssets objfrm = new frmFixedAssets();
+                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                objfrm.lngFormPriv = 100;
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmFixedAssets objfrm = (frmFixedAssets)Application.OpenForms["frmFixedAssets"];
-            //    objfrm.lngFormPriv = 100;
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmFixedAssets objfrm = (frmFixedAssets)Application.OpenForms["frmFixedAssets"];
+                objfrm.lngFormPriv = 100;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
 
         }
 
@@ -655,9 +506,9 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     return;
                 }
             }
-            if (System.Windows.Forms.Application.OpenForms["frmRptFinalStatement"] as frmRptFinalStatement == null)
+            if (System.Windows.Forms.Application.OpenForms["frmRptMarketMonitoringSheet"] as frmRptMarketMonitoringSheet == null)
             {
-                frmRptFinalStatement objfrm = new frmRptFinalStatement();
+                frmRptMarketMonitoringSheet objfrm = new frmRptMarketMonitoringSheet();
                 objfrm.strReportName = "Market Monitoring Sheet";
                 objfrm.Show();
                 objfrm.MdiParent = this.MdiParent;
@@ -665,7 +516,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             }
             else
             {
-                frmRptFinalStatement objfrm = (frmRptFinalStatement)Application.OpenForms["frmRptFinalStatement"];
+                frmRptMarketMonitoringSheet objfrm = (frmRptMarketMonitoringSheet)Application.OpenForms["frmRptMarketMonitoringSheet"];
                 objfrm.Focus();
                 objfrm.MdiParent = this.MdiParent;
             }
@@ -924,22 +775,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             {
                 btnLedger_Click(sender, e);
             }
-            else if (e.KeyCode == Keys.P && e.Modifiers == Keys.Control)
-            {
-                btnPayment_Click(sender, e);
-            }
-            else if (e.KeyCode == Keys.R && e.Modifiers == Keys.Control)
-            {
-                btnReceipt_Click(sender, e);
-            }
-            else if (e.KeyCode == Keys.J && e.Modifiers == Keys.Control)
-            {
-                btnJournal_Click(sender, e);
-            }
-            else if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control)
-            {
-                btnContra_Click(sender, e);
-            }
+            
             else if (e.KeyCode == Keys.D && e.Modifiers == Keys.Control)
             {
                 btnCommissionTran_Click(sender, e);
@@ -981,19 +817,20 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
 
         private void btnCommissionTran_Click(object sender, EventArgs e)
         {
-            //if (System.Windows.Forms.Application.OpenForms["frmMPOCommissionTran"] as frmMPOCommissionTran == null)
-            //{
-            //    frmMPOCommissionTran objfrm = new frmMPOCommissionTran();
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (System.Windows.Forms.Application.OpenForms["frmMPOCommissionTran"] as frmMPOCommissionTran == null)
+            {
+                frmMPOCommissionTran objfrm = new frmMPOCommissionTran();
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmMPOCommissionTran objfrm = (frmMPOCommissionTran)Application.OpenForms["frmMPOCommissionTran"];
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmMPOCommissionTran objfrm = (frmMPOCommissionTran)Application.OpenForms["frmMPOCommissionTran"];
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
+           
         }
 
       
@@ -1029,30 +866,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
 
         }
 
-        private void btnBankReconcilation_Click(object sender, EventArgs e)
-        {
-            if (Utility.gblnAccessControl)
-            {
-                if (!Utility.gblnChildPrivileges(strComID, Utility.gstrUserName, 171))
-                {
-                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-            }
-            if (System.Windows.Forms.Application.OpenForms["frmBankReconcilation"] as frmBankReconcilation == null)
-            {
-                frmBankReconcilation objfrm = new frmBankReconcilation();
-                objfrm.Show();
-                objfrm.MdiParent = this.MdiParent;
-
-            }
-            else
-            {
-                frmBankReconcilation objfrm = (frmBankReconcilation)Application.OpenForms["frmBankReconcilation"];
-                objfrm.Focus();
-                objfrm.MdiParent = this.MdiParent;
-            }
-        }
+      
 
         private void btnBankReconcilation_Click_1(object sender, EventArgs e)
         {
@@ -1066,19 +880,19 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
 
         private void btnMpoConfig_Click(object sender, EventArgs e)
         {
-            //if (System.Windows.Forms.Application.OpenForms["frmMPOCommission"] as frmMPOCommission == null)
-            //{
-            //    frmMPOCommission objfrm = new frmMPOCommission();
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (System.Windows.Forms.Application.OpenForms["frmMPOCommission"] as frmMPOCommission == null)
+            {
+                frmMPOCommission objfrm = new frmMPOCommission();
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmMPOCommission objfrm = (frmMPOCommission)Application.OpenForms["frmMPOCommission"];
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmMPOCommission objfrm = (frmMPOCommission)Application.OpenForms["frmMPOCommission"];
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
         }
 
         private void btnContractParty_Click(object sender, EventArgs e)
@@ -1151,27 +965,37 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             }
         }
 
-        private void btnAutoPFHL_Click(object sender, EventArgs e)
-        {
-            if (Utility.gblnAccessControl)
-            {
-                if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, 193, 1))
-                {
-                    MessageBox.Show("You have no Permission to Access", "Privileges", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-            }
 
-            if (System.Windows.Forms.Application.OpenForms["frmAutoJV"] as frmAutoJV == null)
+
+        private void btnAccountsVoucher_Click(object sender, EventArgs e)
+        {
+            if (System.Windows.Forms.Application.OpenForms["frmAccountsvoucherMaster"] as frmAccountsvoucherMaster == null)
             {
-                frmAutoJV objfrm = new frmAutoJV();
+                frmAccountsvoucherMaster objfrm = new frmAccountsvoucherMaster();
                 objfrm.Show();
                 objfrm.MdiParent = this.MdiParent;
 
             }
             else
             {
-                frmAutoJV objfrm = (frmAutoJV)Application.OpenForms["frmAutoJV"];
+                frmAccountsvoucherMaster objfrm = (frmAccountsvoucherMaster)Application.OpenForms["frmAccountsvoucherMaster"];
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
+        }
+
+        private void btnOthersTransaction_Click(object sender, EventArgs e)
+        {
+            if (System.Windows.Forms.Application.OpenForms["frmAccountsOtherMaster"] as frmAccountsOtherMaster == null)
+            {
+                frmAccountsOtherMaster objfrm = new frmAccountsOtherMaster();
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
+
+            }
+            else
+            {
+                frmAccountsOtherMaster objfrm = (frmAccountsOtherMaster)Application.OpenForms["frmAccountsOtherMaster"];
                 objfrm.Focus();
                 objfrm.MdiParent = this.MdiParent;
             }

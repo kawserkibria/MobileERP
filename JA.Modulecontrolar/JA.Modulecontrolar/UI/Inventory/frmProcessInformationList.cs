@@ -49,7 +49,8 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             DgProcessList.AllowUserToAddRows = false;
             this.DgProcessList.DefaultCellStyle.Font = new Font("verdana", 9);
-            DgProcessList.Columns.Add(Utility.Create_Grid_Column("Process Name", "Process Name", 700, true, DataGridViewContentAlignment.TopLeft, true));
+            DgProcessList.Columns.Add(Utility.Create_Grid_Column("Process Name", "Process Name", 450, true, DataGridViewContentAlignment.TopLeft, true));
+            DgProcessList.Columns.Add(Utility.Create_Grid_Column("Location Name", "Location Name", 250, true, DataGridViewContentAlignment.TopLeft, true));
             DgProcessList.Columns.Add(Utility.Create_Grid_Column_button("Edit", "Edit", "Edit", 60, true, DataGridViewContentAlignment.TopCenter, true));
             DgProcessList.Columns.Add(Utility.Create_Grid_Column_button("Delete", "Delete", "Delete", 60, true, DataGridViewContentAlignment.TopCenter, true));
             DgProcessList.Columns.Add(Utility.Create_Grid_Column_button("Preview", "Preview", "Preview", 60, true, DataGridViewContentAlignment.TopCenter, true));
@@ -68,24 +69,18 @@ namespace JA.Modulecontrolar.UI.Inventory
             int introw = 0;
             this.DgProcessList.DefaultCellStyle.Font = new Font("verdana", 9);
             DgProcessList.Rows.Clear();
-            oogrp = invms.mLoadProcess(strComID, "", "", intVtype,intTransfer).ToList();
+            oogrp = invms.mLoadProcess(strComID, "", "", intVtype,intTransfer,Utility.gstrUserName).ToList();
             if (oogrp.Count > 0)
             {
                 foreach (ManuProcess ogrp in oogrp)
                 {
                     DgProcessList.Rows.Add();
                     DgProcessList[0, introw].Value = ogrp.strProcessName;
-                    DgProcessList[1, introw].Value = "Edit";
-                    DgProcessList[2, introw].Value = "Delete";
-                    DgProcessList[3, introw].Value = "Preview";
-                    //if (introw % 2 == 0)
-                    //{
-                    //    DgProcessList.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
-                    //}
-                    //else
-                    //{
-                    //    DgProcessList.Rows[introw].DefaultCellStyle.BackColor = Color.White;
-                    //}
+                    DgProcessList[1, introw].Value = ogrp.strGodown;
+                    DgProcessList[2, introw].Value = "Edit";
+                    DgProcessList[3, introw].Value = "Delete";
+                    DgProcessList[4, introw].Value = "Preview";
+                  
                     introw += 1;
                 }
                 DgProcessList.AllowUserToAddRows = false;
@@ -111,7 +106,7 @@ namespace JA.Modulecontrolar.UI.Inventory
 
         private void DgProcessList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 1)
+            if (e.ColumnIndex == 2)
             {
                 if (Utility.gblnAccessControl)
                 {
@@ -125,7 +120,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                     onAddAllButtonClicked(GetSelectedItem(), sender, e);
                 this.Dispose();
             }
-            if (e.ColumnIndex == 2)
+            if (e.ColumnIndex == 3)
             {
                 if (Utility.gblnAccessControl)
                 {
@@ -158,7 +153,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                     }
                 }
             }
-            if (e.ColumnIndex == 3)
+            if (e.ColumnIndex == 4)
             {
                 if (DgProcessList.Rows.Count == 0)
                 {
@@ -173,11 +168,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         return;
                     }
                 }
-                //strString += DgProcessList.CurrentRow.Cells[0].Value.ToString() + "~" + 1 + "|";
-                //if (strString == "")
-                //{
-                //    return;
-                //}
+              
 
                 frmReportViewer frmviewer = new frmReportViewer();
                 frmviewer.selector = ViewerSelector.MFGProcessReport;
@@ -214,17 +205,11 @@ namespace JA.Modulecontrolar.UI.Inventory
                 {
                     DgProcessList.Rows.Add();
                     DgProcessList[0, introw].Value = ogrp.strProcessName;
-                    DgProcessList[1, introw].Value = "Edit";
-                    DgProcessList[2, introw].Value = "Delete";
-                    DgProcessList[3, introw].Value = "Preview";
-                    //if (introw % 2 == 0)
-                    //{
-                    //    DgProcessList.Rows[introw].DefaultCellStyle.BackColor = Color.Beige;
-                    //}
-                    //else
-                    //{
-                    //    DgProcessList.Rows[introw].DefaultCellStyle.BackColor = Color.White;
-                    //}
+                    DgProcessList[1, introw].Value = ogrp.strGodown;
+                    DgProcessList[2, introw].Value = "Edit";
+                    DgProcessList[3, introw].Value = "Delete";
+                    DgProcessList[4, introw].Value = "Preview";
+                   
                     introw += 1;
                 }
 

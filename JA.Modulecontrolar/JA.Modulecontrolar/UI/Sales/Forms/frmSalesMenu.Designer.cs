@@ -38,6 +38,8 @@
             this.customPanel4 = new CSharpCustomPanelControl.CustomPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.customPanel3 = new CSharpCustomPanelControl.CustomPanel();
+            this.btnrptCollectionTarget = new ColorButton.ColorButton();
+            this.btnRptSalesTarget = new ColorButton.ColorButton();
             this.cmdRptYearComparative = new ColorButton.ColorButton();
             this.btnrptSalesOrder = new ColorButton.ColorButton();
             this.btnMPOLedger = new ColorButton.ColorButton();
@@ -48,8 +50,6 @@
             this.btnRptSalesChallan = new ColorButton.ColorButton();
             this.btnRptSalesColl = new ColorButton.ColorButton();
             this.btnVoucherReports = new ColorButton.ColorButton();
-            this.btnReturnRegister = new ColorButton.ColorButton();
-            this.btnSalesRegister = new ColorButton.ColorButton();
             this.btnStatisticalProductSales = new ColorButton.ColorButton();
             this.btnSalesStaPackSize = new ColorButton.ColorButton();
             this.btnSalesStatIndividual = new ColorButton.ColorButton();
@@ -73,6 +73,7 @@
             this.btnReceiptVoucher = new ColorButton.ColorButton();
             this.btnSalesOrder = new ColorButton.ColorButton();
             this.customPanel1 = new CSharpCustomPanelControl.CustomPanel();
+            this.btnRouteConfiguration = new ColorButton.ColorButton();
             this.btnCreditLimitNew = new ColorButton.ColorButton();
             this.btnItemWiseTarget = new ColorButton.ColorButton();
             this.btnTeritorry = new ColorButton.ColorButton();
@@ -91,8 +92,8 @@
             this.btnPriceLevel = new ColorButton.ColorButton();
             this.btnVoucherTypes = new ColorButton.ColorButton();
             this.btnSalesRep = new ColorButton.ColorButton();
-            this.btnGroup = new ColorButton.ColorButton();
             this.btnCustomer = new ColorButton.ColorButton();
+            this.btnGroup = new ColorButton.ColorButton();
             this.panel1.SuspendLayout();
             this.customPanel7.SuspendLayout();
             this.customPanel6.SuspendLayout();
@@ -115,7 +116,7 @@
             this.panel1.Controls.Add(this.customPanel1);
             this.panel1.Location = new System.Drawing.Point(4, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1138, 530);
+            this.panel1.Size = new System.Drawing.Size(974, 530);
             this.panel1.TabIndex = 1;
             // 
             // customPanel7
@@ -127,7 +128,7 @@
             this.customPanel7.BorderWidth = 3;
             this.customPanel7.Controls.Add(this.label2);
             this.customPanel7.Curvature = 20;
-            this.customPanel7.Location = new System.Drawing.Point(435, 6);
+            this.customPanel7.Location = new System.Drawing.Point(316, 6);
             this.customPanel7.Name = "customPanel7";
             this.customPanel7.Size = new System.Drawing.Size(304, 43);
             this.customPanel7.TabIndex = 37;
@@ -153,9 +154,9 @@
             this.customPanel6.BorderWidth = 3;
             this.customPanel6.Controls.Add(this.label7);
             this.customPanel6.Curvature = 20;
-            this.customPanel6.Location = new System.Drawing.Point(708, 50);
+            this.customPanel6.Location = new System.Drawing.Point(534, 50);
             this.customPanel6.Name = "customPanel6";
-            this.customPanel6.Size = new System.Drawing.Size(425, 44);
+            this.customPanel6.Size = new System.Drawing.Size(430, 44);
             this.customPanel6.TabIndex = 31;
             // 
             // label7
@@ -163,7 +164,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Navy;
-            this.label7.Location = new System.Drawing.Point(180, 4);
+            this.label7.Location = new System.Drawing.Point(147, 5);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(107, 31);
             this.label7.TabIndex = 6;
@@ -178,9 +179,9 @@
             this.customPanel5.BorderWidth = 3;
             this.customPanel5.Controls.Add(this.label5);
             this.customPanel5.Curvature = 20;
-            this.customPanel5.Location = new System.Drawing.Point(456, 49);
+            this.customPanel5.Location = new System.Drawing.Point(360, 49);
             this.customPanel5.Name = "customPanel5";
-            this.customPanel5.Size = new System.Drawing.Size(245, 44);
+            this.customPanel5.Size = new System.Drawing.Size(170, 44);
             this.customPanel5.TabIndex = 30;
             // 
             // label5
@@ -188,7 +189,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Navy;
-            this.label5.Location = new System.Drawing.Point(45, 5);
+            this.label5.Location = new System.Drawing.Point(11, 5);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(154, 31);
             this.label5.TabIndex = 5;
@@ -205,7 +206,7 @@
             this.customPanel4.Curvature = 20;
             this.customPanel4.Location = new System.Drawing.Point(7, 49);
             this.customPanel4.Name = "customPanel4";
-            this.customPanel4.Size = new System.Drawing.Size(441, 44);
+            this.customPanel4.Size = new System.Drawing.Size(347, 44);
             this.customPanel4.TabIndex = 29;
             // 
             // label1
@@ -213,7 +214,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Navy;
-            this.label1.Location = new System.Drawing.Point(189, 5);
+            this.label1.Location = new System.Drawing.Point(132, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 31);
             this.label1.TabIndex = 4;
@@ -227,6 +228,8 @@
             this.customPanel3.BorderColor = System.Drawing.Color.Silver;
             this.customPanel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.customPanel3.BorderWidth = 7;
+            this.customPanel3.Controls.Add(this.btnrptCollectionTarget);
+            this.customPanel3.Controls.Add(this.btnRptSalesTarget);
             this.customPanel3.Controls.Add(this.cmdRptYearComparative);
             this.customPanel3.Controls.Add(this.btnrptSalesOrder);
             this.customPanel3.Controls.Add(this.btnMPOLedger);
@@ -237,8 +240,6 @@
             this.customPanel3.Controls.Add(this.btnRptSalesChallan);
             this.customPanel3.Controls.Add(this.btnRptSalesColl);
             this.customPanel3.Controls.Add(this.btnVoucherReports);
-            this.customPanel3.Controls.Add(this.btnReturnRegister);
-            this.customPanel3.Controls.Add(this.btnSalesRegister);
             this.customPanel3.Controls.Add(this.btnStatisticalProductSales);
             this.customPanel3.Controls.Add(this.btnSalesStaPackSize);
             this.customPanel3.Controls.Add(this.btnSalesStatIndividual);
@@ -254,10 +255,50 @@
             this.customPanel3.Controls.Add(this.btnSalesPriceList);
             this.customPanel3.Controls.Add(this.btnDocMpo);
             this.customPanel3.Curvature = 20;
-            this.customPanel3.Location = new System.Drawing.Point(707, 94);
+            this.customPanel3.Location = new System.Drawing.Point(534, 94);
             this.customPanel3.Name = "customPanel3";
-            this.customPanel3.Size = new System.Drawing.Size(427, 430);
+            this.customPanel3.Size = new System.Drawing.Size(430, 430);
             this.customPanel3.TabIndex = 18;
+            // 
+            // btnrptCollectionTarget
+            // 
+            this.btnrptCollectionTarget.Active = true;
+            this.btnrptCollectionTarget.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
+            this.btnrptCollectionTarget.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnrptCollectionTarget.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
+            this.btnrptCollectionTarget.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
+            this.btnrptCollectionTarget.HoverColorA = System.Drawing.Color.LemonChiffon;
+            this.btnrptCollectionTarget.HoverColorB = System.Drawing.Color.White;
+            this.btnrptCollectionTarget.Location = new System.Drawing.Point(13, 386);
+            this.btnrptCollectionTarget.Name = "btnrptCollectionTarget";
+            this.btnrptCollectionTarget.NormalBorderColor = System.Drawing.Color.Aqua;
+            this.btnrptCollectionTarget.NormalColorA = System.Drawing.Color.White;
+            this.btnrptCollectionTarget.NormalColorB = System.Drawing.Color.Honeydew;
+            this.btnrptCollectionTarget.Size = new System.Drawing.Size(200, 37);
+            this.btnrptCollectionTarget.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
+            this.btnrptCollectionTarget.TabIndex = 48;
+            this.btnrptCollectionTarget.Text = "Collection Target";
+            this.btnrptCollectionTarget.Click += new System.EventHandler(this.btnrptCollectionTarget_Click);
+            // 
+            // btnRptSalesTarget
+            // 
+            this.btnRptSalesTarget.Active = true;
+            this.btnRptSalesTarget.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
+            this.btnRptSalesTarget.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRptSalesTarget.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
+            this.btnRptSalesTarget.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
+            this.btnRptSalesTarget.HoverColorA = System.Drawing.Color.LemonChiffon;
+            this.btnRptSalesTarget.HoverColorB = System.Drawing.Color.White;
+            this.btnRptSalesTarget.Location = new System.Drawing.Point(13, 352);
+            this.btnRptSalesTarget.Name = "btnRptSalesTarget";
+            this.btnRptSalesTarget.NormalBorderColor = System.Drawing.Color.Aqua;
+            this.btnRptSalesTarget.NormalColorA = System.Drawing.Color.White;
+            this.btnRptSalesTarget.NormalColorB = System.Drawing.Color.Honeydew;
+            this.btnRptSalesTarget.Size = new System.Drawing.Size(200, 37);
+            this.btnRptSalesTarget.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
+            this.btnRptSalesTarget.TabIndex = 47;
+            this.btnRptSalesTarget.Text = "Sales Target";
+            this.btnRptSalesTarget.Click += new System.EventHandler(this.btnRptSalesTarget_Click);
             // 
             // cmdRptYearComparative
             // 
@@ -268,12 +309,12 @@
             this.cmdRptYearComparative.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.cmdRptYearComparative.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.cmdRptYearComparative.HoverColorB = System.Drawing.Color.White;
-            this.cmdRptYearComparative.Location = new System.Drawing.Point(220, 378);
+            this.cmdRptYearComparative.Location = new System.Drawing.Point(215, 386);
             this.cmdRptYearComparative.Name = "cmdRptYearComparative";
             this.cmdRptYearComparative.NormalBorderColor = System.Drawing.Color.Aqua;
             this.cmdRptYearComparative.NormalColorA = System.Drawing.Color.White;
             this.cmdRptYearComparative.NormalColorB = System.Drawing.Color.Honeydew;
-            this.cmdRptYearComparative.Size = new System.Drawing.Size(200, 33);
+            this.cmdRptYearComparative.Size = new System.Drawing.Size(201, 33);
             this.cmdRptYearComparative.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.cmdRptYearComparative.TabIndex = 46;
             this.cmdRptYearComparative.Text = "Year Wise Compare";
@@ -288,7 +329,7 @@
             this.btnrptSalesOrder.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnrptSalesOrder.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnrptSalesOrder.HoverColorB = System.Drawing.Color.White;
-            this.btnrptSalesOrder.Location = new System.Drawing.Point(13, 379);
+            this.btnrptSalesOrder.Location = new System.Drawing.Point(13, 317);
             this.btnrptSalesOrder.Name = "btnrptSalesOrder";
             this.btnrptSalesOrder.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnrptSalesOrder.NormalColorA = System.Drawing.Color.White;
@@ -308,12 +349,12 @@
             this.btnMPOLedger.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnMPOLedger.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnMPOLedger.HoverColorB = System.Drawing.Color.White;
-            this.btnMPOLedger.Location = new System.Drawing.Point(220, 344);
+            this.btnMPOLedger.Location = new System.Drawing.Point(215, 352);
             this.btnMPOLedger.Name = "btnMPOLedger";
             this.btnMPOLedger.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnMPOLedger.NormalColorA = System.Drawing.Color.White;
             this.btnMPOLedger.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnMPOLedger.Size = new System.Drawing.Size(200, 33);
+            this.btnMPOLedger.Size = new System.Drawing.Size(201, 33);
             this.btnMPOLedger.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnMPOLedger.TabIndex = 44;
             this.btnMPOLedger.Text = "MPO Ledger ";
@@ -328,12 +369,12 @@
             this.btnCreditLimit.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnCreditLimit.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnCreditLimit.HoverColorB = System.Drawing.Color.White;
-            this.btnCreditLimit.Location = new System.Drawing.Point(220, 310);
+            this.btnCreditLimit.Location = new System.Drawing.Point(215, 317);
             this.btnCreditLimit.Name = "btnCreditLimit";
             this.btnCreditLimit.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnCreditLimit.NormalColorA = System.Drawing.Color.White;
             this.btnCreditLimit.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnCreditLimit.Size = new System.Drawing.Size(200, 32);
+            this.btnCreditLimit.Size = new System.Drawing.Size(201, 33);
             this.btnCreditLimit.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnCreditLimit.TabIndex = 43;
             this.btnCreditLimit.Text = "Credit Limit";
@@ -348,12 +389,12 @@
             this.btnSpProductTarget.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSpProductTarget.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSpProductTarget.HoverColorB = System.Drawing.Color.White;
-            this.btnSpProductTarget.Location = new System.Drawing.Point(220, 276);
+            this.btnSpProductTarget.Location = new System.Drawing.Point(215, 282);
             this.btnSpProductTarget.Name = "btnSpProductTarget";
             this.btnSpProductTarget.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSpProductTarget.NormalColorA = System.Drawing.Color.White;
             this.btnSpProductTarget.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSpProductTarget.Size = new System.Drawing.Size(200, 32);
+            this.btnSpProductTarget.Size = new System.Drawing.Size(201, 33);
             this.btnSpProductTarget.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnSpProductTarget.TabIndex = 42;
             this.btnSpProductTarget.Text = "Special Product Target";
@@ -368,12 +409,12 @@
             this.btnSpecialProduct.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSpecialProduct.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSpecialProduct.HoverColorB = System.Drawing.Color.White;
-            this.btnSpecialProduct.Location = new System.Drawing.Point(220, 242);
+            this.btnSpecialProduct.Location = new System.Drawing.Point(215, 249);
             this.btnSpecialProduct.Name = "btnSpecialProduct";
             this.btnSpecialProduct.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSpecialProduct.NormalColorA = System.Drawing.Color.White;
             this.btnSpecialProduct.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSpecialProduct.Size = new System.Drawing.Size(200, 33);
+            this.btnSpecialProduct.Size = new System.Drawing.Size(201, 33);
             this.btnSpecialProduct.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnSpecialProduct.TabIndex = 41;
             this.btnSpecialProduct.Text = "Special Party Report.";
@@ -388,12 +429,12 @@
             this.btnRptChallanPending.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnRptChallanPending.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnRptChallanPending.HoverColorB = System.Drawing.Color.White;
-            this.btnRptChallanPending.Location = new System.Drawing.Point(220, 181);
+            this.btnRptChallanPending.Location = new System.Drawing.Point(215, 186);
             this.btnRptChallanPending.Name = "btnRptChallanPending";
             this.btnRptChallanPending.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnRptChallanPending.NormalColorA = System.Drawing.Color.White;
             this.btnRptChallanPending.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnRptChallanPending.Size = new System.Drawing.Size(200, 32);
+            this.btnRptChallanPending.Size = new System.Drawing.Size(201, 32);
             this.btnRptChallanPending.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnRptChallanPending.TabIndex = 37;
             this.btnRptChallanPending.Text = "Sales Challan (Pending)";
@@ -408,12 +449,12 @@
             this.btnRptSalesChallan.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnRptSalesChallan.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnRptSalesChallan.HoverColorB = System.Drawing.Color.White;
-            this.btnRptSalesChallan.Location = new System.Drawing.Point(220, 148);
+            this.btnRptSalesChallan.Location = new System.Drawing.Point(215, 151);
             this.btnRptSalesChallan.Name = "btnRptSalesChallan";
             this.btnRptSalesChallan.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnRptSalesChallan.NormalColorA = System.Drawing.Color.White;
             this.btnRptSalesChallan.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnRptSalesChallan.Size = new System.Drawing.Size(200, 32);
+            this.btnRptSalesChallan.Size = new System.Drawing.Size(201, 32);
             this.btnRptSalesChallan.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnRptSalesChallan.TabIndex = 36;
             this.btnRptSalesChallan.Text = "Sales Challan";
@@ -459,46 +500,6 @@
             this.btnVoucherReports.Text = "Voucher Reports";
             this.btnVoucherReports.Click += new System.EventHandler(this.btnVoucherReports_Click);
             // 
-            // btnReturnRegister
-            // 
-            this.btnReturnRegister.Active = true;
-            this.btnReturnRegister.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
-            this.btnReturnRegister.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReturnRegister.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
-            this.btnReturnRegister.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
-            this.btnReturnRegister.HoverColorA = System.Drawing.Color.LemonChiffon;
-            this.btnReturnRegister.HoverColorB = System.Drawing.Color.White;
-            this.btnReturnRegister.Location = new System.Drawing.Point(13, 148);
-            this.btnReturnRegister.Name = "btnReturnRegister";
-            this.btnReturnRegister.NormalBorderColor = System.Drawing.Color.Aqua;
-            this.btnReturnRegister.NormalColorA = System.Drawing.Color.White;
-            this.btnReturnRegister.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnReturnRegister.Size = new System.Drawing.Size(200, 34);
-            this.btnReturnRegister.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
-            this.btnReturnRegister.TabIndex = 25;
-            this.btnReturnRegister.Text = "Return Register";
-            this.btnReturnRegister.Click += new System.EventHandler(this.btnReturnRegister_Click);
-            // 
-            // btnSalesRegister
-            // 
-            this.btnSalesRegister.Active = true;
-            this.btnSalesRegister.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
-            this.btnSalesRegister.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalesRegister.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
-            this.btnSalesRegister.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
-            this.btnSalesRegister.HoverColorA = System.Drawing.Color.LemonChiffon;
-            this.btnSalesRegister.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesRegister.Location = new System.Drawing.Point(13, 115);
-            this.btnSalesRegister.Name = "btnSalesRegister";
-            this.btnSalesRegister.NormalBorderColor = System.Drawing.Color.Aqua;
-            this.btnSalesRegister.NormalColorA = System.Drawing.Color.White;
-            this.btnSalesRegister.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSalesRegister.Size = new System.Drawing.Size(200, 34);
-            this.btnSalesRegister.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
-            this.btnSalesRegister.TabIndex = 24;
-            this.btnSalesRegister.Text = "Sales Register";
-            this.btnSalesRegister.Click += new System.EventHandler(this.btnSalesRegister_Click);
-            // 
             // btnStatisticalProductSales
             // 
             this.btnStatisticalProductSales.Active = true;
@@ -508,12 +509,12 @@
             this.btnStatisticalProductSales.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnStatisticalProductSales.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnStatisticalProductSales.HoverColorB = System.Drawing.Color.White;
-            this.btnStatisticalProductSales.Location = new System.Drawing.Point(220, 81);
+            this.btnStatisticalProductSales.Location = new System.Drawing.Point(215, 82);
             this.btnStatisticalProductSales.Name = "btnStatisticalProductSales";
             this.btnStatisticalProductSales.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnStatisticalProductSales.NormalColorA = System.Drawing.Color.White;
             this.btnStatisticalProductSales.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnStatisticalProductSales.Size = new System.Drawing.Size(200, 33);
+            this.btnStatisticalProductSales.Size = new System.Drawing.Size(201, 33);
             this.btnStatisticalProductSales.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnStatisticalProductSales.TabIndex = 34;
             this.btnStatisticalProductSales.Text = " Statistical Product Sales";
@@ -528,12 +529,12 @@
             this.btnSalesStaPackSize.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSalesStaPackSize.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSalesStaPackSize.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesStaPackSize.Location = new System.Drawing.Point(220, 50);
+            this.btnSalesStaPackSize.Location = new System.Drawing.Point(215, 50);
             this.btnSalesStaPackSize.Name = "btnSalesStaPackSize";
             this.btnSalesStaPackSize.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSalesStaPackSize.NormalColorA = System.Drawing.Color.White;
             this.btnSalesStaPackSize.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSalesStaPackSize.Size = new System.Drawing.Size(200, 33);
+            this.btnSalesStaPackSize.Size = new System.Drawing.Size(201, 33);
             this.btnSalesStaPackSize.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnSalesStaPackSize.TabIndex = 33;
             this.btnSalesStaPackSize.Text = " Sales Stat. Pack Size";
@@ -548,7 +549,7 @@
             this.btnSalesStatIndividual.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSalesStatIndividual.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSalesStatIndividual.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesStatIndividual.Location = new System.Drawing.Point(13, 276);
+            this.btnSalesStatIndividual.Location = new System.Drawing.Point(13, 151);
             this.btnSalesStatIndividual.Name = "btnSalesStatIndividual";
             this.btnSalesStatIndividual.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSalesStatIndividual.NormalColorA = System.Drawing.Color.White;
@@ -568,12 +569,12 @@
             this.btnRptSalesInvoice.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnRptSalesInvoice.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnRptSalesInvoice.HoverColorB = System.Drawing.Color.White;
-            this.btnRptSalesInvoice.Location = new System.Drawing.Point(220, 114);
+            this.btnRptSalesInvoice.Location = new System.Drawing.Point(215, 116);
             this.btnRptSalesInvoice.Name = "btnRptSalesInvoice";
             this.btnRptSalesInvoice.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnRptSalesInvoice.NormalColorA = System.Drawing.Color.White;
             this.btnRptSalesInvoice.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnRptSalesInvoice.Size = new System.Drawing.Size(200, 33);
+            this.btnRptSalesInvoice.Size = new System.Drawing.Size(201, 33);
             this.btnRptSalesInvoice.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnRptSalesInvoice.TabIndex = 35;
             this.btnRptSalesInvoice.Text = "Sales Invoice";
@@ -630,12 +631,12 @@
             this.btnProductShort.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnProductShort.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnProductShort.HoverColorB = System.Drawing.Color.White;
-            this.btnProductShort.Location = new System.Drawing.Point(220, 211);
+            this.btnProductShort.Location = new System.Drawing.Point(215, 218);
             this.btnProductShort.Name = "btnProductShort";
             this.btnProductShort.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnProductShort.NormalColorA = System.Drawing.Color.White;
             this.btnProductShort.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnProductShort.Size = new System.Drawing.Size(200, 31);
+            this.btnProductShort.Size = new System.Drawing.Size(201, 31);
             this.btnProductShort.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnProductShort.TabIndex = 38;
             this.btnProductShort.Text = "Product Short Report";
@@ -650,12 +651,12 @@
             this.btnPartyWiseSalesStatement.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnPartyWiseSalesStatement.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnPartyWiseSalesStatement.HoverColorB = System.Drawing.Color.White;
-            this.btnPartyWiseSalesStatement.Location = new System.Drawing.Point(220, 16);
+            this.btnPartyWiseSalesStatement.Location = new System.Drawing.Point(215, 16);
             this.btnPartyWiseSalesStatement.Name = "btnPartyWiseSalesStatement";
             this.btnPartyWiseSalesStatement.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnPartyWiseSalesStatement.NormalColorA = System.Drawing.Color.White;
             this.btnPartyWiseSalesStatement.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnPartyWiseSalesStatement.Size = new System.Drawing.Size(200, 37);
+            this.btnPartyWiseSalesStatement.Size = new System.Drawing.Size(201, 37);
             this.btnPartyWiseSalesStatement.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnPartyWiseSalesStatement.TabIndex = 32;
             this.btnPartyWiseSalesStatement.Text = "Party Wise Sales Stat.";
@@ -670,7 +671,7 @@
             this.btnDesignationCategory.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnDesignationCategory.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnDesignationCategory.HoverColorB = System.Drawing.Color.White;
-            this.btnDesignationCategory.Location = new System.Drawing.Point(13, 344);
+            this.btnDesignationCategory.Location = new System.Drawing.Point(13, 282);
             this.btnDesignationCategory.Name = "btnDesignationCategory";
             this.btnDesignationCategory.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnDesignationCategory.NormalColorA = System.Drawing.Color.White;
@@ -690,7 +691,7 @@
             this.btnProductSalesStatment.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnProductSalesStatment.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnProductSalesStatment.HoverColorB = System.Drawing.Color.White;
-            this.btnProductSalesStatment.Location = new System.Drawing.Point(13, 311);
+            this.btnProductSalesStatment.Location = new System.Drawing.Point(13, 249);
             this.btnProductSalesStatment.Name = "btnProductSalesStatment";
             this.btnProductSalesStatment.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnProductSalesStatment.NormalColorA = System.Drawing.Color.White;
@@ -710,7 +711,7 @@
             this.btnSalesStattement.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSalesStattement.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSalesStattement.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesStattement.Location = new System.Drawing.Point(13, 242);
+            this.btnSalesStattement.Location = new System.Drawing.Point(13, 116);
             this.btnSalesStattement.Name = "btnSalesStattement";
             this.btnSalesStattement.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSalesStattement.NormalColorA = System.Drawing.Color.White;
@@ -730,7 +731,7 @@
             this.btnProductWiseAnalysis.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnProductWiseAnalysis.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnProductWiseAnalysis.HoverColorB = System.Drawing.Color.White;
-            this.btnProductWiseAnalysis.Location = new System.Drawing.Point(13, 211);
+            this.btnProductWiseAnalysis.Location = new System.Drawing.Point(13, 218);
             this.btnProductWiseAnalysis.Name = "btnProductWiseAnalysis";
             this.btnProductWiseAnalysis.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnProductWiseAnalysis.NormalColorA = System.Drawing.Color.White;
@@ -750,7 +751,7 @@
             this.btnSalesPriceList.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSalesPriceList.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSalesPriceList.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesPriceList.Location = new System.Drawing.Point(13, 182);
+            this.btnSalesPriceList.Location = new System.Drawing.Point(13, 186);
             this.btnSalesPriceList.Name = "btnSalesPriceList";
             this.btnSalesPriceList.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSalesPriceList.NormalColorA = System.Drawing.Color.White;
@@ -797,9 +798,9 @@
             this.customPanel2.Controls.Add(this.btnReceiptVoucher);
             this.customPanel2.Controls.Add(this.btnSalesOrder);
             this.customPanel2.Curvature = 20;
-            this.customPanel2.Location = new System.Drawing.Point(454, 93);
+            this.customPanel2.Location = new System.Drawing.Point(362, 93);
             this.customPanel2.Name = "customPanel2";
-            this.customPanel2.Size = new System.Drawing.Size(247, 432);
+            this.customPanel2.Size = new System.Drawing.Size(168, 432);
             this.customPanel2.TabIndex = 17;
             // 
             // btnHalt
@@ -811,12 +812,12 @@
             this.btnHalt.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnHalt.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnHalt.HoverColorB = System.Drawing.Color.White;
-            this.btnHalt.Location = new System.Drawing.Point(21, 219);
+            this.btnHalt.Location = new System.Drawing.Point(18, 219);
             this.btnHalt.Name = "btnHalt";
             this.btnHalt.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnHalt.NormalColorA = System.Drawing.Color.White;
             this.btnHalt.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnHalt.Size = new System.Drawing.Size(200, 40);
+            this.btnHalt.Size = new System.Drawing.Size(140, 40);
             this.btnHalt.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnHalt.TabIndex = 21;
             this.btnHalt.Text = "MPO Halt";
@@ -831,12 +832,12 @@
             this.btnSalesReturn.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSalesReturn.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSalesReturn.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesReturn.Location = new System.Drawing.Point(21, 139);
+            this.btnSalesReturn.Location = new System.Drawing.Point(18, 139);
             this.btnSalesReturn.Name = "btnSalesReturn";
             this.btnSalesReturn.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSalesReturn.NormalColorA = System.Drawing.Color.White;
             this.btnSalesReturn.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSalesReturn.Size = new System.Drawing.Size(200, 40);
+            this.btnSalesReturn.Size = new System.Drawing.Size(140, 40);
             this.btnSalesReturn.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnSalesReturn.TabIndex = 19;
             this.btnSalesReturn.Text = "Sales Return";
@@ -851,12 +852,12 @@
             this.btnSalesChallan.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSalesChallan.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSalesChallan.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesChallan.Location = new System.Drawing.Point(21, 99);
+            this.btnSalesChallan.Location = new System.Drawing.Point(18, 99);
             this.btnSalesChallan.Name = "btnSalesChallan";
             this.btnSalesChallan.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSalesChallan.NormalColorA = System.Drawing.Color.White;
             this.btnSalesChallan.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSalesChallan.Size = new System.Drawing.Size(200, 40);
+            this.btnSalesChallan.Size = new System.Drawing.Size(140, 40);
             this.btnSalesChallan.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnSalesChallan.TabIndex = 18;
             this.btnSalesChallan.Text = "Sales Challan";
@@ -871,12 +872,12 @@
             this.btnSalesInvoice.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSalesInvoice.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSalesInvoice.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesInvoice.Location = new System.Drawing.Point(21, 59);
+            this.btnSalesInvoice.Location = new System.Drawing.Point(18, 59);
             this.btnSalesInvoice.Name = "btnSalesInvoice";
             this.btnSalesInvoice.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSalesInvoice.NormalColorA = System.Drawing.Color.White;
             this.btnSalesInvoice.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSalesInvoice.Size = new System.Drawing.Size(200, 40);
+            this.btnSalesInvoice.Size = new System.Drawing.Size(140, 40);
             this.btnSalesInvoice.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnSalesInvoice.TabIndex = 17;
             this.btnSalesInvoice.Text = "Sales Invoice";
@@ -891,12 +892,12 @@
             this.btnSalesSample.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSalesSample.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSalesSample.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesSample.Location = new System.Drawing.Point(21, 179);
+            this.btnSalesSample.Location = new System.Drawing.Point(18, 179);
             this.btnSalesSample.Name = "btnSalesSample";
             this.btnSalesSample.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSalesSample.NormalColorA = System.Drawing.Color.White;
             this.btnSalesSample.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSalesSample.Size = new System.Drawing.Size(200, 40);
+            this.btnSalesSample.Size = new System.Drawing.Size(140, 40);
             this.btnSalesSample.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnSalesSample.TabIndex = 20;
             this.btnSalesSample.Text = "Sales Sample";
@@ -911,7 +912,7 @@
             this.btnReceiptVoucher.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnReceiptVoucher.HoverColorA = System.Drawing.Color.MediumVioletRed;
             this.btnReceiptVoucher.HoverColorB = System.Drawing.Color.White;
-            this.btnReceiptVoucher.Location = new System.Drawing.Point(162, 296);
+            this.btnReceiptVoucher.Location = new System.Drawing.Point(71, 296);
             this.btnReceiptVoucher.Name = "btnReceiptVoucher";
             this.btnReceiptVoucher.NormalBorderColor = System.Drawing.Color.Green;
             this.btnReceiptVoucher.NormalColorA = System.Drawing.Color.Green;
@@ -932,12 +933,12 @@
             this.btnSalesOrder.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSalesOrder.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSalesOrder.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesOrder.Location = new System.Drawing.Point(21, 19);
+            this.btnSalesOrder.Location = new System.Drawing.Point(18, 19);
             this.btnSalesOrder.Name = "btnSalesOrder";
             this.btnSalesOrder.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSalesOrder.NormalColorA = System.Drawing.Color.White;
             this.btnSalesOrder.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSalesOrder.Size = new System.Drawing.Size(200, 40);
+            this.btnSalesOrder.Size = new System.Drawing.Size(140, 40);
             this.btnSalesOrder.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnSalesOrder.TabIndex = 16;
             this.btnSalesOrder.Text = "Sales Order";
@@ -951,6 +952,7 @@
             this.customPanel1.BorderColor = System.Drawing.Color.Silver;
             this.customPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.customPanel1.BorderWidth = 7;
+            this.customPanel1.Controls.Add(this.btnRouteConfiguration);
             this.customPanel1.Controls.Add(this.btnCreditLimitNew);
             this.customPanel1.Controls.Add(this.btnItemWiseTarget);
             this.customPanel1.Controls.Add(this.btnTeritorry);
@@ -974,8 +976,28 @@
             this.customPanel1.Curvature = 20;
             this.customPanel1.Location = new System.Drawing.Point(5, 93);
             this.customPanel1.Name = "customPanel1";
-            this.customPanel1.Size = new System.Drawing.Size(443, 432);
+            this.customPanel1.Size = new System.Drawing.Size(352, 432);
             this.customPanel1.TabIndex = 16;
+            // 
+            // btnRouteConfiguration
+            // 
+            this.btnRouteConfiguration.Active = true;
+            this.btnRouteConfiguration.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
+            this.btnRouteConfiguration.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRouteConfiguration.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
+            this.btnRouteConfiguration.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
+            this.btnRouteConfiguration.HoverColorA = System.Drawing.Color.LemonChiffon;
+            this.btnRouteConfiguration.HoverColorB = System.Drawing.Color.White;
+            this.btnRouteConfiguration.Location = new System.Drawing.Point(174, 58);
+            this.btnRouteConfiguration.Name = "btnRouteConfiguration";
+            this.btnRouteConfiguration.NormalBorderColor = System.Drawing.Color.Aqua;
+            this.btnRouteConfiguration.NormalColorA = System.Drawing.Color.White;
+            this.btnRouteConfiguration.NormalColorB = System.Drawing.Color.Honeydew;
+            this.btnRouteConfiguration.Size = new System.Drawing.Size(168, 40);
+            this.btnRouteConfiguration.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
+            this.btnRouteConfiguration.TabIndex = 41;
+            this.btnRouteConfiguration.Text = "Route Configuration";
+            this.btnRouteConfiguration.Click += new System.EventHandler(this.btnRouteConfiguration_Click);
             // 
             // btnCreditLimitNew
             // 
@@ -986,12 +1008,12 @@
             this.btnCreditLimitNew.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnCreditLimitNew.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnCreditLimitNew.HoverColorB = System.Drawing.Color.White;
-            this.btnCreditLimitNew.Location = new System.Drawing.Point(226, 221);
+            this.btnCreditLimitNew.Location = new System.Drawing.Point(174, 220);
             this.btnCreditLimitNew.Name = "btnCreditLimitNew";
             this.btnCreditLimitNew.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnCreditLimitNew.NormalColorA = System.Drawing.Color.White;
             this.btnCreditLimitNew.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnCreditLimitNew.Size = new System.Drawing.Size(200, 40);
+            this.btnCreditLimitNew.Size = new System.Drawing.Size(168, 40);
             this.btnCreditLimitNew.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnCreditLimitNew.TabIndex = 40;
             this.btnCreditLimitNew.Text = "Credit Limit Config.";
@@ -1006,15 +1028,16 @@
             this.btnItemWiseTarget.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnItemWiseTarget.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnItemWiseTarget.HoverColorB = System.Drawing.Color.White;
-            this.btnItemWiseTarget.Location = new System.Drawing.Point(225, 98);
+            this.btnItemWiseTarget.Location = new System.Drawing.Point(278, 321);
             this.btnItemWiseTarget.Name = "btnItemWiseTarget";
             this.btnItemWiseTarget.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnItemWiseTarget.NormalColorA = System.Drawing.Color.White;
             this.btnItemWiseTarget.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnItemWiseTarget.Size = new System.Drawing.Size(200, 40);
+            this.btnItemWiseTarget.Size = new System.Drawing.Size(10, 16);
             this.btnItemWiseTarget.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnItemWiseTarget.TabIndex = 12;
             this.btnItemWiseTarget.Text = "Product Sales Target ";
+            this.btnItemWiseTarget.Visible = false;
             this.btnItemWiseTarget.Click += new System.EventHandler(this.btnItemWiseTarget_Click);
             // 
             // btnTeritorry
@@ -1026,12 +1049,12 @@
             this.btnTeritorry.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnTeritorry.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnTeritorry.HoverColorB = System.Drawing.Color.White;
-            this.btnTeritorry.Location = new System.Drawing.Point(20, 57);
+            this.btnTeritorry.Location = new System.Drawing.Point(14, 57);
             this.btnTeritorry.Name = "btnTeritorry";
             this.btnTeritorry.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnTeritorry.NormalColorA = System.Drawing.Color.White;
             this.btnTeritorry.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnTeritorry.Size = new System.Drawing.Size(200, 40);
+            this.btnTeritorry.Size = new System.Drawing.Size(155, 40);
             this.btnTeritorry.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnTeritorry.TabIndex = 1;
             this.btnTeritorry.Text = "Teritorry";
@@ -1109,12 +1132,12 @@
             this.btnCollTarget.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnCollTarget.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnCollTarget.HoverColorB = System.Drawing.Color.White;
-            this.btnCollTarget.Location = new System.Drawing.Point(226, 179);
+            this.btnCollTarget.Location = new System.Drawing.Point(174, 180);
             this.btnCollTarget.Name = "btnCollTarget";
             this.btnCollTarget.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnCollTarget.NormalColorA = System.Drawing.Color.White;
             this.btnCollTarget.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnCollTarget.Size = new System.Drawing.Size(199, 41);
+            this.btnCollTarget.Size = new System.Drawing.Size(168, 40);
             this.btnCollTarget.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnCollTarget.TabIndex = 14;
             this.btnCollTarget.Text = "Collection Target ";
@@ -1129,7 +1152,7 @@
             this.btnMonthlyCredit.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnMonthlyCredit.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnMonthlyCredit.HoverColorB = System.Drawing.Color.White;
-            this.btnMonthlyCredit.Location = new System.Drawing.Point(354, 365);
+            this.btnMonthlyCredit.Location = new System.Drawing.Point(242, 365);
             this.btnMonthlyCredit.Name = "btnMonthlyCredit";
             this.btnMonthlyCredit.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnMonthlyCredit.NormalColorA = System.Drawing.Color.White;
@@ -1150,12 +1173,12 @@
             this.btnTargetAchieve.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnTargetAchieve.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnTargetAchieve.HoverColorB = System.Drawing.Color.White;
-            this.btnTargetAchieve.Location = new System.Drawing.Point(225, 137);
+            this.btnTargetAchieve.Location = new System.Drawing.Point(174, 140);
             this.btnTargetAchieve.Name = "btnTargetAchieve";
             this.btnTargetAchieve.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnTargetAchieve.NormalColorA = System.Drawing.Color.White;
             this.btnTargetAchieve.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnTargetAchieve.Size = new System.Drawing.Size(200, 40);
+            this.btnTargetAchieve.Size = new System.Drawing.Size(168, 40);
             this.btnTargetAchieve.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnTargetAchieve.TabIndex = 13;
             this.btnTargetAchieve.Text = "Sales Target";
@@ -1170,12 +1193,12 @@
             this.btnSampleClass.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSampleClass.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSampleClass.HoverColorB = System.Drawing.Color.White;
-            this.btnSampleClass.Location = new System.Drawing.Point(225, 59);
+            this.btnSampleClass.Location = new System.Drawing.Point(174, 98);
             this.btnSampleClass.Name = "btnSampleClass";
             this.btnSampleClass.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSampleClass.NormalColorA = System.Drawing.Color.White;
             this.btnSampleClass.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSampleClass.Size = new System.Drawing.Size(200, 40);
+            this.btnSampleClass.Size = new System.Drawing.Size(168, 40);
             this.btnSampleClass.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnSampleClass.TabIndex = 11;
             this.btnSampleClass.Text = "Sample Class";
@@ -1190,12 +1213,12 @@
             this.btnDestination.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnDestination.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnDestination.HoverColorB = System.Drawing.Color.White;
-            this.btnDestination.Location = new System.Drawing.Point(226, 18);
+            this.btnDestination.Location = new System.Drawing.Point(174, 19);
             this.btnDestination.Name = "btnDestination";
             this.btnDestination.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnDestination.NormalColorA = System.Drawing.Color.White;
             this.btnDestination.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnDestination.Size = new System.Drawing.Size(200, 40);
+            this.btnDestination.Size = new System.Drawing.Size(168, 40);
             this.btnDestination.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnDestination.TabIndex = 10;
             this.btnDestination.Text = "Destination";
@@ -1210,12 +1233,12 @@
             this.btnTransport.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnTransport.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnTransport.HoverColorB = System.Drawing.Color.White;
-            this.btnTransport.Location = new System.Drawing.Point(20, 377);
+            this.btnTransport.Location = new System.Drawing.Point(14, 377);
             this.btnTransport.Name = "btnTransport";
             this.btnTransport.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnTransport.NormalColorA = System.Drawing.Color.White;
             this.btnTransport.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnTransport.Size = new System.Drawing.Size(200, 40);
+            this.btnTransport.Size = new System.Drawing.Size(155, 40);
             this.btnTransport.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnTransport.TabIndex = 9;
             this.btnTransport.Text = "Transport";
@@ -1230,12 +1253,12 @@
             this.btnBonus.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnBonus.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnBonus.HoverColorB = System.Drawing.Color.White;
-            this.btnBonus.Location = new System.Drawing.Point(20, 337);
+            this.btnBonus.Location = new System.Drawing.Point(14, 337);
             this.btnBonus.Name = "btnBonus";
             this.btnBonus.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnBonus.NormalColorA = System.Drawing.Color.White;
             this.btnBonus.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnBonus.Size = new System.Drawing.Size(200, 40);
+            this.btnBonus.Size = new System.Drawing.Size(155, 40);
             this.btnBonus.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnBonus.TabIndex = 8;
             this.btnBonus.Text = "Bonus";
@@ -1250,12 +1273,12 @@
             this.btnGiftItem.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnGiftItem.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnGiftItem.HoverColorB = System.Drawing.Color.White;
-            this.btnGiftItem.Location = new System.Drawing.Point(20, 297);
+            this.btnGiftItem.Location = new System.Drawing.Point(14, 297);
             this.btnGiftItem.Name = "btnGiftItem";
             this.btnGiftItem.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnGiftItem.NormalColorA = System.Drawing.Color.White;
             this.btnGiftItem.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnGiftItem.Size = new System.Drawing.Size(200, 40);
+            this.btnGiftItem.Size = new System.Drawing.Size(155, 40);
             this.btnGiftItem.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnGiftItem.TabIndex = 7;
             this.btnGiftItem.Text = "Gift Item";
@@ -1270,12 +1293,12 @@
             this.btnSalesPriceConfig.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSalesPriceConfig.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSalesPriceConfig.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesPriceConfig.Location = new System.Drawing.Point(20, 257);
+            this.btnSalesPriceConfig.Location = new System.Drawing.Point(14, 257);
             this.btnSalesPriceConfig.Name = "btnSalesPriceConfig";
             this.btnSalesPriceConfig.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSalesPriceConfig.NormalColorA = System.Drawing.Color.White;
             this.btnSalesPriceConfig.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSalesPriceConfig.Size = new System.Drawing.Size(200, 40);
+            this.btnSalesPriceConfig.Size = new System.Drawing.Size(155, 40);
             this.btnSalesPriceConfig.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnSalesPriceConfig.TabIndex = 6;
             this.btnSalesPriceConfig.Text = "Sales Price Config.";
@@ -1290,12 +1313,12 @@
             this.btnPriceLevel.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnPriceLevel.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnPriceLevel.HoverColorB = System.Drawing.Color.White;
-            this.btnPriceLevel.Location = new System.Drawing.Point(20, 217);
+            this.btnPriceLevel.Location = new System.Drawing.Point(14, 217);
             this.btnPriceLevel.Name = "btnPriceLevel";
             this.btnPriceLevel.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnPriceLevel.NormalColorA = System.Drawing.Color.White;
             this.btnPriceLevel.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnPriceLevel.Size = new System.Drawing.Size(200, 40);
+            this.btnPriceLevel.Size = new System.Drawing.Size(155, 40);
             this.btnPriceLevel.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnPriceLevel.TabIndex = 5;
             this.btnPriceLevel.Text = "Price Level";
@@ -1310,12 +1333,12 @@
             this.btnVoucherTypes.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnVoucherTypes.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnVoucherTypes.HoverColorB = System.Drawing.Color.White;
-            this.btnVoucherTypes.Location = new System.Drawing.Point(20, 177);
+            this.btnVoucherTypes.Location = new System.Drawing.Point(14, 177);
             this.btnVoucherTypes.Name = "btnVoucherTypes";
             this.btnVoucherTypes.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnVoucherTypes.NormalColorA = System.Drawing.Color.White;
             this.btnVoucherTypes.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnVoucherTypes.Size = new System.Drawing.Size(200, 40);
+            this.btnVoucherTypes.Size = new System.Drawing.Size(155, 40);
             this.btnVoucherTypes.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnVoucherTypes.TabIndex = 4;
             this.btnVoucherTypes.Text = "Voucher Types";
@@ -1330,36 +1353,16 @@
             this.btnSalesRep.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnSalesRep.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnSalesRep.HoverColorB = System.Drawing.Color.White;
-            this.btnSalesRep.Location = new System.Drawing.Point(20, 137);
+            this.btnSalesRep.Location = new System.Drawing.Point(14, 137);
             this.btnSalesRep.Name = "btnSalesRep";
             this.btnSalesRep.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnSalesRep.NormalColorA = System.Drawing.Color.White;
             this.btnSalesRep.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnSalesRep.Size = new System.Drawing.Size(200, 40);
+            this.btnSalesRep.Size = new System.Drawing.Size(155, 40);
             this.btnSalesRep.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnSalesRep.TabIndex = 3;
             this.btnSalesRep.Text = "Doctor/Customer";
             this.btnSalesRep.Click += new System.EventHandler(this.btnSalesRep_Click);
-            // 
-            // btnGroup
-            // 
-            this.btnGroup.Active = true;
-            this.btnGroup.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
-            this.btnGroup.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGroup.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
-            this.btnGroup.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
-            this.btnGroup.HoverColorA = System.Drawing.Color.LemonChiffon;
-            this.btnGroup.HoverColorB = System.Drawing.Color.White;
-            this.btnGroup.Location = new System.Drawing.Point(20, 18);
-            this.btnGroup.Name = "btnGroup";
-            this.btnGroup.NormalBorderColor = System.Drawing.Color.Aqua;
-            this.btnGroup.NormalColorA = System.Drawing.Color.White;
-            this.btnGroup.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnGroup.Size = new System.Drawing.Size(200, 40);
-            this.btnGroup.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
-            this.btnGroup.TabIndex = 0;
-            this.btnGroup.Text = "MPO Goup";
-            this.btnGroup.Click += new System.EventHandler(this.btnGroup_Click);
             // 
             // btnCustomer
             // 
@@ -1370,22 +1373,42 @@
             this.btnCustomer.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnCustomer.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnCustomer.HoverColorB = System.Drawing.Color.White;
-            this.btnCustomer.Location = new System.Drawing.Point(20, 97);
+            this.btnCustomer.Location = new System.Drawing.Point(14, 97);
             this.btnCustomer.Name = "btnCustomer";
             this.btnCustomer.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnCustomer.NormalColorA = System.Drawing.Color.White;
             this.btnCustomer.NormalColorB = System.Drawing.Color.Honeydew;
-            this.btnCustomer.Size = new System.Drawing.Size(200, 40);
+            this.btnCustomer.Size = new System.Drawing.Size(155, 40);
             this.btnCustomer.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
             this.btnCustomer.TabIndex = 2;
-            this.btnCustomer.Text = "Medical Representative";
+            this.btnCustomer.Text = "MPO";
             this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
+            // 
+            // btnGroup
+            // 
+            this.btnGroup.Active = true;
+            this.btnGroup.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
+            this.btnGroup.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGroup.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
+            this.btnGroup.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
+            this.btnGroup.HoverColorA = System.Drawing.Color.LemonChiffon;
+            this.btnGroup.HoverColorB = System.Drawing.Color.White;
+            this.btnGroup.Location = new System.Drawing.Point(14, 18);
+            this.btnGroup.Name = "btnGroup";
+            this.btnGroup.NormalBorderColor = System.Drawing.Color.Aqua;
+            this.btnGroup.NormalColorA = System.Drawing.Color.White;
+            this.btnGroup.NormalColorB = System.Drawing.Color.Honeydew;
+            this.btnGroup.Size = new System.Drawing.Size(155, 40);
+            this.btnGroup.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
+            this.btnGroup.TabIndex = 0;
+            this.btnGroup.Text = "MPO Goup";
+            this.btnGroup.Click += new System.EventHandler(this.btnGroup_Click);
             // 
             // frmSalesMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1146, 533);
+            this.ClientSize = new System.Drawing.Size(980, 531);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
@@ -1434,6 +1457,7 @@
         private ColorButton.ColorButton btnPriceLevel;
         private ColorButton.ColorButton btnVoucherTypes;
         private ColorButton.ColorButton btnSalesRep;
+        private ColorButton.ColorButton btnCustomer;
         private ColorButton.ColorButton btnGroup;
         private ColorButton.ColorButton btnDeisgnCategory;
         private ColorButton.ColorButton btnCollecCommit;
@@ -1454,8 +1478,6 @@
         private ColorButton.ColorButton btnDocMpo;
         private ColorButton.ColorButton btnTeritorry;
         private ColorButton.ColorButton btnVoucherReports;
-        private ColorButton.ColorButton btnReturnRegister;
-        private ColorButton.ColorButton btnSalesRegister;
         private ColorButton.ColorButton btnRptSalesColl;
         private ColorButton.ColorButton btnRptChallanPending;
         private ColorButton.ColorButton btnRptSalesChallan;
@@ -1477,6 +1499,8 @@
         private ColorButton.ColorButton btnHalt;
         private ColorButton.ColorButton btnrptSalesOrder;
         private ColorButton.ColorButton cmdRptYearComparative;
-        private ColorButton.ColorButton btnCustomer;
+        private ColorButton.ColorButton btnRouteConfiguration;
+        private ColorButton.ColorButton btnRptSalesTarget;
+        private ColorButton.ColorButton btnrptCollectionTarget;
     }
 }

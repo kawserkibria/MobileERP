@@ -47,22 +47,22 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                 }
             }
 
-            //if (System.Windows.Forms.Application.OpenForms["frmCommission"] as frmCommission == null)
-            //{
-            //    frmCommission objfrm = new frmCommission();
-            //    objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-            //    objfrm.lngFormPriv = 107;
-            //    objfrm.Show();
-            //    objfrm.MdiParent = this.MdiParent;
+            if (System.Windows.Forms.Application.OpenForms["frmCommission"] as frmCommission == null)
+            {
+                frmCommission objfrm = new frmCommission();
+                objfrm.m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
+                objfrm.lngFormPriv = 107;
+                objfrm.Show();
+                objfrm.MdiParent = this.MdiParent;
 
-            //}
-            //else
-            //{
-            //    frmCommission objfrm = (frmCommission)Application.OpenForms["frmCommission"];
-            //    objfrm.lngFormPriv = 107;
-            //    objfrm.Focus();
-            //    objfrm.MdiParent = this.MdiParent;
-            //}
+            }
+            else
+            {
+                frmCommission objfrm = (frmCommission)Application.OpenForms["frmCommission"];
+                objfrm.lngFormPriv = 107;
+                objfrm.Focus();
+                objfrm.MdiParent = this.MdiParent;
+            }
             
             
         }

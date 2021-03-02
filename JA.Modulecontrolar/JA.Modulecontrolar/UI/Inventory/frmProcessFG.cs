@@ -361,7 +361,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             lstLeft.Items.Clear();
             lstRight.Items.Clear();
-            List<ManuProcess> oogrp = invms.mLoadProcess(strComID, "", "", 0, 0).ToList();
+            List<ManuProcess> oogrp = invms.mLoadProcess(strComID, "", "", 0, 0, Utility.gstrUserName).ToList();
             if (oogrp.Count > 0)
             {
                 foreach (ManuProcess ogrp in oogrp)
@@ -478,9 +478,9 @@ namespace JA.Modulecontrolar.UI.Inventory
 
         private void btnSerach1_Click(object sender, EventArgs e)
         {
-            frmAllReferance objfrm = new frmAllReferance();
+            frmAllReferanceGroup objfrm = new frmAllReferanceGroup();
             objfrm.lngVtype = 9999;
-            objfrm.onAddAllButtonClickedFG = new frmAllReferance.AddAllClickFG(DisplayVoucherListFG);
+            objfrm.onAddAllButtonClickedFG = new frmAllReferanceGroup.AddAllClickFG(DisplayVoucherListFG);
             objfrm.Show();
             objfrm.MdiParent = this.MdiParent;
         }

@@ -339,7 +339,7 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
                     DGMr.Rows.Add();
                     DGMr[0, introw].Value = ogrp.strTeritorrycode;
                     DGMr[1, introw].Value = ogrp.strTeritorryName;
-                    DGMr[2, introw].Value = "";
+                    DGMr[2, introw].Value = ogrp.strTeritorryMerze;
                     DGMr.Columns[2].Visible = false;
                     DGMr.Columns[3].Visible = false;
                     introw += 1;
@@ -357,30 +357,30 @@ namespace JA.Modulecontrolar.UI.DReport.Sales.ParameterForms
         }
         private void SearchListViewPartyName(IEnumerable<Teritorry> tests, string searchString = "")
         {
-            //IEnumerable<Teritorry> query;
-            //query = tests;
-            //if (searchString != "")
-            //{
-            //    query = tests.Where(x => x.strTeritorryMerze.ToLower().Trim().Contains(searchString.ToLower().Trim()));
-            //}
+            IEnumerable<Teritorry> query;
+            query = tests;
+            if (searchString != "")
+            {
+                query = tests.Where(x => x.strTeritorryMerze.ToLower().Trim().Contains(searchString.ToLower().Trim()));
+            }
           
-            //DGMr.Rows.Clear();
-            //int i = 0;
-            //try
-            //{
-            //    foreach (Teritorry tran in query)
-            //    {
-            //        DGMr.Rows.Add();
-            //        DGMr[0, i].Value = tran.strTeritorrycode;
-            //        DGMr[1, i].Value = tran.strTeritorryName;
-            //        DGMr[2, i].Value = tran.strTeritorryMerze;
-            //        i += 1;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    ex.ToString();
-            //}
+            DGMr.Rows.Clear();
+            int i = 0;
+            try
+            {
+                foreach (Teritorry tran in query)
+                {
+                    DGMr.Rows.Add();
+                    DGMr[0, i].Value = tran.strTeritorrycode;
+                    DGMr[1, i].Value = tran.strTeritorryName;
+                    DGMr[2, i].Value = tran.strTeritorryMerze;
+                    i += 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
         }
         private void radGroupwise_Click(object sender, EventArgs e)
         {

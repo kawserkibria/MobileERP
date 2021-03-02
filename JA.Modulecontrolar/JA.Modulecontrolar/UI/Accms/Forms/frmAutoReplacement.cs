@@ -216,34 +216,43 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                      mstrOldLedger  = lstLedgerName.SelectedValue.ToString().Replace("'", "''");
                      strXLedger = lstXLedgerName.SelectedValue.ToString().Replace("'", "''");
 
-                     
-                    
-                     
-                     strSQL = "UPDATE ACC_VOUCHER SET LEDGER_NAME='" + strXLedger + "' ";
-                     strSQL = strSQL + "WHERE LEDGER_NAME = '" + mstrOldLedger.Replace("'", "''") + "' ";
-                     strSQL = strSQL + "AND  AUTOJV=1 ";
-                     cmdInsert.CommandText = strSQL;
-                     cmdInsert.ExecuteNonQuery();
 
-                     strSQL = "UPDATE ACC_VOUCHER SET VOUCHER_REVERSE_LEDGER='" + strXLedger + "' ";
-                     strSQL = strSQL + "WHERE VOUCHER_REVERSE_LEDGER = '" + mstrOldLedger.Replace("'", "''") + "' ";
-                     strSQL = strSQL + "AND  AUTOJV=1 ";
-                     cmdInsert.CommandText = strSQL;
-                     cmdInsert.ExecuteNonQuery();
+                     //strSQL = "UPDATE ACC_VOUCHER SET LEDGER_NAME='" + strXLedger + "' ";
+                     //strSQL = strSQL + "WHERE LEDGER_NAME = '" + mstrOldLedger.Replace("'", "''") + "' ";
+                     //strSQL = strSQL + "AND  AUTOJV=1 ";
+                     //cmdInsert.CommandText = strSQL;
+                     //cmdInsert.ExecuteNonQuery();
+
+                     //strSQL = "UPDATE ACC_VOUCHER SET VOUCHER_REVERSE_LEDGER='" + strXLedger + "' ";
+                     //strSQL = strSQL + "WHERE VOUCHER_REVERSE_LEDGER = '" + mstrOldLedger.Replace("'", "' '") + "' ";
+                     //strSQL = strSQL + "AND  AUTOJV=1 ";
+                     //cmdInsert.CommandText = strSQL;
+                     //cmdInsert.ExecuteNonQuery();
 
 
-                     strSQL = "UPDATE ACC_VOUCHER SET REVERSE_LEDGER1='" + strXLedger + "' ";
+                     //strSQL = "UPDATE ACC_VOUCHER SET REVERSE_LEDGER1='" + strXLedger + "' ";
+                     //strSQL = strSQL + "WHERE REVERSE_LEDGER1 = '" + mstrOldLedger.Replace("'", "''") + "' ";
+                     //strSQL = strSQL + "AND  AUTOJV=1 ";
+                     //cmdInsert.CommandText = strSQL;
+                     //cmdInsert.ExecuteNonQuery();
+
+                     //strSQL = "UPDATE ACC_COMPANY_VOUCHER SET LEDGER_NAME='" + strXLedger + "' ";
+                     //strSQL = strSQL + "WHERE LEDGER_NAME = '" + mstrOldLedger.Replace("'", "''") + "' ";
+                     //strSQL = strSQL + "AND  AUTOJV=1 ";
+                     //cmdInsert.CommandText = strSQL;
+                     //cmdInsert.ExecuteNonQuery();
+                     strSQL = "UPDATE ACC_VOUCHER SET REPLAMENT='" + strXLedger + "' ";
                      strSQL = strSQL + "WHERE REVERSE_LEDGER1 = '" + mstrOldLedger.Replace("'", "''") + "' ";
                      strSQL = strSQL + "AND  AUTOJV=1 ";
                      cmdInsert.CommandText = strSQL;
                      cmdInsert.ExecuteNonQuery();
 
-                     strSQL = "UPDATE ACC_COMPANY_VOUCHER SET LEDGER_NAME='" + strXLedger + "' ";
-                     strSQL = strSQL + "WHERE LEDGER_NAME = '" + mstrOldLedger.Replace("'", "''") + "' ";
+                     strSQL = "UPDATE ACC_VOUCHER SET REPLAMENT='" + strXLedger + "' ";
+                     strSQL = strSQL + "WHERE REVERSE_LEDGER1 IS NULL ";
                      strSQL = strSQL + "AND  AUTOJV=1 ";
                      cmdInsert.CommandText = strSQL;
                      cmdInsert.ExecuteNonQuery();
-                     
+
                      cmdInsert.Transaction.Commit();
                      MessageBox.Show("Update Successfully..");
                      uctxtLedgerName.Text = "";
@@ -258,6 +267,62 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
         {
 
         }
+
+        private void btnUndo_Click(object sender, EventArgs e)
+        {
+            string strSQL, strXLedger, mstrOldLedger;
+            var strResponseInsert = MessageBox.Show("Do You Want to Save?", "Save Button", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (strResponseInsert == DialogResult.Yes)
+            {
+                string connstring = Utility.SQLConnstringComSwitch(strComID);
+                using (SqlConnection gcnMain = new SqlConnection(connstring))
+                {
+
+                    if (gcnMain.State == ConnectionState.Open)
+                    {
+                        gcnMain.Close();
+                    }
+                    gcnMain.Open();
+                    if (uctxtXMpoLedger.Text == "")
+                    {
+                        MessageBox.Show("Cannot be Empty");
+                        uctxtXMpoLedger.Focus();
+                        return;
+                    }
+                    if (uctxtLedgerName.Text == "")
+                    {
+                        MessageBox.Show("Cannot be Empty");
+                        uctxtLedgerName.Focus();
+                        return;
+                    }
+
+                    SqlCommand cmdInsert = new SqlCommand();
+                    cmdInsert.Connection = gcnMain;
+
+                    mstrOldLedger = lstLedgerName.SelectedValue.ToString().Replace("'", "''");
+                    strXLedger = lstXLedgerName.SelectedValue.ToString().Replace("'", "''");
+
+                    strSQL = "UPDATE ACC_VOUCHER set REPLAMENT=REVERSE_LEDGER1 where REVERSE_LEDGER1 IS NOT NULL ";
+                    cmdInsert.CommandText = strSQL;
+                    cmdInsert.ExecuteNonQuery();
+
+                    strSQL = "UPDATE ACC_VOUCHER SET REVERSE_LEDGER1='" + mstrOldLedger + "' ";
+                    strSQL = strSQL + "WHERE REVERSE_LEDGER1 = '" + strXLedger.Replace("'", "''") + "' ";
+                    strSQL = strSQL + "AND  AUTOJV=1 ";
+                    cmdInsert.CommandText = strSQL;
+                    cmdInsert.ExecuteNonQuery();
+
+
+                    MessageBox.Show("Undo Successfully..");
+                    uctxtLedgerName.Text = "";
+                    uctxtXMpoLedger.Text = "";
+                    uctxtLedgerName.Focus();
+
+                }
+            }
+        }
+
+        
 
      
     }

@@ -18,6 +18,7 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
         JACCMS.SWJAGClient accms = new SWJAGClient();
         public string strSelection = "";
         public string strReportName { get; set; }
+        private ListBox lstBranch = new ListBox();
         JINVMS.IWSINVMS invms = new JINVMS.WSINVMSClient();
         //private ListBox lstMedicalRep = new ListBox();
         List<Invoice> ooPartyName;
@@ -42,12 +43,18 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
             this.uctxtMrName.TextChanged += new System.EventHandler(this.uctxtMrName_TextChanged);
             this.uctxtMrName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.uctxtMrName_KeyUp);
 
+            this.uctxtBranchName.KeyDown += new KeyEventHandler(uctxtBranchName_KeyDown);
+            this.uctxtBranchName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtBranchName_KeyPress);
+            this.uctxtBranchName.TextChanged += new System.EventHandler(this.uctxtBranchName_TextChanged);
+            this.lstBranch.DoubleClick += new System.EventHandler(this.lstBranch_DoubleClick);
+            this.uctxtBranchName.GotFocus += new System.EventHandler(this.uctxtBranchName_GotFocus);
+
             this.DGMr.KeyPress += new System.Windows.Forms.KeyPressEventHandler(DGMr_KeyPress);
             this.DGMr.DoubleClick += new System.EventHandler(this.DGMr_DoubleClick);
             this.DGMr.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGMr_CellFormatting);
 
             Utility.CreateListBox(lstMrName, pnlMain, uctxtMrName);
-
+            Utility.CreateListBox(lstBranch, panel2, uctxtBranchName);
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -69,6 +76,55 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
             DGMr.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Yellow;
             DGMr.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
             DGMr.Rows[e.RowIndex].DefaultCellStyle.Font = new Font("verdana", 9);
+        }
+        private void uctxtBranchName_TextChanged(object sender, EventArgs e)
+        {
+            lstBranch.SelectedIndex = lstBranch.FindString(uctxtBranchName.Text);
+        }
+        private void lstBranch_DoubleClick(object sender, EventArgs e)
+        {
+            uctxtBranchName.Text = lstBranch.Text;
+            lstBranch.Visible = false;
+            dteFromDate.Focus();
+        }
+        private void uctxtBranchName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                if (lstBranch.Items.Count > 0)
+                {
+                    uctxtBranchName.Text = lstBranch.Text;
+                    lstBranch.Visible = false;
+
+                    dteFromDate.Focus();
+                }
+
+            }
+        }
+        private void uctxtBranchName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                if (lstBranch.SelectedItem != null)
+                {
+                    lstBranch.SelectedIndex = lstBranch.SelectedIndex - 1;
+                }
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                if (lstBranch.Items.Count - 1 > lstBranch.SelectedIndex)
+                {
+                    lstBranch.SelectedIndex = lstBranch.SelectedIndex + 1;
+                }
+            }
+
+        }
+
+        private void uctxtBranchName_GotFocus(object sender, System.EventArgs e)
+        {
+            lstBranch.Visible = true;
+
+            lstBranch.SelectedIndex = lstBranch.FindString(uctxtBranchName.Text);
         }
        
         private void DGMr_DoubleClick(object sender, EventArgs e)
@@ -371,7 +427,7 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
             int introw = 0;
             DGMr.Rows.Clear();
 
-            ooPartyName = invms.mfillPartyNameNew(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName, 0, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, "", Utility.gblnAccessControl, Utility.gstrUserName, 0, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {
@@ -425,7 +481,11 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
             uctxtMrName.Visible = false;
             label4.Visible = false;
             rbtnAll.PerformClick();
-          
+
+            lstBranch.ValueMember = "BranchID";
+            lstBranch.DisplayMember = "BranchName";
+            lstBranch.DataSource = accms.mFillBranch(strComID, Utility.gblnAccessControl, Utility.gstrUserName).ToList();
+           
 
             lstMrName.Visible = false;
             if (strSelection == "SalesReg")
@@ -450,8 +510,8 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
                 tetReportHader.Text = "Purchase Return Register";
                 label9.Text = "Purchase Return Register";
             }
-            
-            
+            uctxtBranchName.Select();
+            uctxtBranchName.Focus();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -461,6 +521,8 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
             if ((rbtnAll.Checked == true) && (chkboxSummary.Checked == true))
             {
                 string strBrachID = "";
+                strBrachID = Utility.gstrGetBranchID(strComID, uctxtBranchName.Text); 
+
                 frmReportViewer frmviewer = new frmReportViewer();
                 frmviewer.selector = ViewerSelector.rptPurchesSumm;
                 frmviewer.strFdate = dteFromDate.Value.ToString("dd-MM-yyyy");
@@ -468,6 +530,7 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
                 frmviewer.intSuppress = 1;
                 frmviewer.reportTitle2 = "A";
                 frmviewer.strLedgerName = "";
+                frmviewer.strBranchID = strBrachID;
                 if (strSelection== "SalesReg")
                 {
                     frmviewer.strString2 = "16";
@@ -497,6 +560,7 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
                 frmviewer.strLedgerName = uctxtMrName.Text;
                 frmviewer.reportTitle2 = "A";
                 frmviewer.intSuppress = 0;
+                frmviewer.strBranchID = strBrachID;
                 if (strSelection == "SalesReg")
                 {
                     frmviewer.strString2 = "16";
@@ -525,6 +589,7 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
                 frmviewer.strFdate = dteFromDate.Value.ToString("dd-MM-yyyy");
                 frmviewer.strTdate = dteToDate.Value.ToString("dd-MM-yyyy");
                 frmviewer.reportTitle2 = "A";
+                frmviewer.strBranchID = strBrachID;
                 frmviewer.strLedgerName = "";
                 if (strSelection == "SalesReg")
                 {
@@ -554,6 +619,7 @@ namespace JA.Modulecontrolar.UI.DReport.Purchase.ParameterForms
                 frmviewer.strFdate = dteFromDate.Value.ToString("dd-MM-yyyy");
                 frmviewer.strTdate = dteToDate.Value.ToString("dd-MM-yyyy");
                 frmviewer.strLedgerName = uctxtMrName.Text;
+                frmviewer.strBranchID = strBrachID;
                 frmviewer.reportTitle2 = "A";
                 if (strSelection == "SalesReg")
                 {

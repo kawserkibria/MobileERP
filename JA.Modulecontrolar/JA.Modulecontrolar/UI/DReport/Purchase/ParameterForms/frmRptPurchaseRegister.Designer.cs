@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label8 = new System.Windows.Forms.Label();
             this.tetReportHader = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -55,6 +55,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dteToDate = new System.Windows.Forms.DateTimePicker();
+            this.uctxtBranchName = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -157,6 +159,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.uctxtBranchName);
+            this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.uctxtMrName);
             this.panel2.Controls.Add(this.uctxtTerritoryCode);
             this.panel2.Controls.Add(this.DGMr);
@@ -178,7 +182,7 @@
             // uctxtMrName
             // 
             this.uctxtMrName.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uctxtMrName.Location = new System.Drawing.Point(15, 133);
+            this.uctxtMrName.Location = new System.Drawing.Point(15, 169);
             this.uctxtMrName.Name = "uctxtMrName";
             this.uctxtMrName.Size = new System.Drawing.Size(499, 22);
             this.uctxtMrName.TabIndex = 220;
@@ -202,32 +206,32 @@
             this.DGMr.AllowUserToResizeRows = false;
             this.DGMr.BackgroundColor = System.Drawing.Color.White;
             this.DGMr.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGreen;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.DGMr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.LightGreen;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.DGMr.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.DGMr.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGMr.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn13,
             this.dataGridViewTextBoxColumn14,
             this.dataGridViewTextBoxColumn15});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DGMr.DefaultCellStyle = dataGridViewCellStyle5;
-            this.DGMr.Location = new System.Drawing.Point(15, 161);
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Lavender;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGMr.DefaultCellStyle = dataGridViewCellStyle11;
+            this.DGMr.Location = new System.Drawing.Point(15, 197);
             this.DGMr.MultiSelect = false;
             this.DGMr.Name = "DGMr";
             this.DGMr.RowHeadersVisible = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            this.DGMr.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            this.DGMr.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.DGMr.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGMr.Size = new System.Drawing.Size(499, 23);
             this.DGMr.TabIndex = 223;
@@ -235,8 +239,8 @@
             // 
             // dataGridViewTextBoxColumn6
             // 
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewTextBoxColumn6.HeaderText = "T.C";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
@@ -244,8 +248,8 @@
             // 
             // dataGridViewTextBoxColumn13
             // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn13.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewTextBoxColumn13.HeaderText = "MPO Name";
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
@@ -253,8 +257,8 @@
             // 
             // dataGridViewTextBoxColumn14
             // 
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridViewTextBoxColumn14.DefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewTextBoxColumn14.HeaderText = "T.Name";
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             this.dataGridViewTextBoxColumn14.ReadOnly = true;
@@ -280,7 +284,7 @@
             // 
             this.chkboxSummary.AutoSize = true;
             this.chkboxSummary.Font = new System.Drawing.Font("Verdana", 10F);
-            this.chkboxSummary.Location = new System.Drawing.Point(329, 106);
+            this.chkboxSummary.Location = new System.Drawing.Point(329, 142);
             this.chkboxSummary.Name = "chkboxSummary";
             this.chkboxSummary.Size = new System.Drawing.Size(94, 21);
             this.chkboxSummary.TabIndex = 35;
@@ -291,7 +295,7 @@
             // 
             this.ChkboxNarr.AutoSize = true;
             this.ChkboxNarr.Font = new System.Drawing.Font("Verdana", 10F);
-            this.ChkboxNarr.Location = new System.Drawing.Point(15, 78);
+            this.ChkboxNarr.Location = new System.Drawing.Point(15, 114);
             this.ChkboxNarr.Name = "ChkboxNarr";
             this.ChkboxNarr.Size = new System.Drawing.Size(92, 21);
             this.ChkboxNarr.TabIndex = 34;
@@ -303,7 +307,7 @@
             // 
             this.rbtnIndividualParty.AutoSize = true;
             this.rbtnIndividualParty.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtnIndividualParty.Location = new System.Drawing.Point(156, 106);
+            this.rbtnIndividualParty.Location = new System.Drawing.Point(156, 142);
             this.rbtnIndividualParty.Name = "rbtnIndividualParty";
             this.rbtnIndividualParty.Size = new System.Drawing.Size(133, 21);
             this.rbtnIndividualParty.TabIndex = 33;
@@ -315,7 +319,7 @@
             // 
             this.rbtnAll.AutoSize = true;
             this.rbtnAll.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtnAll.Location = new System.Drawing.Point(156, 78);
+            this.rbtnAll.Location = new System.Drawing.Point(156, 114);
             this.rbtnAll.Name = "rbtnAll";
             this.rbtnAll.Size = new System.Drawing.Size(42, 21);
             this.rbtnAll.TabIndex = 3;
@@ -326,27 +330,27 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 10F);
-            this.label1.Location = new System.Drawing.Point(114, 15);
+            this.label1.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(117, 51);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 17);
+            this.label1.Size = new System.Drawing.Size(81, 14);
             this.label1.TabIndex = 31;
             this.label1.Text = "From Date :";
             // 
             // dteFromDate
             // 
-            this.dteFromDate.Font = new System.Drawing.Font("Verdana", 11F);
+            this.dteFromDate.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteFromDate.Location = new System.Drawing.Point(223, 15);
+            this.dteFromDate.Location = new System.Drawing.Point(227, 51);
             this.dteFromDate.Name = "dteFromDate";
-            this.dteFromDate.Size = new System.Drawing.Size(200, 25);
+            this.dteFromDate.Size = new System.Drawing.Size(200, 22);
             this.dteFromDate.TabIndex = 1;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Verdana", 10F);
-            this.label4.Location = new System.Drawing.Point(12, 108);
+            this.label4.Location = new System.Drawing.Point(12, 144);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 17);
             this.label4.TabIndex = 29;
@@ -355,21 +359,40 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Verdana", 10F);
-            this.label3.Location = new System.Drawing.Point(134, 46);
+            this.label3.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(134, 82);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 17);
+            this.label3.Size = new System.Drawing.Size(64, 14);
             this.label3.TabIndex = 27;
             this.label3.Text = "To Date :";
             // 
             // dteToDate
             // 
-            this.dteToDate.Font = new System.Drawing.Font("Verdana", 11F);
+            this.dteToDate.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteToDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteToDate.Location = new System.Drawing.Point(223, 46);
+            this.dteToDate.Location = new System.Drawing.Point(227, 82);
             this.dteToDate.Name = "dteToDate";
-            this.dteToDate.Size = new System.Drawing.Size(200, 25);
+            this.dteToDate.Size = new System.Drawing.Size(200, 22);
             this.dteToDate.TabIndex = 2;
+            // 
+            // uctxtBranchName
+            // 
+            this.uctxtBranchName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.uctxtBranchName.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uctxtBranchName.Location = new System.Drawing.Point(227, 12);
+            this.uctxtBranchName.Name = "uctxtBranchName";
+            this.uctxtBranchName.Size = new System.Drawing.Size(287, 23);
+            this.uctxtBranchName.TabIndex = 225;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(83, 13);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(115, 18);
+            this.label5.TabIndex = 224;
+            this.label5.Text = "Branch Name:";
             // 
             // frmRptPurchaseRegister
             // 
@@ -414,6 +437,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.TextBox uctxtBranchName;
+        private System.Windows.Forms.Label label5;
 
     }
 }

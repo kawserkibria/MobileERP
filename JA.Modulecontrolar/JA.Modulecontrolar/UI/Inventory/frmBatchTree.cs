@@ -163,8 +163,10 @@ namespace JA.Modulecontrolar.UI.Inventory
                 oNodex.Expand();
             }
 
-            List<Batch> oogrp = invms.mDisPlaybatch(strComID, 0, pYear).ToList();
-            foreach (Batch inv in oogrp)
+            List<Batch> oogrp = invms.mDisPlaybatch(strComID, 0,"","","","", pYear,"").ToList();
+            List<Batch> oogrpnew = invms.mDisPlaybatchYear(strComID, pYear).ToList();
+
+            foreach (Batch inv in oogrpnew)
             {
 
                 int intMonth = Convert.ToDateTime(inv.strStartDate).Month;

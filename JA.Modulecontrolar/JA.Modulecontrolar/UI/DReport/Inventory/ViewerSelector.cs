@@ -23,7 +23,9 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory
         StockinfoLctWiseOpnOutwCls, StockinfoLctWiseOpn, StockinfoLctWiseOutw, StockinfoLctWiseOutwCls,StockLevel,StockIPrice,LocationConsum,
         StockStatement,ProducTopSheet,ProductStatment,GroupCommission,StockRegister,ProductTopSheetSalesPrice,MFGProcessReport,SlowFastMoving,
         BOMList, NegetiveStock, LocationWiseQty, GroupWiseValueSup, StockSummSPrice, individualSample, GroupCommissionWithSalesValue, Production,
-        PackingRawMaterialsStock, Production_Convertion, MonthlyProduction_Class_Power, MonthlyProduction, StockinfoLctWiseOutwHorizontal, StockIn, StockOut, StockRequisition
+        PackingRawMaterialsStock, Production_Convertion, MonthlyProduction_Class_Power, MonthlyProduction, StockinfoLctWiseOutwHorizontal,
+        StockIn, StockOut, StockRequisition, withoverhead, Stationery, DilutionStore, Repaking, intventoryVoucherNew, DilutionProPen, ChemicalConjuption, conjumptionsummarypercentage,
+        conProduction_jumptionDetails, conjumptionsummary, mGetProductionCosting, ConjumptionRMPM, ConjumptionFGPower, Stationary
 
     }
 }

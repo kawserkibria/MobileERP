@@ -18,11 +18,17 @@ namespace JA.Modulecontrolar.UI.Inventory
         private const string mcGROUP_PREFIX = "G_";
         private const string mcLEDGER_PREFIX = "L_";
         private string mstrOldNo { get; set; }
+        private string mstrOldBatchSize { get; set; }
         public long lngFormPriv { get; set; }
+        private string mstrPrserveSql { get; set; }
         public string strFormName { get; set; }
         public int m_action { get; set; }
         public int mSingleEntry { get; set; }
         private ListBox lstPartyName = new ListBox();
+        private ListBox lstFgLocation = new ListBox();
+
+        public delegate void AddAllClick(List<Batch> items, object sender, EventArgs e);
+        public AddAllClick onAddAllButtonClicked;
         private string strComID { get; set; }
         public frmBatchconfig()
         {
@@ -53,6 +59,12 @@ namespace JA.Modulecontrolar.UI.Inventory
 
             this.uctxtComments.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtComments_KeyPress);
 
+            this.txtFgLocation.KeyDown += new KeyEventHandler(txtFgLocation_KeyDown);
+            this.txtFgLocation.KeyPress += new System.Windows.Forms.KeyPressEventHandler(txtFgLocation_KeyPress);
+            this.txtFgLocation.TextChanged += new System.EventHandler(this.txtFgLocation_TextChanged);
+            this.lstFgLocation.DoubleClick += new System.EventHandler(this.lstFgLocation_DoubleClick);
+            this.txtFgLocation.GotFocus += new System.EventHandler(this.txtFgLocation_GotFocus);
+
             this.uctxtPartyName.KeyDown += new KeyEventHandler(uctxtPartyName_KeyDown);
             this.uctxtPartyName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtPartyName_KeyPress);
             this.uctxtPartyName.TextChanged += new System.EventHandler(this.uctxtPartyName_TextChanged);
@@ -60,6 +72,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             this.uctxtPartyName.GotFocus += new System.EventHandler(this.uctxtPartyName_GotFocus);
 
             Utility.CreateListBox(lstPartyName, pnlMain, uctxtPartyName);
+            Utility.CreateListBox(lstFgLocation, pnlMain, txtFgLocation);
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -120,6 +133,66 @@ namespace JA.Modulecontrolar.UI.Inventory
         }
         #endregion
         #region "User Define"
+        private void txtFgLocation_TextChanged(object sender, EventArgs e)
+        {
+            lstFgLocation.SelectedIndex = lstFgLocation.FindString(txtFgLocation.Text);
+        }
+
+        private void lstFgLocation_DoubleClick(object sender, EventArgs e)
+        {
+            txtFgLocation.Text = lstFgLocation.Text;
+            lstFgLocation.Visible = false;
+            btnSave.Focus();
+        }
+
+        private void txtFgLocation_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                if (lstFgLocation.Items.Count > 0)
+                {
+                    txtFgLocation.Text = lstFgLocation.Text;
+                }
+                lstFgLocation.Visible = false;
+                btnSave.Focus();
+
+            }
+            if (e.KeyChar == (char)Keys.Back)
+            {
+                PriorSetFocusText(txtFgLocation, sender, e);
+            }
+
+        }
+        private void txtFgLocation_GotFocus(object sender, System.EventArgs e)
+        {
+
+
+            lstFgLocation.Visible = true;
+
+            lstFgLocation.ValueMember = "strLocation";
+            lstFgLocation.DisplayMember = "strLocation";
+            lstFgLocation.DataSource = invms.gLoadLocation(strComID, "0001", Utility.gblnAccessControl, Utility.gstrUserName, 0).ToList();
+          
+            lstFgLocation.SelectedIndex = lstFgLocation.FindString(txtFgLocation.Text);
+        }
+        private void txtFgLocation_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                if (lstFgLocation.SelectedItem != null)
+                {
+                    lstFgLocation.SelectedIndex = lstFgLocation.SelectedIndex - 1;
+                }
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                if (lstFgLocation.Items.Count - 1 > lstFgLocation.SelectedIndex)
+                {
+                    lstFgLocation.SelectedIndex = lstFgLocation.SelectedIndex + 1;
+                }
+            }
+
+        }
         private void uctxtBatchNo_TextChanged(object sender, EventArgs e)
         {
             int x = uctxtBatchNo.SelectionStart;
@@ -252,7 +325,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             if (e.KeyChar == (char)Keys.Return)
             {
-                btnSave.Focus();
+                txtFgLocation.Focus();
             }
             if (e.KeyChar == (char)Keys.Back)
             {
@@ -290,7 +363,7 @@ namespace JA.Modulecontrolar.UI.Inventory
         {
             uctxtBatchNo.Focus();
             lstPartyName.Visible = false;
-
+            lstFgLocation.Visible = false;
             dteStartDate.Text = Utility.ctrlDateFormat(DateTime.Now.ToShortDateString());
             dteEnddate.Text = Utility.ctrlDateFormat(DateTime.Now.ToShortDateString());
             mskManufactureDate.Text = Utility.ctrlDateFormat(DateTime.Now.ToShortDateString());
@@ -365,6 +438,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             uctxtBatchNo.Text = "";
             uctxtPartyName.Text = "";
             uctxtBatchSize.Text = "";
+            uctxtBatch1.Text = "";
             mskManufactureDate.Text = "";
             cboStatus.Text = "Active";
             uctxtPartyName.Text = "";
@@ -372,12 +446,13 @@ namespace JA.Modulecontrolar.UI.Inventory
             cboYear.Text = DateTime.Now.ToString("yyyy");
           
             uctxtBatchNo.ReadOnly = false;
+            uctxtBatchSize.ReadOnly = false;
             uctxtBatchNo.Focus();
         }
         
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string i = "",strExpireDate,strPartyName="",strMnanuDate="",strStartDate="",strEndDate="",strBatch="";
+            string i = "", strExpireDate, strPartyName = "", strMnanuDate = "", strStartDate = "", strEndDate = "", strBatch = "", strmsg="";
             if (Utility.gblnAccessControl)
             {
                 if (!Utility.glngGetPriviliges(strComID, Utility.gstrUserName, lngFormPriv, m_action))
@@ -386,12 +461,26 @@ namespace JA.Modulecontrolar.UI.Inventory
                     return;
                 }
             }
-            
+            if (txtFgLocation.Text == "")
+            {
+                MessageBox.Show("Location Cannot be Empty");
+                txtFgLocation.Focus();
+                return;
+            }
             if (uctxtBatchNo.Text == "")
             {
                 MessageBox.Show("Cannot be Empty");
                 uctxtBatchNo.Focus();
                 return;
+            }
+            if (m_action == 1)
+            {
+                if (uctxtBatch1.Text == "")
+                {
+                    MessageBox.Show("Cannot be Empty");
+                    uctxtBatch1.Focus();
+                    return;
+                }
             }
             if (cboStatus.Text == "")
             {
@@ -452,7 +541,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             
             if (m_action == 1)
             {
-                string strDuplicate = Utility.mCheckDuplicateItem(strComID, "INV_BATCH", "INV_LOG_NO", uctxtBatchNo.Text);
+                string strDuplicate = Utility.mCheckDuplicateItem(strComID, "INV_BATCH", "INV_LOG_NO", strBatch);
                 if (strDuplicate != "")
                 {
                     MessageBox.Show(strDuplicate);
@@ -465,9 +554,9 @@ namespace JA.Modulecontrolar.UI.Inventory
                 {
                     try
                     {
-
+                      
                         i = invms.mSavebatch(strComID, strBatch, strStartDate, strEndDate, strExpireDate,
-                                            strPartyName, Utility.gCheckNull(cboStatus.Text),"",Utility.gCheckNull(uctxtBatchSize.Text),strMnanuDate);
+                                            strPartyName, Utility.gCheckNull(cboStatus.Text),"",Utility.gCheckNull(uctxtBatchSize.Text),strMnanuDate,txtFgLocation.Text);
 
                         if (i == "Inserted...")
                         {
@@ -476,7 +565,19 @@ namespace JA.Modulecontrolar.UI.Inventory
                                 string strAudit = Utility.gblnAuditTrail(Utility.gstrUserName, DateTime.Now.ToString("dd/MM/yyyy"), strFormName, strFormName,
                                                                         1, 0, (int)Utility.MODULE_TYPE.mtSTOCK, "0001");
                             }
-                            mClear();
+
+                            if (mSingleEntry == 1)
+                            {
+                                if (onAddAllButtonClicked != null)
+                                    onAddAllButtonClicked(GetSelectedItem(strBatch), sender, e);
+                                mSingleEntry = 0;
+                                this.Dispose();
+
+                            }
+                            else
+                            {
+                                mClear();
+                            }
                         }
                         else
                         {
@@ -511,8 +612,21 @@ namespace JA.Modulecontrolar.UI.Inventory
                     {
                         try
                         {
+                            if (Utility.gstrUserName.ToUpper() != "DEEPLAID")
+                            {
+                                strmsg = Utility.mGetCheckBatchApproved(strComID, mstrOldNo);
+
+                                if (strmsg != "")
+                                {
+                                    if (uctxtBatchSize.Text != mstrOldBatchSize)
+                                    {
+                                        MessageBox.Show("Production Done You Cannot Change Batch Size," + Environment.NewLine + "You Can change Others thing.");
+                                        return;
+                                    }
+                                }
+                            }
                             i = invms.mSUpdatebatch(strComID, mstrOldNo, strBatch, dteStartDate.Text, dteEnddate.Text,
-                                                    strExpireDate, strPartyName, Utility.gCheckNull(cboStatus.Text), "", Utility.gCheckNull(uctxtBatchSize.Text), strMnanuDate);
+                                                    strExpireDate, strPartyName, Utility.gCheckNull(cboStatus.Text), "", Utility.gCheckNull(uctxtBatchSize.Text), strMnanuDate, txtFgLocation.Text);
 
                             if (i == "Updated...")
                             {
@@ -521,7 +635,18 @@ namespace JA.Modulecontrolar.UI.Inventory
                                     string strAudit = Utility.gblnAuditTrail(Utility.gstrUserName, DateTime.Now.ToString("dd/MM/yyyy"), strFormName, strFormName,
                                                                             2, 0, (int)Utility.MODULE_TYPE.mtSTOCK, "0001");
                                 }
-                                mClear();
+                                if (mSingleEntry == 1)
+                                {
+                                    if (onAddAllButtonClicked != null)
+                                        onAddAllButtonClicked(GetSelectedItem(strBatch), sender, e);
+                                    mSingleEntry = 0;
+                                    this.Dispose();
+
+                                }
+                                else
+                                {
+                                    mClear();
+                                }
 
                             }
                             else
@@ -541,7 +666,14 @@ namespace JA.Modulecontrolar.UI.Inventory
 
                 }
         }
-
+        private List<Batch> GetSelectedItem(string strBatch)
+        {
+            List<Batch> items = new List<Batch>();
+            Batch itm = new Batch();
+            itm.strLogNo = strBatch;
+            items.Add(itm);
+            return items;
+        }
         private void DG_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             
@@ -559,6 +691,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             objfrm.onAddAllButtonClicked = new frmBatchConfigList.AddAllClick(DisplayVoucherList);
             objfrm.MdiParent = MdiParent;
             objfrm.lngFormPriv = lngFormPriv;
+            objfrm.strPreserveSQl = mstrPrserveSql;
             objfrm.Show();
             objfrm.MdiParent = this.MdiParent;
         }
@@ -570,8 +703,10 @@ namespace JA.Modulecontrolar.UI.Inventory
                 mClear();
                 m_action = 2;
                 uctxtBatchNo.ReadOnly = true;
+                //uctxtBatchSize.ReadOnly = true;
                 txtSlNo.Text = tests[0].lngSlno.ToString();
-                List<Batch> oogrp = invms.mDisPlaybatch(strComID, Convert.ToInt64(tests[0].lngSlno), "").ToList();
+                mstrPrserveSql = tests[0].strPreserveSQL;
+                List<Batch> oogrp = invms.mDisPlaybatch(strComID, Convert.ToInt64(tests[0].lngSlno),"", "","","","","").ToList();
                 if (oogrp.Count > 0)
                 {
                     foreach (Batch ogrp in oogrp)
@@ -582,6 +717,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         dteEnddate.Text = ogrp.strEndDate;
                         dteExpireDate.Text = ogrp.strExpireDate;
                         uctxtBatchNo.Text = ogrp.strLogNo;
+                       
                         if (ogrp.strLedgerName != "")
                         {
                             uctxtPartyName.Text = ogrp.strLedgerName;
@@ -592,7 +728,10 @@ namespace JA.Modulecontrolar.UI.Inventory
                         }
                         cboStatus.Text = ogrp.strStatus;
                         uctxtBatchSize.Text = ogrp.lngLogSize.ToString();
+                        mstrOldBatchSize = ogrp.lngLogSize.ToString();
+                        txtFgLocation.Text = ogrp.strGodownsName;
                         mskManufactureDate.Text = ogrp.strManuDate;
+                       
                         m_action = 2;
                     }
                 }
@@ -634,17 +773,23 @@ namespace JA.Modulecontrolar.UI.Inventory
 
         private void btnSerach1_Click(object sender, EventArgs e)
         {
-            frmAllReferance objfrm = new frmAllReferance();
+            if (m_action==(int)Utility.ACTION_MODE_ENUM.EDIT_MODE)
+            {
+                MessageBox.Show("Sorry! You Cannot Change this batch from edit Mode");
+                uctxtBatch1.Focus();
+                return;
+            }
+            frmAllReferanceGroup objfrm = new frmAllReferanceGroup();
             objfrm.lngVtype = 8888;
-            objfrm.onAddAllButtonClickedFG = new frmAllReferance.AddAllClickFG(DisplayVoucherListFG);
+            objfrm.onAddAllButtonClickedFG = new frmAllReferanceGroup.AddAllClickFG(DisplayVoucherListFG);
             objfrm.Show();
             objfrm.MdiParent = this.MdiParent;
-            uctxtBatchNo.Focus();
+            //uctxtBatchNo.Focus();
         }
         private void DisplayVoucherListFG(List<StockItem> tests, object sender, EventArgs e)
         {
            
-                uctxtBatch1.Text = DateTime.Now.ToString("yy")+ "/" + tests[0].strItemName;
+                uctxtBatch1.Text = DateTime.Now.ToString("yy")+ "/" + tests[0].strItemName + "~";
                 uctxtBatchNo.Focus();
            
 

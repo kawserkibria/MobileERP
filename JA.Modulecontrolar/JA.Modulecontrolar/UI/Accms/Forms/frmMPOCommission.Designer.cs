@@ -31,6 +31,7 @@
             this.btnCollectionMonth = new ColorButton.ColorButton();
             this.btnLedgerConfiguration = new ColorButton.ColorButton();
             this.btnAddCommssionBill = new ColorButton.ColorButton();
+            this.btnIncentiveConfiguration = new ColorButton.ColorButton();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
@@ -44,10 +45,11 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.btnIncentiveConfiguration);
             this.pnlMain.Controls.Add(this.btnAddCommssionBill);
             this.pnlMain.Controls.Add(this.btnCollectionMonth);
             this.pnlMain.Controls.Add(this.btnLedgerConfiguration);
-            this.pnlMain.Size = new System.Drawing.Size(450, 279);
+            this.pnlMain.Size = new System.Drawing.Size(450, 315);
             // 
             // pnlTop
             // 
@@ -55,20 +57,20 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(92, 153);
+            this.btnEdit.Location = new System.Drawing.Point(23, 153);
             this.btnEdit.Size = new System.Drawing.Size(10, 10);
             this.btnEdit.Visible = false;
             // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(57, 162);
-            this.btnSave.Size = new System.Drawing.Size(10, 20);
+            this.btnSave.Size = new System.Drawing.Size(6, 5);
             this.btnSave.Visible = false;
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(109, 157);
-            this.btnDelete.Size = new System.Drawing.Size(14, 20);
+            this.btnDelete.Location = new System.Drawing.Point(12, 151);
+            this.btnDelete.Size = new System.Drawing.Size(0, 7);
             this.btnDelete.Visible = false;
             // 
             // btnNew
@@ -79,19 +81,19 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(195, 151);
-            this.btnClose.Size = new System.Drawing.Size(15, 20);
+            this.btnClose.Location = new System.Drawing.Point(432, 151);
+            this.btnClose.Size = new System.Drawing.Size(10, 10);
             this.btnClose.Visible = false;
             // 
             // btnPrint
             // 
             this.btnPrint.Location = new System.Drawing.Point(140, 165);
-            this.btnPrint.Size = new System.Drawing.Size(19, 10);
+            this.btnPrint.Size = new System.Drawing.Size(0, 10);
             this.btnPrint.Visible = false;
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 192);
+            this.groupBox1.Location = new System.Drawing.Point(0, 229);
             this.groupBox1.Size = new System.Drawing.Size(454, 25);
             // 
             // btnCollectionMonth
@@ -143,7 +145,7 @@
             this.btnAddCommssionBill.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
             this.btnAddCommssionBill.HoverColorA = System.Drawing.Color.LemonChiffon;
             this.btnAddCommssionBill.HoverColorB = System.Drawing.Color.White;
-            this.btnAddCommssionBill.Location = new System.Drawing.Point(81, 217);
+            this.btnAddCommssionBill.Location = new System.Drawing.Point(81, 256);
             this.btnAddCommssionBill.Name = "btnAddCommssionBill";
             this.btnAddCommssionBill.NormalBorderColor = System.Drawing.Color.Aqua;
             this.btnAddCommssionBill.NormalColorA = System.Drawing.Color.White;
@@ -154,10 +156,30 @@
             this.btnAddCommssionBill.Text = "Draft MPO Commission ";
             this.btnAddCommssionBill.Click += new System.EventHandler(this.btnAddCommssionBill_Click);
             // 
+            // btnIncentiveConfiguration
+            // 
+            this.btnIncentiveConfiguration.Active = true;
+            this.btnIncentiveConfiguration.ButtonStyle = ColorButton.ColorButton.ButtonStyles.Rectangle;
+            this.btnIncentiveConfiguration.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIncentiveConfiguration.GradientStyle = ColorButton.ColorButton.GradientStyles.Vertical;
+            this.btnIncentiveConfiguration.HoverBorderColor = System.Drawing.Color.MediumVioletRed;
+            this.btnIncentiveConfiguration.HoverColorA = System.Drawing.Color.LemonChiffon;
+            this.btnIncentiveConfiguration.HoverColorB = System.Drawing.Color.White;
+            this.btnIncentiveConfiguration.Location = new System.Drawing.Point(81, 215);
+            this.btnIncentiveConfiguration.Name = "btnIncentiveConfiguration";
+            this.btnIncentiveConfiguration.NormalBorderColor = System.Drawing.Color.Aqua;
+            this.btnIncentiveConfiguration.NormalColorA = System.Drawing.Color.White;
+            this.btnIncentiveConfiguration.NormalColorB = System.Drawing.Color.Honeydew;
+            this.btnIncentiveConfiguration.Size = new System.Drawing.Size(269, 40);
+            this.btnIncentiveConfiguration.SmoothingQuality = ColorButton.ColorButton.SmoothingQualities.AntiAlias;
+            this.btnIncentiveConfiguration.TabIndex = 46;
+            this.btnIncentiveConfiguration.Text = "Incentive Configuration";
+            this.btnIncentiveConfiguration.Click += new System.EventHandler(this.btnIncentiveConfiguration_Click);
+            // 
             // frmMPOCommission
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.ClientSize = new System.Drawing.Size(454, 217);
+            this.ClientSize = new System.Drawing.Size(454, 254);
             this.isEnterTabAllow = true;
             this.MinimizeBox = false;
             this.Name = "frmMPOCommission";
@@ -173,6 +195,7 @@
         private ColorButton.ColorButton btnCollectionMonth;
         private ColorButton.ColorButton btnLedgerConfiguration;
         private ColorButton.ColorButton btnAddCommssionBill;
+        private ColorButton.ColorButton btnIncentiveConfiguration;
 
     }
 }

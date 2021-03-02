@@ -17,9 +17,11 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
        
         //JACCMS.SWJAGClient accms = new SWJAGClient();
         JINVMS.IWSINVMS invms = new JINVMS.WSINVMSClient();
+        SPWOIS objswp = new SPWOIS();
         private ListBox lstFgLocation = new ListBox();
         public string strName { get; set; }
         private string strComID { get; set; }
+        int intmode = 1;
         public frmRptStockRegister()
         {
             InitializeComponent();
@@ -148,11 +150,41 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            int intoutint = 0, intallIndiv=0 ,intfromtolocation=0 ;
+
+
+            if (rbtnTransferOut.Checked== true)
+            {
+                intoutint = 1;
+            }
+            else
+            {
+                intoutint = 2;
+            }
+            if (radAll.Checked == true)
+            {
+                intallIndiv = 1;
+            }
+            else
+            {
+                intallIndiv = 2;
+            }
+            if (radFromLocation.Checked == true)
+            {
+                intfromtolocation = 1;
+            }
+            else
+            {
+                intfromtolocation = 2;
+            }
 
             frmReportViewer frmviewer = new frmReportViewer();
             frmviewer.selector = ViewerSelector.StockRegister;
             frmviewer.strFdate = dteFromDate.Text;
             frmviewer.strTdate = dteToDate.Text;
+            frmviewer.intSorting = intoutint;
+            frmviewer.intSuppress = intallIndiv;
+            frmviewer.intype = intfromtolocation;
             if (radIndividual.Checked)
             {
                 if (radFromLocation.Checked)
@@ -185,13 +217,18 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         {
             dteToDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
             dteFromDate.Text = Utility.FirstDayOfMonth(dteToDate.Value).ToString("dd-MM-yyyy");
-
-            lstFgLocation.Visible = false;
-            lstFgLocation.ValueMember = "strLocation";
-            lstFgLocation.DisplayMember = "strLocation";
-            lstFgLocation.DataSource = invms.gLoadLocation(strComID, "",false,Utility.gstrInstanceName,0).ToList();
+            LocationLoad();
         }
 
+        private void LocationLoad()
+        {
+            lstFgLocation.Visible = true;
+            lstFgLocation.ValueMember = "strLocation";
+            lstFgLocation.DisplayMember = "strLocation";
+            lstFgLocation.DataSource = invms.mLoadLocation(strComID, Utility.gblnAccessControl, Utility.gstrUserName).ToList(); 
+            //List<Location> oogrp = invms.mLoadLocation(strComID, Utility.gblnAccessControl, Utility.gstrUserName).ToList();
+
+        }
         private void radAll_Click(object sender, EventArgs e)
         {
             pnlIndividual.Visible = false;
@@ -212,6 +249,18 @@ namespace JA.Modulecontrolar.UI.DReport.Inventory.ParameterForms
         private void pnlMain_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void radFromLocation_Click(object sender, EventArgs e)
+        {
+            intmode = 1;
+            LocationLoad();
+        }
+
+        private void radToLocation_Click(object sender, EventArgs e)
+        {
+            intmode = 0;
+            LocationLoad();
         }
     }
 }

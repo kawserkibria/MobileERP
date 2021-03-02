@@ -373,6 +373,7 @@
             // 
             this.groupBox1.Location = new System.Drawing.Point(0, 515);
             this.groupBox1.Size = new System.Drawing.Size(1262, 25);
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // uctxtRefNo
             // 
@@ -961,6 +962,7 @@
             this.btndown.TabIndex = 133;
             this.btndown.Text = ">>";
             this.btndown.UseVisualStyleBackColor = true;
+            this.btndown.Click += new System.EventHandler(this.btndown_Click);
             // 
             // label23
             // 
@@ -1044,6 +1046,7 @@
             this.uctxtItemName.Size = new System.Drawing.Size(583, 22);
             this.uctxtItemName.TabIndex = 11;
             this.uctxtItemName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.uctxtItemName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.uctxtItemName_KeyDown_1);
             this.uctxtItemName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.uctxtItemName_KeyUp);
             // 
             // DGSalesGrid
@@ -1933,13 +1936,13 @@
             // btnType
             // 
             this.btnType.BackColor = System.Drawing.Color.White;
-            this.btnType.Location = new System.Drawing.Point(394, 213);
+            this.btnType.Location = new System.Drawing.Point(413, 180);
             this.btnType.Name = "btnType";
             this.btnType.Size = new System.Drawing.Size(33, 23);
             this.btnType.TabIndex = 115;
             this.btnType.Text = ">>";
             this.btnType.UseVisualStyleBackColor = false;
-            this.btnType.Visible = false;
+            this.btnType.Click += new System.EventHandler(this.btnType_Click);
             // 
             // pnlCostCenter
             // 

@@ -258,6 +258,7 @@
             this.uctxtTerritoryCode = new System.Windows.Forms.TextBox();
             this.uctxtTeritorryName = new System.Windows.Forms.TextBox();
             this.txtPosition = new System.Windows.Forms.TextBox();
+            this.btnAutoRV = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -323,8 +324,9 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(285, 436);
-            this.btnNew.Size = new System.Drawing.Size(10, 13);
+            this.btnNew.Location = new System.Drawing.Point(583, 433);
+            this.btnNew.Size = new System.Drawing.Size(10, 10);
+            this.btnNew.Text = "Auto Receipt Voucher";
             this.btnNew.Visible = false;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
@@ -2312,6 +2314,7 @@
             this.txtCreditAmount.Name = "txtCreditAmount";
             this.txtCreditAmount.Size = new System.Drawing.Size(121, 23);
             this.txtCreditAmount.TabIndex = 6;
+            this.txtCreditAmount.TextChanged += new System.EventHandler(this.txtCreditAmount_TextChanged_1);
             // 
             // txtDebitAmount
             // 
@@ -2585,10 +2588,25 @@
             this.txtPosition.TabIndex = 17;
             this.txtPosition.Visible = false;
             // 
+            // btnAutoRV
+            // 
+            this.btnAutoRV.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnAutoRV.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btnAutoRV.ForeColor = System.Drawing.Color.Navy;
+            this.btnAutoRV.Location = new System.Drawing.Point(138, 434);
+            this.btnAutoRV.Name = "btnAutoRV";
+            this.btnAutoRV.Size = new System.Drawing.Size(234, 38);
+            this.btnAutoRV.TabIndex = 18;
+            this.btnAutoRV.Text = "Auto Receipt Voucher";
+            this.btnAutoRV.UseVisualStyleBackColor = false;
+            this.btnAutoRV.Visible = false;
+            this.btnAutoRV.Click += new System.EventHandler(this.btnAutoRV_Click);
+            // 
             // frmAccountsVoucher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(1149, 499);
+            this.Controls.Add(this.btnAutoRV);
             this.Controls.Add(this.txtPosition);
             this.Controls.Add(this.uctxtTeritorryName);
             this.Controls.Add(this.uctxtTerritoryCode);
@@ -2597,6 +2615,9 @@
             this.MinimizeBox = false;
             this.Name = "frmAccountsVoucher";
             this.Load += new System.EventHandler(this.frmAccountsVoucher_Load);
+            this.Controls.SetChildIndex(this.uctxtTerritoryCode, 0);
+            this.Controls.SetChildIndex(this.uctxtTeritorryName, 0);
+            this.Controls.SetChildIndex(this.txtPosition, 0);
             this.Controls.SetChildIndex(this.groupBox1, 0);
             this.Controls.SetChildIndex(this.pnlMain, 0);
             this.Controls.SetChildIndex(this.pnlTop, 0);
@@ -2606,9 +2627,7 @@
             this.Controls.SetChildIndex(this.btnNew, 0);
             this.Controls.SetChildIndex(this.btnClose, 0);
             this.Controls.SetChildIndex(this.btnPrint, 0);
-            this.Controls.SetChildIndex(this.uctxtTerritoryCode, 0);
-            this.Controls.SetChildIndex(this.uctxtTeritorryName, 0);
-            this.Controls.SetChildIndex(this.txtPosition, 0);
+            this.Controls.SetChildIndex(this.btnAutoRV, 0);
             this.pnlMain.ResumeLayout(false);
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
@@ -2841,5 +2860,6 @@
         private System.Windows.Forms.Label lblSelectionType;
         private System.Windows.Forms.ComboBox cboGeneral;
         private System.Windows.Forms.Label lblBalance;
+        private System.Windows.Forms.Button btnAutoRV;
     }
 }

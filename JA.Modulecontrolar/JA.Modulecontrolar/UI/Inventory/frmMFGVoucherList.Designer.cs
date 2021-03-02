@@ -66,9 +66,9 @@
             // 
             // frmLabel
             // 
-            this.frmLabel.Location = new System.Drawing.Point(179, 9);
-            this.frmLabel.Size = new System.Drawing.Size(488, 33);
-            this.frmLabel.Text = "Manufacturing Voucher List(Batch Wise)";
+            this.frmLabel.Location = new System.Drawing.Point(189, 7);
+            this.frmLabel.Size = new System.Drawing.Size(520, 33);
+            this.frmLabel.Text = "Manufacturing Voucher List (Process Wise)";
             // 
             // pnlMain
             // 
@@ -172,7 +172,7 @@
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(12, 8);
+            this.btnSearch.Location = new System.Drawing.Point(6, 11);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(129, 37);
             this.btnSearch.TabIndex = 17;
@@ -313,7 +313,7 @@
             this.chkSelectAll.AutoSize = true;
             this.chkSelectAll.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSelectAll.ForeColor = System.Drawing.Color.Fuchsia;
-            this.chkSelectAll.Location = new System.Drawing.Point(801, 2);
+            this.chkSelectAll.Location = new System.Drawing.Point(850, 2);
             this.chkSelectAll.Name = "chkSelectAll";
             this.chkSelectAll.Size = new System.Drawing.Size(72, 20);
             this.chkSelectAll.TabIndex = 18;
@@ -326,11 +326,11 @@
             // 
             this.btnApproved.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnApproved.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnApproved.Location = new System.Drawing.Point(770, 25);
+            this.btnApproved.Location = new System.Drawing.Point(722, 25);
             this.btnApproved.Name = "btnApproved";
-            this.btnApproved.Size = new System.Drawing.Size(77, 24);
+            this.btnApproved.Size = new System.Drawing.Size(125, 24);
             this.btnApproved.TabIndex = 19;
-            this.btnApproved.Text = "Approved";
+            this.btnApproved.Text = "Approve";
             this.btnApproved.UseVisualStyleBackColor = false;
             this.btnApproved.Visible = false;
             this.btnApproved.Click += new System.EventHandler(this.btnApproved_Click);
@@ -352,11 +352,11 @@
             // 
             this.btnListApp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnListApp.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListApp.Location = new System.Drawing.Point(689, 25);
+            this.btnListApp.Location = new System.Drawing.Point(722, 2);
             this.btnListApp.Name = "btnListApp";
-            this.btnListApp.Size = new System.Drawing.Size(77, 24);
+            this.btnListApp.Size = new System.Drawing.Size(125, 24);
             this.btnListApp.TabIndex = 21;
-            this.btnListApp.Text = "List App.";
+            this.btnListApp.Text = "Approved List";
             this.btnListApp.UseVisualStyleBackColor = false;
             this.btnListApp.Visible = false;
             this.btnListApp.Click += new System.EventHandler(this.btnListApp_Click);

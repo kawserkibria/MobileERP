@@ -50,6 +50,9 @@ namespace JA.Modulecontrolar.UI.Inventory
             this.uctxtItemCode.GotFocus += new System.EventHandler(this.uctxtItemCode_GotFocus);
             this.uctxtItemCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtItemCode_KeyPress);
 
+            this.txtOldCode.GotFocus += new System.EventHandler(this.txtOldCode_GotFocus);
+            this.txtOldCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(txtOldCode_KeyPress);
+
             this.uctxtItemDescription.GotFocus += new System.EventHandler(this.uctxtItemDescription_GotFocus);
             this.uctxtItemDescription.KeyPress += new System.Windows.Forms.KeyPressEventHandler(uctxtItemDescription_KeyPress);
             this.uctxtItemDescription.TextChanged += new System.EventHandler(this.uctxtItemDescription_TextChanged);
@@ -654,7 +657,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstStockUnit.Visible = false;
             lstAltUnit.Visible = false;
             lstManufacturer.Visible = false;
-            lstStatus.Visible = false;
+            //lstStatus.Visible = false;
             lstLocation.Visible = false;
             lstBatch.Visible = false;
             lstMaterialType.Visible = false;
@@ -727,6 +730,43 @@ namespace JA.Modulecontrolar.UI.Inventory
 
             }
         }
+        private void txtOldCode_GotFocus(object sender, System.EventArgs e)
+        {
+             
+            lstStockUnder.Visible = false;
+            lstStockCategory.Visible = false;
+            lstStockUnit.Visible = false;
+            lstAltUnit.Visible = false;
+            lstManufacturer.Visible = false;
+            lstStatus.Visible = false;
+            lstMaterialType.Visible = false;
+            lstItemBatch.Visible = false;
+        }
+        private void txtOldCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                if (m_action == 1 && txtOldCode.Text != "")
+                {
+                    string strDuplicate = Utility.mCheckDuplicateItem(strComID, "INV_STOCKITEM", "OLD_ITEM_ALIAS", txtOldCode.Text);
+                    if (strDuplicate != "")
+                    {
+                        MessageBox.Show(strDuplicate);
+                        txtOldCode.Text = "";
+                        txtOldCode.Focus();
+                        return;
+                    }
+                }
+                uctxtItemDescription.Focus();
+
+            }
+            if (e.KeyChar == (char)Keys.Back)
+            {
+                PriorSetFocusText(uctxtItemCode, sender, e);
+            }
+
+
+        }
         private void uctxtItemCode_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Return)
@@ -742,7 +782,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         return;
                     }
                 }
-                uctxtItemDescription.Focus();
+                txtOldCode.Focus();
 
             }
             if (e.KeyChar == (char)Keys.Back)
@@ -1667,7 +1707,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             lstItemBatch.Visible = false;
             lstStockUnder.ValueMember = "strItemGroup";
             lstStockUnder.DisplayMember = "strItemGroup";
-            lstStockUnder.DataSource = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName,"N","").ToList();
+            lstStockUnder.DataSource = invms.gLoadStockGroup(strComID, Utility.gblnAccessControl, Utility.gstrUserName,"N","","").ToList();
             lstStockUnder.SelectedIndex = lstStockUnder.FindString(uctxtStockUnder.Text);
         }
 
@@ -1724,11 +1764,11 @@ namespace JA.Modulecontrolar.UI.Inventory
 
             lstBatch.DisplayMember = "value";
             lstBatch.ValueMember = "Key";
-            lstBatch.DataSource = new BindingSource(invms.mFillOpeningBatch(strComID), null);
+            lstBatch.DataSource = new BindingSource(invms.mFillOpeningBatch(strComID, Utility.gstrUserName), null);
 
             lstItemBatch.DisplayMember = "value";
             lstItemBatch.ValueMember = "Key";
-            lstItemBatch.DataSource = new BindingSource(invms.mFillOpeningBatch(strComID), null);
+            lstItemBatch.DataSource = new BindingSource(invms.mFillOpeningBatch(strComID, Utility.gstrUserName), null);
 
             //lstLocation.ValueMember = "BranchID";
             //lstLocation.DisplayMember = "BranchName";
@@ -1977,8 +2017,8 @@ namespace JA.Modulecontrolar.UI.Inventory
                                                         uctxtWhereUnit.Text, uctxtManufacturer.Text, "", "", "", 
                                                         dblMinimumStock, dblReorderQty,
                                                         dblOpnty, dblOpnRate,
-                                                        dblopnAmnt, strGrid, Utility.gCheckNull(uctxtMaterialType.Text), 
-                                                        Utility.gCheckNull(uctxtPowerClass.Text), Utility.gCheckNull(uctxtBatch.Text),intSpItem);
+                                                        dblopnAmnt, strGrid, Utility.gCheckNull(uctxtMaterialType.Text),
+                                                        Utility.gCheckNull(uctxtPowerClass.Text), Utility.gCheckNull(uctxtBatch.Text), intSpItem, txtOldCode.Text);
 
                             if (i == "Inseretd...")
                             {
@@ -2054,7 +2094,8 @@ namespace JA.Modulecontrolar.UI.Inventory
                                                         uctxtWhereUnit.Text, uctxtManufacturer.Text, "", "", "",
                                                         dblMinimumStock, dblReorderQty,
                                                         dblOpnty, dblOpnRate,
-                                                        dblopnAmnt, strGrid, Utility.gCheckNull(uctxtMaterialType.Text), Utility.gCheckNull(uctxtPowerClass.Text), Utility.gCheckNull(uctxtBatch.Text), intSpItem);
+                                                        dblopnAmnt, strGrid, Utility.gCheckNull(uctxtMaterialType.Text), Utility.gCheckNull(uctxtPowerClass.Text), 
+                                                        Utility.gCheckNull(uctxtBatch.Text), intSpItem,txtOldCode.Text);
 
 
                             if (i == "Updated...")
@@ -2100,6 +2141,7 @@ namespace JA.Modulecontrolar.UI.Inventory
             uctxtItemName.Text = "";
             chkSpItem.Checked = false;
             uctxtItemCode.Text = "";
+            txtOldCode.Text = "";
             uctxtItemDescription.Text = "";
             uctxtPowerClass.Text = "";
             //uctxtStockUnder.Text = "";
@@ -2146,6 +2188,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                         mstrOldItem = ts.strItemName;
                         uctxtItemName.Text = ts.strItemName;
                         uctxtItemCode.Text = ts.strItemcode;
+                        txtOldCode.Text = ts.strIOldtemcode;
                         mstrOldAlias = ts.strItemcode;
                         uctxtItemDescription.Text = ts.strItemDescription ;
                         uctxtStockUnder.Text = ts.strItemGroup;
@@ -2264,6 +2307,7 @@ namespace JA.Modulecontrolar.UI.Inventory
                             mstrOldItem = ts.strItemName;
                             uctxtItemName.Text = ts.strItemName;
                             uctxtItemCode.Text = ts.strItemcode;
+                            txtOldCode.Text = ts.strIOldtemcode;
                             mstrOldAlias = ts.strItemcode;
                             uctxtItemDescription.Text = ts.strItemDescription;
                             uctxtStockUnder.Text = ts.strItemGroup;
@@ -2345,6 +2389,32 @@ namespace JA.Modulecontrolar.UI.Inventory
                     return;
                 }
             }
+        }
+
+        private void btnCodeGenerate_Click(object sender, EventArgs e)
+        {
+              string value = " ";
+              if (Utility.InputBoxDropdown("Find Card No", "Enter Your Card No:", ref value) == DialogResult.OK)
+              {
+                  try
+                  {
+                      uctxtItemCode.Text = Utility.GetsItemCode(strComID, value).ToString();
+                      if (uctxtItemCode.Text == "0")
+                      {
+                          uctxtItemCode.Text = "";
+                      }
+                      uctxtItemDescription.Focus();
+                  }
+                  catch (Exception ex)
+                  {
+                      MessageBox.Show(ex.ToString());
+                  }
+              }
+        }
+
+        private void uctxtStatus_TextChanged_1(object sender, EventArgs e)
+        {
+
         }
 
 

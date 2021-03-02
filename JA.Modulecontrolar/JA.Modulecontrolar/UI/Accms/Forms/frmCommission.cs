@@ -119,7 +119,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             int introw = 0;
             DGMr.Rows.Clear();
 
-            ooPartyName = invms.mfillPartyNameNew(strComID, lstBranch.SelectedValue.ToString(), Utility.gblnAccessControl, Utility.gstrUserName, intstatus, "").ToList();
+            ooPartyName = invms.mfillPartyNameNew(strComID, lstBranch.SelectedValue.ToString(), Utility.gblnAccessControl, Utility.gstrUserName, intstatus, "","").ToList();
 
             if (ooPartyName.Count > 0)
             {
@@ -688,13 +688,20 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                             //long intDays = Utility.DateDiff(Utility.DateInterval.Day, Convert.ToDateTime(objAmount[0].strDueDate), Convert.ToDateTime(dteVoucherDate.Text)) + 1;
                             if (objAmount[0].strDueDate != "")
                             {
-                                if (Convert.ToDateTime(objAmount[0].strDueDate) >= Convert.ToDateTime(dteVoucherDate.Text))
+                                string strDate = mGeteffectiveDate(uctxtMonthID.Text);
+                              
+                                //if (Convert.ToDateTime(objAmount[0].strDueDate) >= Convert.ToDateTime(dteVoucherDate.Text))
+                                if (Convert.ToDateTime(strDate).ToString("MMMyy").ToUpper() == Convert.ToDateTime(dteVoucherDate.Text).ToString("MMMyy").ToUpper())
                                 {
+                                    //DG[1, introw].Value = 0;
+                                    //DG[2, introw].Value = objAmount[0].dblCreditAmount;
+                                    //DG[3, introw].Value = 0;
+                                    //DG[4, introw].Value = objAmount[0].dblCreditAmount;
                                     DG[1, introw].Value = 0;
-                                    DG[2, introw].Value = objAmount[0].dblCreditAmount;
+                                    DG[2, introw].Value = Utility.gdblSalaryByVoucher(strComID, uctxtMedicalRep.Text, strDate);
                                     DG[3, introw].Value = 0;
-                                    DG[4, introw].Value = objAmount[0].dblCreditAmount;
-                                    //strMsg = "Salary is Not Configured/Date is Expired,Please Check";
+                                    DG[4, introw].Value = Utility.gdblSalaryByVoucher(strComID, uctxtMedicalRep.Text, strDate);
+                                   
                                 }
                                 else
                                 {
@@ -822,6 +829,62 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
         //    }
         //}
         #endregion
+        private string mGeteffectiveDate(string strMonhtID)
+        {
+            string strDate = "";
+            string strmm = Utility.Left(strMonhtID, 3);
+            int intMm = Convert.ToInt16("20" + Utility.Right(strMonhtID, 2).ToString());
+            if (strmm.ToUpper() == "JAN")
+            {
+                strDate = "01-01-" + intMm;
+            }
+            else if (strmm.ToUpper() == "FEB")
+            {
+                strDate = "01-02-" + intMm;
+            }
+            else if (strmm.ToUpper() == "MAR")
+            {
+                strDate = "01-03-" + intMm;
+            }
+            else if (strmm.ToUpper() == "APR")
+            {
+                strDate = "01-04-" + intMm;
+            }
+            else if (strmm.ToUpper() == "MAY")
+            {
+                strDate = "01-05-" + intMm;
+            }
+            else if (strmm.ToUpper() == "JUN")
+            {
+                strDate = "01-06-" + intMm;
+            }
+            else if (strmm.ToUpper() == "JUL")
+            {
+                strDate = "01-07-" + intMm;
+            }
+            else if (strmm.ToUpper() == "AUG")
+            {
+                strDate = "01-08-" + intMm;
+            }
+            else if (strmm.ToUpper() == "SEP")
+            {
+                strDate = "01-09-" + intMm;
+            }
+            else if (strmm.ToUpper() == "OCT")
+            {
+                strDate = "01-10-" + intMm;
+            }
+            else if (strmm.ToUpper() == "NOV")
+            {
+                strDate = "01-11-" + intMm;
+            }
+            else if (strmm.ToUpper() == "DEC")
+            {
+                strDate = "01-12-" + intMm;
+            }
+
+            return strDate;
+        }
         private void btnCommission_Click(object sender, EventArgs e)
         {
             int introw = 0;
@@ -933,7 +996,7 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
             txttotalAmt.Text = "";
             txtFTotal.Text = "";
             m_action = (int)Utility.ACTION_MODE_ENUM.ADD_MODE;
-            List<AccountdGroup> oogrp = accms.mDisplayMonthsetupList(strComID, "1").ToList();
+            List<AccountdGroup> oogrp = accms.mDisplayMonthsetupList(strComID, "1", Utility.gdteFinancialYearFrom, Utility.gdteFinancialYearTo).ToList();
             if (oogrp.Count > 0)
             {
                 uctxtMonthID.Text = oogrp[0].strMonthID;
@@ -1134,7 +1197,17 @@ namespace JA.Modulecontrolar.UI.Accms.Forms
                     return;
                 }
             }
-
+            long lngDate = Convert.ToInt64(Convert.ToDateTime(dteVoucherDate.Text).ToString("yyyyMMdd"));
+            string strLockvoucher = Utility.gLockVocher(strComID, (int)Utility.VOUCHER_TYPE.vtJOURNAL_VOUCHER);
+            if (strLockvoucher != "")
+            {
+                long lngBackdate = Convert.ToInt64(Convert.ToDateTime(strLockvoucher).ToString("yyyyMMdd"));
+                if (lngDate <= lngBackdate)
+                {
+                    MessageBox.Show("Invalid Date, Back Date is locked");
+                    return;
+                }
+            }
             if (Utility.Val(txtFTotal.Text) == 0)
             {
                 MessageBox.Show("0 Amount Cannot be Saved");
